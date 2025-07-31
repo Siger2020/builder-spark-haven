@@ -4,6 +4,7 @@ export default {
   darkMode: ["class"],
   content: ["./client/**/*.{ts,tsx}"],
   prefix: "",
+  important: true,
   theme: {
     container: {
       center: true,
@@ -13,6 +14,13 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        arabic: ['Cairo', 'Noto Sans Arabic', 'sans-serif'],
+      },
+      direction: {
+        rtl: 'rtl',
+        ltr: 'ltr',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +65,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        dental: {
+          primary: "hsl(var(--dental-primary))",
+          secondary: "hsl(var(--dental-secondary))",
+          accent: "hsl(var(--dental-accent))",
+          success: "hsl(var(--dental-success))",
+          warning: "hsl(var(--dental-warning))",
+          light: "hsl(var(--dental-light))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -87,5 +103,18 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.rtl': {
+          direction: 'rtl',
+        },
+        '.ltr': {
+          direction: 'ltr',
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 } satisfies Config;
