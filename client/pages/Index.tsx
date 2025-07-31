@@ -13,7 +13,8 @@ import {
   Smile,
   Heart,
   Award,
-  CheckCircle
+  CheckCircle,
+  Settings
 } from "lucide-react";
 
 const services = [
@@ -49,9 +50,9 @@ const services = [
   },
   {
     title: "علاج الجذور",
-    description: "علاج متخصص للجذور ��أحدث التقنيات",
+    description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
-    price: "من 600 ريال"
+    price: "من 600 ري��ل"
   }
 ];
 
