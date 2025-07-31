@@ -55,14 +55,22 @@ export default function Register() {
 
     setIsLoading(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // تسجيل المستخدم في قاعدة البيانات
+    const result = await register({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      phone: formData.phone,
+      role: formData.role
+    });
 
-    // In a real app, you would send this data to your backend
-    console.log("Registration data:", formData);
-    
-    setSuccess(true);
     setIsLoading(false);
+
+    if (result.success) {
+      setSuccess(true);
+    } else {
+      setError(result.error || 'خطأ في إنشاء الحساب');
+    }
   };
 
   if (success) {
@@ -189,7 +197,7 @@ export default function Register() {
                       type={showPassword ? "text" : "password"}
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
-                      placeholder="أ��خل كلمة المرور (6 أحرف على الأقل)"
+                      placeholder="أدخل كلمة المرور (6 أحرف على الأقل)"
                       className="font-arabic pl-10"
                       disabled={isLoading}
                     />
