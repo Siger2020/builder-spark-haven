@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS invoices (
     FOREIGN KEY (created_by) REFERENCES users(id)
 );
 
--- جدو�� الإشعارات
+-- جدول الإشعارات
 CREATE TABLE IF NOT EXISTS notifications (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     recipient_id INTEGER NOT NULL,
@@ -379,11 +379,11 @@ INSERT OR IGNORE INTO system_settings (category, setting_key, setting_value, des
 ('system', 'language', 'arabic', 'لغة النظام الافتراضية'),
 ('notifications', 'sms_enabled', 'false', 'تفعيل الرسائل النصية'),
 ('notifications', 'email_enabled', 'true', 'تفعيل البريد الإلكتروني'),
-('notifications', 'whatsapp_enabled', 'false', 'تفعيل ال��اتس آب');
+('notifications', 'whatsapp_enabled', 'false', 'تفعيل الواتس آب');
 
 -- إدراج الخدمات الأساسية
 INSERT OR IGNORE INTO services (name, name_en, description, duration_minutes, category, is_active) VALUES
-('تنظيف الأسنان', 'Teeth Cleaning', 'تنظيف شامل ومهني لأسنانك مع أحدث التقنيات', 45, 'general', TRUE),
+('تنظيف الأسنان', 'Teeth Cleaning', 'تنظيف شامل ومهني لأسنانك مع أحد�� التقنيات', 45, 'general', TRUE),
 ('حشوات الأسنان', 'Dental Fillings', 'حشوات تجميلية بأحدث المواد الطبية المعتمدة', 60, 'restorative', TRUE),
 ('تقويم الأسنان', 'Orthodontics', 'تقويم شامل بأحدث التقنيات الطبية المتقدمة', 90, 'orthodontics', TRUE),
 ('زراعة الأسنان', 'Dental Implants', 'زراعة متطورة مع ضمان طويل المدى', 120, 'surgery', TRUE),
@@ -391,11 +391,7 @@ INSERT OR IGNORE INTO services (name, name_en, description, duration_minutes, ca
 ('علاج الجذور', 'Root Canal Treatment', 'علاج متخصص للجذور بأحدث التقنيات', 90, 'endodontics', TRUE),
 ('فحص دوري', 'Regular Checkup', 'فحص شامل لصحة الفم والأسنان', 30, 'general', TRUE);
 
--- إدراج المستخدمين التجريبيين
-INSERT OR IGNORE INTO users (id, name, email, password, phone, role, created_at, updated_at) VALUES
-(1, 'أحمد محمد', 'patient@test.com', '123456', '00967711111111', 'patient', datetime('now'), datetime('now')),
-(2, 'د. سارة أحمد', 'doctor@test.com', '123456', '00967722222222', 'doctor', datetime('now'), datetime('now')),
-(3, 'مدير النظام', 'admin@test.com', '123456', '00967733333333', 'admin', datetime('now'), datetime('now'));
+
 
 -- تفعيل القيود الخارجية
 PRAGMA foreign_keys = ON;
