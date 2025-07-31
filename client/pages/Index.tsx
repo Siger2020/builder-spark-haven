@@ -37,7 +37,7 @@ const services = [
     price: "من 3000 ريال"
   },
   {
-    title: "ز��اعة الأسنان",
+    title: "زراعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
     price: "من 2500 ريال"
@@ -94,7 +94,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
-              عيادة الأسنان المتقدمة
+              عيادة الدكتور كمال
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
               رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
@@ -139,7 +139,7 @@ export default function Index() {
               خدماتنا المتميزة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نقدم مجمو��ة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
+              نقدم مجموعة شاملة من خدمات ��ب الأسنان بأعلى معايير الجودة
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -227,11 +227,11 @@ export default function Index() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Phone className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic">+967 777775545</span>
+                  <span className="font-arabic"><p>00967 777775545</p></span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Mail className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic">info@dkmalalmoli.com</span>
+                  <span className="font-arabic"><p>info@dkalmoli.com</p></span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
