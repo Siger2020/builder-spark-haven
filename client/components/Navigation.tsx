@@ -26,12 +26,13 @@ const navigationItems = [
   { name: "المعاملات", path: "/transactions", icon: CreditCard },
   { name: "الكشوفات", path: "/reports", icon: FileText },
   { name: "جلسات العلاج", path: "/sessions", icon: Activity },
-  { name: "لو��ة الإدارة", path: "/admin", icon: Settings },
+  { name: "لوحة الإدارة", path: "/admin", icon: Settings },
 ];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <nav className="bg-white shadow-lg border-b border-dental-secondary/20" dir="rtl">
