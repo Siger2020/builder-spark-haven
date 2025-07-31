@@ -393,5 +393,9 @@ INSERT OR IGNORE INTO services (name, name_en, description, duration_minutes, ca
 
 
 
+-- إضافة حساب مدير النظام الوحيد
+INSERT OR IGNORE INTO users (id, name, email, password, phone, role, created_at, updated_at) VALUES
+(1, 'مدير النظام', 'admin@dkalmoli.com', '123456', '967777775545', 'admin', datetime('now'), datetime('now'));
+
 -- تفعيل القيود الخارجية
 PRAGMA foreign_keys = ON;
