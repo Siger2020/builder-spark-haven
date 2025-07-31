@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Booking from "./pages/Booking";
 import Patients from "./pages/Patients";
 import Transactions from "./pages/Transactions";
