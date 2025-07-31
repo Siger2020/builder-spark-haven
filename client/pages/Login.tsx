@@ -127,21 +127,7 @@ export default function Login() {
               </Button>
             </form>
 
-            {/* Demo Accounts Info */}
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <h4 className="font-bold text-sm font-arabic mb-2">حسابات تجريبية:</h4>
-              <div className="space-y-1 text-xs font-arabic">
-                <div>
-                  <strong>مريض:</strong> patient@test.com / 123456
-                </div>
-                <div>
-                  <strong>طبيب:</strong> doctor@test.com / 123456
-                </div>
-                <div>
-                  <strong>مدير:</strong> admin@test.com / 123456
-                </div>
-              </div>
-            </div>
+
 
             <div className="mt-6 text-center">
               <Link 
