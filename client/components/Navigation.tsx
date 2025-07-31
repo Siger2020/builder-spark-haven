@@ -8,14 +8,14 @@ import {
   Activity,
   Menu,
   X,
-  Tooth
+  Smile
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const navigationItems = [
-  { name: "الرئيسية", path: "/", icon: Tooth },
+  { name: "الرئيسية", path: "/", icon: Smile },
   { name: "حجز موعد", path: "/booking", icon: Calendar },
   { name: "المرضى", path: "/patients", icon: Users },
   { name: "المعاملات", path: "/transactions", icon: CreditCard },
@@ -34,7 +34,7 @@ export function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-reverse space-x-2">
-              <Tooth className="h-8 w-8 text-dental-primary" />
+              <Smile className="h-8 w-8 text-dental-primary" />
               <span className="text-xl font-bold text-gray-900 font-arabic">عيادة الأسنان المتقدمة</span>
             </Link>
           </div>
