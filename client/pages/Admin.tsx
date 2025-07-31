@@ -88,7 +88,7 @@ const alerts = [
     id: 1,
     type: "urgent",
     message: "مريض يحتاج متابعة فورية - محمد علي القحطاني",
-    time: "م��ذ 5 دقائق"
+    time: "منذ 5 دقائق"
   },
   {
     id: 2,
@@ -351,7 +351,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">أكثر الخدمات طلباً</CardTitle>
                   <CardDescription className="font-arabic">
-                    إحصائيات الخدمات الأكثر حجزاً هذا الشهر
+                    إحصائيات الخدمات الأكثر حجزاً هذ�� الشهر
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -507,7 +507,7 @@ export default function Admin() {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-arabic">معدل التحصيل</CardTitle>
+                  <CardTitle className="font-arabic">معدل الت��صيل</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-blue-600">87%</div>
@@ -638,6 +638,15 @@ export default function Admin() {
                     <Bell className="h-4 w-4 mr-2" />
                     إعدادات الإشعارات
                   </Button>
+                  <Link to="/database">
+                    <Button
+                      className="w-full font-arabic"
+                      variant="outline"
+                    >
+                      <Database className="h-4 w-4 mr-2" />
+                      إدارة قاعدة البيانات
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
 
