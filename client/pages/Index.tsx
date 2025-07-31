@@ -37,7 +37,7 @@ const services = [
     price: "من 3000 ريال"
   },
   {
-    title: "زراعة الأسنان",
+    title: "ز��اعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
     price: "من 2500 ريال"
@@ -52,7 +52,7 @@ const services = [
     title: "علاج الجذور",
     description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
-    price: "من 600 ري��ل"
+    price: "من 600 ريال"
   }
 ];
 
@@ -139,7 +139,7 @@ export default function Index() {
               خدماتنا المتميزة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نقدم مجموعة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
+              نقدم مجمو��ة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -227,15 +227,15 @@ export default function Index() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Phone className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic">+966 50 123 4567</span>
+                  <span className="font-arabic">+967 777775545</span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Mail className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic">info@dentalclinic.sa</span>
+                  <span className="font-arabic">info@dkmalalmoli.com</span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic">شارع الملك فهد، الرياض، المملكة العربية السعودية</span>
+                  <span className="font-arabic">شارع المقالح -حي الاصبحي امام سيتي ماكس</span>
                 </div>
               </div>
               <div className="mt-8">
