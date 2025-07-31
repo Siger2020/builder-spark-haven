@@ -36,7 +36,7 @@ export function Navigation() {
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-reverse space-x-2">
               <Smile className="h-8 w-8 text-dental-primary" />
-              <span className="text-xl font-bold text-gray-900 font-arabic">عيادة الأسنان المتقدمة</span>
+              <span className="text-xl font-bold text-gray-900 font-arabic">عيادة الدكتور كمال </span>
             </Link>
           </div>
 
