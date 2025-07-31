@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -351,7 +352,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">أكثر الخدمات طلباً</CardTitle>
                   <CardDescription className="font-arabic">
-                    إحصائيات الخدمات الأكثر حجزاً هذ�� الشهر
+                    إحصائيات الخدمات الأكثر حجزاً هذا الشهر
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -475,7 +476,7 @@ export default function Admin() {
                 </div>
                 <div className="text-center py-8">
                   <Calendar className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة تقويم المواعيد التفاعلي قريباً</p>
+                  <p className="text-gray-600 font-arabic">سيتم إضافة تقويم ا��مواعيد التفاعلي قريباً</p>
                 </div>
               </CardContent>
             </Card>
@@ -507,7 +508,7 @@ export default function Admin() {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-arabic">معدل الت��صيل</CardTitle>
+                  <CardTitle className="font-arabic">معدل التحصيل</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-blue-600">87%</div>
