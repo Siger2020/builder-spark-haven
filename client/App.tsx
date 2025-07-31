@@ -79,6 +79,12 @@ const App = () => (
                   <Admin />
                 </ProtectedRoute>
               } />
+              <Route path="/database" element={
+                <ProtectedRoute requiredRole="admin">
+                  <Navigation />
+                  <DatabaseManager />
+                </ProtectedRoute>
+              } />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={
