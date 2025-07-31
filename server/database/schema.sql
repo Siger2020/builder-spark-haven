@@ -374,7 +374,7 @@ INSERT OR IGNORE INTO system_settings (category, setting_key, setting_value, des
 ('clinic', 'phone', '00967 777775545', 'رقم هاتف العيادة'),
 ('clinic', 'email', 'info@dkalmoli.com', 'البريد الإلكتروني للعيادة'),
 ('clinic', 'working_hours', '{"saturday_to_thursday": "09:00-21:00", "friday": "14:00-21:00"}', 'ساعات العمل'),
-('clinic', 'currency', 'YER', 'العملة المستخد��ة'),
+('clinic', 'currency', 'YER', 'الريال اليمني'),
 ('clinic', 'timezone', 'Asia/Aden', 'المنطقة الزمنية'),
 ('system', 'language', 'arabic', 'لغة النظام الافتراضية'),
 ('notifications', 'sms_enabled', 'false', 'تفعيل الرسائل النصية'),
