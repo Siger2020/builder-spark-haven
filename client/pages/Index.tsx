@@ -40,9 +40,9 @@ const services = [
   },
   {
     title: "تقويم الأسنان",
-    description: "تقويم شامل بأحد�� التقنيات الطبية المتقدمة",
+    description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
     icon: Star,
-    price: "من 3000 ريال",
+    price: "من 3000 ��يال",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -262,7 +262,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Phone className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    <p>00967 777775545</p>
+                    <p>00967777775545</p>
                   </span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
