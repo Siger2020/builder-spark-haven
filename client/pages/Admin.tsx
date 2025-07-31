@@ -279,7 +279,7 @@ export default function Admin() {
             <TabsTrigger value="overview">نظرة عامة</TabsTrigger>
             <TabsTrigger value="appointments">المواعيد</TabsTrigger>
             <TabsTrigger value="finances">المالية</TabsTrigger>
-            <TabsTrigger value="staff">الطاقم الطب��</TabsTrigger>
+            <TabsTrigger value="staff">الطاقم الطبي</TabsTrigger>
             <TabsTrigger value="settings">الإعدادات</TabsTrigger>
           </TabsList>
 
@@ -583,21 +583,60 @@ export default function Admin() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button className="w-full font-arabic" variant="outline">
+                  <Button
+                    className="w-full font-arabic"
+                    variant="outline"
+                    onClick={() => {
+                      setSettingsType('general');
+                      setSystemSettingsOpen(true);
+                    }}
+                  >
                     <Settings className="h-4 w-4 mr-2" />
                     إعدادات عامة
                   </Button>
-                  <Button className="w-full font-arabic" variant="outline">
+                  <Button
+                    className="w-full font-arabic"
+                    variant="outline"
+                    onClick={() => {
+                      setSettingsType('users');
+                      setSystemSettingsOpen(true);
+                    }}
+                  >
                     <UserCheck className="h-4 w-4 mr-2" />
                     إدارة المستخدمين
                   </Button>
-                  <Button className="w-full font-arabic" variant="outline">
+                  <Button
+                    className="w-full font-arabic"
+                    variant="outline"
+                    onClick={() => {
+                      setSettingsType('security');
+                      setSystemSettingsOpen(true);
+                    }}
+                  >
                     <Shield className="h-4 w-4 mr-2" />
                     الأمان والخصوصية
                   </Button>
-                  <Button className="w-full font-arabic" variant="outline">
+                  <Button
+                    className="w-full font-arabic"
+                    variant="outline"
+                    onClick={() => {
+                      setSettingsType('backup');
+                      setSystemSettingsOpen(true);
+                    }}
+                  >
                     <Database className="h-4 w-4 mr-2" />
                     النسخ الاحتياطي
+                  </Button>
+                  <Button
+                    className="w-full font-arabic"
+                    variant="outline"
+                    onClick={() => {
+                      setSettingsType('notifications');
+                      setSystemSettingsOpen(true);
+                    }}
+                  >
+                    <Bell className="h-4 w-4 mr-2" />
+                    إعدادات الإشعارات
                   </Button>
                 </CardContent>
               </Card>
