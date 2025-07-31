@@ -56,6 +56,14 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dental Clinic Theme Colors */
+    --dental-primary: 210 100% 45%;
+    --dental-secondary: 195 100% 85%;
+    --dental-accent: 45 100% 95%;
+    --dental-success: 120 100% 35%;
+    --dental-warning: 35 100% 55%;
+    --dental-light: 210 40% 98%;
   }
 
   .dark {
@@ -94,6 +102,14 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dental Clinic Theme Colors - Dark Mode */
+    --dental-primary: 210 100% 55%;
+    --dental-secondary: 195 50% 25%;
+    --dental-accent: 45 50% 15%;
+    --dental-success: 120 50% 45%;
+    --dental-warning: 35 100% 65%;
+    --dental-light: 210 20% 15%;
   }
 }
 
@@ -104,5 +120,17 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  html[dir="rtl"] {
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+  }
+
+  .rtl {
+    direction: rtl;
+  }
+
+  .ltr {
+    direction: ltr;
   }
 }
