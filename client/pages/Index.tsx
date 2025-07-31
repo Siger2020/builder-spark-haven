@@ -139,7 +139,7 @@ export default function Index() {
               خدماتنا المتميزة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نقدم مجموعة شاملة من خدمات ��ب الأسنان بأعلى معايير الجودة
+              نقدم مجموعة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -150,7 +150,7 @@ export default function Index() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <Icon className="h-10 w-10 text-dental-primary" />
-                      <span className="text-dental-primary font-bold">{service.price}</span>
+                      <span className="text-dental-primary font-bold"><p><br /></p></span>
                     </div>
                     <CardTitle className="font-arabic">{service.title}</CardTitle>
                   </CardHeader>
@@ -259,7 +259,7 @@ export default function Index() {
                 إدارة النظام
               </h3>
               <p className="text-gray-600 mb-6 font-arabic">
-                دخول سريع لإدارة الحجوزات وملفات المرضى
+                دخو�� سريع لإدارة الحجوزات وملفات المرضى
               </p>
               <div className="space-y-4">
                 <Link to="/admin" className="block">
