@@ -92,6 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value = {
     user,
     login,
+    register,
     logout,
     isAuthenticated: !!user,
     isLoading
