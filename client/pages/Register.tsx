@@ -209,7 +209,7 @@ export default function Register() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    placeholder="00967xxxxxxxxx"
+                    placeholder="967xxxxxxxxx"
                     className="font-arabic"
                     disabled={isLoading}
                   />
@@ -337,7 +337,7 @@ export default function Register() {
                 to="/"
                 className="text-sm text-gray-600 hover:text-gray-900 font-arabic"
               >
-                العودة للصفحة الرئيسية
+                العودة للصفح�� الرئيسية
               </Link>
             </div>
           </CardContent>
