@@ -23,7 +23,7 @@ export default function Register() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, register } = useAuth();
 
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
@@ -189,7 +189,7 @@ export default function Register() {
                       type={showPassword ? "text" : "password"}
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
-                      placeholder="أدخل كلمة المرور (6 أحرف على الأقل)"
+                      placeholder="أ��خل كلمة المرور (6 أحرف على الأقل)"
                       className="font-arabic pl-10"
                       disabled={isLoading}
                     />
