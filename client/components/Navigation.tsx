@@ -48,7 +48,7 @@ export function Navigation() {
             >
               <Smile className="h-8 w-8 text-dental-primary" />
               <span className="text-xl font-bold text-gray-900 font-arabic">
-                عيادة الدكتور كمال{" "}
+                عيادة د/ كمال الملصي{" "}
               </span>
             </Link>
           </div>
