@@ -19,6 +19,7 @@ import Transactions from "./pages/Transactions";
 import Reports from "./pages/Reports";
 import Sessions from "./pages/Sessions";
 import Admin from "./pages/Admin";
+import DatabaseManager from "./pages/DatabaseManager";
 
 const queryClient = new QueryClient();
 
