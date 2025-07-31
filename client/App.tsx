@@ -27,20 +27,66 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen">
-          <Navigation />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/patients" element={<Patients />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/sessions" element={<Sessions />} />
-            <Route path="/admin" element={<Admin />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen">
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={
+                <>
+                  <Navigation />
+                  <Index />
+                </>
+              } />
+              <Route path="/login" element={<Login />} />
+
+              {/* Protected routes */}
+              <Route path="/booking" element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Booking />
+                </ProtectedRoute>
+              } />
+              <Route path="/patients" element={
+                <ProtectedRoute requiredRole="doctor">
+                  <Navigation />
+                  <Patients />
+                </ProtectedRoute>
+              } />
+              <Route path="/transactions" element={
+                <ProtectedRoute requiredRole="admin">
+                  <Navigation />
+                  <Transactions />
+                </ProtectedRoute>
+              } />
+              <Route path="/reports" element={
+                <ProtectedRoute requiredRole="doctor">
+                  <Navigation />
+                  <Reports />
+                </ProtectedRoute>
+              } />
+              <Route path="/sessions" element={
+                <ProtectedRoute requiredRole="doctor">
+                  <Navigation />
+                  <Sessions />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin" element={
+                <ProtectedRoute requiredRole="admin">
+                  <Navigation />
+                  <Admin />
+                </ProtectedRoute>
+              } />
+
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={
+                <>
+                  <Navigation />
+                  <NotFound />
+                </>
+              } />
+            </Routes>
+          </div>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
