@@ -66,11 +66,41 @@ export function Navigation() {
                 </Link>
               );
             })}
-            {/* Notification Bell */}
-            <Button variant="ghost" size="sm" className="relative">
-              <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
-            </Button>
+            {/* Auth Section */}
+            <div className="flex items-center space-x-reverse space-x-4">
+              {/* Notification Bell */}
+              {isAuthenticated && (
+                <Button variant="ghost" size="sm" className="relative">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                </Button>
+              )}
+
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-reverse space-x-2">
+                  <div className="flex items-center space-x-reverse space-x-2">
+                    <User className="h-4 w-4 text-gray-600" />
+                    <span className="text-sm text-gray-700 font-arabic">{user?.name}</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={logout}
+                    className="font-arabic"
+                  >
+                    <LogOut className="h-4 w-4 mr-1" />
+                    تسجيل الخروج
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/login">
+                  <Button size="sm" className="font-arabic">
+                    <LogIn className="h-4 w-4 mr-1" />
+                    تسجيل الدخول
+                  </Button>
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Mobile menu button */}
