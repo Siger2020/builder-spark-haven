@@ -10,7 +10,7 @@ import {
   Phone,
   MapPin,
   Mail,
-  Tooth,
+  Smile,
   Heart,
   Award,
   CheckCircle
@@ -72,7 +72,7 @@ const features = [
     icon: Shield
   },
   {
-    title: "خد��ة 24/7",
+    title: "خدمة 24/7",
     description: "خدمة عملاء متاحة على مدار الساعة لخدمتكم",
     icon: Clock
   }
