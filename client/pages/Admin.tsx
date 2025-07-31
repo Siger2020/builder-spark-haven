@@ -5,8 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Users, 
+import SystemSettings from "@/components/SystemSettings";
+import ExportReports from "@/components/ExportReports";
+import NotificationCenter from "@/components/NotificationCenter";
+import {
+  Users,
   Calendar,
   DollarSign,
   TrendingUp,
@@ -26,7 +29,8 @@ import {
   Bell,
   Shield,
   Database,
-  Download
+  Download,
+  MessageSquare
 } from "lucide-react";
 
 // Mock data for dashboard
@@ -84,7 +88,7 @@ const alerts = [
     id: 1,
     type: "urgent",
     message: "مريض يحتاج متابعة فورية - محمد علي القحطاني",
-    time: "منذ 5 دقائق"
+    time: "منذ 5 دقا��ق"
   },
   {
     id: 2,
@@ -133,7 +137,7 @@ const doctors = [
   },
   {
     id: 3,
-    name: "د. نورا سالم",
+    name: "د. نو��ا سالم",
     specialty: "جراحة الفم",
     patients: 38,
     appointments: 22,
@@ -274,7 +278,7 @@ export default function Admin() {
               <div className="lg:col-span-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="font-arabic">المواعيد اليوم</CardTitle>
+                    <CardTitle className="font-arabic">��لمواعيد اليوم</CardTitle>
                     <CardDescription className="font-arabic">
                       قائمة بمواعيد اليوم وحالتها
                     </CardDescription>
@@ -364,7 +368,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">الأداء اليومي</CardTitle>
                   <CardDescription className="font-arabic">
-                    مؤشرات الأداء الرئيسية لليوم
+                    مؤش��ات الأداء الرئيسية لليوم
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
