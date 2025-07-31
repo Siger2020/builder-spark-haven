@@ -20,7 +20,7 @@ const services = [
   {
     title: "تنظيف الأسنان",
     description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
-    icon: Tooth,
+    icon: Smile,
     price: "من 200 ريال"
   },
   {
@@ -49,7 +49,7 @@ const services = [
   },
   {
     title: "علاج الجذور",
-    description: "علاج متخصص للجذور بأحدث التقنيات",
+    description: "علاج متخصص للجذور ��أحدث التقنيات",
     icon: Award,
     price: "من 600 ريال"
   }
