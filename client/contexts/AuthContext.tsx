@@ -1,16 +1,28 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface User {
   id: string;
   name: string;
   email: string;
-  role: 'patient' | 'doctor' | 'admin';
+  role: "patient" | "doctor" | "admin";
 }
 
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (userData: { name: string; email: string; password: string; phone: string; role: string }) => Promise<{ success: boolean; error?: string }>;
+  register: (userData: {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    role: string;
+  }) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -24,7 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Check if user is logged in from localStorage
-    const savedUser = localStorage.getItem('user');
+    const savedUser = localStorage.getItem("user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -35,10 +47,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
@@ -47,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (data.success && data.user) {
         setUser(data.user);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem("user", JSON.stringify(data.user));
         setIsLoading(false);
         return true;
       } else {
@@ -55,18 +67,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return false;
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
       setIsLoading(false);
       return false;
     }
   };
 
-  const register = async (userData: { name: string; email: string; password: string; phone: string; role: string }) => {
+  const register = async (userData: {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    role: string;
+  }) => {
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
@@ -79,14 +97,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: false, error: data.error };
       }
     } catch (error) {
-      console.error('Registration error:', error);
-      return { success: false, error: 'خطأ في الاتصال بالخادم' };
+      console.error("Registration error:", error);
+      return { success: false, error: "خطأ في الاتصال بالخادم" };
     }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
   };
 
   const value = {
@@ -95,20 +113,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     register,
     logout,
     isAuthenticated: !!user,
-    isLoading
+    isLoading,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

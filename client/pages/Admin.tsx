@@ -1,10 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 import SystemSettings from "@/components/SystemSettings";
 import ExportReports from "@/components/ExportReports";
@@ -31,7 +44,7 @@ import {
   Shield,
   Database,
   Download,
-  MessageSquare
+  MessageSquare,
 } from "lucide-react";
 
 // Mock data for dashboard
@@ -46,7 +59,7 @@ const dashboardStats = {
   monthlyRevenue: 87500,
   outstandingPayments: 12300,
   treatmentSuccess: 94,
-  patientSatisfaction: 98
+  patientSatisfaction: 98,
 };
 
 const recentAppointments = [
@@ -56,15 +69,15 @@ const recentAppointments = [
     time: "09:00",
     service: "تنظيف الأسنان",
     doctor: "د. سارة أحمد",
-    status: "confirmed"
+    status: "confirmed",
   },
   {
-    id: "APP-002", 
+    id: "APP-002",
     patientName: "فاطمة أحمد العلي",
     time: "10:30",
     service: "تقويم الأسنان",
     doctor: "د. محمد علي",
-    status: "pending"
+    status: "pending",
   },
   {
     id: "APP-003",
@@ -72,7 +85,7 @@ const recentAppointments = [
     time: "14:00",
     service: "زراعة الأسنان",
     doctor: "د. نورا سالم",
-    status: "confirmed"
+    status: "confirmed",
   },
   {
     id: "APP-004",
@@ -80,8 +93,8 @@ const recentAppointments = [
     time: "16:30",
     service: "تبييض الأسنان",
     doctor: "د. أحمد محمد",
-    status: "canceled"
-  }
+    status: "canceled",
+  },
 ];
 
 const alerts = [
@@ -89,26 +102,26 @@ const alerts = [
     id: 1,
     type: "urgent",
     message: "مريض يحتاج متابعة فورية - محمد علي القحطاني",
-    time: "منذ 5 دقائق"
+    time: "منذ 5 دقائق",
   },
   {
     id: 2,
     type: "payment",
     message: "دفعة متأخرة - فاطمة أحمد العلي (1500 ريال)",
-    time: "منذ ساعة"
+    time: "منذ ساعة",
   },
   {
     id: 3,
     type: "appointment",
     message: "تم إلغاء موعد - سارة خالد المطيري",
-    time: "منذ ساعتين"
+    time: "منذ ساعتين",
   },
   {
     id: 4,
     type: "system",
     message: "تم تحديث النظام بنجاح",
-    time: "منذ 3 ساعات"
-  }
+    time: "منذ 3 ساعات",
+  },
 ];
 
 const topServices = [
@@ -116,7 +129,7 @@ const topServices = [
   { name: "حشوات الأسنان", count: 32, revenue: 9600, percentage: 25 },
   { name: "تقويم الأسنان", count: 18, revenue: 54000, percentage: 15 },
   { name: "زراعة الأسنان", count: 12, revenue: 30000, percentage: 10 },
-  { name: "تبييض الأسنان", count: 21, revenue: 16800, percentage: 15 }
+  { name: "تبييض الأسنان", count: 21, revenue: 16800, percentage: 15 },
 ];
 
 const doctors = [
@@ -126,7 +139,7 @@ const doctors = [
     specialty: "طب الأسنان العام",
     patients: 67,
     appointments: 34,
-    rating: 4.9
+    rating: 4.9,
   },
   {
     id: 2,
@@ -134,7 +147,7 @@ const doctors = [
     specialty: "تقويم الأسنان",
     patients: 43,
     appointments: 28,
-    rating: 4.8
+    rating: 4.8,
   },
   {
     id: 3,
@@ -142,7 +155,7 @@ const doctors = [
     specialty: "جراحة الفم",
     patients: 38,
     appointments: 22,
-    rating: 4.9
+    rating: 4.9,
   },
   {
     id: 4,
@@ -150,8 +163,8 @@ const doctors = [
     specialty: "تجميل الأسنان",
     patients: 29,
     appointments: 18,
-    rating: 4.7
-  }
+    rating: 4.7,
+  },
 ];
 
 const getAppointmentStatusBadge = (status: string) => {
@@ -159,7 +172,9 @@ const getAppointmentStatusBadge = (status: string) => {
     case "confirmed":
       return <Badge className="bg-green-100 text-green-800">مؤكد</Badge>;
     case "pending":
-      return <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>;
+      return (
+        <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>
+      );
     case "canceled":
       return <Badge className="bg-red-100 text-red-800">ملغي</Badge>;
     default:
@@ -185,7 +200,9 @@ const getAlertIcon = (type: string) => {
 export default function Admin() {
   const [selectedTimeRange, setSelectedTimeRange] = useState("today");
   const [systemSettingsOpen, setSystemSettingsOpen] = useState(false);
-  const [settingsType, setSettingsType] = useState<'general' | 'users' | 'security' | 'backup' | 'notifications'>('general');
+  const [settingsType, setSettingsType] = useState<
+    "general" | "users" | "security" | "backup" | "notifications"
+  >("general");
   const [exportReportsOpen, setExportReportsOpen] = useState(false);
   const [notificationCenterOpen, setNotificationCenterOpen] = useState(false);
 
@@ -195,8 +212,12 @@ export default function Admin() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 font-arabic">لوحة الإدارة</h1>
-            <p className="text-gray-600 font-arabic">نظام إداري متكامل لمتابعة جميع عمليات العيادة</p>
+            <h1 className="text-3xl font-bold text-gray-900 font-arabic">
+              لوحة الإدارة
+            </h1>
+            <p className="text-gray-600 font-arabic">
+              نظام إداري متكامل لمتابعة جميع عمليات العيادة
+            </p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -221,38 +242,51 @@ export default function Admin() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">إجمالي المرضى</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                إجمالي المرضى
+              </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{dashboardStats.totalPatients}</div>
+              <div className="text-2xl font-bold">
+                {dashboardStats.totalPatients}
+              </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                <TrendingUp className="h-4 w-4 inline mr-1" />
-                +{dashboardStats.newPatientsThisMonth} هذا الشهر
+                <TrendingUp className="h-4 w-4 inline mr-1" />+
+                {dashboardStats.newPatientsThisMonth} هذا الشهر
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">المواعيد اليوم</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                المواعيد اليوم
+              </CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{dashboardStats.totalAppointments}</div>
+              <div className="text-2xl font-bold">
+                {dashboardStats.totalAppointments}
+              </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                {dashboardStats.completedAppointments} مكتمل، {dashboardStats.pendingAppointments} في الانتظار
+                {dashboardStats.completedAppointments} مكتمل،{" "}
+                {dashboardStats.pendingAppointments} في الانتظار
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">الإيرادات الشهرية</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                الإيرادات الشهرية
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{dashboardStats.monthlyRevenue.toLocaleString()} ريال</div>
+              <div className="text-2xl font-bold">
+                {dashboardStats.monthlyRevenue.toLocaleString()} ريال
+              </div>
               <p className="text-xs text-muted-foreground font-arabic">
                 <TrendingUp className="h-4 w-4 inline mr-1 text-green-500" />
                 +15% من الشهر الماضي
@@ -262,11 +296,15 @@ export default function Admin() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">معدل النجاح</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                معدل النجاح
+              </CardTitle>
               <Target className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{dashboardStats.treatmentSuccess}%</div>
+              <div className="text-2xl font-bold text-green-600">
+                {dashboardStats.treatmentSuccess}%
+              </div>
               <p className="text-xs text-muted-foreground font-arabic">
                 نسبة نجاح العلاجات
               </p>
@@ -290,7 +328,9 @@ export default function Admin() {
               <div className="lg:col-span-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="font-arabic">��لمواعيد اليوم</CardTitle>
+                    <CardTitle className="font-arabic">
+                      ��لمواعيد اليوم
+                    </CardTitle>
                     <CardDescription className="font-arabic">
                       قائمة بمواعيد اليوم وحالتها
                     </CardDescription>
@@ -309,11 +349,21 @@ export default function Admin() {
                       <TableBody>
                         {recentAppointments.map((appointment) => (
                           <TableRow key={appointment.id}>
-                            <TableCell className="font-medium">{appointment.time}</TableCell>
-                            <TableCell className="font-arabic">{appointment.patientName}</TableCell>
-                            <TableCell className="font-arabic">{appointment.service}</TableCell>
-                            <TableCell className="font-arabic">{appointment.doctor}</TableCell>
-                            <TableCell>{getAppointmentStatusBadge(appointment.status)}</TableCell>
+                            <TableCell className="font-medium">
+                              {appointment.time}
+                            </TableCell>
+                            <TableCell className="font-arabic">
+                              {appointment.patientName}
+                            </TableCell>
+                            <TableCell className="font-arabic">
+                              {appointment.service}
+                            </TableCell>
+                            <TableCell className="font-arabic">
+                              {appointment.doctor}
+                            </TableCell>
+                            <TableCell>
+                              {getAppointmentStatusBadge(appointment.status)}
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -333,11 +383,16 @@ export default function Admin() {
                 <CardContent>
                   <div className="space-y-4">
                     {alerts.map((alert) => (
-                      <div key={alert.id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                      <div
+                        key={alert.id}
+                        className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg"
+                      >
                         {getAlertIcon(alert.type)}
                         <div className="flex-1">
                           <p className="text-sm font-arabic">{alert.message}</p>
-                          <p className="text-xs text-gray-500 font-arabic">{alert.time}</p>
+                          <p className="text-xs text-gray-500 font-arabic">
+                            {alert.time}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -350,7 +405,9 @@ export default function Admin() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-arabic">أكثر الخدمات طلباً</CardTitle>
+                  <CardTitle className="font-arabic">
+                    أكثر الخدمات طلباً
+                  </CardTitle>
                   <CardDescription className="font-arabic">
                     إحصائيات الخدمات الأكثر حجزاً هذا الشهر
                   </CardDescription>
@@ -358,17 +415,29 @@ export default function Admin() {
                 <CardContent>
                   <div className="space-y-4">
                     {topServices.map((service, index) => (
-                      <div key={index} className="flex items-center justify-between">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between"
+                      >
                         <div className="flex items-center gap-3">
                           <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                           <div>
-                            <div className="font-medium font-arabic">{service.name}</div>
-                            <div className="text-sm text-gray-500">{service.count} مريض</div>
+                            <div className="font-medium font-arabic">
+                              {service.name}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {service.count} مريض
+                            </div>
                           </div>
                         </div>
                         <div className="text-left">
-                          <div className="font-medium">{service.revenue.toLocaleString()} ريال</div>
-                          <Progress value={service.percentage} className="w-16 mt-1" />
+                          <div className="font-medium">
+                            {service.revenue.toLocaleString()} ريال
+                          </div>
+                          <Progress
+                            value={service.percentage}
+                            className="w-16 mt-1"
+                          />
                         </div>
                       </div>
                     ))}
@@ -434,8 +503,12 @@ export default function Admin() {
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-5 w-5 text-green-500" />
                         <div>
-                          <div className="text-lg font-bold">{dashboardStats.completedAppointments}</div>
-                          <div className="text-sm text-gray-500 font-arabic">مكتمل</div>
+                          <div className="text-lg font-bold">
+                            {dashboardStats.completedAppointments}
+                          </div>
+                          <div className="text-sm text-gray-500 font-arabic">
+                            مكتمل
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -445,8 +518,12 @@ export default function Admin() {
                       <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5 text-yellow-500" />
                         <div>
-                          <div className="text-lg font-bold">{dashboardStats.pendingAppointments}</div>
-                          <div className="text-sm text-gray-500 font-arabic">في الانتظار</div>
+                          <div className="text-lg font-bold">
+                            {dashboardStats.pendingAppointments}
+                          </div>
+                          <div className="text-sm text-gray-500 font-arabic">
+                            في الانتظار
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -456,8 +533,12 @@ export default function Admin() {
                       <div className="flex items-center gap-2">
                         <AlertCircle className="h-5 w-5 text-red-500" />
                         <div>
-                          <div className="text-lg font-bold">{dashboardStats.canceledAppointments}</div>
-                          <div className="text-sm text-gray-500 font-arabic">ملغي</div>
+                          <div className="text-lg font-bold">
+                            {dashboardStats.canceledAppointments}
+                          </div>
+                          <div className="text-sm text-gray-500 font-arabic">
+                            ملغي
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -467,8 +548,12 @@ export default function Admin() {
                       <div className="flex items-center gap-2">
                         <Calendar className="h-5 w-5 text-blue-500" />
                         <div>
-                          <div className="text-lg font-bold">{dashboardStats.totalAppointments}</div>
-                          <div className="text-sm text-gray-500 font-arabic">الإجمالي</div>
+                          <div className="text-lg font-bold">
+                            {dashboardStats.totalAppointments}
+                          </div>
+                          <div className="text-sm text-gray-500 font-arabic">
+                            الإجمالي
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -476,7 +561,9 @@ export default function Admin() {
                 </div>
                 <div className="text-center py-8">
                   <Calendar className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة تقويم ا��مواعيد التفاعلي قريباً</p>
+                  <p className="text-gray-600 font-arabic">
+                    سيتم إضافة تقويم ا��مواعيد التفاعلي قريباً
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -497,13 +584,17 @@ export default function Admin() {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-arabic">المبالغ المستحقة</CardTitle>
+                  <CardTitle className="font-arabic">
+                    المبالغ المستحقة
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-red-600">
                     {dashboardStats.outstandingPayments.toLocaleString()} ريال
                   </div>
-                  <p className="text-sm text-gray-500 font-arabic">مبالغ غير محصلة</p>
+                  <p className="text-sm text-gray-500 font-arabic">
+                    مبالغ غير محصلة
+                  </p>
                 </CardContent>
               </Card>
               <Card>
@@ -516,7 +607,7 @@ export default function Admin() {
                 </CardContent>
               </Card>
             </div>
-            
+
             <Card>
               <CardHeader>
                 <CardTitle className="font-arabic">التحليل المالي</CardTitle>
@@ -527,7 +618,9 @@ export default function Admin() {
               <CardContent>
                 <div className="text-center py-8">
                   <BarChart3 className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة الرسوم البيانية المالية قريباً</p>
+                  <p className="text-gray-600 font-arabic">
+                    سيتم إضافة الرسوم البيانية المالية قريباً
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -548,22 +641,36 @@ export default function Admin() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h3 className="font-bold font-arabic">{doctor.name}</h3>
-                            <p className="text-sm text-gray-500 font-arabic">{doctor.specialty}</p>
+                            <h3 className="font-bold font-arabic">
+                              {doctor.name}
+                            </h3>
+                            <p className="text-sm text-gray-500 font-arabic">
+                              {doctor.specialty}
+                            </p>
                           </div>
                           <div className="text-left">
-                            <div className="text-lg font-bold">{doctor.rating}</div>
+                            <div className="text-lg font-bold">
+                              {doctor.rating}
+                            </div>
                             <div className="text-sm text-yellow-500">★★★★★</div>
                           </div>
                         </div>
                         <div className="mt-4 grid grid-cols-2 gap-4">
                           <div>
-                            <div className="text-lg font-bold">{doctor.patients}</div>
-                            <div className="text-sm text-gray-500 font-arabic">مريض</div>
+                            <div className="text-lg font-bold">
+                              {doctor.patients}
+                            </div>
+                            <div className="text-sm text-gray-500 font-arabic">
+                              مريض
+                            </div>
                           </div>
                           <div>
-                            <div className="text-lg font-bold">{doctor.appointments}</div>
-                            <div className="text-sm text-gray-500 font-arabic">موعد هذا الشهر</div>
+                            <div className="text-lg font-bold">
+                              {doctor.appointments}
+                            </div>
+                            <div className="text-sm text-gray-500 font-arabic">
+                              موعد هذا الشهر
+                            </div>
                           </div>
                         </div>
                       </CardContent>
@@ -588,7 +695,7 @@ export default function Admin() {
                     className="w-full font-arabic"
                     variant="outline"
                     onClick={() => {
-                      setSettingsType('general');
+                      setSettingsType("general");
                       setSystemSettingsOpen(true);
                     }}
                   >
@@ -599,7 +706,7 @@ export default function Admin() {
                     className="w-full font-arabic"
                     variant="outline"
                     onClick={() => {
-                      setSettingsType('users');
+                      setSettingsType("users");
                       setSystemSettingsOpen(true);
                     }}
                   >
@@ -610,7 +717,7 @@ export default function Admin() {
                     className="w-full font-arabic"
                     variant="outline"
                     onClick={() => {
-                      setSettingsType('security');
+                      setSettingsType("security");
                       setSystemSettingsOpen(true);
                     }}
                   >
@@ -621,7 +728,7 @@ export default function Admin() {
                     className="w-full font-arabic"
                     variant="outline"
                     onClick={() => {
-                      setSettingsType('backup');
+                      setSettingsType("backup");
                       setSystemSettingsOpen(true);
                     }}
                   >
@@ -632,7 +739,7 @@ export default function Admin() {
                     className="w-full font-arabic"
                     variant="outline"
                     onClick={() => {
-                      setSettingsType('notifications');
+                      setSettingsType("notifications");
                       setSystemSettingsOpen(true);
                     }}
                   >
@@ -640,10 +747,7 @@ export default function Admin() {
                     إعدادات الإشعارات
                   </Button>
                   <Link to="/database">
-                    <Button
-                      className="w-full font-arabic"
-                      variant="outline"
-                    >
+                    <Button className="w-full font-arabic" variant="outline">
                       <Database className="h-4 w-4 mr-2" />
                       إدارة قاعدة البيانات
                     </Button>

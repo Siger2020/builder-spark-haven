@@ -14,7 +14,7 @@ import {
   globalSearchHandler,
   createBackupHandler,
   getBackupsHandler,
-  executeQueryHandler
+  executeQueryHandler,
 } from "./routes/database.js";
 
 export function createServer() {

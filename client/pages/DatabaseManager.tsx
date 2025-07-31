@@ -1,15 +1,41 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { 
+import {
   Database,
   Search,
   Plus,
@@ -24,7 +50,7 @@ import {
   CheckCircle,
   Table as TableIcon,
   Play,
-  Save
+  Save,
 } from "lucide-react";
 
 interface DatabaseStats {
@@ -82,47 +108,49 @@ export default function DatabaseManager() {
 
   const fetchDatabaseStats = async () => {
     try {
-      const response = await fetch('/api/database/stats');
+      const response = await fetch("/api/database/stats");
       const data = await response.json();
       if (data.success) {
         setStats(data.data);
       }
     } catch (error) {
-      console.error('خطأ في جلب الإحصائيات:', error);
+      console.error("خطأ في جلب الإحصائيات:", error);
     }
   };
 
   const fetchTables = async () => {
     try {
-      const response = await fetch('/api/database/tables');
+      const response = await fetch("/api/database/tables");
       const data = await response.json();
       if (data.success) {
         setTables(data.data.map((t: any) => t.name));
       }
     } catch (error) {
-      console.error('خطأ في جلب الجداول:', error);
+      console.error("خطأ في جلب الجداول:", error);
     }
   };
 
   const fetchTableData = async () => {
     if (!selectedTable) return;
-    
+
     setLoading(true);
     try {
       const params = new URLSearchParams({
         page: currentPage.toString(),
-        limit: '20',
-        search: searchTerm
+        limit: "20",
+        search: searchTerm,
       });
-      
-      const response = await fetch(`/api/database/tables/${selectedTable}?${params}`);
+
+      const response = await fetch(
+        `/api/database/tables/${selectedTable}?${params}`,
+      );
       const data = await response.json();
-      
+
       if (data.success) {
         setTableData(data.data);
       }
     } catch (error) {
-      console.error('خطأ في جلب بيانات الجدول:', error);
+      console.error("خطأ في جلب بيانات الجدول:", error);
     } finally {
       setLoading(false);
     }
@@ -142,71 +170,74 @@ export default function DatabaseManager() {
 
   const handleSave = async () => {
     try {
-      const url = editingRecord 
+      const url = editingRecord
         ? `/api/database/tables/${selectedTable}/${editingRecord.id}`
         : `/api/database/tables/${selectedTable}`;
-      
-      const method = editingRecord ? 'PUT' : 'POST';
-      
+
+      const method = editingRecord ? "PUT" : "POST";
+
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         setIsEditDialogOpen(false);
         setIsAddDialogOpen(false);
         fetchTableData();
         fetchDatabaseStats();
       } else {
-        alert('خطأ في الحفظ: ' + data.error);
+        alert("خطأ في الحفظ: " + data.error);
       }
     } catch (error) {
-      alert('خطأ في الحفظ');
+      alert("خطأ في الحفظ");
       console.error(error);
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('هل أنت متأكد من حذف هذا السجل؟')) return;
-    
+    if (!confirm("هل أنت متأكد من حذف هذا السجل؟")) return;
+
     try {
-      const response = await fetch(`/api/database/tables/${selectedTable}/${id}`, {
-        method: 'DELETE'
-      });
-      
+      const response = await fetch(
+        `/api/database/tables/${selectedTable}/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
       const data = await response.json();
-      
+
       if (data.success) {
         fetchTableData();
         fetchDatabaseStats();
       } else {
-        alert('خطأ في الحذف: ' + data.error);
+        alert("خطأ في الحذف: " + data.error);
       }
     } catch (error) {
-      alert('خطأ في الحذف');
+      alert("خطأ في الحذف");
       console.error(error);
     }
   };
 
   const executeCustomQuery = async () => {
     if (!customQuery.trim()) return;
-    
+
     setLoading(true);
     try {
-      const response = await fetch('/api/database/query', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: customQuery })
+      const response = await fetch("/api/database/query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: customQuery }),
       });
-      
+
       const data = await response.json();
       setQueryResult(data);
     } catch (error) {
-      setQueryResult({ success: false, error: 'خطأ في تنفيذ الاستعلام' });
+      setQueryResult({ success: false, error: "خطأ في تنفيذ الاستعلام" });
     } finally {
       setLoading(false);
     }
@@ -214,21 +245,23 @@ export default function DatabaseManager() {
 
   const createBackup = async () => {
     try {
-      const response = await fetch('/api/database/backup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: `backup_${new Date().toISOString().split('T')[0]}` })
+      const response = await fetch("/api/database/backup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `backup_${new Date().toISOString().split("T")[0]}`,
+        }),
       });
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
-        alert('تم إنشاء النسخة الاحتياطية بنجاح');
+        alert("تم إنشاء النسخة الاحتياطية بنجاح");
       } else {
-        alert('خطأ في إنشاء النسخة الاحتياطية');
+        alert("خطأ في إنشاء النسخة الاحتياطية");
       }
     } catch (error) {
-      alert('خطأ في إنشاء النسخة الاحتياطية');
+      alert("خطأ في إنشاء النسخة الاحتياطية");
     }
   };
 
@@ -237,11 +270,19 @@ export default function DatabaseManager() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 font-arabic">إدارة قاعدة البيانات</h1>
-            <p className="text-gray-600 font-arabic">عرض وإدارة جميع بيانات النظام</p>
+            <h1 className="text-3xl font-bold text-gray-900 font-arabic">
+              إدارة قاعدة البيانات
+            </h1>
+            <p className="text-gray-600 font-arabic">
+              عرض وإدارة جميع بيانات النظام
+            </p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={createBackup} variant="outline" className="font-arabic">
+            <Button
+              onClick={createBackup}
+              variant="outline"
+              className="font-arabic"
+            >
               <Download className="h-4 w-4 mr-2" />
               نسخة احتياطية
             </Button>
@@ -266,16 +307,27 @@ export default function DatabaseManager() {
                       <div>
                         <div className="text-lg font-bold">{count}</div>
                         <div className="text-sm text-gray-500 font-arabic">
-                          {tableName === 'users' && 'المستخدمين'}
-                          {tableName === 'patients' && 'المرضى'}
-                          {tableName === 'doctors' && 'الأطباء'}
-                          {tableName === 'appointments' && 'المواعيد'}
-                          {tableName === 'services' && 'الخدمات'}
-                          {tableName === 'medical_reports' && 'التقارير الطبية'}
-                          {tableName === 'financial_transactions' && 'المعاملات المالية'}
-                          {tableName === 'notifications' && 'الإشعارات'}
-                          {tableName === 'inventory' && 'المخزون'}
-                          {!['users', 'patients', 'doctors', 'appointments', 'services', 'medical_reports', 'financial_transactions', 'notifications', 'inventory'].includes(tableName) && tableName}
+                          {tableName === "users" && "المستخدمين"}
+                          {tableName === "patients" && "المرضى"}
+                          {tableName === "doctors" && "الأطباء"}
+                          {tableName === "appointments" && "المواعيد"}
+                          {tableName === "services" && "الخدمات"}
+                          {tableName === "medical_reports" && "التقارير الطبية"}
+                          {tableName === "financial_transactions" &&
+                            "المعاملات المالية"}
+                          {tableName === "notifications" && "الإشعارات"}
+                          {tableName === "inventory" && "المخزون"}
+                          {![
+                            "users",
+                            "patients",
+                            "doctors",
+                            "appointments",
+                            "services",
+                            "medical_reports",
+                            "financial_transactions",
+                            "notifications",
+                            "inventory",
+                          ].includes(tableName) && tableName}
                         </div>
                       </div>
                     </div>
@@ -287,7 +339,9 @@ export default function DatabaseManager() {
             {/* معلومات إضافية */}
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">معلومات قاعدة البيانات</CardTitle>
+                <CardTitle className="font-arabic">
+                  معلومات قاعدة البيانات
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -298,7 +352,10 @@ export default function DatabaseManager() {
                   <div>
                     <Label className="font-arabic">إجمالي السجلات</Label>
                     <div className="text-2xl font-bold">
-                      {Object.values(stats).reduce((sum, count) => sum + count, 0)}
+                      {Object.values(stats).reduce(
+                        (sum, count) => sum + count,
+                        0,
+                      )}
                     </div>
                   </div>
                   <div>
@@ -320,13 +377,20 @@ export default function DatabaseManager() {
                 <div className="flex gap-4 items-end">
                   <div className="flex-1">
                     <Label className="font-arabic">الجدول</Label>
-                    <Select value={selectedTable} onValueChange={setSelectedTable}>
+                    <Select
+                      value={selectedTable}
+                      onValueChange={setSelectedTable}
+                    >
                       <SelectTrigger className="font-arabic">
                         <SelectValue placeholder="اختر جدولاً" />
                       </SelectTrigger>
                       <SelectContent>
-                        {tables.map(table => (
-                          <SelectItem key={table} value={table} className="font-arabic">
+                        {tables.map((table) => (
+                          <SelectItem
+                            key={table}
+                            value={table}
+                            className="font-arabic"
+                          >
                             {table}
                           </SelectItem>
                         ))}
@@ -370,7 +434,9 @@ export default function DatabaseManager() {
                   {loading ? (
                     <div className="text-center py-8">
                       <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-                      <p className="text-gray-600 font-arabic">جاري التحميل...</p>
+                      <p className="text-gray-600 font-arabic">
+                        جاري التحميل...
+                      </p>
                     </div>
                   ) : (
                     <>
@@ -378,21 +444,33 @@ export default function DatabaseManager() {
                         <Table>
                           <TableHeader>
                             <TableRow>
-                              {tableData.columns.map(column => (
-                                <TableHead key={column.name} className="font-arabic">
+                              {tableData.columns.map((column) => (
+                                <TableHead
+                                  key={column.name}
+                                  className="font-arabic"
+                                >
                                   {column.name}
-                                  {column.pk === 1 && <Badge variant="outline" className="mr-1">PK</Badge>}
+                                  {column.pk === 1 && (
+                                    <Badge variant="outline" className="mr-1">
+                                      PK
+                                    </Badge>
+                                  )}
                                 </TableHead>
                               ))}
-                              <TableHead className="font-arabic">الإجراءات</TableHead>
+                              <TableHead className="font-arabic">
+                                الإجراءات
+                              </TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {tableData.rows.map((row, index) => (
                               <TableRow key={index}>
-                                {tableData.columns.map(column => (
-                                  <TableCell key={column.name} className="font-arabic">
-                                    {row[column.name]?.toString() || '-'}
+                                {tableData.columns.map((column) => (
+                                  <TableCell
+                                    key={column.name}
+                                    className="font-arabic"
+                                  >
+                                    {row[column.name]?.toString() || "-"}
                                   </TableCell>
                                 ))}
                                 <TableCell>
@@ -422,13 +500,21 @@ export default function DatabaseManager() {
                       {/* التنقل بين الصفحات */}
                       <div className="flex justify-between items-center mt-4">
                         <div className="text-sm text-gray-600 font-arabic">
-                          عرض {(tableData.pagination.currentPage - 1) * 20 + 1} إلى {Math.min(tableData.pagination.currentPage * 20, tableData.pagination.totalRows)} من أصل {tableData.pagination.totalRows}
+                          عرض {(tableData.pagination.currentPage - 1) * 20 + 1}{" "}
+                          إلى{" "}
+                          {Math.min(
+                            tableData.pagination.currentPage * 20,
+                            tableData.pagination.totalRows,
+                          )}{" "}
+                          من أصل {tableData.pagination.totalRows}
                         </div>
                         <div className="flex gap-2">
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                            onClick={() =>
+                              setCurrentPage((prev) => Math.max(1, prev - 1))
+                            }
                             disabled={currentPage === 1}
                             className="font-arabic"
                           >
@@ -437,8 +523,10 @@ export default function DatabaseManager() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setCurrentPage(prev => prev + 1)}
-                            disabled={currentPage >= tableData.pagination.totalPages}
+                            onClick={() => setCurrentPage((prev) => prev + 1)}
+                            disabled={
+                              currentPage >= tableData.pagination.totalPages
+                            }
                             className="font-arabic"
                           >
                             التالي
@@ -455,7 +543,9 @@ export default function DatabaseManager() {
           <TabsContent value="query" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">تنفيذ استعلامات مخصصة</CardTitle>
+                <CardTitle className="font-arabic">
+                  تنفيذ استعلامات مخصصة
+                </CardTitle>
                 <CardDescription className="font-arabic">
                   اكتب استعلام SQL مخصص (SELECT فقط)
                 </CardDescription>
@@ -487,7 +577,9 @@ export default function DatabaseManager() {
                 {queryResult && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="font-arabic">نتيجة الاستعلام</CardTitle>
+                      <CardTitle className="font-arabic">
+                        نتيجة الاستعلام
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       {queryResult.success ? (
@@ -497,14 +589,20 @@ export default function DatabaseManager() {
                           </p>
                           <div className="overflow-x-auto">
                             <pre className="bg-gray-100 p-4 rounded-lg text-sm">
-                              {JSON.stringify(queryResult.data.results, null, 2)}
+                              {JSON.stringify(
+                                queryResult.data.results,
+                                null,
+                                2,
+                              )}
                             </pre>
                           </div>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2 text-red-600">
                           <AlertCircle className="h-4 w-4" />
-                          <span className="font-arabic">{queryResult.error}</span>
+                          <span className="font-arabic">
+                            {queryResult.error}
+                          </span>
                         </div>
                       )}
                     </CardContent>
@@ -524,13 +622,23 @@ export default function DatabaseManager() {
             {tableData && (
               <div className="grid grid-cols-2 gap-4 max-h-96 overflow-y-auto">
                 {tableData.columns
-                  .filter(col => col.name !== 'id' && col.name !== 'created_at' && col.name !== 'updated_at')
-                  .map(column => (
+                  .filter(
+                    (col) =>
+                      col.name !== "id" &&
+                      col.name !== "created_at" &&
+                      col.name !== "updated_at",
+                  )
+                  .map((column) => (
                     <div key={column.name} className="space-y-2">
                       <Label className="font-arabic">{column.name}</Label>
                       <Input
-                        value={formData[column.name] || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, [column.name]: e.target.value }))}
+                        value={formData[column.name] || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            [column.name]: e.target.value,
+                          }))
+                        }
                         placeholder={column.type}
                       />
                     </div>
@@ -538,7 +646,11 @@ export default function DatabaseManager() {
               </div>
             )}
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsEditDialogOpen(false)} className="font-arabic">
+              <Button
+                variant="outline"
+                onClick={() => setIsEditDialogOpen(false)}
+                className="font-arabic"
+              >
                 إلغاء
               </Button>
               <Button onClick={handleSave} className="font-arabic">
@@ -557,16 +669,28 @@ export default function DatabaseManager() {
             {tableData && (
               <div className="grid grid-cols-2 gap-4 max-h-96 overflow-y-auto">
                 {tableData.columns
-                  .filter(col => col.name !== 'id' && col.name !== 'created_at' && col.name !== 'updated_at')
-                  .map(column => (
+                  .filter(
+                    (col) =>
+                      col.name !== "id" &&
+                      col.name !== "created_at" &&
+                      col.name !== "updated_at",
+                  )
+                  .map((column) => (
                     <div key={column.name} className="space-y-2">
                       <Label className="font-arabic">
                         {column.name}
-                        {column.notnull === 1 && <span className="text-red-500">*</span>}
+                        {column.notnull === 1 && (
+                          <span className="text-red-500">*</span>
+                        )}
                       </Label>
                       <Input
-                        value={formData[column.name] || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, [column.name]: e.target.value }))}
+                        value={formData[column.name] || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            [column.name]: e.target.value,
+                          }))
+                        }
                         placeholder={column.type}
                         required={column.notnull === 1}
                       />
@@ -575,7 +699,11 @@ export default function DatabaseManager() {
               </div>
             )}
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="font-arabic">
+              <Button
+                variant="outline"
+                onClick={() => setIsAddDialogOpen(false)}
+                className="font-arabic"
+              >
                 إلغاء
               </Button>
               <Button onClick={handleSave} className="font-arabic">

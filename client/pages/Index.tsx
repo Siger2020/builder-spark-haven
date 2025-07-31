@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Calendar, 
-  Users, 
-  Shield, 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Calendar,
+  Users,
+  Shield,
   Clock,
   Star,
   Phone,
@@ -14,7 +20,7 @@ import {
   Heart,
   Award,
   CheckCircle,
-  Settings
+  Settings,
 } from "lucide-react";
 
 const services = [
@@ -22,68 +28,68 @@ const services = [
     title: "تنظيف الأسنان",
     description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
     icon: Smile,
-    price: "من 200 ريال"
+    price: "من 200 ريال",
   },
   {
     title: "حشوات الأسنان",
     description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
     icon: Shield,
-    price: "من 300 ريال"
+    price: "من 300 ريال",
   },
   {
     title: "تقويم الأسنان",
     description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
     icon: Star,
-    price: "من 3000 ريال"
+    price: "من 3000 ريال",
   },
   {
     title: "زراعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
-    price: "من 2500 ريال"
+    price: "من 2500 ريال",
   },
   {
     title: "تبييض الأسنان",
     description: "تبييض آمن وفعال لابتسامة مشرقة",
     icon: Star,
-    price: "من 800 ريال"
+    price: "من 800 ريال",
   },
   {
     title: "علاج الجذور",
     description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
-    price: "من 600 ريال"
-  }
+    price: "من 600 ريال",
+  },
 ];
 
 const features = [
   {
     title: "حجز سهل عبر الإنترنت",
     description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
-    icon: Calendar
+    icon: Calendar,
   },
   {
     title: "فريق طبي متخصص",
     description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
-    icon: Users
+    icon: Users,
   },
   {
     title: "تقنيات متقدمة",
     description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمياً",
-    icon: Shield
+    icon: Shield,
   },
   {
     title: "خدمة 24/7",
     description: "خدمة عملاء متاحة على مدار الساعة لخدمتكم",
-    icon: Clock
-  }
+    icon: Clock,
+  },
 ];
 
 const stats = [
   { number: "5000+", label: "مريض راضٍ" },
   { number: "15+", label: "سنة خبرة" },
   { number: "98%", label: "نسبة نجاح" },
-  { number: "24/7", label: "خدمة العملاء" }
+  { number: "24/7", label: "خدمة العملاء" },
 ];
 
 export default function Index() {
@@ -101,12 +107,19 @@ export default function Index() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
-                <Button size="lg" className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3">
+                <Button
+                  size="lg"
+                  className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3"
+                >
                   احجز موعداً الآن
                   <Calendar className="mr-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-dental-primary font-arabic text-lg px-8 py-3">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-dental-primary font-arabic text-lg px-8 py-3"
+              >
                 تواصل معنا
                 <Phone className="mr-2 h-5 w-5" />
               </Button>
@@ -150,9 +163,15 @@ export default function Index() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <Icon className="h-10 w-10 text-dental-primary" />
-                      <span className="text-dental-primary font-bold"><p><br /></p></span>
+                      <span className="text-dental-primary font-bold">
+                        <p>
+                          <br />
+                        </p>
+                      </span>
                     </div>
-                    <CardTitle className="font-arabic">{service.title}</CardTitle>
+                    <CardTitle className="font-arabic">
+                      {service.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="font-arabic text-gray-600">
@@ -208,7 +227,10 @@ export default function Index() {
             احجز موعدك اليوم واحصل على استشارة مجانية
           </p>
           <Link to="/booking">
-            <Button size="lg" className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3">
+            <Button
+              size="lg"
+              className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3"
+            >
               احجز موعداً مجانياً
               <Calendar className="mr-2 h-5 w-5" />
             </Button>
@@ -227,15 +249,21 @@ export default function Index() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Phone className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic"><p>00967 777775545</p></span>
+                  <span className="font-arabic">
+                    <p>00967 777775545</p>
+                  </span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Mail className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic"><p>info@dkalmoli.com</p></span>
+                  <span className="font-arabic">
+                    <p>info@dkalmoli.com</p>
+                  </span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
-                  <span className="font-arabic">شارع المقالح -حي الاصبحي امام سيتي ماكس</span>
+                  <span className="font-arabic">
+                    شارع المقالح -حي الاصبحي امام سيتي ماكس
+                  </span>
                 </div>
               </div>
               <div className="mt-8">

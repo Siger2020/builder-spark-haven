@@ -33,66 +33,93 @@ const App = () => (
           <div className="min-h-screen">
             <Routes>
               {/* Public routes */}
-              <Route path="/" element={
-                <>
-                  <Navigation />
-                  <Index />
-                </>
-              } />
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Navigation />
+                    <Index />
+                  </>
+                }
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
               {/* Protected routes */}
-              <Route path="/booking" element={
-                <ProtectedRoute>
-                  <Navigation />
-                  <Booking />
-                </ProtectedRoute>
-              } />
-              <Route path="/patients" element={
-                <ProtectedRoute requiredRole="doctor">
-                  <Navigation />
-                  <Patients />
-                </ProtectedRoute>
-              } />
-              <Route path="/transactions" element={
-                <ProtectedRoute requiredRole="admin">
-                  <Navigation />
-                  <Transactions />
-                </ProtectedRoute>
-              } />
-              <Route path="/reports" element={
-                <ProtectedRoute requiredRole="doctor">
-                  <Navigation />
-                  <Reports />
-                </ProtectedRoute>
-              } />
-              <Route path="/sessions" element={
-                <ProtectedRoute requiredRole="doctor">
-                  <Navigation />
-                  <Sessions />
-                </ProtectedRoute>
-              } />
-              <Route path="/admin" element={
-                <ProtectedRoute requiredRole="admin">
-                  <Navigation />
-                  <Admin />
-                </ProtectedRoute>
-              } />
-              <Route path="/database" element={
-                <ProtectedRoute requiredRole="admin">
-                  <Navigation />
-                  <DatabaseManager />
-                </ProtectedRoute>
-              } />
+              <Route
+                path="/booking"
+                element={
+                  <ProtectedRoute>
+                    <Navigation />
+                    <Booking />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/patients"
+                element={
+                  <ProtectedRoute requiredRole="doctor">
+                    <Navigation />
+                    <Patients />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/transactions"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <Transactions />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/reports"
+                element={
+                  <ProtectedRoute requiredRole="doctor">
+                    <Navigation />
+                    <Reports />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/sessions"
+                element={
+                  <ProtectedRoute requiredRole="doctor">
+                    <Navigation />
+                    <Sessions />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <Admin />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/database"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <DatabaseManager />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={
-                <>
-                  <Navigation />
-                  <NotFound />
-                </>
-              } />
+              <Route
+                path="*"
+                element={
+                  <>
+                    <Navigation />
+                    <NotFound />
+                  </>
+                }
+              />
             </Routes>
           </div>
         </AuthProvider>

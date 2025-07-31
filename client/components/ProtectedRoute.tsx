@@ -4,10 +4,13 @@ import { Loader2 } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: 'patient' | 'doctor' | 'admin';
+  requiredRole?: "patient" | "doctor" | "admin";
 }
 
-export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
+export function ProtectedRoute({
+  children,
+  requiredRole,
+}: ProtectedRouteProps) {
   const { isAuthenticated, user, isLoading } = useAuth();
   const location = useLocation();
 
@@ -17,7 +20,9 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
       <div className="min-h-screen flex items-center justify-center" dir="rtl">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600 font-arabic">جاري التحقق من تسجيل الدخول...</p>
+          <p className="text-gray-600 font-arabic">
+            جاري التحقق من تسجيل الدخول...
+          </p>
         </div>
       </div>
     );
@@ -29,9 +34,12 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
   }
 
   // Check role-based access if required
-  if (requiredRole && user?.role !== requiredRole && user?.role !== 'admin') {
+  if (requiredRole && user?.role !== requiredRole && user?.role !== "admin") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50" dir="rtl">
+      <div
+        className="min-h-screen flex items-center justify-center bg-gray-50"
+        dir="rtl"
+      >
         <div className="text-center p-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-4 font-arabic">
             غير مصرح لك بالوصول

@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -38,13 +44,21 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" dir="rtl">
+    <div
+      className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+      dir="rtl"
+    >
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <Link to="/" className="flex items-center justify-center space-x-reverse space-x-2 mb-6">
+          <Link
+            to="/"
+            className="flex items-center justify-center space-x-reverse space-x-2 mb-6"
+          >
             <Smile className="h-10 w-10 text-dental-primary" />
-            <span className="text-2xl font-bold text-gray-900 font-arabic">عيادة الدكتور كمال</span>
+            <span className="text-2xl font-bold text-gray-900 font-arabic">
+              عيادة الدكتور كمال
+            </span>
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 font-arabic">
             تسجيل الدخول
@@ -57,7 +71,9 @@ export default function Login() {
         {/* Login Form */}
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic">تسجيل الدخول إلى حسابك</CardTitle>
+            <CardTitle className="font-arabic">
+              تسجيل الدخول إلى حسابك
+            </CardTitle>
             <CardDescription className="font-arabic">
               أدخل بياناتك للوصول إلى النظام
             </CardDescription>
@@ -67,13 +83,17 @@ export default function Login() {
               {error && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
-                  <AlertDescription className="font-arabic">{error}</AlertDescription>
+                  <AlertDescription className="font-arabic">
+                    {error}
+                  </AlertDescription>
                 </Alert>
               )}
 
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="email" className="font-arabic">البريد الإلكتروني</Label>
+                  <Label htmlFor="email" className="font-arabic">
+                    البريد الإلكتروني
+                  </Label>
                   <Input
                     id="email"
                     type="email"
@@ -86,7 +106,9 @@ export default function Login() {
                 </div>
 
                 <div>
-                  <Label htmlFor="password" className="font-arabic">كلمة المرور</Label>
+                  <Label htmlFor="password" className="font-arabic">
+                    كلمة المرور
+                  </Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -115,7 +137,11 @@ export default function Login() {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full font-arabic" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full font-arabic"
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -127,11 +153,9 @@ export default function Login() {
               </Button>
             </form>
 
-
-
             <div className="mt-6 text-center">
-              <Link 
-                to="/register" 
+              <Link
+                to="/register"
                 className="text-sm text-dental-primary hover:underline font-arabic"
               >
                 ليس لديك حساب؟ إنشاء حساب جديد
@@ -139,8 +163,8 @@ export default function Login() {
             </div>
 
             <div className="mt-4 text-center">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="text-sm text-gray-600 hover:text-gray-900 font-arabic"
               >
                 العودة للصفحة الرئيسية

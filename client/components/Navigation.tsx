@@ -12,7 +12,7 @@ import {
   Bell,
   LogIn,
   LogOut,
-  User
+  User,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
@@ -35,13 +35,21 @@ export function Navigation() {
   const { isAuthenticated, user, logout } = useAuth();
 
   return (
-    <nav className="bg-white shadow-lg border-b border-dental-secondary/20" dir="rtl">
+    <nav
+      className="bg-white shadow-lg border-b border-dental-secondary/20"
+      dir="rtl"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-reverse space-x-2">
+            <Link
+              to="/"
+              className="flex items-center space-x-reverse space-x-2"
+            >
               <Smile className="h-8 w-8 text-dental-primary" />
-              <span className="text-xl font-bold text-gray-900 font-arabic">عيادة الدكتور كمال </span>
+              <span className="text-xl font-bold text-gray-900 font-arabic">
+                عيادة الدكتور كمال{" "}
+              </span>
             </Link>
           </div>
 
@@ -58,7 +66,7 @@ export function Navigation() {
                     "flex items-center space-x-reverse space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                     isActive
                       ? "bg-dental-primary text-white"
-                      : "text-gray-700 hover:text-dental-primary hover:bg-dental-light"
+                      : "text-gray-700 hover:text-dental-primary hover:bg-dental-light",
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -72,7 +80,9 @@ export function Navigation() {
               {isAuthenticated && (
                 <Button variant="ghost" size="sm" className="relative">
                   <Bell className="h-5 w-5" />
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                    3
+                  </span>
                 </Button>
               )}
 
@@ -80,7 +90,9 @@ export function Navigation() {
                 <div className="flex items-center space-x-reverse space-x-2">
                   <div className="flex items-center space-x-reverse space-x-2">
                     <User className="h-4 w-4 text-gray-600" />
-                    <span className="text-sm text-gray-700 font-arabic">{user?.name}</span>
+                    <span className="text-sm text-gray-700 font-arabic">
+                      {user?.name}
+                    </span>
                   </div>
                   <Button
                     variant="outline"
@@ -111,7 +123,11 @@ export function Navigation() {
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
@@ -132,7 +148,7 @@ export function Navigation() {
                     "flex items-center space-x-reverse space-x-2 px-3 py-2 rounded-md text-base font-medium",
                     isActive
                       ? "bg-dental-primary text-white"
-                      : "text-gray-700 hover:text-dental-primary hover:bg-dental-light"
+                      : "text-gray-700 hover:text-dental-primary hover:bg-dental-light",
                   )}
                   onClick={() => setIsOpen(false)}
                 >
