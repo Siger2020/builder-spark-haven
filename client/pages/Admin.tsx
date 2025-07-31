@@ -88,7 +88,7 @@ const alerts = [
     id: 1,
     type: "urgent",
     message: "مريض يحتاج متابعة فورية - محمد علي القحطاني",
-    time: "منذ 5 دقائق"
+    time: "م��ذ 5 دقائق"
   },
   {
     id: 2,
@@ -678,6 +678,25 @@ export default function Admin() {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* System Settings Dialog */}
+        <SystemSettings
+          isOpen={systemSettingsOpen}
+          onClose={() => setSystemSettingsOpen(false)}
+          type={settingsType}
+        />
+
+        {/* Export Reports Dialog */}
+        <ExportReports
+          isOpen={exportReportsOpen}
+          onClose={() => setExportReportsOpen(false)}
+        />
+
+        {/* Notification Center Dialog */}
+        <NotificationCenter
+          isOpen={notificationCenterOpen}
+          onClose={() => setNotificationCenterOpen(false)}
+        />
       </div>
     </div>
   );
