@@ -9,11 +9,15 @@ import {
   Menu,
   X,
   Smile,
-  Bell
+  Bell,
+  LogIn,
+  LogOut,
+  User
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navigationItems = [
   { name: "الرئيسية", path: "/", icon: Smile },
@@ -22,7 +26,7 @@ const navigationItems = [
   { name: "المعاملات", path: "/transactions", icon: CreditCard },
   { name: "الكشوفات", path: "/reports", icon: FileText },
   { name: "جلسات العلاج", path: "/sessions", icon: Activity },
-  { name: "لوحة الإدارة", path: "/admin", icon: Settings },
+  { name: "لو��ة الإدارة", path: "/admin", icon: Settings },
 ];
 
 export function Navigation() {
