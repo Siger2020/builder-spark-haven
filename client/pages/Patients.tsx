@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarInitials } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
   Users, 
   Search, 
@@ -59,7 +59,7 @@ const patients = [
     status: "active",
     medicalHistory: ["لا توجد حساسيات معروفة"],
     treatments: ["تقويم الأسنان"],
-    notes: "في ��رحلة التقويم، المتابعة شهرياً"
+    notes: "في مرحلة التقويم، المتابعة شهرياً"
   },
   {
     id: "PAT-003",
@@ -282,7 +282,7 @@ export default function Patients() {
                     <TableRow>
                       <TableHead className="font-arabic">المريض</TableHead>
                       <TableHead className="font-arabic">العمر/الجنس</TableHead>
-                      <TableHead className="font-arabic">الهاتف</TableHead>
+                      <TableHead className="font-arabic">اله��تف</TableHead>
                       <TableHead className="font-arabic">التأمين</TableHead>
                       <TableHead className="font-arabic">آخر زيارة</TableHead>
                       <TableHead className="font-arabic">الموعد القادم</TableHead>
@@ -349,7 +349,7 @@ export default function Patients() {
               <CardContent>
                 <div className="text-center py-8">
                   <Calendar className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيت�� إضافة إدارة المواعيد قريباً</p>
+                  <p className="text-gray-600 font-arabic">سيتم إضافة إدارة المواعيد قريباً</p>
                 </div>
               </CardContent>
             </Card>
@@ -412,7 +412,7 @@ export default function Patients() {
                 <Input type="email" placeholder="email@example.com" className="font-arabic" />
               </div>
               <div className="space-y-2">
-                <Label className="font-arabic">التأمين الطبي</Label>
+                <Label className="font-arabic">التأمي�� الطبي</Label>
                 <Input placeholder="شركة التأمين" className="font-arabic" />
               </div>
               <div className="col-span-2 space-y-2">
