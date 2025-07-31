@@ -88,7 +88,7 @@ const alerts = [
     id: 1,
     type: "urgent",
     message: "مريض يحتاج متابعة فورية - محمد علي القحطاني",
-    time: "منذ 5 دقا��ق"
+    time: "منذ 5 دقائق"
   },
   {
     id: 2,
@@ -137,7 +137,7 @@ const doctors = [
   },
   {
     id: 3,
-    name: "د. نو��ا سالم",
+    name: "د. نورا سالم",
     specialty: "جراحة الفم",
     patients: 38,
     appointments: 22,
@@ -183,6 +183,10 @@ const getAlertIcon = (type: string) => {
 
 export default function Admin() {
   const [selectedTimeRange, setSelectedTimeRange] = useState("today");
+  const [systemSettingsOpen, setSystemSettingsOpen] = useState(false);
+  const [settingsType, setSettingsType] = useState<'general' | 'users' | 'security' | 'backup' | 'notifications'>('general');
+  const [exportReportsOpen, setExportReportsOpen] = useState(false);
+  const [notificationCenterOpen, setNotificationCenterOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
@@ -368,7 +372,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">الأداء اليومي</CardTitle>
                   <CardDescription className="font-arabic">
-                    مؤش��ات الأداء الرئيسية لليوم
+                    مؤشرات الأداء الرئيسية لليوم
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
