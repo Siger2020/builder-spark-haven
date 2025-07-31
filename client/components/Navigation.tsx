@@ -1,14 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
-import { 
-  Calendar, 
-  Users, 
-  Settings, 
-  FileText, 
-  CreditCard, 
+import {
+  Calendar,
+  Users,
+  Settings,
+  FileText,
+  CreditCard,
   Activity,
   Menu,
   X,
-  Smile
+  Smile,
+  Bell
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
