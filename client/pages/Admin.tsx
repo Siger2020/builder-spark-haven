@@ -198,13 +198,20 @@ export default function Admin() {
             <p className="text-gray-600 font-arabic">نظام إداري متكامل لمتابعة جميع عمليات العيادة</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="font-arabic">
+            <Button
+              variant="outline"
+              className="font-arabic"
+              onClick={() => setExportReportsOpen(true)}
+            >
               <Download className="h-4 w-4 mr-2" />
               تصدير التقرير
             </Button>
-            <Button className="font-arabic">
-              <Settings className="h-4 w-4 mr-2" />
-              إعدادات النظام
+            <Button
+              className="font-arabic"
+              onClick={() => setNotificationCenterOpen(true)}
+            >
+              <MessageSquare className="h-4 w-4 mr-2" />
+              مركز الإشعارات
             </Button>
           </div>
         </div>
@@ -272,7 +279,7 @@ export default function Admin() {
             <TabsTrigger value="overview">نظرة عامة</TabsTrigger>
             <TabsTrigger value="appointments">المواعيد</TabsTrigger>
             <TabsTrigger value="finances">المالية</TabsTrigger>
-            <TabsTrigger value="staff">الطاقم الطبي</TabsTrigger>
+            <TabsTrigger value="staff">الطاقم الطب��</TabsTrigger>
             <TabsTrigger value="settings">الإعدادات</TabsTrigger>
           </TabsList>
 
