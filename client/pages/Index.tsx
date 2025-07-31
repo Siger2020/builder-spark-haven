@@ -1,62 +1,289 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Calendar, 
+  Users, 
+  Shield, 
+  Clock,
+  Star,
+  Phone,
+  MapPin,
+  Mail,
+  Tooth,
+  Heart,
+  Award,
+  CheckCircle
+} from "lucide-react";
+
+const services = [
+  {
+    title: "تنظيف الأسنان",
+    description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
+    icon: Tooth,
+    price: "من 200 ريال"
+  },
+  {
+    title: "حشوات الأسنان",
+    description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
+    icon: Shield,
+    price: "من 300 ريال"
+  },
+  {
+    title: "تقويم الأسنان",
+    description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
+    icon: Star,
+    price: "من 3000 ريال"
+  },
+  {
+    title: "زراعة الأسنان",
+    description: "زراعة متطورة مع ضمان طويل المدى",
+    icon: Heart,
+    price: "من 2500 ريال"
+  },
+  {
+    title: "تبييض الأسنان",
+    description: "تبييض آمن وفعال لابتسامة مشرقة",
+    icon: Star,
+    price: "من 800 ريال"
+  },
+  {
+    title: "علاج الجذور",
+    description: "علاج متخصص للجذور بأحدث التقنيات",
+    icon: Award,
+    price: "من 600 ريال"
+  }
+];
+
+const features = [
+  {
+    title: "حجز سهل عبر الإنترنت",
+    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
+    icon: Calendar
+  },
+  {
+    title: "فريق طبي متخصص",
+    description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
+    icon: Users
+  },
+  {
+    title: "تقنيات متقدمة",
+    description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمياً",
+    icon: Shield
+  },
+  {
+    title: "خد��ة 24/7",
+    description: "خدمة عملاء متاحة على مدار الساعة لخدمتكم",
+    icon: Clock
+  }
+];
+
+const stats = [
+  { number: "5000+", label: "مريض راضٍ" },
+  { number: "15+", label: "سنة خبرة" },
+  { number: "98%", label: "نسبة نجاح" },
+  { number: "24/7", label: "خدمة العملاء" }
+];
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchDemo();
-  }, []);
-
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
-      </div>
+    <div className="min-h-screen" dir="rtl">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-l from-dental-primary to-dental-primary/90 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
+              عيادة الأسنان المتقدمة
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
+              رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/booking">
+                <Button size="lg" className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3">
+                  احجز موعداً الآن
+                  <Calendar className="mr-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-dental-primary font-arabic text-lg px-8 py-3">
+                تواصل معنا
+                <Phone className="mr-2 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-dental-primary mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-gray-600 font-arabic">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
+              خدماتنا المتميزة
+            </h2>
+            <p className="text-lg text-gray-600 font-arabic">
+              نقدم مجموعة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <Icon className="h-10 w-10 text-dental-primary" />
+                      <span className="text-dental-primary font-bold">{service.price}</span>
+                    </div>
+                    <CardTitle className="font-arabic">{service.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="font-arabic text-gray-600">
+                      {service.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
+              لماذا تختارنا؟
+            </h2>
+            <p className="text-lg text-gray-600 font-arabic">
+              نتميز بالخدمة المهنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div key={index} className="text-center">
+                  <div className="bg-dental-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-8 w-8 text-dental-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 font-arabic">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 font-arabic">
+                    {feature.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-dental-primary text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-arabic">
+            جاهز لبدء رحلة العناية بأسنانك؟
+          </h2>
+          <p className="text-xl mb-8 font-arabic opacity-90">
+            احجز موعدك اليوم واحصل على استشارة مجانية
+          </p>
+          <Link to="/booking">
+            <Button size="lg" className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3">
+              احجز موعداً مجانياً
+              <Calendar className="mr-2 h-5 w-5" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 font-arabic">
+                تواصل معنا
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-reverse space-x-3">
+                  <Phone className="h-5 w-5 text-dental-primary" />
+                  <span className="font-arabic">+966 50 123 4567</span>
+                </div>
+                <div className="flex items-center space-x-reverse space-x-3">
+                  <Mail className="h-5 w-5 text-dental-primary" />
+                  <span className="font-arabic">info@dentalclinic.sa</span>
+                </div>
+                <div className="flex items-center space-x-reverse space-x-3">
+                  <MapPin className="h-5 w-5 text-dental-primary" />
+                  <span className="font-arabic">شارع الملك فهد، الرياض، المملكة العربية السعودية</span>
+                </div>
+              </div>
+              <div className="mt-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
+                  ساعات العمل
+                </h3>
+                <div className="space-y-2 font-arabic">
+                  <div className="flex justify-between">
+                    <span>السبت - الخميس</span>
+                    <span>9:00 ص - 9:00 م</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>الجمعة</span>
+                    <span>2:00 م - 9:00 م</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-lg">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
+                إدارة النظام
+              </h3>
+              <p className="text-gray-600 mb-6 font-arabic">
+                دخول سريع لإدارة الحجوزات وملفات المرضى
+              </p>
+              <div className="space-y-4">
+                <Link to="/admin" className="block">
+                  <Button className="w-full font-arabic" variant="outline">
+                    لوحة الإدارة
+                    <Settings className="mr-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/patients" className="block">
+                  <Button className="w-full font-arabic" variant="outline">
+                    ملفات المرضى
+                    <Users className="mr-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/transactions" className="block">
+                  <Button className="w-full font-arabic" variant="outline">
+                    المعاملات المالية
+                    <CheckCircle className="mr-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
