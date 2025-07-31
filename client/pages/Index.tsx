@@ -42,7 +42,7 @@ const services = [
     title: "تقويم الأسنان",
     description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
     icon: Star,
-    price: "من 3000 ��يال",
+    price: "من 3000 ريال",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -106,7 +106,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
-              عيادة الدكتور كمال
+              عيادة الدكتور كمال الملصي
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
               رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
