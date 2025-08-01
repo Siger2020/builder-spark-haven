@@ -177,7 +177,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
-              عيادة الدكتور كمال ال��لصي
+              عيادة الدكتور كمال الملصي
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
               رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
@@ -329,7 +329,7 @@ export default function Index() {
               التقنيات المتقدمة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل ��لنتائج
+              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -502,15 +502,27 @@ export default function Index() {
 
           {/* عرض المزيد */}
           <div className="text-center mt-12">
-            <Card className="inline-block p-6 bg-gradient-to-r from-dental-primary to-blue-600 text-white">
-              <div className="flex items-center justify-center space-x-reverse space-x-4">
-                <div>
-                  <h3 className="text-xl font-bold mb-2 font-arabic">شاهد المزيد من النتائج</h3>
-                  <p className="text-blue-100 font-arabic">+500 حالة نجاح موثقة</p>
-                </div>
-                <div className="text-4xl">📸</div>
+            <Button
+              onClick={() => setShowMoreResults(!showMoreResults)}
+              className="bg-gradient-to-r from-dental-primary to-blue-600 hover:from-dental-primary/90 hover:to-blue-600/90 text-white px-8 py-4 text-lg font-arabic transition-all duration-300 transform hover:scale-105"
+              size="lg"
+            >
+              <div className="flex items-center space-x-reverse space-x-3">
+                <span>{showMoreResults ? "إخفاء النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                {showMoreResults ? (
+                  <ChevronUp className="h-5 w-5" />
+                ) : (
+                  <ChevronDown className="h-5 w-5" />
+                )}
+                <span className="text-2xl">📸</span>
               </div>
-            </Card>
+            </Button>
+            <p className="text-gray-600 font-arabic mt-4">
+              {showMoreResults ?
+                `عرض ${beforeAfterCases.length} حالة نجاح موثقة` :
+                "+500 حالة نجاح موثقة"
+              }
+            </p>
           </div>
         </div>
       </section>
@@ -575,7 +587,7 @@ export default function Index() {
                   />
                   <div>
                     <div className="font-bold text-gray-900 font-arabic">محمد أحمد</div>
-                    <div className="text-sm text-gray-600 font-arabic">زراعة الأسنان</div>
+                    <div className="text-sm text-gray-600 font-arabic">زراعة الأسن��ن</div>
                   </div>
                 </div>
               </CardContent>
@@ -635,7 +647,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شارع المقالح -حي الاصبحي امام سيتي ماكس
+                    شارع المقالح -حي الاصبحي ��مام سيتي ماكس
                   </span>
                 </div>
               </div>
