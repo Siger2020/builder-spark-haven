@@ -72,6 +72,27 @@ const services = [
     price: "من 600 ريال",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
+  {
+    title: "طب أسنان الأطفال",
+    description: "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
+    icon: Baby,
+    price: "من 150 ريال",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579"
+  },
+  {
+    title: "طب الأسنان الترميمي",
+    description: "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها. نقدم لك الحشوات والتيجان والجسور وغيرها لاستعادة صحة أسنانك",
+    icon: Wrench,
+    price: "من 400 ريال",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e"
+  },
+  {
+    title: "طب الأسنان التجميلي",
+    description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+    icon: Sparkles,
+    price: "من 500 ريال",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12"
+  },
 ];
 
 const features = [
@@ -151,7 +172,7 @@ const beforeAfterCases = [
   {
     id: 7,
     title: "تركيب التيجان",
-    description: "تيجان خزفية بجودة عالية ��شكل طبيعي",
+    description: "تيجان خزفية بجودة عالية وشكل طبيعي",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
   },
