@@ -112,6 +112,33 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/patient-dashboard"
+                element={
+                  <ProtectedRoute requiredRole="patient">
+                    <Navigation />
+                    <PatientDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/doctors"
+                element={
+                  <>
+                    <Navigation />
+                    <Doctors />
+                  </>
+                }
+              />
+              <Route
+                path="/services"
+                element={
+                  <>
+                    <Navigation />
+                    <Services />
+                  </>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
