@@ -21,7 +21,7 @@ export function initializeDatabase() {
     db.exec(schema);
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
 
-    // إضافة بيانات تجريبية إذا لم تكن موجودة
+    // إضافة بيانات تجريبية إذا لم تكن موجو��ة
     seedDatabase();
   } catch (error) {
     console.error("❌ خطأ في تهيئة قاعدة البيانات:", error);
@@ -48,10 +48,10 @@ function seedDatabase() {
 
       const users = [
         [
-          "د. كمال الموالي",
-          "doctor@dkalmoli.com",
-          "hashed_password_123",
-          "00967777775545",
+          "مدير النظام",
+          "admin@dkalmoli.com",
+          "123456",
+          "967777775545",
           "admin",
           "male",
           "صنعاء، اليمن",
