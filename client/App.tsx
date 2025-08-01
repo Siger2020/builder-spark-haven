@@ -20,6 +20,9 @@ import Reports from "./pages/Reports";
 import Sessions from "./pages/Sessions";
 import Admin from "./pages/Admin";
 import DatabaseManager from "./pages/DatabaseManager";
+import PatientDashboard from "./pages/PatientDashboard";
+import Doctors from "./pages/Doctors";
+import Services from "./pages/Services";
 
 const queryClient = new QueryClient();
 
