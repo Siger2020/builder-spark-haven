@@ -24,6 +24,9 @@ import {
   Settings,
   ChevronDown,
   ChevronUp,
+  Baby,
+  Wrench,
+  Sparkles,
 } from "lucide-react";
 
 const services = [
@@ -148,7 +151,7 @@ const beforeAfterCases = [
   {
     id: 7,
     title: "تركيب التيجان",
-    description: "تيجان خزفية بجودة عالية وشكل طبيعي",
+    description: "تيجان خزفية بجودة عالية ��شكل طبيعي",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
   },
