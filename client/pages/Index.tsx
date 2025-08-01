@@ -101,7 +101,75 @@ const stats = [
   { number: "24/7", label: "خدمة العملاء" },
 ];
 
+const beforeAfterCases = [
+  {
+    id: 1,
+    title: "تقويم الأسنان",
+    description: "تقويم شامل لمدة 18 شهر مع نتائج مذهلة",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
+  },
+  {
+    id: 2,
+    title: "تبييض الأسنان",
+    description: "تبييض احترافي مع تحسن 8 درجات",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
+  },
+  {
+    id: 3,
+    title: "زراعة الأسنان",
+    description: "زراعة متكاملة مع نتائج طبيعية 100%",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
+  },
+  {
+    id: 4,
+    title: "حشوات تجميلية",
+    description: "حشوات تطابق لون الأسنان الطبيعي 100%",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
+  },
+  {
+    id: 5,
+    title: "قشور الأسنان",
+    description: "ابتسامة هوليوودية طبيعية ومتينة",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
+  },
+  {
+    id: 6,
+    title: "علاج الجذور",
+    description: "إنقاذ السن وإزالة الألم نهائياً",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
+  },
+  // Additional cases for "View More"
+  {
+    id: 7,
+    title: "تركيب التيجان",
+    description: "تيجان خزفية بجودة عالية وشكل طبيعي",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
+  },
+  {
+    id: 8,
+    title: "جسور الأسنان",
+    description: "جسور ثابتة لتعويض الأسنان المفقودة",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
+  },
+  {
+    id: 9,
+    title: "علاج اللثة",
+    description: "علاج التهابات اللثة وتحسين صحة الفم",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
+  },
+];
+
 export default function Index() {
+  const [showMoreResults, setShowMoreResults] = useState(false);
   return (
     <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
@@ -208,7 +276,7 @@ export default function Index() {
               لماذا تختارنا؟
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نتميز بالخدمة المهنية والتقنيات المت��دمة لضمان أفضل رعاية طبية
+              نتميز بالخدمة المهنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -337,7 +405,7 @@ export default function Index() {
                 <div className="relative bg-gray-100">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
-                    alt="قبل تقويم الأسنان"
+                    alt="��بل تقويم الأسنان"
                     className="w-full h-32 object-cover"
                     loading="lazy"
                     style={{
@@ -446,7 +514,7 @@ export default function Index() {
               </div>
               <CardContent className="p-4">
                 <h3 className="font-bold text-gray-900 mb-2 font-arabic">زراعة الأسنان</h3>
-                <p className="text-sm text-gray-600 font-arabic">زراعة متكاملة مع نتائج طبيعية 100%</p>
+                <p className="text-sm text-gray-600 font-arabic">زراعة متكاملة مع ��تائج طبيعية 100%</p>
               </CardContent>
             </Card>
 
@@ -755,7 +823,7 @@ export default function Index() {
                 إدارة النظام
               </h3>
               <p className="text-gray-600 mb-6 font-arabic">
-                دخو�� سريع لإدارة الحجوزات وملفات المرضى
+                دخو�� سريع لإدارة الحجو��ات وملفات المرضى
               </p>
               <div className="space-y-4">
                 <Link to="/admin" className="block">
