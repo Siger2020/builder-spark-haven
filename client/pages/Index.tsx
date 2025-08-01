@@ -88,7 +88,7 @@ const services = [
   },
   {
     title: "طب الأسنان التجميلي",
-    description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها ��ن العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+    description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
     price: "من 500 ريال",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341"
@@ -130,15 +130,15 @@ const beforeAfterCases = [
     id: 1,
     title: "تقويم الأسنان",
     description: "تقويم شامل لمدة 18 شهر مع نتائج مذهلة",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F498b557e655b4717aebccef277928cb8",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fd15de2edbd7e480288bbefeb6673351d",
   },
   {
     id: 2,
     title: "تبييض الأسنان",
     description: "تبييض احترافي مع تحسن 8 درجات",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
+    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
+    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
   {
     id: 3,
@@ -532,7 +532,7 @@ export default function Index() {
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخفاء النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
@@ -627,7 +627,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وف��الاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -671,7 +671,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شارع المقالح -حي الاصبحي ��مام سيتي ماكس
+                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
                   </span>
                 </div>
               </div>
@@ -701,7 +701,7 @@ export default function Index() {
               <div className="space-y-4">
                 <Link to="/admin" className="block">
                   <Button className="w-full font-arabic" variant="outline">
-                    ل��حة الإدارة
+                    لوحة الإدارة
                     <Settings className="mr-2 h-4 w-4" />
                   </Button>
                 </Link>
