@@ -19,7 +19,17 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 
-const navigationItems = [
+// قوائم للمرضى
+const patientNavigationItems = [
+  { name: "الرئيسية", path: "/", icon: Smile },
+  { name: "حجز موعد", path: "/booking", icon: Calendar },
+  { name: "خدماتنا", path: "/services", icon: FileText },
+  { name: "الأطباء", path: "/doctors", icon: Users },
+  { name: "لوحة التحكم", path: "/patient-dashboard", icon: User },
+];
+
+// قوائم لمدير النظام والأطباء
+const adminNavigationItems = [
   { name: "الرئيسية", path: "/", icon: Smile },
   { name: "حجز موعد", path: "/booking", icon: Calendar },
   { name: "المرضى", path: "/patients", icon: Users },
