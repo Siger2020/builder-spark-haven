@@ -46,7 +46,7 @@ export function Navigation() {
               to="/"
               className="text-gray-900 text-xl font-arabic pr-2"
             >
-              <p>عيادة د/ كمال&nbsp;الملصي</p>
+              <p>عيادة الدكتور كمال&nbsp;الملصي</p>
             </Link>
           </div>
 
