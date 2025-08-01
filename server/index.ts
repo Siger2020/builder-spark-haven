@@ -45,6 +45,9 @@ export function createServer() {
   // Authentication routes
   app.use("/api/auth", authRoutes);
 
+  // Bookings routes
+  app.use("/api/bookings", bookingsRoutes);
+
   // Database API routes
   app.get("/api/database/stats", getDatabaseStatsHandler);
   app.get("/api/database/tables", getTablesHandler);
