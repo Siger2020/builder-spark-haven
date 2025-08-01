@@ -271,7 +271,7 @@ export default function Index() {
                   الواقع الافتراضي
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
+                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل ��لقلق والتوتر
                 </p>
                 <div className="text-sm text-blue-600 font-arabic">
                   متوفر في جميع العلاجات
@@ -337,6 +337,11 @@ export default function Index() {
                     alt="قبل تقويم الأسنان"
                     className="w-full h-32 object-cover"
                     loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
                     onError={(e) => {
                       e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
                     }}
@@ -678,7 +683,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر ال��كتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
