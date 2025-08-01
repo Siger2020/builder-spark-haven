@@ -65,6 +65,59 @@ export default function Booking() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // عرض رسالة النجاح
+  if (bookingSuccess) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12 flex items-center justify-center" dir="rtl">
+        <div className="max-w-md w-full">
+          <Card className="text-center">
+            <CardContent className="p-8">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 font-arabic">
+                تم الحجز بنجاح!
+              </h2>
+              <p className="text-gray-600 mb-6 font-arabic">
+                تم إنشاء حجزك بنجاح. سنتواصل معك قريباً لتأكيد الموعد.
+              </p>
+              <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                <p className="text-sm text-gray-600 font-arabic mb-2">رقم الحجز الخاص بك:</p>
+                <p className="text-2xl font-bold text-blue-600">{bookingNumber}</p>
+              </div>
+              <div className="space-y-3">
+                <Button
+                  onClick={() => {
+                    setBookingSuccess(false);
+                    setFormData({
+                      name: "",
+                      phone: "",
+                      email: "",
+                      date: "",
+                      time: "",
+                      service: "",
+                      notes: ""
+                    });
+                  }}
+                  className="w-full font-arabic"
+                >
+                  حجز موعد آخر
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => window.location.href = "/"}
+                  className="w-full font-arabic"
+                >
+                  العودة للرئيسية
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12" dir="rtl">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
