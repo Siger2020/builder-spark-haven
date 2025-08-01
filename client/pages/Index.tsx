@@ -342,7 +342,7 @@ export default function Index() {
                     }}
                   />
                   <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
-                    ق��ل
+                    قبل
                   </div>
                 </div>
                 <div className="relative bg-gray-100">
@@ -361,31 +361,39 @@ export default function Index() {
                 </div>
               </div>
               <CardContent className="p-4">
-                <h3 className="font-bold text-gray-900 mb-2 font-arabic">تقويم الأسنا��</h3>
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">تقويم الأسنان</h3>
                 <p className="text-sm text-gray-600 font-arabic">تقويم شامل لمدة 18 شهر مع نتائج مذهلة</p>
               </CardContent>
             </Card>
 
             {/* Before/After Case 2 */}
-            <Card className="overflow-hidden">
-              <div className="grid grid-cols-2">
-                <div className="relative">
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="relative bg-gray-100">
                   <img
-                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop"
-                    alt="قبل العلاج"
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579"
+                    alt="قبل تبييض الأسنان"
                     className="w-full h-32 object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
                   />
-                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
                     قبل
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative bg-gray-100">
                   <img
-                    src="https://images.unsplash.com/photo-1609840114035-3c981960e832?w=200&h=200&fit=crop"
-                    alt="بعد العلاج"
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12"
+                    alt="بعد تبييض الأسنان"
                     className="w-full h-32 object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
                   />
-                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
                     بعد
                   </div>
                 </div>
@@ -505,7 +513,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفع��لاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
