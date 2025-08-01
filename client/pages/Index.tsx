@@ -77,21 +77,21 @@ const services = [
     description: "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
     icon: Baby,
     price: "من 150 ريال",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579"
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
   {
     title: "طب الأسنان الترميمي",
     description: "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها. نقدم لك الحشوات والتيجان والجسور وغيرها لاستعادة صحة أسنانك",
     icon: Wrench,
     price: "من 400 ريال",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e"
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F4ecc0485788f45fab358a32e32695be9"
   },
   {
     title: "طب الأسنان التجميلي",
-    description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+    description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها ��ن العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
     price: "من 500 ريال",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12"
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341"
   },
 ];
 
@@ -701,7 +701,7 @@ export default function Index() {
               <div className="space-y-4">
                 <Link to="/admin" className="block">
                   <Button className="w-full font-arabic" variant="outline">
-                    لوحة الإدارة
+                    ل��حة الإدارة
                     <Settings className="mr-2 h-4 w-4" />
                   </Button>
                 </Link>
