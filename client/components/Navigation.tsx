@@ -44,6 +44,9 @@ export function Navigation() {
   const location = useLocation();
   const { isAuthenticated, user, logout } = useAuth();
 
+  // تحديد القوائم حسب نوع المستخدم
+  const navigationItems = user?.role === 'patient' ? patientNavigationItems : adminNavigationItems;
+
   return (
     <nav
       className="bg-white shadow-lg border-b border-dental-secondary/20"
