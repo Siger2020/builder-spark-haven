@@ -441,6 +441,163 @@ export default function Index() {
                 <p className="text-sm text-gray-600 font-arabic">زراعة متكاملة مع نتائج طبيعية 100%</p>
               </CardContent>
             </Card>
+
+            {/* Before/After Case 4 - حشوات تجميلية */}
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="relative bg-gray-100">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e"
+                    alt="قبل الحشوات التجميلية"
+                    className="w-full h-32 object-cover"
+                    loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    قبل
+                  </div>
+                </div>
+                <div className="relative bg-gray-100">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579"
+                    alt="بعد الحشوات التجميلية"
+                    className="w-full h-32 object-cover"
+                    loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
+                  />
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    بعد
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">حشوات تجميلية</h3>
+                <p className="text-sm text-gray-600 font-arabic">حشوات تطابق لون الأسنان الطبيعي 100%</p>
+              </CardContent>
+            </Card>
+
+            {/* Before/After Case 5 - قشور الأسنان */}
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="relative bg-gray-100">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204"
+                    alt="قبل قشور الأسنان"
+                    className="w-full h-32 object-cover"
+                    loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    قبل
+                  </div>
+                </div>
+                <div className="relative bg-gray-100">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12"
+                    alt="بعد قشور الأسنان"
+                    className="w-full h-32 object-cover"
+                    loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
+                  />
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    بعد
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">قشور الأسنان</h3>
+                <p className="text-sm text-gray-600 font-arabic">ابتسامة هوليوودية طبيعية ومتينة</p>
+              </CardContent>
+            </Card>
+
+            {/* Before/After Case 6 - علاج الجذور */}
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="relative bg-gray-100">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737"
+                    alt="قبل علاج الجذور"
+                    className="w-full h-32 object-cover"
+                    loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    قبل
+                  </div>
+                </div>
+                <div className="relative bg-gray-100">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e"
+                    alt="بعد علاج الجذور"
+                    className="w-full h-32 object-cover"
+                    loading="lazy"
+                    style={{
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
+                  />
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    بعد
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">علاج الجذور</h3>
+                <p className="text-sm text-gray-600 font-arabic">إنقاذ السن وإزالة الألم نهائياً</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* عرض المزيد */}
+          <div className="text-center mt-12">
+            <Card className="inline-block p-6 bg-gradient-to-r from-dental-primary to-blue-600 text-white">
+              <div className="flex items-center justify-center space-x-reverse space-x-4">
+                <div>
+                  <h3 className="text-xl font-bold mb-2 font-arabic">شاهد المزيد من النتائج</h3>
+                  <p className="text-blue-100 font-arabic">+500 حالة نجاح موثقة</p>
+                </div>
+                <div className="text-4xl">📸</div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
