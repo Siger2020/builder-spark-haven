@@ -4,6 +4,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { initializeDatabase } from "./database/index.js";
 import authRoutes from "./routes/auth.js";
+import bookingsRoutes from "./routes/bookings.js";
 import {
   getDatabaseStatsHandler,
   getTablesHandler,
