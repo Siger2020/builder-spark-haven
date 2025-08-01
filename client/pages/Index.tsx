@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,8 @@ import {
   Award,
   CheckCircle,
   Settings,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const services = [
@@ -205,7 +208,7 @@ export default function Index() {
               لماذا تختارنا؟
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نتميز بالخدمة المهنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
+              نتميز بالخدمة المهنية والتقنيات المت��دمة لضمان أفضل رعاية طبية
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
