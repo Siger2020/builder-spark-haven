@@ -329,31 +329,39 @@ export default function Index() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Before/After Case 1 */}
-            <Card className="overflow-hidden">
-              <div className="grid grid-cols-2">
-                <div className="relative">
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="relative bg-gray-100">
                   <img
-                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop"
-                    alt="قبل العلاج"
+                    src="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
+                    alt="قبل تقويم الأسنان"
                     className="w-full h-32 object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
                   />
-                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic">
-                    قبل
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                    ق��ل
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative bg-gray-100">
                   <img
-                    src="https://images.unsplash.com/photo-1609840114035-3c981960e832?w=200&h=200&fit=crop"
-                    alt="بعد العلاج"
+                    src="https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece"
+                    alt="بعد تقويم الأسنان"
                     className="w-full h-32 object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                    }}
                   />
-                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
                     بعد
                   </div>
                 </div>
               </div>
               <CardContent className="p-4">
-                <h3 className="font-bold text-gray-900 mb-2 font-arabic">تقويم الأسنان</h3>
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">تقويم الأسنا��</h3>
                 <p className="text-sm text-gray-600 font-arabic">تقويم شامل لمدة 18 شهر مع نتائج مذهلة</p>
               </CardContent>
             </Card>
