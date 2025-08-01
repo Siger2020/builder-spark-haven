@@ -36,12 +36,29 @@ export default function Booking() {
     service: "",
     notes: ""
   });
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingNumber, setBookingNumber] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Booking submitted:", formData);
-    // Here you would typically send the data to your backend
-    alert("تم إرسال طلب الحجز بنجاح! سنتواصل معك قريباً لتأكيد الموعد.");
+
+    // إنشاء رقم حجز عشوائي
+    const newBookingNumber = `BK${Date.now().toString().slice(-6)}`;
+
+    try {
+      // هنا يمكن إضافة طلب لحفظ الحجز في قاعدة البيانات
+      console.log("Booking submitted:", formData);
+
+      // محاكاة إرسال البيانات
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      setBookingNumber(newBookingNumber);
+      setBookingSuccess(true);
+
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      alert("حدث خطأ أثناء الحجز. يرجى المحاولة مرة أخرى.");
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
