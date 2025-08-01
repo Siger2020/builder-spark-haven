@@ -44,12 +44,11 @@ export function Navigation() {
           <div className="flex items-center">
             <Link
               to="/"
-              className="flex items-center space-x-reverse space-x-2"
+              className="text-gray-900 text-xl font-arabic pr-2"
             >
-              <Smile className="h-8 w-8 text-dental-primary" />
-              <span className="text-xl font-bold text-gray-900 font-arabic">
-                عيادة د/ كمال الملصي{" "}
-              </span>
+              <h6>
+                عيادة د/ كمال&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;الملصي
+              </h6>
             </Link>
           </div>
 
