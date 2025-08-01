@@ -271,7 +271,7 @@ export default function Index() {
                   الواقع الافتراضي
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل ��لقلق والتوتر
+                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
                 </p>
                 <div className="text-sm text-blue-600 font-arabic">
                   متوفر في جميع العلاجات
@@ -317,7 +317,7 @@ export default function Index() {
       </section>
 
       {/* Before & After Gallery */}
-      <section className="py-20">
+      <section className="py-20 before-after-gallery">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
@@ -683,7 +683,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر ال��كتور وكامل الفريق على الاهتمام الرائع."
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
