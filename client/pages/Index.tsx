@@ -250,6 +250,273 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Advanced Technologies Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
+              التقنيات المتقدمة
+            </h2>
+            <p className="text-lg text-gray-600 font-arabic">
+              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="p-8">
+                <div className="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                  <Settings className="h-10 w-10 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
+                  الواقع الافتراضي
+                </h3>
+                <p className="text-gray-600 font-arabic mb-4">
+                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
+                </p>
+                <div className="text-sm text-blue-600 font-arabic">
+                  متوفر في جميع العلاجات
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="p-8">
+                <div className="bg-purple-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                  <Star className="h-10 w-10 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
+                  محاكاة الابتسامة
+                </h3>
+                <p className="text-gray-600 font-arabic mb-4">
+                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناعي
+                </p>
+                <div className="text-sm text-purple-600 font-arabic">
+                  دقة 95% في التوقعات
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="p-8">
+                <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                  <Heart className="h-10 w-10 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
+                  التصميم الرقمي ثلاثي الأبعاد
+                </h3>
+                <p className="text-gray-600 font-arabic mb-4">
+                  تصميم ابتسامتك المثالية باستخدام أحدث برامج التصميم ثلاثي الأبعاد
+                </p>
+                <div className="text-sm text-green-600 font-arabic">
+                  تصميم مخصص لكل مريض
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Before & After Gallery */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
+              قبل وبعد العلاج
+            </h2>
+            <p className="text-lg text-gray-600 font-arabic">
+              اكتشف التحولات المذهلة التي حققناها لمرضانا
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Before/After Case 1 */}
+            <Card className="overflow-hidden">
+              <div className="grid grid-cols-2">
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop"
+                    alt="قبل العلاج"
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                    قبل
+                  </div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1609840114035-3c981960e832?w=200&h=200&fit=crop"
+                    alt="بعد العلاج"
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                    بعد
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">تقويم الأسنان</h3>
+                <p className="text-sm text-gray-600 font-arabic">تقويم شامل لمدة 18 شهر مع نتائج مذهلة</p>
+              </CardContent>
+            </Card>
+
+            {/* Before/After Case 2 */}
+            <Card className="overflow-hidden">
+              <div className="grid grid-cols-2">
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop"
+                    alt="قبل العلاج"
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                    قبل
+                  </div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1609840114035-3c981960e832?w=200&h=200&fit=crop"
+                    alt="بعد العلاج"
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                    بعد
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">تبييض الأسنان</h3>
+                <p className="text-sm text-gray-600 font-arabic">تبييض احترافي مع تحسن 8 درجات</p>
+              </CardContent>
+            </Card>
+
+            {/* Before/After Case 3 */}
+            <Card className="overflow-hidden">
+              <div className="grid grid-cols-2">
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop"
+                    alt="قبل العلاج"
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                    قبل
+                  </div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1609840114035-3c981960e832?w=200&h=200&fit=crop"
+                    alt="بعد العلاج"
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic">
+                    بعد
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-gray-900 mb-2 font-arabic">زراعة الأسنان</h3>
+                <p className="text-sm text-gray-600 font-arabic">زراعة متكاملة مع نتائج طبيعية 100%</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Patient Testimonials */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
+              شهادات مرضانا
+            </h2>
+            <p className="text-lg text-gray-600 font-arabic">
+              ما يقوله مرضانا عن تجربتهم معنا
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Testimonial 1 */}
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="mb-4">
+                  <div className="flex justify-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 italic font-arabic mb-4">
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال الملصي."
+                  </p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108755-2616b612b412?w=60&h=60&fit=crop&crop=face"
+                    alt="أمل محمد"
+                    className="w-12 h-12 rounded-full ml-3"
+                  />
+                  <div>
+                    <div className="font-bold text-gray-900 font-arabic">أمل محمد</div>
+                    <div className="text-sm text-gray-600 font-arabic">تقويم الأسنان</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 2 */}
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="mb-4">
+                  <div className="flex justify-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 italic font-arabic mb-4">
+                    "الدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
+                  </p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face"
+                    alt="محمد أحمد"
+                    className="w-12 h-12 rounded-full ml-3"
+                  />
+                  <div>
+                    <div className="font-bold text-gray-900 font-arabic">محمد أحمد</div>
+                    <div className="text-sm text-gray-600 font-arabic">زراعة الأسنان</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 3 */}
+            <Card className="text-center">
+              <CardContent className="p-6">
+                <div className="mb-4">
+                  <div className="flex justify-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 italic font-arabic mb-4">
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
+                  </p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face"
+                    alt="فاطمة علي"
+                    className="w-12 h-12 rounded-full ml-3"
+                  />
+                  <div>
+                    <div className="font-bold text-gray-900 font-arabic">فاطمة علي</div>
+                    <div className="text-sm text-gray-600 font-arabic">تبييض الأسنان</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
