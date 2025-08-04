@@ -345,19 +345,6 @@ export default function DatabaseManager() {
               <Download className="h-4 w-4 mr-2" />
               نسخة احتياطية
             </Button>
-            <Button
-              onClick={handleBulkCleanup}
-              variant="destructive"
-              className="font-arabic"
-              disabled={loading}
-            >
-              {loading ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : (
-                <Trash className="h-4 w-4 mr-2" />
-              )}
-              حذف جميع البيانات
-            </Button>
           </div>
         </div>
 
