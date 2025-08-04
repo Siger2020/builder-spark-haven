@@ -106,6 +106,84 @@ export default function Admin() {
   const [exportReportsOpen, setExportReportsOpen] = useState(false);
   const [notificationCenterOpen, setNotificationCenterOpen] = useState(false);
 
+  // Real data states
+  const [dashboardStats, setDashboardStats] = useState<DashboardStats>({
+    totalPatients: 0,
+    totalAppointments: 0,
+    totalServices: 0,
+    totalTransactions: 0,
+    completedAppointments: 0,
+    scheduledAppointments: 0,
+    cancelledAppointments: 0,
+  });
+  const [recentAppointments, setRecentAppointments] = useState<RecentAppointment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+
+      // Fetch database statistics
+      const statsResponse = await fetch('/api/database/stats');
+      if (statsResponse.ok) {
+        const statsData = await statsResponse.json();
+
+        setDashboardStats({
+          totalPatients: statsData.data.patients || 0,
+          totalAppointments: statsData.data.appointments || 0,
+          totalServices: statsData.data.services || 0,
+          totalTransactions: statsData.data.financial_transactions || 0,
+          completedAppointments: 0, // Will be calculated from appointments
+          scheduledAppointments: 0,
+          cancelledAppointments: 0,
+        });
+      }
+
+      // Fetch recent appointments
+      const appointmentsResponse = await fetch('/api/bookings');
+      if (appointmentsResponse.ok) {
+        const appointmentsData = await appointmentsResponse.json();
+        const appointments = appointmentsData.data || [];
+
+        // Calculate appointment statistics
+        const completed = appointments.filter((a: any) => a.status === 'completed').length;
+        const scheduled = appointments.filter((a: any) => a.status === 'scheduled' || a.status === 'confirmed').length;
+        const cancelled = appointments.filter((a: any) => a.status === 'cancelled').length;
+
+        setDashboardStats(prev => ({
+          ...prev,
+          completedAppointments: completed,
+          scheduledAppointments: scheduled,
+          cancelledAppointments: cancelled,
+        }));
+
+        // Set recent appointments (latest 5)
+        const recentAppointmentsData = appointments
+          .slice(0, 5)
+          .map((apt: any) => ({
+            id: apt.id,
+            appointment_number: apt.appointment_number,
+            patient_name: apt.patient_name,
+            appointment_time: apt.appointment_time,
+            service_name: apt.service_name || apt.chief_complaint,
+            doctor_name: apt.doctor_name || 'د. كمال الملصي',
+            status: apt.status,
+          }));
+
+        setRecentAppointments(recentAppointmentsData);
+      }
+
+    } catch (error) {
+      console.error('خطأ في جلب بيانات لوحة التحكم:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -587,7 +665,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">إعدادات النظام</CardTitle>
                   <CardDescription className="font-arabic">
-                    تخصيص إعدادات ��لعيادة
+                    تخصيص إعدادات العيادة
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -672,7 +750,7 @@ export default function Admin() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="font-arabic">مساحة التخزين</span>
+                      <span className="font-arabic">مساحة التخ��ين</span>
                       <div className="flex items-center gap-2">
                         <Progress value={67} className="w-20" />
                         <span className="text-sm">67%</span>
