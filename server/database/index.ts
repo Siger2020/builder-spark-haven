@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 const dbPath = join(__dirname, "../../clinic_database.sqlite");
 export const db = new Database(dbPath);
 
-// تكوين قاعدة البيانات
+// تكوين قاعدة الب��انات
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 
@@ -99,7 +99,7 @@ function seedDatabase() {
           "00967774567890",
           "patient",
           "male",
-          "صنعاء، حي السبعين",
+          "صنعا��، حي السبعين",
         ],
         [
           "نورا أحمد",
@@ -259,6 +259,39 @@ function seedDatabase() {
     }
   } catch (error) {
     console.error("❌ خطأ في إضافة البيانات التجريبية:", error);
+  }
+}
+
+// التأكد من وجود حساب المدير
+function ensureAdminExists() {
+  try {
+    // حذف أي حساب مدير موجود لضمان البيانات الصحيحة
+    db.prepare("DELETE FROM users WHERE email = 'admin@dkalmoli.com'").run();
+
+    // إضافة حساب المدير الجديد
+    const insertAdmin = db.prepare(`
+      INSERT INTO users (name, email, password, phone, role, gender, address, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+    `);
+
+    insertAdmin.run(
+      "مدير النظام",
+      "admin@dkalmoli.com",
+      "123456",
+      "00967777775545",
+      "admin",
+      "male",
+      "صنعاء، اليمن"
+    );
+
+    console.log("✅ تم إنشاء حساب المدير بنجاح");
+
+    // التحقق من البيانات
+    const admin = db.prepare("SELECT id, name, email, role FROM users WHERE email = 'admin@dkalmoli.com'").get();
+    console.log("📊 بيانات المدير:", admin);
+
+  } catch (error) {
+    console.error("❌ خطأ في إنشاء حساب المدير:", error);
   }
 }
 
