@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
           }
         }
 
-        // إنشاء مستخدم جديد فقط إذا لم يوجد
+        // إنشاء مستخدم جديد فقط ��ذا لم يوجد
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
           VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
@@ -134,7 +134,7 @@ router.post('/', async (req, res) => {
       }
 
     } catch (error) {
-      console.error('خطأ في إنشاء المريض:', error);
+      console.error('خطأ في إنشاء المريض أو الطبيب:', error);
       // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
       try {
         // التحقق من وجود مستخدم بنفس البريد الإلكتروني
@@ -167,7 +167,7 @@ router.post('/', async (req, res) => {
       } catch (secondError) {
         console.error('فشل في إنشاء المريض في المحاولة الثانية:', secondError);
 
-        // تحديد نوع الخطأ وإرسال رس��لة مناسبة
+        // تحديد نوع الخطأ وإرسال رسالة مناسبة
         let errorMessage = 'خطأ في إنشاء بيانات المريض.';
         if (secondError.code === 'SQLITE_CONSTRAINT_UNIQUE') {
           errorMessage = 'يبدو أن هناك حساب موجود بنفس البيانات. يرجى المحاولة مرة أخرى.';
@@ -235,7 +235,7 @@ router.post('/', async (req, res) => {
       bookingNumber: bookingNumber
     };
     
-    // إرسال الإشعارات في الخلفية (لا ننتظر النتيجة)
+    // إرسال الإشعارات في ��لخلفية (لا ننتظر النتيجة)
     handleBookingNotifications(notificationData).catch(error => {
       console.error('خطأ في إرسال الإشعارات:', error);
     });
@@ -375,7 +375,7 @@ router.patch('/:id/status', async (req, res) => {
     
     res.json({ 
       success: true, 
-      message: 'تم تحديث حالة الحجز بنجاح' 
+      message: 'تم تحديث حالة الحج�� بنجاح' 
     });
     
   } catch (error) {
