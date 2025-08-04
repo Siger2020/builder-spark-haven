@@ -263,6 +263,14 @@ export default function AppointmentManagement() {
               <RefreshCw className="h-4 w-4 mr-2" />
               تحديث
             </Button>
+            <Button
+              variant="outline"
+              onClick={cleanupAppointmentData}
+              className="font-arabic text-orange-600 border-orange-300 hover:bg-orange-50"
+            >
+              <AlertCircle className="h-4 w-4 mr-2" />
+              إصلاح البيانات
+            </Button>
             <Button className="font-arabic">
               <Plus className="h-4 w-4 mr-2" />
               موعد جديد
@@ -374,7 +382,7 @@ export default function AppointmentManagement() {
         {/* Appointments Table */}
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic">قا��مة المواعيد</CardTitle>
+            <CardTitle className="font-arabic">قائمة المواعيد</CardTitle>
             <CardDescription className="font-arabic">
               {filteredAppointments.length} موعد من أصل {appointments.length}
             </CardDescription>
@@ -423,7 +431,7 @@ export default function AppointmentManagement() {
                         {appointment.service_name || appointment.chief_complaint}
                       </TableCell>
                       <TableCell className="font-arabic">
-                        {appointment.doctor_name || "غير م��دد"}
+                        {appointment.doctor_name || "غير محدد"}
                       </TableCell>
                       <TableCell>
                         {getStatusBadge(appointment.status)}
