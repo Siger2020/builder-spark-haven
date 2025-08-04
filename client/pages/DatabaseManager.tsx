@@ -425,44 +425,7 @@ export default function DatabaseManager() {
               </CardContent>
             </Card>
 
-            {/* قسم إدارة البيانات الخطيرة */}
-            <Card className="border-red-200 bg-red-50">
-              <CardHeader>
-                <CardTitle className="font-arabic text-red-800 flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5" />
-                  عمليات خطيرة
-                </CardTitle>
-                <CardDescription className="font-arabic text-red-600">
-                  استخدم هذه العمليات بحذر شديد - لا يمكن التراجع عنها
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="p-4 bg-white rounded-lg border border-red-200">
-                    <h3 className="font-bold text-red-800 font-arabic mb-2">
-                      حذف جميع البيانات
-                    </h3>
-                    <p className="text-sm text-red-600 font-arabic mb-3">
-                      سيتم حذف جميع المواعيد والمرضى والمستخدمين ماعدا حساب مدير النظام.
-                      هذا الإجراء نهائي ولا يمكن التراجع عنه.
-                    </p>
-                    <Button
-                      onClick={handleBulkCleanup}
-                      variant="destructive"
-                      className="font-arabic"
-                      disabled={loading}
-                    >
-                      {loading ? (
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      ) : (
-                        <Trash className="h-4 w-4 mr-2" />
-                      )}
-                      حذف جميع البيانات
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+
           </TabsContent>
 
           <TabsContent value="tables" className="space-y-6">
@@ -480,7 +443,7 @@ export default function DatabaseManager() {
                       onValueChange={setSelectedTable}
                     >
                       <SelectTrigger className="font-arabic">
-                        <SelectValue placeholder="اختر جدولاً" />
+                        <SelectValue placeholder="ا��تر جدولاً" />
                       </SelectTrigger>
                       <SelectContent>
                         {tables.map((table) => (
