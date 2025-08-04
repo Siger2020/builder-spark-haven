@@ -29,6 +29,9 @@ export function initializeDatabase() {
     updateDatabase();
     validateDatabaseIntegrity();
 
+    // التأكد من وجود حساب المدير
+    ensureAdminExists();
+
   } catch (error) {
     console.error("❌ خطأ في تهيئة قاعدة البيانات:", error);
     throw error;
