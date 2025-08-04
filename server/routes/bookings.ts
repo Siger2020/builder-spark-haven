@@ -40,16 +40,16 @@ router.post('/', async (req, res) => {
       const existingPatient = db.prepare(`
         SELECT p.id, u.name FROM patients p
         JOIN users u ON p.user_id = u.id
-        WHERE u.phone = ? OR u.email = ? OR (u.name = ? AND u.phone = ?)
+        WHERE u.phone = ? OR (u.email = ? AND u.email != '') OR (u.name = ? AND u.phone = ?)
         ORDER BY u.created_at DESC
         LIMIT 1
-      `).get(formattedPhone, email, name, formattedPhone);
+      `).get(formattedPhone, email || '', name, formattedPhone);
 
       if (existingPatient) {
         patientId = existingPatient.id;
         console.log(`📋 استخدام مريض موجود: ${existingPatient.name} (ID: ${patientId})`);
       } else {
-        // إنشاء مستخدم جديد فقط إذا لم يوجد
+        // إنشاء مستخدم جديد فقط إذا ل�� يوجد
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
           VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
       console.error('خطأ في إنشاء المريض:', error);
-      // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
+      // في حالة فشل إنشاء المريض، نحاول إنشاء مستخ��م ومريض بشكل منفصل
       try {
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
