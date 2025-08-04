@@ -30,32 +30,79 @@ router.post('/', async (req, res) => {
     // تنسيق رقم الهاتف
     const formattedPhone = phone.startsWith('967') ? phone : `967${phone.replace(/^0+/, '')}`;
     
+    // التحقق من وجود مريض أو إنشاء مريض جديد
+    let patientId;
+    let doctorId = 1; // افتراضي للدكتور الأول
+    let serviceId = 1; // افتراضي للخدمة الأولى
+
+    try {
+      // البحث عن مريض موجود
+      const existingPatient = db.prepare(`
+        SELECT p.id FROM patients p
+        JOIN users u ON p.user_id = u.id
+        WHERE u.phone = ? OR u.email = ?
+      `).get(formattedPhone, email);
+
+      if (existingPatient) {
+        patientId = existingPatient.id;
+      } else {
+        // إنشاء مستخدم جديد
+        const insertUser = db.prepare(`
+          INSERT INTO users (name, phone, email, role, created_at, updated_at)
+          VALUES (?, ?, ?, 'patient', datetime('now'), datetime('now'))
+        `);
+        const userResult = insertUser.run(name, formattedPhone, email);
+
+        // إنشاء مريض جديد
+        const insertPatient = db.prepare(`
+          INSERT INTO patients (user_id, patient_number, created_at, updated_at)
+          VALUES (?, ?, datetime('now'), datetime('now'))
+        `);
+        const patientNumber = `PAT${Date.now().toString().slice(-6)}`;
+        const patientResult = insertPatient.run(userResult.lastInsertRowid, patientNumber);
+        patientId = patientResult.lastInsertRowid;
+      }
+
+      // البحث عن معرف الخدمة بناءً على الاسم
+      const serviceRecord = db.prepare(`
+        SELECT id FROM services WHERE name LIKE ? LIMIT 1
+      `).get(`%${service}%`);
+
+      if (serviceRecord) {
+        serviceId = serviceRecord.id;
+      }
+
+    } catch (error) {
+      console.log('خطأ في إنشاء المريض، سيتم استخدام معرف افتراضي');
+      patientId = 1;
+    }
+
     // حفظ الحجز في قاعدة البيانات
     const stmt = db.prepare(`
       INSERT INTO appointments (
-        patient_name, 
-        phone, 
-        email, 
-        appointment_date, 
-        appointment_time, 
-        service_type, 
-        notes, 
-        booking_number,
+        appointment_number,
+        patient_id,
+        doctor_id,
+        service_id,
+        appointment_date,
+        appointment_time,
+        chief_complaint,
+        notes,
         status,
         created_at,
         updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', datetime('now'), datetime('now'))
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'scheduled', datetime('now'), datetime('now'))
     `);
-    
+
     const result = stmt.run(
-      name, 
-      formattedPhone, 
-      email, 
-      date, 
-      time, 
-      service, 
-      notes || '', 
-      bookingNumber
+      bookingNumber,
+      patientId,
+      doctorId,
+      serviceId,
+      date,
+      time,
+      service,
+      notes || ''
     );
     
     // إعداد بيانات الإشعارات
@@ -71,7 +118,7 @@ router.post('/', async (req, res) => {
     
     // إرسال الإشعارات في الخلفية (لا ننتظر النتيجة)
     handleBookingNotifications(notificationData).catch(error => {
-      console.error('خطأ في إرسال الإشعارات:', error);
+      console.error('خط�� في إرسال الإشعارات:', error);
     });
     
     res.json({ 
