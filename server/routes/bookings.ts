@@ -94,11 +94,24 @@ router.post('/', async (req, res) => {
       console.error('خطأ في إنشاء المريض:', error);
       // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
       try {
+        // التحقق من وجود مستخدم بنفس البريد الإلكتروني
+        let finalEmail = email;
+        if (email) {
+          const existingEmailUser = db.prepare(`
+            SELECT id FROM users WHERE email = ?
+          `).get(email);
+
+          if (existingEmailUser) {
+            finalEmail = `${email.split('@')[0]}_${Date.now()}@${email.split('@')[1]}`;
+            console.log(`📧 البريد الإلكتروني موجود (المحاولة الثانية), سيتم استخدام: ${finalEmail}`);
+          }
+        }
+
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
           VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
         `);
-        const userResult = insertUser.run(name, formattedPhone, email || '', 'temp_password');
+        const userResult = insertUser.run(name, formattedPhone, finalEmail || '', 'temp_password');
 
         const insertPatient = db.prepare(`
           INSERT INTO patients (user_id, patient_number, created_at, updated_at)
@@ -112,7 +125,7 @@ router.post('/', async (req, res) => {
         console.error('فشل في إنشاء المريض في المحاولة الثانية:', secondError);
         return res.status(500).json({
           success: false,
-          error: 'خطأ في إنشاء بيانات المريض. يرجى المحاولة مرة أخرى.'
+          error: 'خطأ في إنشاء بيانات ا��مريض. يرجى المحاولة مرة أخرى.'
         });
       }
     }
