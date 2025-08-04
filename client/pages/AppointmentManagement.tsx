@@ -422,13 +422,35 @@ export default function AppointmentManagement() {
           <CardContent>
             {filteredAppointments.length === 0 ? (
               <div className="text-center py-8">
-                <Calendar className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                <p className="text-gray-600 font-arabic">
-                  {appointments.length === 0 
-                    ? "لا توجد مواعيد مسجلة في النظام"
-                    : "لا توجد مواعيد تطابق معايير البحث"
-                  }
-                </p>
+                {!serverConnected ? (
+                  <>
+                    <AlertCircle className="h-16 w-16 mx-auto text-red-400 mb-4" />
+                    <p className="text-red-600 font-arabic mb-4">
+                      لا يمكن الاتصال بالخادم
+                    </p>
+                    <p className="text-gray-600 font-arabic text-sm mb-4">
+                      يرجى التأكد من تشغيل ال��ادم والمحاولة مرة أخرى
+                    </p>
+                    <Button
+                      onClick={fetchAppointments}
+                      className="font-arabic"
+                      disabled={loading}
+                    >
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                      إعادة المحاولة
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Calendar className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                    <p className="text-gray-600 font-arabic">
+                      {appointments.length === 0
+                        ? "لا توجد مواعيد مسجلة في النظام"
+                        : "لا توجد مواعيد تطابق معايير البحث"
+                      }
+                    </p>
+                  </>
+                )}
               </div>
             ) : (
               <Table>
