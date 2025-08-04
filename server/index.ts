@@ -17,6 +17,7 @@ import {
   createBackupHandler,
   getBackupsHandler,
   executeQueryHandler,
+  bulkDataCleanupHandler,
 } from "./routes/database.js";
 
 export function createServer() {
