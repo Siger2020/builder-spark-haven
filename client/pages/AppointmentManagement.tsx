@@ -93,7 +93,7 @@ export default function AppointmentManagement() {
     try {
       setLoading(true);
       const response = await fetch("/api/bookings");
-      
+
       if (response.ok) {
         const data = await response.json();
         setAppointments(data.data || []);
@@ -105,6 +105,36 @@ export default function AppointmentManagement() {
     } catch (error) {
       console.error("خطأ في جلب المواعيد:", error);
       setAppointments([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const cleanupAppointmentData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/appointments/cleanup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("تم تنظيف البيانات:", result);
+
+        // إعادة تحميل المواعيد بعد التنظيف
+        await fetchAppointments();
+
+        alert(`تم تنظيف البيانات بنجاح!\nتم حذف ${result.statistics.deletedInvalid + result.statistics.deletedDuplicates} موعد خاطئ`);
+      } else {
+        console.error("فشل في تنظيف البيانات");
+        alert("فشل في تنظيف البيانات");
+      }
+    } catch (error) {
+      console.error("خطأ في تنظيف البيانات:", error);
+      alert("خطأ في تنظيف البيانات");
     } finally {
       setLoading(false);
     }
@@ -344,7 +374,7 @@ export default function AppointmentManagement() {
         {/* Appointments Table */}
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic">قائمة المواعيد</CardTitle>
+            <CardTitle className="font-arabic">قا��مة المواعيد</CardTitle>
             <CardDescription className="font-arabic">
               {filteredAppointments.length} موعد من أصل {appointments.length}
             </CardDescription>
@@ -393,7 +423,7 @@ export default function AppointmentManagement() {
                         {appointment.service_name || appointment.chief_complaint}
                       </TableCell>
                       <TableCell className="font-arabic">
-                        {appointment.doctor_name || "غير محدد"}
+                        {appointment.doctor_name || "غير م��دد"}
                       </TableCell>
                       <TableCell>
                         {getStatusBadge(appointment.status)}
