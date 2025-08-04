@@ -23,6 +23,7 @@ import DatabaseManager from "./pages/DatabaseManager";
 import PatientDashboard from "./pages/PatientDashboard";
 import Doctors from "./pages/Doctors";
 import Services from "./pages/Services";
+import SystemCheck from "./pages/SystemCheck";
 
 const queryClient = new QueryClient();
 
