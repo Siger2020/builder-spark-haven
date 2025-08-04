@@ -246,8 +246,7 @@ export default function Admin() {
                 {dashboardStats.totalPatients}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                <TrendingUp className="h-4 w-4 inline mr-1" />+
-                {dashboardStats.newPatientsThisMonth} هذا الشهر
+                مرضى مسجلين في النظام
               </p>
             </CardContent>
           </Card>
@@ -255,7 +254,7 @@ export default function Admin() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium font-arabic">
-                المواعيد اليوم
+                إجمالي المواعيد
               </CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -265,7 +264,7 @@ export default function Admin() {
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
                 {dashboardStats.completedAppointments} مكتمل،{" "}
-                {dashboardStats.pendingAppointments} في الانتظار
+                {dashboardStats.scheduledAppointments} مجدول
               </p>
             </CardContent>
           </Card>
@@ -273,34 +272,33 @@ export default function Admin() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium font-arabic">
-                الإيرادات الشهرية
+                الخدمات المتاحة
+              </CardTitle>
+              <Target className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {dashboardStats.totalServices}
+              </div>
+              <p className="text-xs text-muted-foreground font-arabic">
+                خدمات طبية متاحة
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium font-arabic">
+                المعاملات المالية
               </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {dashboardStats.monthlyRevenue.toLocaleString()} ريال
+                {dashboardStats.totalTransactions}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                <TrendingUp className="h-4 w-4 inline mr-1 text-green-500" />
-                +15% من الشهر الماضي
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">
-                معدل النجاح
-              </CardTitle>
-              <Target className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">
-                {dashboardStats.treatmentSuccess}%
-              </div>
-              <p className="text-xs text-muted-foreground font-arabic">
-                نسبة نجاح العلاجات
+                معاملة مالية مسجلة
               </p>
             </CardContent>
           </Card>
@@ -326,7 +324,7 @@ export default function Admin() {
                       ��لمواعيد اليوم
                     </CardTitle>
                     <CardDescription className="font-arabic">
-                      قائمة بمواعيد اليوم وحال��ها
+                      قائمة بمواعيد اليوم وحالتها
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
