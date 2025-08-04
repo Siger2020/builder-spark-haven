@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
           }
         }
 
-        // إنشاء مستخدم جديد فقط ��ذا لم يوجد
+        // إنشاء مستخدم جديد فقط إذا لم يوجد
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
           VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
@@ -180,6 +180,14 @@ router.post('/', async (req, res) => {
       }
     }
 
+    // التأكد من وجود طبيب قبل إنشاء الموعد
+    if (!doctorId) {
+      return res.status(500).json({
+        success: false,
+        error: 'خطأ في تحديد الطبيب المسؤول. يرجى المحاولة مرة أخرى.'
+      });
+    }
+
     console.log(`📝 إنشاء موعد جديد:`, {
       bookingNumber,
       patientId,
@@ -235,7 +243,7 @@ router.post('/', async (req, res) => {
       bookingNumber: bookingNumber
     };
     
-    // إرسال الإشعارات في ��لخلفية (لا ننتظر النتيجة)
+    // إرسال الإشعارات في الخلفية (لا ننتظر النتيجة)
     handleBookingNotifications(notificationData).catch(error => {
       console.error('خطأ في إرسال الإشعارات:', error);
     });
@@ -245,7 +253,7 @@ router.post('/', async (req, res) => {
       data: {
         id: result.lastInsertRowid,
         bookingNumber: bookingNumber,
-        message: 'تم إنشاء الحجز بنجاح وسيتم إرسال إشعارات التأكيد'
+        message: 'تم إنشاء الحجز بنجاح وسيتم إرسال إشعارات التأ��يد'
       }
     });
     
@@ -375,7 +383,7 @@ router.patch('/:id/status', async (req, res) => {
     
     res.json({ 
       success: true, 
-      message: 'تم تحديث حالة الحج�� بنجاح' 
+      message: 'تم تحديث حالة الحجز بنجاح' 
     });
     
   } catch (error) {
