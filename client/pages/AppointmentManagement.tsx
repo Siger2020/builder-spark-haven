@@ -101,7 +101,7 @@ export default function AppointmentManagement() {
         calculateStats(data.data || []);
         setServerConnected(true); // Server is responding
       } else {
-        console.error("فشل في جلب ا��مواعيد - حالة الاستجابة:", response.status);
+        console.error("فشل في جلب المواعيد - حالة الاستجابة:", response.status);
         setAppointments([]);
 
         // Show user-friendly error message
@@ -112,12 +112,14 @@ export default function AppointmentManagement() {
         }
       }
     } catch (error) {
-      console.error("خطأ في جلب المواعيد:", error);
+      console.error("خطأ في جلب ال��واعيد:", error);
       setAppointments([]);
+      setServerConnected(false); // Server connection failed
 
       // Show user-friendly error message for network errors
       if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-        alert("لا يمكن الاتصال بالخادم. يرجى التأكد من أن الخادم يعمل والمحاولة مرة أخرى.");
+        console.warn("فشل الاتصال بالخادم - قد يكون الخادم متوقف");
+        // Don't show alert immediately, let the UI show the connection status
       } else {
         alert("حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.");
       }
