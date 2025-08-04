@@ -160,7 +160,7 @@ export const insertRecordHandler: RequestHandler = (req, res) => {
     // الحصول على معلومات الأعمدة
     const columns = db.prepare(`PRAGMA table_info(${tableName})`).all();
 
-    // ��صفية البيانات المرسلة لتشمل الأعمدة الموجودة فقط
+    // تصفية البيانات المرسلة لتشمل الأعمدة الموجودة فقط
     const validColumns = columns
       .filter(
         (col: any) =>
@@ -463,6 +463,59 @@ export const executeQueryHandler: RequestHandler = (req, res) => {
   }
 };
 
+// البحث عن موعد محدد
+export const findAppointmentHandler: RequestHandler = (req, res) => {
+  try {
+    const { appointmentNumber } = req.params;
+
+    console.log(`🔍 البحث عن الموعد: ${appointmentNumber}`);
+
+    // البحث في جدول المواعيد
+    const appointment = db.prepare(`
+      SELECT
+        a.*,
+        u.name as patient_name,
+        u.phone,
+        u.email
+      FROM appointments a
+      LEFT JOIN patients p ON a.patient_id = p.id
+      LEFT JOIN users u ON p.user_id = u.id
+      WHERE a.appointment_number = ?
+    `).get(appointmentNumber);
+
+    if (appointment) {
+      console.log(`✅ تم العثور على الموعد:`, appointment);
+    } else {
+      console.log(`❌ لم يتم العثور على الموعد: ${appointmentNumber}`);
+
+      // فحص إذا كان هناك أي مواعيد في النظام
+      const allAppointments = db.prepare(`
+        SELECT appointment_number, patient_id, created_at
+        FROM appointments
+        ORDER BY created_at DESC
+        LIMIT 10
+      `).all();
+
+      console.log(`📊 جميع المواعيد في النظام:`, allAppointments);
+    }
+
+    res.json({
+      success: true,
+      data: {
+        appointment,
+        found: !!appointment
+      }
+    });
+
+  } catch (error) {
+    console.error("❌ خطأ في البحث عن الموعد:", error);
+    res.status(500).json({
+      success: false,
+      error: "خطأ في البحث عن الموعد",
+    });
+  }
+};
+
 // الحصول على المرضى مع بيانات المستخدمين
 export const getPatientsHandler: RequestHandler = (req, res) => {
   try {
@@ -497,7 +550,7 @@ export const getPatientsHandler: RequestHandler = (req, res) => {
 // حذف جميع البيانات ماعدا حساب المدير
 export const bulkDataCleanupHandler: RequestHandler = (req, res) => {
   try {
-    console.log("🧹 بدء عملية تنظيف البيانات...");
+    console.log("�� بدء عملية تنظيف البيانات...");
 
     // إيقاف foreign key constraints مؤقتاً لضمان نجاح الح��ف
     db.pragma("foreign_keys = OFF");
@@ -602,7 +655,7 @@ export const bulkDataCleanupHandler: RequestHandler = (req, res) => {
     // إعادة تفعيل foreign key constraints
     db.pragma("foreign_keys = ON");
 
-    console.log("✅ تم تنظيف جميع البيان��ت بنجاح");
+    console.log("✅ تم تنظيف جميع البيانات بنجاح");
 
     res.json({
       success: true,
