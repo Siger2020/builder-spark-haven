@@ -200,7 +200,7 @@ export default function DatabaseManager() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("هل ��نت متأكد من حذف هذا السجل؟")) return;
+    if (!confirm("هل أنت متأكد من حذف هذا السجل؟")) return;
 
     try {
       const response = await fetch(
@@ -272,7 +272,7 @@ export default function DatabaseManager() {
       "سيتم حذف:\n" +
       "- جميع المواعيد\n" +
       "- جميع المرضى\n" +
-      "- جميع المستخدمين ماعدا حساب مدير النظام\n" +
+      "- جميع ال��ستخدمين ماعدا حساب مدير النظام\n" +
       "- جميع المعاملات المالية\n" +
       "- جميع التقارير والبيانات الأخرى\n\n" +
       "هذا الإجراء لا يمكن التراجع عنه!";
@@ -344,6 +344,19 @@ export default function DatabaseManager() {
             >
               <Download className="h-4 w-4 mr-2" />
               نسخة احتياطية
+            </Button>
+            <Button
+              onClick={handleBulkCleanup}
+              variant="destructive"
+              className="font-arabic"
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <Trash className="h-4 w-4 mr-2" />
+              )}
+              حذف جميع البيانات
             </Button>
           </div>
         </div>
