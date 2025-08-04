@@ -272,7 +272,7 @@ export default function DatabaseManager() {
       "سيتم حذف:\n" +
       "- جميع المواعيد\n" +
       "- جميع المرضى\n" +
-      "- جميع ال��ستخدمين ماعدا حساب مدير النظام\n" +
+      "- جميع المستخدمين ماعدا حساب مدير النظام\n" +
       "- جميع المعاملات المالية\n" +
       "- جميع التقارير والبيانات الأخرى\n\n" +
       "هذا الإجراء لا يمكن التراجع عنه!";
@@ -281,7 +281,7 @@ export default function DatabaseManager() {
 
     // تأكيد إضافي
     const secondConfirm = prompt(
-      "لتأكيد الحذف، اكتب كلمة 'حذف' بدون علامات الاقتباس:"
+      "لتأكيد الحذف، اكت�� كلمة 'حذف' بدون علامات الاقتباس:"
     );
 
     if (secondConfirm !== "حذف") {
@@ -384,7 +384,7 @@ export default function DatabaseManager() {
                           {tableName === "doctors" && "الأطباء"}
                           {tableName === "appointments" && "المواعيد"}
                           {tableName === "services" && "الخدمات"}
-                          {tableName === "medical_reports" && "التقارير الطبية"}
+                          {tableName === "medical_reports" && "التقارير الطبي��"}
                           {tableName === "financial_transactions" &&
                             "المعاملات المالية"}
                           {tableName === "notifications" && "الإشعارات"}
@@ -433,6 +433,45 @@ export default function DatabaseManager() {
                   <div>
                     <Label className="font-arabic">حالة قاعدة البيانات</Label>
                     <Badge className="bg-green-100 text-green-800">متصلة</Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* قسم إدارة البيانات الخطيرة */}
+            <Card className="border-red-200 bg-red-50">
+              <CardHeader>
+                <CardTitle className="font-arabic text-red-800 flex items-center gap-2">
+                  <AlertCircle className="h-5 w-5" />
+                  عمليات خطيرة
+                </CardTitle>
+                <CardDescription className="font-arabic text-red-600">
+                  استخدم هذه العمليات بحذر شديد - لا يمكن التراجع عنها
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="p-4 bg-white rounded-lg border border-red-200">
+                    <h3 className="font-bold text-red-800 font-arabic mb-2">
+                      حذف جميع البيانات
+                    </h3>
+                    <p className="text-sm text-red-600 font-arabic mb-3">
+                      سيتم حذف جميع المواعيد والمرضى والمستخدمين ماعدا حساب مدير النظام.
+                      هذا الإجراء نهائي ولا يمكن التراجع عنه.
+                    </p>
+                    <Button
+                      onClick={handleBulkCleanup}
+                      variant="destructive"
+                      className="font-arabic"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      ) : (
+                        <Trash className="h-4 w-4 mr-2" />
+                      )}
+                      حذف جميع البيانات
+                    </Button>
                   </div>
                 </div>
               </CardContent>
