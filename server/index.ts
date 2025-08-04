@@ -19,6 +19,7 @@ import {
   executeQueryHandler,
   bulkDataCleanupHandler,
   getPatientsHandler,
+  findAppointmentHandler,
 } from "./routes/database.js";
 
 export function createServer() {
@@ -29,7 +30,7 @@ export function createServer() {
     initializeDatabase();
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
   } catch (error) {
-    console.error("❌ فشل في تهيئة قاعدة البيانات:", error);
+    console.error("❌ فشل في تهي��ة قاعدة البيانات:", error);
   }
 
   // Middleware
