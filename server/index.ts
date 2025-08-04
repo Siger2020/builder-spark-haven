@@ -64,6 +64,7 @@ export function createServer() {
   app.post("/api/database/backup", createBackupHandler);
   app.get("/api/database/backups", getBackupsHandler);
   app.post("/api/database/query", executeQueryHandler);
+  app.post("/api/database/cleanup", bulkDataCleanupHandler);
 
   return app;
 }
