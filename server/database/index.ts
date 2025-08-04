@@ -32,6 +32,9 @@ export function initializeDatabase() {
     // التأكد من وجود حساب المدير
     ensureAdminExists();
 
+    // إصلاح تطابق بيانات المواعيد
+    fixAppointmentDataConsistency();
+
   } catch (error) {
     console.error("❌ خطأ في تهيئة قاعدة البيانات:", error);
     throw error;
@@ -173,7 +176,7 @@ function seedDatabase() {
         5,
         "PAT003",
         null,
-        "داء السكري من النوع الثاني",
+        "داء السكري من النوع ا��ثاني",
         "حساسية من الأسبرين",
         "B+",
         1,
@@ -435,7 +438,7 @@ export async function createBackup(backupName?: string) {
   }
 }
 
-// استعادة النسخة الاحتياطية
+// استعادة النسخة ا��احتياطية
 export async function restoreBackup(backupPath: string) {
   try {
     // إغلاق الاتصال الحالي
