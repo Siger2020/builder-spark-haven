@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -27,89 +27,22 @@ import {
   Clock
 } from "lucide-react";
 
-// Mock data for patients
-const patients = [
-  {
-    id: "PAT-001",
-    name: "أحمد محمد السعد",
-    age: 32,
-    gender: "ذكر",
-    phone: "+966501234567",
-    email: "ahmed@email.com",
-    address: "الرياض، حي النخيل",
-    insurance: "بوبا",
-    lastVisit: "2024-01-15",
-    nextAppointment: "2024-02-01",
-    status: "active",
-    medicalHistory: ["حساسية من البنسلين", "ضغط الدم"],
-    treatments: ["تنظيف الأسنان", "حشوة أسنان"],
-    notes: "مريض منتظم، يحتاج متابعة دورية"
-  },
-  {
-    id: "PAT-002",
-    name: "فاطمة أحمد العلي",
-    age: 28,
-    gender: "أنثى", 
-    phone: "+966507654321",
-    email: "fatima@email.com",
-    address: "جدة، حي الحمراء",
-    insurance: "تأمين حكومي",
-    lastVisit: "2024-01-14",
-    nextAppointment: "2024-01-28",
-    status: "active",
-    medicalHistory: ["لا توجد حساسيات معروفة"],
-    treatments: ["تقويم الأسنان"],
-    notes: "في مرحلة التقويم، المتابعة شهرياً"
-  },
-  {
-    id: "PAT-003",
-    name: "محمد علي القحطاني",
-    age: 45,
-    gender: "ذكر",
-    phone: "+966551234567",
-    email: "mohammed@email.com",
-    address: "الدمام، حي الواحة",
-    insurance: "ساب تكافل",
-    lastVisit: "2024-01-10",
-    nextAppointment: null,
-    status: "inactive",
-    medicalHistory: ["داء السكري", "أمراض اللثة"],
-    treatments: ["علاج اللثة", "تنظيف عميق"],
-    notes: "يحتاج متابعة مكثفة لحالة اللثة"
-  },
-  {
-    id: "PAT-004",
-    name: "نورا سالم الحربي",
-    age: 35,
-    gender: "أنثى",
-    phone: "+966509876543",
-    email: "nora@email.com",
-    address: "الرياض، حي العليا",
-    insurance: "الأهلي تكافل",
-    lastVisit: "2024-01-12",
-    nextAppointment: "2024-01-25",
-    status: "active",
-    medicalHistory: ["حساسية من المعادن"],
-    treatments: ["حشوات تجميلية"],
-    notes: "تفضل الحشوات البيضاء"
-  },
-  {
-    id: "PAT-005",
-    name: "سارة خالد المطيري",
-    age: 26,
-    gender: "أنثى",
-    phone: "+966512345678",
-    email: "sara@email.com",
-    address: "مكة، حي العزيزية",
-    insurance: "لا يوجد",
-    lastVisit: "2024-01-11",
-    nextAppointment: "2024-02-05",
-    status: "active",
-    medicalHistory: ["لا توجد مشاكل صحية"],
-    treatments: ["تبييض الأسنان"],
-    notes: "مريضة جديدة، النتائج ممتازة"
-  }
-];
+interface Patient {
+  id: number;
+  patient_number: string;
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  insurance_company: string;
+  medical_history: string;
+  allergies: string;
+  blood_type: string;
+  gender: string;
+  role: string;
+  created_at: string;
+  updated_at: string;
+}
 
 const getStatusBadge = (status: string) => {
   switch (status) {
@@ -125,17 +58,49 @@ const getStatusBadge = (status: string) => {
 };
 
 export default function Patients() {
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [isAddPatientDialogOpen, setIsAddPatientDialogOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [isViewPatientDialogOpen, setIsViewPatientDialogOpen] = useState(false);
 
+  // Fetch patients data from database
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const fetchPatients = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/database/tables/patients');
+      const data = await response.json();
+
+      if (data.success && data.data.rows) {
+        // Transform the data to match our interface
+        const transformedPatients = data.data.rows.map((row: any) => ({
+          ...row,
+          name: row.name || 'غير محدد',
+          status: 'active' // Default status since it's not in DB
+        }));
+        setPatients(transformedPatients);
+      } else {
+        setPatients([]);
+      }
+    } catch (error) {
+      console.error('خطأ في جلب بيانات المرضى:', error);
+      setPatients([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Filter patients
   const filteredPatients = patients.filter(patient => {
     const matchesSearch = patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         patient.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         patient.phone.includes(searchTerm);
+                         patient.patient_number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         patient.phone?.includes(searchTerm);
     const matchesStatus = selectedStatus === "all" || patient.status === selectedStatus;
     return matchesSearch && matchesStatus;
   });
@@ -172,7 +137,7 @@ export default function Patients() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{patients.length}</div>
+              <div className="text-2xl font-bold">{loading ? '...' : patients.length}</div>
               <p className="text-xs text-muted-foreground font-arabic">
                 +2 مرضى جدد هذا الأسبوع
               </p>
@@ -186,7 +151,7 @@ export default function Patients() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">
-                {patients.filter(p => p.status === 'active').length}
+                {loading ? '...' : patients.filter(p => p.status === 'active').length}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
                 من إجمالي المرضى
@@ -277,6 +242,17 @@ export default function Patients() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="text-gray-600 font-arabic">جاري تحميل بيانات المرضى...</div>
+                  </div>
+                ) : filteredPatients.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Users className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+                    <p className="text-gray-600 font-arabic">لا توجد بيانات مرضى</p>
+                    <p className="text-sm text-gray-500 font-arabic mt-1">تم حذف جميع بيانات المرضى من النظام</p>
+                  </div>
+                ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -300,20 +276,16 @@ export default function Patients() {
                             </Avatar>
                             <div>
                               <div className="font-medium font-arabic">{patient.name}</div>
-                              <div className="text-sm text-gray-500">{patient.id}</div>
+                              <div className="text-sm text-gray-500">{patient.patient_number || `ID: ${patient.id}`}</div>
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="font-arabic">{patient.age} سنة / {patient.gender}</TableCell>
+                        <TableCell className="font-arabic">غير محدد / {patient.gender === 'male' ? 'ذكر' : patient.gender === 'female' ? 'أنثى' : patient.gender}</TableCell>
                         <TableCell>{patient.phone}</TableCell>
-                        <TableCell className="font-arabic">{patient.insurance}</TableCell>
-                        <TableCell>{new Date(patient.lastVisit).toLocaleDateString('ar-SA')}</TableCell>
+                        <TableCell className="font-arabic">{patient.insurance_company || 'غير محدد'}</TableCell>
+                        <TableCell>{patient.created_at ? new Date(patient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}</TableCell>
                         <TableCell>
-                          {patient.nextAppointment ? (
-                            new Date(patient.nextAppointment).toLocaleDateString('ar-SA')
-                          ) : (
-                            <span className="text-gray-500 font-arabic">لا يوجد</span>
-                          )}
+                          <span className="text-gray-500 font-arabic">لا يوجد</span>
                         </TableCell>
                         <TableCell>{getStatusBadge(patient.status)}</TableCell>
                         <TableCell>
@@ -334,6 +306,7 @@ export default function Patients() {
                     ))}
                   </TableBody>
                 </Table>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
