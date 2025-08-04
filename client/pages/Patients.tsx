@@ -10,9 +10,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { 
-  Users, 
-  Search, 
+import {
+  Users,
+  Search,
   Plus,
   Eye,
   Edit,
@@ -24,7 +24,8 @@ import {
   AlertCircle,
   User,
   MapPin,
-  Clock
+  Clock,
+  Loader2
 } from "lucide-react";
 
 interface Patient {
