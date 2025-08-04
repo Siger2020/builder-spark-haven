@@ -71,14 +71,16 @@ const getAppointmentStatusBadge = (status: string) => {
   switch (status) {
     case "confirmed":
       return <Badge className="bg-green-100 text-green-800">مؤكد</Badge>;
-    case "pending":
-      return (
-        <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>
-      );
-    case "canceled":
+    case "scheduled":
+      return <Badge className="bg-blue-100 text-blue-800">مجدول</Badge>;
+    case "completed":
+      return <Badge className="bg-gray-100 text-gray-800">مكتمل</Badge>;
+    case "cancelled":
       return <Badge className="bg-red-100 text-red-800">ملغي</Badge>;
+    case "no_show":
+      return <Badge className="bg-orange-100 text-orange-800">لم يحضر</Badge>;
     default:
-      return <Badge variant="secondary">غير محدد</Badge>;
+      return <Badge variant="secondary">{status || 'غير محدد'}</Badge>;
   }
 };
 
@@ -590,7 +592,7 @@ export default function Admin() {
               <CardHeader>
                 <CardTitle className="font-arabic">التحليل المالي</CardTitle>
                 <CardDescription className="font-arabic">
-                  رسوم بيانية للإيرادات والمصروفات
+                  رسوم بيانية ل��إيرادات والمصروفات
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -750,7 +752,7 @@ export default function Admin() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="font-arabic">مساحة التخ��ين</span>
+                      <span className="font-arabic">مساحة التخزين</span>
                       <div className="flex items-center gap-2">
                         <Progress value={67} className="w-20" />
                         <span className="text-sm">67%</span>
