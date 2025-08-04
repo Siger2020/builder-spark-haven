@@ -140,6 +140,15 @@ const App = () => (
                   </>
                 }
               />
+              <Route
+                path="/system-check"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <SystemCheck />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
