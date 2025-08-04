@@ -81,10 +81,10 @@ router.post('/', async (req, res) => {
       // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
       try {
         const insertUser = db.prepare(`
-          INSERT INTO users (name, phone, email, role, created_at, updated_at)
-          VALUES (?, ?, ?, 'patient', datetime('now'), datetime('now'))
+          INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
+          VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
         `);
-        const userResult = insertUser.run(name, formattedPhone, email || '');
+        const userResult = insertUser.run(name, formattedPhone, email || '', 'temp_password');
 
         const insertPatient = db.prepare(`
           INSERT INTO patients (user_id, patient_number, created_at, updated_at)
