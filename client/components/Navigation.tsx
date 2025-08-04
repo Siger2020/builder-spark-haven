@@ -13,6 +13,7 @@ import {
   LogIn,
   LogOut,
   User,
+  Shield,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
