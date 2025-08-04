@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     // تنسيق رقم الهاتف
     const formattedPhone = phone.startsWith('967') ? phone : `967${phone.replace(/^0+/, '')}`;
     
-    // التحقق من وجو�� مريض أو إنشاء مريض جديد
+    // التحقق من وجود مريض أو إنشاء مريض جديد
     let patientId;
     let doctorId = 1; // افتراضي للدكتور الأول
     let serviceId = 1; // افتراضي للخدمة الأولى
@@ -111,7 +111,7 @@ router.post('/', async (req, res) => {
       phone: formattedPhone,
       appointmentDate: date,
       appointmentTime: time,
-      doctorName: doctorName || 'د. كمال ��لملصي',
+      doctorName: doctorName || 'د. كمال الملصي',
       service: service,
       bookingNumber: bookingNumber
     };
@@ -179,7 +179,20 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     
     const booking = db.prepare(`
-      SELECT * FROM appointments WHERE id = ?
+      SELECT
+        a.*,
+        u.name as patient_name,
+        u.phone,
+        u.email,
+        s.name as service_name,
+        d_user.name as doctor_name
+      FROM appointments a
+      JOIN patients p ON a.patient_id = p.id
+      JOIN users u ON p.user_id = u.id
+      LEFT JOIN services s ON a.service_id = s.id
+      LEFT JOIN doctors d ON a.doctor_id = d.id
+      LEFT JOIN users d_user ON d.user_id = d_user.id
+      WHERE a.id = ?
     `).get(id);
     
     if (!booking) {
