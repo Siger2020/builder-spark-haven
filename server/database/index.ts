@@ -276,7 +276,59 @@ function seedDatabase() {
   }
 }
 
-// التأكد من وجود ��ساب المدير
+// إصلاح تطابق بيانات المواعيد
+function fixAppointmentDataConsistency() {
+  try {
+    console.log("🔧 إصلاح تطابق بيانات المواعيد...");
+
+    // الحصول على جميع المواعيد التي لها patient_id خاطئة
+    const invalidAppointments = db.prepare(`
+      SELECT a.id, a.appointment_number, a.patient_id
+      FROM appointments a
+      WHERE NOT EXISTS (
+        SELECT 1 FROM patients p WHERE p.id = a.patient_id
+      )
+    `).all();
+
+    if (invalidAppointments.length > 0) {
+      console.log(`🔄 إصلاح ${invalidAppointments.length} موعد بأرقام مرضى خاطئة...`);
+
+      // حذف المواعيد ذات patient_id خاطئة
+      const deleteInvalidAppointments = db.prepare(`
+        DELETE FROM appointments
+        WHERE NOT EXISTS (
+          SELECT 1 FROM patients p WHERE p.id = appointments.patient_id
+        )
+      `);
+      deleteInvalidAppointments.run();
+
+      console.log("✅ تم حذف المواعيد ذات الأرقام الخاطئة");
+    }
+
+    // التأكد من أن جميع المواعيد الحالية لها أسماء صحيحة
+    const validAppointments = db.prepare(`
+      SELECT
+        a.appointment_number,
+        u.name as patient_name,
+        u.phone,
+        u.email
+      FROM appointments a
+      JOIN patients p ON a.patient_id = p.id
+      JOIN users u ON p.user_id = u.id
+    `).all();
+
+    console.log(`✅ ${validAppointments.length} موعد بأسماء صحيحة`);
+
+    for (const apt of validAppointments) {
+      console.log(`  - ${apt.appointment_number}: ${apt.patient_name}`);
+    }
+
+  } catch (error) {
+    console.error("❌ خطأ في إصلاح بيانات المواعيد:", error);
+  }
+}
+
+// التأكد من وجود حساب المدير
 function ensureAdminExists() {
   try {
     // حذف أي حساب مدير موجود لضمان البيانات الصحيحة
@@ -361,7 +413,7 @@ export async function createBackup(backupName?: string) {
     // إنشاء النسخة الاحتياطية
     await db.backup(backupPath);
 
-    // تسجيل النسخة الاحتياطية في قا��دة البيانات
+    // تسجيل النسخة الاحتياطية في قاعدة البيانات
     const insertBackup = db.prepare(`
       INSERT INTO backups (backup_name, backup_type, file_path, status, completed_at) 
       VALUES (?, ?, ?, ?, ?)
