@@ -21,8 +21,14 @@ export function initializeDatabase() {
     db.exec(schema);
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
 
-    // إضافة بيانات تجريبية إذا لم تكن موجو��ة
+    // إضافة بيانات تجريبية إذا لم تكن موجودة
     seedDatabase();
+
+    // تحديث وفحص قاعدة البيانات
+    const { updateDatabase, validateDatabaseIntegrity } = require("./update.js");
+    updateDatabase();
+    validateDatabaseIntegrity();
+
   } catch (error) {
     console.error("❌ خطأ في تهيئة قاعدة البيانات:", error);
     throw error;
@@ -40,7 +46,7 @@ function seedDatabase() {
     if (userCount.count === 0) {
       console.log("📝 إضافة بيانات تجريبية...");
 
-      // إضافة المستخدمين
+      // إضافة ��لمستخدمين
       const insertUser = db.prepare(`
         INSERT INTO users (name, email, password, phone, role, gender, address) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -90,7 +96,7 @@ function seedDatabase() {
           "00967774567890",
           "patient",
           "male",
-          "صنعاء، حي السبعين",
+          "صنع��ء، حي السبعين",
         ],
         [
           "نورا أحمد",
@@ -225,7 +231,7 @@ function seedDatabase() {
         50,
         "cash",
         "completed",
-        "تنظيف الأسنان",
+        "تنظيف ��لأسنان",
       );
       insertTransaction.run(
         "TXN002",
