@@ -77,6 +77,7 @@ export default function AppointmentManagement() {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const [serverConnected, setServerConnected] = useState(true);
   const [stats, setStats] = useState({
     total: 0,
     scheduled: 0,
