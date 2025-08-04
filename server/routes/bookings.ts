@@ -90,6 +90,49 @@ router.post('/', async (req, res) => {
         serviceId = serviceRecord.id;
       }
 
+      // البحث عن طبيب متاح أو إنشاء طبيب افتراضي
+      const existingDoctor = db.prepare(`
+        SELECT id FROM doctors LIMIT 1
+      `).get();
+
+      if (existingDoctor) {
+        doctorId = existingDoctor.id;
+        console.log(`👨‍⚕️ استخدام طبيب موجود: ID ${doctorId}`);
+      } else {
+        // إنشاء طبيب افتراضي إذا لم يوجد أي طبيب
+        console.log(`👨‍⚕️ لم يتم العثور على أطباء، سيتم إنشاء طبيب افتراضي`);
+
+        // إنشاء مستخدم للطبيب الافتراضي
+        const insertDoctorUser = db.prepare(`
+          INSERT INTO users (name, email, phone, password, role, created_at, updated_at)
+          VALUES (?, ?, ?, ?, 'doctor', datetime('now'), datetime('now'))
+        `);
+        const doctorUserResult = insertDoctorUser.run(
+          'د. كمال الملصي',
+          'doctor@dkalmoli.com',
+          '00967777775500',
+          'temp_password'
+        );
+
+        // إنشاء سجل الطبيب
+        const insertDoctor = db.prepare(`
+          INSERT INTO doctors (user_id, doctor_number, specialization, license_number, qualification, experience_years, consultation_fee, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+        `);
+        const doctorResult = insertDoctor.run(
+          doctorUserResult.lastInsertRowid,
+          'DOC001',
+          'طبيب أسنان عام',
+          'LIC001',
+          'بكالوريوس طب الأسنان',
+          15,
+          50
+        );
+
+        doctorId = doctorResult.lastInsertRowid;
+        console.log(`👨‍⚕️ تم إنشاء طبيب افتراضي: ID ${doctorId}`);
+      }
+
     } catch (error) {
       console.error('خطأ في إنشاء المريض:', error);
       // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
@@ -124,7 +167,7 @@ router.post('/', async (req, res) => {
       } catch (secondError) {
         console.error('فشل في إنشاء المريض في المحاولة الثانية:', secondError);
 
-        // تحديد نوع الخطأ وإرسال رسالة مناسبة
+        // تحديد نوع الخطأ وإرسال رس��لة مناسبة
         let errorMessage = 'خطأ في إنشاء بيانات المريض.';
         if (secondError.code === 'SQLITE_CONSTRAINT_UNIQUE') {
           errorMessage = 'يبدو أن هناك حساب موجود بنفس البيانات. يرجى المحاولة مرة أخرى.';
