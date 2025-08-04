@@ -32,12 +32,13 @@ const patientNavigationItems = [
 // قوائم لمدير النظام والأطباء
 const adminNavigationItems = [
   { name: "الرئيسية", path: "/", icon: Smile },
-  { name: "حجز موعد", path: "/booking", icon: Calendar },
-  { name: "المرضى", path: "/patients", icon: Users },
-  { name: "المعاملات", path: "/transactions", icon: CreditCard },
-  { name: "الكشوفات", path: "/reports", icon: FileText },
-  { name: "جلسات العلاج", path: "/sessions", icon: Activity },
+  { name: "إدارة المرضى", path: "/patients", icon: Users },
+  { name: "إدارة المواعيد", path: "/appointment-management", icon: Calendar },
+  { name: "التقارير المالية", path: "/transactions", icon: CreditCard },
+  { name: "مراحل العلاج", path: "/sessions", icon: Activity },
   { name: "لوحة الإدارة", path: "/admin", icon: Settings },
+  { name: "إدارة الموظفين", path: "/reports", icon: FileText },
+  { name: "إدارة قاعدة البيانات", path: "/database", icon: Shield },
   { name: "فحص النظام", path: "/system-check", icon: Shield },
 ];
 
