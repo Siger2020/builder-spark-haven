@@ -45,6 +45,7 @@ import {
   Database,
   Download,
   MessageSquare,
+  Loader2,
 } from "lucide-react";
 
 interface DashboardStats {
@@ -592,7 +593,7 @@ export default function Admin() {
               <CardHeader>
                 <CardTitle className="font-arabic">التحليل المالي</CardTitle>
                 <CardDescription className="font-arabic">
-                  رسوم بيانية ل��إيرادات والمصروفات
+                  رسوم بيانية للإيرادات والمصروفات
                 </CardDescription>
               </CardHeader>
               <CardContent>
