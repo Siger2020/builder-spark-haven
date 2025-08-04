@@ -76,14 +76,13 @@ export default function Patients() {
   const fetchPatients = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/database/tables/patients');
+      const response = await fetch('/api/patients');
       const data = await response.json();
 
-      if (data.success && data.data.rows) {
+      if (data.success && data.data) {
         // Transform the data to match our interface
-        const transformedPatients = data.data.rows.map((row: any) => ({
-          ...row,
-          name: row.name || 'غير محدد',
+        const transformedPatients = data.data.map((patient: any) => ({
+          ...patient,
           status: 'active' // Default status since it's not in DB
         }));
         setPatients(transformedPatients);
