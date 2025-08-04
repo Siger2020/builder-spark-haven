@@ -187,6 +187,19 @@ export default function Admin() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center h-64">
+            <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+            <span className="mr-3 font-arabic">جاري تحميل بيانات لوحة التحكم...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -204,10 +217,10 @@ export default function Admin() {
             <Button
               variant="outline"
               className="font-arabic"
-              onClick={() => setExportReportsOpen(true)}
+              onClick={fetchDashboardData}
             >
               <Download className="h-4 w-4 mr-2" />
-              تصدير التقرير
+              تحديث البيانات
             </Button>
             <Button
               className="font-arabic"
@@ -313,7 +326,7 @@ export default function Admin() {
                       ��لمواعيد اليوم
                     </CardTitle>
                     <CardDescription className="font-arabic">
-                      قائمة بمواعيد اليوم وحالتها
+                      قائمة بمواعيد اليوم وحال��ها
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
