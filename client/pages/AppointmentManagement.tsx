@@ -99,8 +99,9 @@ export default function AppointmentManagement() {
         const data = await response.json();
         setAppointments(data.data || []);
         calculateStats(data.data || []);
+        setServerConnected(true); // Server is responding
       } else {
-        console.error("فشل في جلب المواعيد - حالة الاستجابة:", response.status);
+        console.error("فشل في جلب ا��مواعيد - حالة الاستجابة:", response.status);
         setAppointments([]);
 
         // Show user-friendly error message
