@@ -265,6 +265,64 @@ export default function DatabaseManager() {
     }
   };
 
+  const handleBulkCleanup = async () => {
+    const confirmMessage =
+      "هل أنت متأكد من حذف جميع البيانات؟\n\n" +
+      "سيتم حذف:\n" +
+      "- جميع المواعيد\n" +
+      "- جميع المرضى\n" +
+      "- جميع المستخدمين ماعدا حساب مدير النظام\n" +
+      "- جميع المعاملات المالية\n" +
+      "- جميع التقارير والبيانات الأخرى\n\n" +
+      "هذا الإجراء لا يمكن التراجع عنه!";
+
+    if (!confirm(confirmMessage)) return;
+
+    // تأكيد إضافي
+    const secondConfirm = prompt(
+      "لتأكيد الحذف، اكتب كلمة 'حذف' بدون علامات الاقتباس:"
+    );
+
+    if (secondConfirm !== "حذف") {
+      alert("تم إلغاء العملية");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch("/api/database/cleanup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert(
+          `تم تنظيف البيانات بنجاح!\n\n` +
+          `تم حذف:\n` +
+          `- ${data.data.deletedAppointments} موعد\n` +
+          `- ${data.data.deletedPatients} مريض\n` +
+          `- ${data.data.deletedUsers} مستخدم\n` +
+          `- ${data.data.deletedTransactions} معاملة مالية\n\n` +
+          `تم الاحتفاظ بحساب مدير النظام فقط`
+        );
+
+        // تحديث الإحصائيات والبيانات
+        fetchDatabaseStats();
+        setTableData(null);
+        setSelectedTable("");
+      } else {
+        alert("خطأ في تنظيف البيانات: " + data.error);
+      }
+    } catch (error) {
+      alert("خطأ في تنظيف البيانات");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
