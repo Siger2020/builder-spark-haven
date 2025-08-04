@@ -25,6 +25,7 @@ import Doctors from "./pages/Doctors";
 import Services from "./pages/Services";
 import SystemCheck from "./pages/SystemCheck";
 import AppointmentManagement from "./pages/AppointmentManagement";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
