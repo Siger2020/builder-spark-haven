@@ -30,7 +30,7 @@ export function createServer() {
     initializeDatabase();
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
   } catch (error) {
-    console.error("❌ فشل في تهي��ة قاعدة البيانات:", error);
+    console.error("❌ فشل في تهيئة قاعدة البيانات:", error);
   }
 
   // Middleware
@@ -68,6 +68,7 @@ export function createServer() {
   app.post("/api/database/query", executeQueryHandler);
   app.post("/api/database/cleanup", bulkDataCleanupHandler);
   app.get("/api/patients", getPatientsHandler);
+  app.get("/api/appointments/find/:appointmentNumber", findAppointmentHandler);
 
   return app;
 }
