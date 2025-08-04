@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 const dbPath = join(__dirname, "../../clinic_database.sqlite");
 export const db = new Database(dbPath);
 
-// تكوين قاعدة الب��انات
+// تكوين قاعدة البيانات
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 
@@ -99,7 +99,7 @@ function seedDatabase() {
           "00967774567890",
           "patient",
           "male",
-          "صنعا��، حي السبعين",
+          "صنعاء، حي السبعين",
         ],
         [
           "نورا أحمد",
@@ -179,9 +179,12 @@ function seedDatabase() {
         1,
       );
 
-      // إضافة مواعيد تجريبية
+      // تنظيف المواعيد القديمة أولاً
+      db.prepare("DELETE FROM appointments").run();
+
+      // إضافة مواعيد تجريبية بـ patient_id صحيحة
       const insertAppointment = db.prepare(`
-        INSERT INTO appointments (appointment_number, patient_id, doctor_id, service_id, appointment_date, appointment_time, status, chief_complaint) 
+        INSERT INTO appointments (appointment_number, patient_id, doctor_id, service_id, appointment_date, appointment_time, status, chief_complaint)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
@@ -190,36 +193,47 @@ function seedDatabase() {
         .toISOString()
         .split("T")[0];
 
-      insertAppointment.run(
-        "APP001",
-        1,
-        1,
-        1,
-        today,
-        "09:00",
-        "confirmed",
-        "تنظيف دوري",
-      );
-      insertAppointment.run(
-        "APP002",
-        2,
-        2,
-        3,
-        tomorrow,
-        "10:30",
-        "scheduled",
-        "استشارة تقويم",
-      );
-      insertAppointment.run(
-        "APP003",
-        3,
-        1,
-        2,
-        tomorrow,
-        "14:00",
-        "scheduled",
-        "ألم في الضرس",
-      );
+      // الحصول على patient_id الصحيحة من جدول patients
+      const patients = db.prepare("SELECT id FROM patients ORDER BY id LIMIT 3").all();
+
+      if (patients.length >= 1) {
+        insertAppointment.run(
+          "APP001",
+          patients[0].id,
+          1,
+          1,
+          today,
+          "09:00",
+          "confirmed",
+          "تنظيف دوري",
+        );
+      }
+
+      if (patients.length >= 2) {
+        insertAppointment.run(
+          "APP002",
+          patients[1].id,
+          2,
+          3,
+          tomorrow,
+          "10:30",
+          "scheduled",
+          "استشارة تقويم",
+        );
+      }
+
+      if (patients.length >= 3) {
+        insertAppointment.run(
+          "APP003",
+          patients[2].id,
+          1,
+          2,
+          tomorrow,
+          "14:00",
+          "scheduled",
+          "ألم في الضرس",
+        );
+      }
 
       // إضافة معاملات مالية تجري��ية
       const insertTransaction = db.prepare(`
@@ -262,7 +276,7 @@ function seedDatabase() {
   }
 }
 
-// التأكد من وجود حساب المدير
+// التأكد من وجود ��ساب المدير
 function ensureAdminExists() {
   try {
     // حذف أي حساب مدير موجود لضمان البيانات الصحيحة
@@ -347,7 +361,7 @@ export async function createBackup(backupName?: string) {
     // إنشاء النسخة الاحتياطية
     await db.backup(backupPath);
 
-    // تسجيل النسخة الاحتياطية في قاعدة البيانات
+    // تسجيل النسخة الاحتياطية في قا��دة البيانات
     const insertBackup = db.prepare(`
       INSERT INTO backups (backup_name, backup_type, file_path, status, completed_at) 
       VALUES (?, ?, ?, ?, ?)
