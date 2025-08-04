@@ -67,14 +67,20 @@ export default function Booking() {
         setBookingSuccess(true);
 
         // إشعار المستخدم بأن الإشعارات سيتم إرسالها
-        console.log(`📱 سيتم إرسال إشعارات تأكيد الحجز إلى ${formData.phone}`);
+        console.log(`📱 سيتم إرسال ��شعارات تأكيد الحجز إلى ${formData.phone}`);
         console.log(`🔔 سيتم إرسال تذكير قبل الموعد بيوم واحد`);
       } else {
-        throw new Error('فشل ف�� إنشاء الحجز');
+        // محاولة الحصول على رسالة الخطأ من الخادم
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.error || 'فشل في إنشاء الحجز';
+        throw new Error(errorMessage);
       }
 
     } catch (error) {
       console.error("Error submitting booking:", error);
+
+      // عرض رسالة الخطأ للمستخدم
+      alert(`خطأ في الحجز: ${error.message}`);
 
       // في حالة فشل الحفظ، ننشئ الحجز محلياً مع الإشعارات
       setBookingNumber(newBookingNumber);
