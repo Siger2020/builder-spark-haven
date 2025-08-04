@@ -36,17 +36,20 @@ router.post('/', async (req, res) => {
     let serviceId = 1; // افتراضي للخدمة الأولى
 
     try {
-      // البحث عن مريض موجود
+      // البحث عن مريض موجود بالهاتف أو البريد أو الاسم
       const existingPatient = db.prepare(`
-        SELECT p.id FROM patients p
+        SELECT p.id, u.name FROM patients p
         JOIN users u ON p.user_id = u.id
-        WHERE u.phone = ? OR u.email = ?
-      `).get(formattedPhone, email);
+        WHERE u.phone = ? OR u.email = ? OR (u.name = ? AND u.phone = ?)
+        ORDER BY u.created_at DESC
+        LIMIT 1
+      `).get(formattedPhone, email, name, formattedPhone);
 
       if (existingPatient) {
         patientId = existingPatient.id;
+        console.log(`📋 استخدام مريض موجود: ${existingPatient.name} (ID: ${patientId})`);
       } else {
-        // إنشاء مستخدم جديد
+        // إنشاء مستخدم جديد فقط إذا لم يوجد
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, role, created_at, updated_at)
           VALUES (?, ?, ?, 'patient', datetime('now'), datetime('now'))
@@ -61,6 +64,7 @@ router.post('/', async (req, res) => {
         const patientNumber = `PAT${Date.now().toString().slice(-6)}`;
         const patientResult = insertPatient.run(userResult.lastInsertRowid, patientNumber);
         patientId = patientResult.lastInsertRowid;
+        console.log(`👤 إنشاء مريض جديد: ${name} (ID: ${patientId})`);
       }
 
       // البحث عن معرف الخدمة بناءً على الاسم
@@ -211,7 +215,7 @@ router.get('/:id', async (req, res) => {
     console.error('Error fetching booking:', error);
     res.status(500).json({ 
       success: false, 
-      error: 'خطأ في جلب الحجز' 
+      error: 'خطأ ��ي جلب الحجز' 
     });
   }
 });
