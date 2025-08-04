@@ -51,10 +51,10 @@ router.post('/', async (req, res) => {
       } else {
         // إنشاء مستخدم جديد فقط إذا لم يوجد
         const insertUser = db.prepare(`
-          INSERT INTO users (name, phone, email, role, created_at, updated_at)
-          VALUES (?, ?, ?, 'patient', datetime('now'), datetime('now'))
+          INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
+          VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
         `);
-        const userResult = insertUser.run(name, formattedPhone, email);
+        const userResult = insertUser.run(name, formattedPhone, email, 'temp_password');
 
         // إنشاء مريض جديد
         const insertPatient = db.prepare(`
@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
         const patientNumber = `PAT${Date.now().toString().slice(-6)}`;
         const patientResult = insertPatient.run(userResult.lastInsertRowid, patientNumber);
         patientId = patientResult.lastInsertRowid;
-        console.log(`👤 ��نشاء مريض جديد: ${name} (ID: ${patientId})`);
+        console.log(`👤 إنشاء مريض جديد: ${name} (ID: ${patientId})`);
       }
 
       // البحث عن معرف الخدمة بناءً على الاسم
