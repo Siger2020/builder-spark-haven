@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, User, Phone, Mail, FileText } from "lucide-react";
+import { Calendar, Clock, User, Phone, Mail, FileText, CheckCircle } from "lucide-react";
 import { useState } from "react";
 
 const timeSlots = [
@@ -70,7 +70,7 @@ export default function Booking() {
         console.log(`📱 سيتم إرسال إشعارات تأكيد الحجز إلى ${formData.phone}`);
         console.log(`🔔 سيتم إرسال تذكير قبل الموعد بيوم واحد`);
       } else {
-        throw new Error('فشل في إنشاء الحجز');
+        throw new Error('فشل ف�� إنشاء الحجز');
       }
 
     } catch (error) {
