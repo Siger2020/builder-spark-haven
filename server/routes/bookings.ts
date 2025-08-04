@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
       });
     }
 
-    // تنسيق رقم الهاتف
+    // تنسيق رقم ال��اتف
     const formattedPhone = phone.startsWith('967') ? phone : `967${phone.replace(/^0+/, '')}`;
     
     // التحقق من وجود مريض أو إنشاء مريض جديد
@@ -208,9 +208,18 @@ router.post('/', async (req, res) => {
     
   } catch (error) {
     console.error('Error creating booking:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: 'خطأ في إنشاء الحجز' 
+
+    // تحديد نوع الخطأ وإرسال رسالة مناسبة
+    let errorMessage = 'خطأ في إنشاء الحجز';
+    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+      errorMessage = 'يوجد حجز مماثل في النظام. يرجى التحقق من البيانات المدخلة.';
+    } else if (error.code === 'SQLITE_CONSTRAINT_NOTNULL') {
+      errorMessage = 'يرجى التأكد من ملء جميع الحقول المطلوبة.';
+    }
+
+    res.status(500).json({
+      success: false,
+      error: errorMessage
     });
   }
 });
@@ -274,7 +283,7 @@ router.get('/:id', async (req, res) => {
     if (!booking) {
       return res.status(404).json({ 
         success: false, 
-        error: 'الحجز غير موجو��' 
+        error: 'الحجز ��ير موجو��' 
       });
     }
     
