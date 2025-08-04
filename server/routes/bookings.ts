@@ -49,12 +49,26 @@ router.post('/', async (req, res) => {
         patientId = existingPatient.id;
         console.log(`📋 استخدام مريض موجود: ${existingPatient.name} (ID: ${patientId})`);
       } else {
-        // إنشاء مستخدم جديد فقط إذا ل�� يوجد
+        // التحقق من وجود مستخدم بنفس البريد الإلكتروني
+        let finalEmail = email;
+        if (email) {
+          const existingEmailUser = db.prepare(`
+            SELECT id FROM users WHERE email = ?
+          `).get(email);
+
+          // إذا كان البريد موجود، نستخدم بريد فارغ أو نضيف رقم عشوائي
+          if (existingEmailUser) {
+            finalEmail = `${email.split('@')[0]}_${Date.now()}@${email.split('@')[1]}`;
+            console.log(`📧 البريد الإلكتروني موجود، سيتم استخدام: ${finalEmail}`);
+          }
+        }
+
+        // إنشاء مستخدم جديد فقط إذا لم يوجد
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
           VALUES (?, ?, ?, ?, 'patient', datetime('now'), datetime('now'))
         `);
-        const userResult = insertUser.run(name, formattedPhone, email, 'temp_password');
+        const userResult = insertUser.run(name, formattedPhone, finalEmail || '', 'temp_password');
 
         // إنشاء مريض جديد
         const insertPatient = db.prepare(`
@@ -78,7 +92,7 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
       console.error('خطأ في إنشاء المريض:', error);
-      // في حالة فشل إنشاء المريض، نحاول إنشاء مستخ��م ومريض بشكل منفصل
+      // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
       try {
         const insertUser = db.prepare(`
           INSERT INTO users (name, phone, email, password, role, created_at, updated_at)
