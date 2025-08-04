@@ -99,12 +99,26 @@ export default function AppointmentManagement() {
         setAppointments(data.data || []);
         calculateStats(data.data || []);
       } else {
-        console.error("فشل في جلب المواعيد");
+        console.error("فشل في جلب المواعيد - حالة الاستجابة:", response.status);
         setAppointments([]);
+
+        // Show user-friendly error message
+        if (response.status === 500) {
+          alert("خطأ في الخادم. يرجى المحاولة مرة أخرى.");
+        } else if (response.status === 404) {
+          alert("API غير موجود. يرجى التحقق من إعدادات النظام.");
+        }
       }
     } catch (error) {
       console.error("خطأ في جلب المواعيد:", error);
       setAppointments([]);
+
+      // Show user-friendly error message for network errors
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        alert("لا يمكن الاتصال بالخادم. يرجى التأكد من أن الخادم يعمل والمحاولة مرة أخرى.");
+      } else {
+        alert("حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.");
+      }
     } finally {
       setLoading(false);
     }
