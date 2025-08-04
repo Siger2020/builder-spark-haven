@@ -298,7 +298,7 @@ export default function Admin() {
                 {dashboardStats.totalTransactions}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                معاملة مالية مسجلة
+                معاملة مالية م��جلة
               </p>
             </CardContent>
           </Card>
@@ -328,38 +328,56 @@ export default function Admin() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="font-arabic">الوقت</TableHead>
-                          <TableHead className="font-arabic">المريض</TableHead>
-                          <TableHead className="font-arabic">الخدمة</TableHead>
-                          <TableHead className="font-arabic">الطبيب</TableHead>
-                          <TableHead className="font-arabic">الحالة</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {recentAppointments.map((appointment) => (
-                          <TableRow key={appointment.id}>
-                            <TableCell className="font-medium">
-                              {appointment.time}
-                            </TableCell>
-                            <TableCell className="font-arabic">
-                              {appointment.patientName}
-                            </TableCell>
-                            <TableCell className="font-arabic">
-                              {appointment.service}
-                            </TableCell>
-                            <TableCell className="font-arabic">
-                              {appointment.doctor}
-                            </TableCell>
-                            <TableCell>
-                              {getAppointmentStatusBadge(appointment.status)}
-                            </TableCell>
+                    {recentAppointments.length === 0 ? (
+                      <div className="text-center py-8">
+                        <Calendar className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                        <p className="text-gray-600 font-arabic">
+                          لا توجد مواعيد حديثة
+                        </p>
+                        <Link to="/appointment-management">
+                          <Button className="mt-4 font-arabic">
+                            إدارة المواعيد
+                          </Button>
+                        </Link>
+                      </div>
+                    ) : (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="font-arabic">رقم الموعد</TableHead>
+                            <TableHead className="font-arabic">المريض</TableHead>
+                            <TableHead className="font-arabic">الوقت</TableHead>
+                            <TableHead className="font-arabic">الخدمة</TableHead>
+                            <TableHead className="font-arabic">الطبيب</TableHead>
+                            <TableHead className="font-arabic">الحالة</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+                        </TableHeader>
+                        <TableBody>
+                          {recentAppointments.map((appointment) => (
+                            <TableRow key={appointment.id}>
+                              <TableCell className="font-mono text-sm">
+                                {appointment.appointment_number}
+                              </TableCell>
+                              <TableCell className="font-arabic">
+                                {appointment.patient_name}
+                              </TableCell>
+                              <TableCell className="font-medium">
+                                {appointment.appointment_time}
+                              </TableCell>
+                              <TableCell className="font-arabic">
+                                {appointment.service_name}
+                              </TableCell>
+                              <TableCell className="font-arabic">
+                                {appointment.doctor_name}
+                              </TableCell>
+                              <TableCell>
+                                {getAppointmentStatusBadge(appointment.status)}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    )}
                   </CardContent>
                 </Card>
               </div>
@@ -623,7 +641,7 @@ export default function Admin() {
               <CardHeader>
                 <CardTitle className="font-arabic">الطاقم الطبي</CardTitle>
                 <CardDescription className="font-arabic">
-                  إدارة الأطباء وإحصائيات الأداء
+                  إدارة الأطباء وإحصائيات ا��أداء
                 </CardDescription>
               </CardHeader>
               <CardContent>
