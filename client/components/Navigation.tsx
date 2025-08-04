@@ -37,6 +37,7 @@ const adminNavigationItems = [
   { name: "الكشوفات", path: "/reports", icon: FileText },
   { name: "جلسات العلاج", path: "/sessions", icon: Activity },
   { name: "لوحة الإدارة", path: "/admin", icon: Settings },
+  { name: "فحص النظام", path: "/system-check", icon: Shield },
 ];
 
 export function Navigation() {
