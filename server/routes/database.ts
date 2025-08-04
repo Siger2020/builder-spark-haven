@@ -462,3 +462,131 @@ export const executeQueryHandler: RequestHandler = (req, res) => {
     });
   }
 };
+
+// حذف جميع البيانات ماعدا حساب المدير
+export const bulkDataCleanupHandler: RequestHandler = (req, res) => {
+  try {
+    console.log("🧹 بدء عملية تنظيف البيانات...");
+
+    // إيقاف foreign key constraints مؤقتاً لضمان نجاح الح��ف
+    db.pragma("foreign_keys = OFF");
+
+    const transaction = db.transaction(() => {
+      // الحصول على معرف حساب المدير
+      const adminUser = db.prepare(`
+        SELECT id FROM users
+        WHERE email = 'admin@dkalmoli.com' AND role = 'admin'
+        LIMIT 1
+      `).get() as { id: number } | undefined;
+
+      if (!adminUser) {
+        throw new Error("حساب المدير غير موجود");
+      }
+
+      console.log(`📋 معرف حساب المدير: ${adminUser.id}`);
+
+      // 1. حذف جميع المواعيد
+      const deletedAppointments = db.prepare("DELETE FROM appointments").run();
+      console.log(`✅ تم حذف ${deletedAppointments.changes} موعد`);
+
+      // 2. حذف جميع المرضى (سيؤدي إلى حذف البيانات المرتبطة تلقائياً)
+      const deletedPatients = db.prepare("DELETE FROM patients").run();
+      console.log(`✅ تم حذف ${deletedPatients.changes} مريض`);
+
+      // 3. حذف جميع الأطباء ماعدا الذين مرتبطين بحساب المدير
+      const deletedDoctors = db.prepare(`
+        DELETE FROM doctors
+        WHERE user_id != ?
+      `).run(adminUser.id);
+      console.log(`✅ تم حذف ${deletedDoctors.changes} طبيب`);
+
+      // 4. حذف جميع المعاملات المالية
+      const deletedTransactions = db.prepare("DELETE FROM financial_transactions").run();
+      console.log(`✅ تم حذف ${deletedTransactions.changes} معاملة مالية`);
+
+      // 5. حذف جميع الفواتير
+      const deletedInvoices = db.prepare("DELETE FROM invoices").run();
+      console.log(`✅ تم حذف ${deletedInvoices.changes} فاتورة`);
+
+      // 6. حذف جميع التقارير الطبية
+      const deletedReports = db.prepare("DELETE FROM medical_reports").run();
+      console.log(`✅ تم حذف ${deletedReports.changes} تقرير طبي`);
+
+      // 7. حذف جميع خطط العلاج
+      const deletedPlans = db.prepare("DELETE FROM treatment_plans").run();
+      console.log(`✅ تم حذف ${deletedPlans.changes} خطة علاج`);
+
+      // 8. حذف جميع جلسات العلاج
+      const deletedSessions = db.prepare("DELETE FROM treatment_sessions").run();
+      console.log(`✅ تم حذف ${deletedSessions.changes} جلسة علاج`);
+
+      // 9. حذف جميع الإشعارات
+      const deletedNotifications = db.prepare("DELETE FROM notifications").run();
+      console.log(`✅ تم حذف ${deletedNotifications.changes} إشعار`);
+
+      // 10. حذف جميع سجلات النشاط
+      const deletedActivityLogs = db.prepare("DELETE FROM activity_logs").run();
+      console.log(`✅ تم حذف ${deletedActivityLogs.changes} سجل نشاط`);
+
+      // 11. حذف جميع المستخدمين ماعدا حساب المدير
+      const deletedUsers = db.prepare(`
+        DELETE FROM users
+        WHERE id != ? AND email != 'admin@dkalmoli.com'
+      `).run(adminUser.id);
+      console.log(`✅ تم حذف ${deletedUsers.changes} مستخدم`);
+
+      // التأكد من بقاء حساب المدير فقط
+      const remainingUsers = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+      const remainingAdmin = db.prepare(`
+        SELECT id, name, email, role FROM users
+        WHERE email = 'admin@dkalmoli.com'
+      `).get();
+
+      console.log(`📊 عدد المستخدمين المتبقيين: ${remainingUsers.count}`);
+      console.log("📊 حساب المدير المتبقي:", remainingAdmin);
+
+      if (remainingUsers.count !== 1 || !remainingAdmin) {
+        throw new Error("فشل في الحفاظ على حساب المدير");
+      }
+
+      return {
+        deletedAppointments: deletedAppointments.changes,
+        deletedPatients: deletedPatients.changes,
+        deletedDoctors: deletedDoctors.changes,
+        deletedTransactions: deletedTransactions.changes,
+        deletedInvoices: deletedInvoices.changes,
+        deletedReports: deletedReports.changes,
+        deletedPlans: deletedPlans.changes,
+        deletedSessions: deletedSessions.changes,
+        deletedNotifications: deletedNotifications.changes,
+        deletedActivityLogs: deletedActivityLogs.changes,
+        deletedUsers: deletedUsers.changes,
+        remainingUsers: remainingUsers.count,
+        adminUser: remainingAdmin
+      };
+    });
+
+    const result = transaction();
+
+    // إعادة تفعيل foreign key constraints
+    db.pragma("foreign_keys = ON");
+
+    console.log("✅ تم تنظيف جميع البيانات بنجاح");
+
+    res.json({
+      success: true,
+      message: "تم حذف جميع البيانات بنجاح ماعدا حساب مدير النظام",
+      data: result,
+    });
+
+  } catch (error) {
+    // إعادة تفعيل foreign key constraints في حالة الخطأ
+    db.pragma("foreign_keys = ON");
+
+    console.error("❌ خطأ في تنظيف البيانات:", error);
+    res.status(500).json({
+      success: false,
+      error: `خطأ في تنظيف البيانات: ${error.message}`,
+    });
+  }
+};
