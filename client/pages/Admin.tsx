@@ -47,125 +47,25 @@ import {
   MessageSquare,
 } from "lucide-react";
 
-// Mock data for dashboard
-const dashboardStats = {
-  totalPatients: 247,
-  activePatients: 189,
-  newPatientsThisMonth: 23,
-  totalAppointments: 156,
-  completedAppointments: 134,
-  canceledAppointments: 8,
-  pendingAppointments: 14,
-  monthlyRevenue: 87500,
-  outstandingPayments: 12300,
-  treatmentSuccess: 94,
-  patientSatisfaction: 98,
-};
+interface DashboardStats {
+  totalPatients: number;
+  totalAppointments: number;
+  totalServices: number;
+  totalTransactions: number;
+  completedAppointments: number;
+  scheduledAppointments: number;
+  cancelledAppointments: number;
+}
 
-const recentAppointments = [
-  {
-    id: "APP-001",
-    patientName: "أحمد محمد السعد",
-    time: "09:00",
-    service: "تنظيف الأسنان",
-    doctor: "د. سارة أحمد",
-    status: "confirmed",
-  },
-  {
-    id: "APP-002",
-    patientName: "فاطمة أحمد العلي",
-    time: "10:30",
-    service: "تقويم الأسنان",
-    doctor: "د. محمد علي",
-    status: "pending",
-  },
-  {
-    id: "APP-003",
-    patientName: "محمد علي القحطاني",
-    time: "14:00",
-    service: "زراعة الأسنان",
-    doctor: "د. نورا سالم",
-    status: "confirmed",
-  },
-  {
-    id: "APP-004",
-    patientName: "نورا سالم الحربي",
-    time: "16:30",
-    service: "تبييض الأسنان",
-    doctor: "د. أحمد محمد",
-    status: "canceled",
-  },
-];
-
-const alerts = [
-  {
-    id: 1,
-    type: "urgent",
-    message: "مريض يحتاج متابعة فورية - محمد علي القحطاني",
-    time: "منذ 5 دقائق",
-  },
-  {
-    id: 2,
-    type: "payment",
-    message: "دفعة متأخرة - فاطمة أحمد العلي (1500 ريال)",
-    time: "منذ ساعة",
-  },
-  {
-    id: 3,
-    type: "appointment",
-    message: "تم إلغاء موعد - سارة خالد المطيري",
-    time: "منذ ساعتين",
-  },
-  {
-    id: 4,
-    type: "system",
-    message: "تم تحديث النظام بنجاح",
-    time: "منذ 3 ساعات",
-  },
-];
-
-const topServices = [
-  { name: "تنظيف الأسنان", count: 45, revenue: 9000, percentage: 35 },
-  { name: "حشوات الأسنان", count: 32, revenue: 9600, percentage: 25 },
-  { name: "تقويم الأسنان", count: 18, revenue: 54000, percentage: 15 },
-  { name: "زراعة الأسنان", count: 12, revenue: 30000, percentage: 10 },
-  { name: "تبييض الأسنان", count: 21, revenue: 16800, percentage: 15 },
-];
-
-const doctors = [
-  {
-    id: 1,
-    name: "د. سارة أحمد",
-    specialty: "طب الأسنان العام",
-    patients: 67,
-    appointments: 34,
-    rating: 4.9,
-  },
-  {
-    id: 2,
-    name: "د. محمد علي",
-    specialty: "تقويم الأسنان",
-    patients: 43,
-    appointments: 28,
-    rating: 4.8,
-  },
-  {
-    id: 3,
-    name: "د. نورا سالم",
-    specialty: "جراحة الفم",
-    patients: 38,
-    appointments: 22,
-    rating: 4.9,
-  },
-  {
-    id: 4,
-    name: "د. أحمد محمد",
-    specialty: "تجميل الأسنان",
-    patients: 29,
-    appointments: 18,
-    rating: 4.7,
-  },
-];
+interface RecentAppointment {
+  id: number;
+  appointment_number: string;
+  patient_name: string;
+  appointment_time: string;
+  service_name: string;
+  doctor_name: string;
+  status: string;
+}
 
 const getAppointmentStatusBadge = (status: string) => {
   switch (status) {
@@ -687,7 +587,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">إعدادات النظام</CardTitle>
                   <CardDescription className="font-arabic">
-                    تخصيص إعدادات العيادة
+                    تخصيص إعدادات ��لعيادة
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
