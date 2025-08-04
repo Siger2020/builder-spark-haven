@@ -77,8 +77,30 @@ router.post('/', async (req, res) => {
       }
 
     } catch (error) {
-      console.log('خطأ في إنشاء المريض، سيتم استخدام معرف افتراضي');
-      patientId = 1;
+      console.error('خطأ في إنشاء المريض:', error);
+      // في حالة فشل إنشاء المريض، نحاول إنشاء مستخدم ومريض بشكل منفصل
+      try {
+        const insertUser = db.prepare(`
+          INSERT INTO users (name, phone, email, role, created_at, updated_at)
+          VALUES (?, ?, ?, 'patient', datetime('now'), datetime('now'))
+        `);
+        const userResult = insertUser.run(name, formattedPhone, email || '');
+
+        const insertPatient = db.prepare(`
+          INSERT INTO patients (user_id, patient_number, created_at, updated_at)
+          VALUES (?, ?, datetime('now'), datetime('now'))
+        `);
+        const patientNumber = `PAT${Date.now().toString().slice(-6)}`;
+        const patientResult = insertPatient.run(userResult.lastInsertRowid, patientNumber);
+        patientId = patientResult.lastInsertRowid;
+        console.log(`👤 إنشاء مريض جديد (المحاولة الثانية): ${name} (ID: ${patientId})`);
+      } catch (secondError) {
+        console.error('فشل في إنشاء المريض في المحاولة الثانية:', secondError);
+        return res.status(500).json({
+          success: false,
+          error: 'خطأ في إنشاء بيانات المريض. يرجى المحاولة مرة أخرى.'
+        });
+      }
     }
 
     // حفظ الحجز في قاعدة البيانات
