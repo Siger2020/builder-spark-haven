@@ -150,6 +150,15 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/appointment-management"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <AppointmentManagement />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
