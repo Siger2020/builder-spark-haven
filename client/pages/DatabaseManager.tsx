@@ -51,6 +51,7 @@ import {
   Table as TableIcon,
   Play,
   Save,
+  Trash,
 } from "lucide-react";
 
 interface DatabaseStats {
@@ -199,7 +200,7 @@ export default function DatabaseManager() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("هل أنت متأكد من حذف هذا السجل؟")) return;
+    if (!confirm("هل ��نت متأكد من حذف هذا السجل؟")) return;
 
     try {
       const response = await fetch(
