@@ -27,12 +27,12 @@ router.post('/', async (req, res) => {
       });
     }
 
-    // تنسيق رقم ال��اتف
+    // تنسيق رقم الهاتف
     const formattedPhone = phone.startsWith('967') ? phone : `967${phone.replace(/^0+/, '')}`;
     
     // التحقق من وجود مريض أو إنشاء مريض جديد
     let patientId;
-    let doctorId = 1; // افتراضي للدكتور الأول
+    let doctorId = null; // سيتم تحديده لاحقاً
     let serviceId = 1; // افتراضي للخدمة الأولى
 
     try {
@@ -283,7 +283,7 @@ router.get('/:id', async (req, res) => {
     if (!booking) {
       return res.status(404).json({ 
         success: false, 
-        error: 'الحجز ��ير موجو��' 
+        error: 'الحجز غير موجو��' 
       });
     }
     
