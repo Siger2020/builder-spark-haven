@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     // تنسيق رقم الهاتف
     const formattedPhone = phone.startsWith('967') ? phone : `967${phone.replace(/^0+/, '')}`;
     
-    // التحقق من وجود مريض أو إنشاء مريض جديد
+    // التحقق من وجو�� مريض أو إنشاء مريض جديد
     let patientId;
     let doctorId = 1; // افتراضي للدكتور الأول
     let serviceId = 1; // افتراضي للخدمة الأولى
@@ -111,14 +111,14 @@ router.post('/', async (req, res) => {
       phone: formattedPhone,
       appointmentDate: date,
       appointmentTime: time,
-      doctorName: doctorName || 'د. كمال الملصي',
+      doctorName: doctorName || 'د. كمال ��لملصي',
       service: service,
       bookingNumber: bookingNumber
     };
     
     // إرسال الإشعارات في الخلفية (لا ننتظر النتيجة)
     handleBookingNotifications(notificationData).catch(error => {
-      console.error('خط�� في إرسال الإشعارات:', error);
+      console.error('خطأ في إرسال الإشعارات:', error);
     });
     
     res.json({ 
@@ -143,8 +143,20 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const bookings = db.prepare(`
-      SELECT * FROM appointments 
-      ORDER BY appointment_date DESC, appointment_time DESC
+      SELECT
+        a.*,
+        u.name as patient_name,
+        u.phone,
+        u.email,
+        s.name as service_name,
+        d_user.name as doctor_name
+      FROM appointments a
+      JOIN patients p ON a.patient_id = p.id
+      JOIN users u ON p.user_id = u.id
+      LEFT JOIN services s ON a.service_id = s.id
+      LEFT JOIN doctors d ON a.doctor_id = d.id
+      LEFT JOIN users d_user ON d.user_id = d_user.id
+      ORDER BY a.appointment_date DESC, a.appointment_time DESC
     `).all();
     
     res.json({ 
