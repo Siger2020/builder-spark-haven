@@ -424,7 +424,7 @@ export default function Patients() {
                   </Avatar>
                   <div>
                     <h3 className="text-lg font-bold font-arabic">{selectedPatient.name}</h3>
-                    <p className="text-gray-600 font-arabic">{selectedPatient.id}</p>
+                    <p className="text-gray-600 font-arabic">{selectedPatient.patient_number || `ID: ${selectedPatient.id}`}</p>
                     <div className="flex gap-2 mt-2">
                       {getStatusBadge(selectedPatient.status)}
                     </div>
@@ -436,7 +436,9 @@ export default function Patients() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-gray-500" />
-                      <span className="font-arabic text-sm">العمر: {selectedPatient.age} سنة ({selectedPatient.gender})</span>
+                      <span className="font-arabic text-sm">
+                        الجنس: {selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنثى' : selectedPatient.gender}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Phone className="h-4 w-4 text-gray-500" />
@@ -454,11 +456,13 @@ export default function Patients() {
                     </div>
                     <div className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-gray-500" />
-                      <span className="font-arabic text-sm">التأمين: {selectedPatient.insurance}</span>
+                      <span className="font-arabic text-sm">التأمين: {selectedPatient.insurance_company || 'غير محدد'}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
-                      <span className="font-arabic text-sm">آخر زيارة: {new Date(selectedPatient.lastVisit).toLocaleDateString('ar-SA')}</span>
+                      <span className="font-arabic text-sm">
+                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -466,27 +470,25 @@ export default function Patients() {
                 {/* Medical History */}
                 <div>
                   <h4 className="font-bold font-arabic mb-2">التاريخ الطبي:</h4>
-                  <ul className="space-y-1">
-                    {selectedPatient.medicalHistory.map((item: string, index: number) => (
-                      <li key={index} className="text-sm font-arabic">• {item}</li>
-                    ))}
-                  </ul>
+                  <p className="text-sm font-arabic text-gray-600">
+                    {selectedPatient.medical_history || 'لا توجد معلومات'}
+                  </p>
                 </div>
 
-                {/* Treatments */}
+                {/* Allergies */}
                 <div>
-                  <h4 className="font-bold font-arabic mb-2">العلاجات السابقة:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedPatient.treatments.map((treatment: string, index: number) => (
-                      <Badge key={index} variant="outline" className="font-arabic">{treatment}</Badge>
-                    ))}
-                  </div>
+                  <h4 className="font-bold font-arabic mb-2">الحساسيات:</h4>
+                  <p className="text-sm font-arabic text-gray-600">
+                    {selectedPatient.allergies || 'لا توجد حساسيات معروفة'}
+                  </p>
                 </div>
 
-                {/* Notes */}
+                {/* Blood Type */}
                 <div>
-                  <h4 className="font-bold font-arabic mb-2">ملاحظات:</h4>
-                  <p className="text-sm font-arabic text-gray-600">{selectedPatient.notes}</p>
+                  <h4 className="font-bold font-arabic mb-2">فصيلة الدم:</h4>
+                  <Badge variant="outline" className="font-arabic">
+                    {selectedPatient.blood_type || 'غير محدد'}
+                  </Badge>
                 </div>
               </div>
             )}
