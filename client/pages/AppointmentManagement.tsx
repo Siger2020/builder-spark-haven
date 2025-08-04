@@ -112,7 +112,7 @@ export default function AppointmentManagement() {
         }
       }
     } catch (error) {
-      console.error("خطأ في جلب ال��واعيد:", error);
+      console.error("خطأ في جلب المواعيد:", error);
       setAppointments([]);
       setServerConnected(false); // Server connection failed
 
@@ -268,9 +268,23 @@ export default function AppointmentManagement() {
             <h1 className="text-3xl font-bold text-gray-900 font-arabic">
               إدارة المواعيد
             </h1>
-            <p className="text-gray-600 font-arabic">
-              إدارة شاملة لجميع مواعيد العيادة
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="text-gray-600 font-arabic">
+                إدارة شاملة لجميع مواعيد العيادة
+              </p>
+              {!serverConnected && (
+                <div className="flex items-center gap-2 text-red-600 bg-red-50 px-3 py-1 rounded-full">
+                  <AlertCircle className="h-4 w-4" />
+                  <span className="text-sm font-arabic">غير متصل بالخادم</span>
+                </div>
+              )}
+              {serverConnected && appointments.length > 0 && (
+                <div className="flex items-center gap-2 text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                  <CheckCircle className="h-4 w-4" />
+                  <span className="text-sm font-arabic">متصل</span>
+                </div>
+              )}
+            </div>
           </div>
           <div className="flex gap-2">
             <Button
