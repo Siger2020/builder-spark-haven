@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
         const patientNumber = `PAT${Date.now().toString().slice(-6)}`;
         const patientResult = insertPatient.run(userResult.lastInsertRowid, patientNumber);
         patientId = patientResult.lastInsertRowid;
-        console.log(`👤 إنشاء مريض جديد: ${name} (ID: ${patientId})`);
+        console.log(`👤 ��نشاء مريض جديد: ${name} (ID: ${patientId})`);
       }
 
       // البحث عن معرف الخدمة بناءً على الاسم
@@ -140,6 +140,12 @@ router.post('/', async (req, res) => {
       service,
       notes || ''
     );
+
+    console.log(`✅ تم إنشاء الموعد بنجاح:`, {
+      appointmentId: result.lastInsertRowid,
+      bookingNumber,
+      patientId
+    });
     
     // إعداد بيانات الإشعارات
     const notificationData = {
@@ -262,7 +268,7 @@ router.patch('/:id/status', async (req, res) => {
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ 
         success: false, 
-        error: 'حالة ال��جز غير صالحة' 
+        error: 'حالة الحجز غير صالحة' 
       });
     }
     
