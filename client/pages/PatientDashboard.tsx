@@ -32,7 +32,7 @@ const mockSessions = [
     time: "11:30 ص",
     doctor: "د. سارة أحمد",
     treatment: "فحص دوري",
-    status: "قادمة",
+    status: "ق��دمة",
     notes: ""
   }
 ];
@@ -58,6 +58,11 @@ const mockReports = [
 export default function PatientDashboard() {
   const [activeTab, setActiveTab] = useState("sessions");
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleBookAppointment = () => {
+    navigate('/booking');
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
