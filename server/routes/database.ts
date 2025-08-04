@@ -160,7 +160,7 @@ export const insertRecordHandler: RequestHandler = (req, res) => {
     // الحصول على معلومات الأعمدة
     const columns = db.prepare(`PRAGMA table_info(${tableName})`).all();
 
-    // تصفية البيانات المرسلة لتشمل الأعمدة الموجودة فقط
+    // ��صفية البيانات المرسلة لتشمل الأعمدة الموجودة فقط
     const validColumns = columns
       .filter(
         (col: any) =>
@@ -357,7 +357,7 @@ export const globalSearchHandler: RequestHandler = (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: "خطأ في البحث",
+      error: "خطأ ف�� البحث",
     });
   }
 };
@@ -459,6 +459,37 @@ export const executeQueryHandler: RequestHandler = (req, res) => {
     res.status(500).json({
       success: false,
       error: `خطأ في تنفيذ الاستعلام: ${error.message}`,
+    });
+  }
+};
+
+// الحصول على المرضى مع بيانات المستخدمين
+export const getPatientsHandler: RequestHandler = (req, res) => {
+  try {
+    const patients = db.prepare(`
+      SELECT
+        p.*,
+        u.name,
+        u.email,
+        u.phone,
+        u.address,
+        u.gender,
+        u.created_at as user_created_at,
+        u.updated_at as user_updated_at
+      FROM patients p
+      JOIN users u ON p.user_id = u.id
+      ORDER BY p.created_at DESC
+    `).all();
+
+    res.json({
+      success: true,
+      data: patients,
+    });
+  } catch (error) {
+    console.error("❌ خطأ في الحصول على بيانات المرضى:", error);
+    res.status(500).json({
+      success: false,
+      error: "خطأ في الحصول على بيانات المرضى",
     });
   }
 };
@@ -571,7 +602,7 @@ export const bulkDataCleanupHandler: RequestHandler = (req, res) => {
     // إعادة تفعيل foreign key constraints
     db.pragma("foreign_keys = ON");
 
-    console.log("✅ تم تنظيف جميع البيانات بنجاح");
+    console.log("✅ تم تنظيف جميع البيان��ت بنجاح");
 
     res.json({
       success: true,
