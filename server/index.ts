@@ -18,6 +18,7 @@ import {
   getBackupsHandler,
   executeQueryHandler,
   bulkDataCleanupHandler,
+  getPatientsHandler,
 } from "./routes/database.js";
 
 export function createServer() {
