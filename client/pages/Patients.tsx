@@ -43,6 +43,7 @@ interface Patient {
   role: string;
   created_at: string;
   updated_at: string;
+  status: string; // Added for UI compatibility
 }
 
 const getStatusBadge = (status: string) => {
