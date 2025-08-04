@@ -32,7 +32,7 @@ const mockSessions = [
     time: "11:30 ص",
     doctor: "د. سارة أحمد",
     treatment: "فحص دوري",
-    status: "ق��دمة",
+    status: "قادمة",
     notes: ""
   }
 ];
@@ -182,7 +182,7 @@ export default function PatientDashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900 font-arabic">جلسات العلاج</h2>
-              <Button className="font-arabic">
+              <Button onClick={handleBookAppointment} className="font-arabic">
                 <Calendar className="ml-2 h-4 w-4" />
                 حجز موعد جديد
               </Button>
