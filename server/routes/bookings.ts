@@ -103,6 +103,16 @@ router.post('/', async (req, res) => {
       }
     }
 
+    console.log(`📝 إنشاء موعد جديد:`, {
+      bookingNumber,
+      patientId,
+      doctorId,
+      serviceId,
+      date,
+      time,
+      service
+    });
+
     // حفظ الحجز في قاعدة البيانات
     const stmt = db.prepare(`
       INSERT INTO appointments (
@@ -252,7 +262,7 @@ router.patch('/:id/status', async (req, res) => {
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ 
         success: false, 
-        error: 'حالة الحجز غير صالحة' 
+        error: 'حالة ال��جز غير صالحة' 
       });
     }
     
