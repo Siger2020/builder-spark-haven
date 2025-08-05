@@ -151,10 +151,13 @@ export default function Booking() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12" dir="rtl">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
+          <div className="inline-block p-2 rounded-full bg-dental-primary/10 mb-4">
+            <Calendar className="h-12 w-12 text-dental-primary" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic bg-gradient-to-r from-dental-primary to-blue-600 bg-clip-text text-transparent">
             حجز موعد
           </h1>
           <p className="text-lg text-gray-600 font-arabic">
