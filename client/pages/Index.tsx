@@ -198,8 +198,13 @@ export default function Index() {
     <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
       <section className="bg-yemen-gradient text-white py-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="animate-float absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+          <div className="animate-float absolute bottom-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl" style={{animationDelay: '1s'}}></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center animate-fadeInUp">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
               عيا��ة الدكتور كمال الملصي
             </h1>
@@ -383,7 +388,7 @@ export default function Index() {
                   محاكاة الابتسامة
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناع��
+                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناعي
                 </p>
                 <div className="text-sm text-purple-600 font-arabic">
                   دقة 95% في التوقعات
@@ -573,13 +578,13 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. الع��اج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
                   <img
                     src="https://images.unsplash.com/photo-1494790108755-2616b612b412?w=60&h=60&fit=crop&crop=face"
-                    alt="أمل محمد"
+                    alt="أمل محم��"
                     className="w-12 h-12 rounded-full ml-3"
                   />
                   <div>
