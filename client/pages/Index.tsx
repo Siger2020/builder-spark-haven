@@ -34,7 +34,7 @@ const services = [
     title: "تنظيف الأسنان",
     description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
     icon: Smile,
-    price: "من 200 ريال",
+    price: "من 10,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579?alt=media&token=62965839-1bc1-457a-b834-e0dd1c178bf4&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -156,7 +156,7 @@ const beforeAfterCases = [
   },
   {
     id: 5,
-    title: "قشور الأسنان",
+    title: "قشور الأسن��ن",
     description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
@@ -179,7 +179,7 @@ const beforeAfterCases = [
   {
     id: 8,
     title: "جسور الأسنان",
-    description: "جسور ثابتة لتعويض الأسنان المفقودة",
+    description: "جسور ثابتة ��تعويض الأسنان المفقودة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
   },
