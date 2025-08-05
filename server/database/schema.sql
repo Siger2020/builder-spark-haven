@@ -1,4 +1,4 @@
--- قاعدة بيانات عيادة الدكتور كمال
+-- قاعدة بيانات ��يادة الدكتور كمال
 -- إنشاء جميع الجداول المطلوبة للنظام
 
 -- جدول المستخدمين
@@ -282,6 +282,52 @@ CREATE TABLE IF NOT EXISTS system_settings (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(category, setting_key),
     FOREIGN KEY (updated_by) REFERENCES users(id)
+);
+
+-- جدول إعدادات البريد الإلكتروني
+CREATE TABLE IF NOT EXISTS email_settings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    enabled BOOLEAN DEFAULT FALSE,
+    service TEXT NOT NULL DEFAULT 'gmail', -- gmail, outlook, yahoo, smtp
+    host TEXT,
+    port INTEGER DEFAULT 587,
+    secure BOOLEAN DEFAULT FALSE,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    from_name TEXT NOT NULL DEFAULT 'عيادة الدكتور كمال الملصي',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- جدول سجل الإشعارات الإلكترونية
+CREATE TABLE IF NOT EXISTS email_notifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    notification_type TEXT CHECK(notification_type IN ('confirmation', 'reminder', 'cancellation', 'test')) NOT NULL,
+    recipient_email TEXT NOT NULL,
+    recipient_name TEXT NOT NULL,
+    appointment_id TEXT,
+    subject TEXT NOT NULL,
+    html_content TEXT NOT NULL,
+    sent_at DATETIME,
+    delivery_status TEXT CHECK(delivery_status IN ('pending', 'sent', 'failed', 'delivered')) DEFAULT 'pending',
+    message_id TEXT,
+    error_message TEXT,
+    retry_count INTEGER DEFAULT 0,
+    metadata TEXT, -- JSON format لحفظ بيانات إضافية
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- جدول إحصائيات الإشعارات
+CREATE TABLE IF NOT EXISTS notification_stats (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date DATE NOT NULL,
+    notification_type TEXT NOT NULL,
+    total_sent INTEGER DEFAULT 0,
+    total_delivered INTEGER DEFAULT 0,
+    total_failed INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(date, notification_type)
 );
 
 -- جدول المخزون والمواد
