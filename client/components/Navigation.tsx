@@ -56,15 +56,11 @@ export function Navigation() {
 
   // تحديد القوائم حسب نوع المستخدم
   const getNavigationItems = () => {
-    console.log('User role:', user?.role); // للتصحيح
     if (user?.role === 'patient') {
-      console.log('Showing patient navigation');
       return patientNavigationItems;
     } else if (user?.role === 'admin') {
-      console.log('Showing admin navigation');
       return adminNavigationItems;
     } else {
-      console.log('Showing doctor navigation for role:', user?.role);
       // للأطباء والموظفين الآخرين
       return doctorNavigationItems;
     }
