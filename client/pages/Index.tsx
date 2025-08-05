@@ -40,56 +40,48 @@ const services = [
     title: "حشوات الأسنان",
     description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
     icon: Shield,
-    price: "من 300 ري��ل",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737?alt=media&token=ec850565-c54e-41b0-8d8f-2865bb1d1cc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
     title: "تقويم الأسنان",
     description: "تقويم شامل بأحدث التقنيا�� الطبية المتقدمة",
     icon: Star,
-    price: "من 150,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
     title: "زراعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
-    price: "من 125,000 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204"
   },
   {
     title: "تبييض الأسنان",
     description: "تبييض آمن وفعال لابتسامة مشرقة",
     icon: Star,
-    price: "من 40,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12?alt=media&token=0aad9bfe-c865-4eee-a16d-072936f66615&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
     title: "علاج الجذور",
     description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
-    price: "من 30,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
     title: "طب أسنان الأطفال",
     description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
-    price: "من 7,500 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
   {
     title: "طب الأسنان الترميمي",
     description: "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها. نقدم لك الحشوات والتيجان والجسور وغيرها لاستعادة صحة أسنانك",
     icon: Wrench,
-    price: "من 20,000 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F4ecc0485788f45fab358a32e32695be9"
   },
   {
     title: "طب الأسنان التجميلي",
     description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
-    price: "من 25,000 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341"
   },
 ];
@@ -141,7 +133,7 @@ const beforeAfterCases = [
   },
   {
     id: 3,
-    title: "زراعة الأسنان",
+    title: "زرا��ة الأسنان",
     description: "زراعة متكاملة مع نتائج طبيعية 100%",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fddcb4c2e26404b149b607d3da80d435e",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6e92e485ef534ae2ab04f48f54412c8b",
@@ -163,7 +155,7 @@ const beforeAfterCases = [
   {
     id: 6,
     title: "علاج الجذور",
-    description: "إنقاذ السن وإزالة الألم نهائياً",
+    description: "إنقاذ السن وإزالة الأل�� نهائياً",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6c25357a685f49c087674c72a7515f79",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F03af0a006e6d426bb83f0f44b613e007",
   },
@@ -259,7 +251,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
-              خدماتنا المتميزة
+              خدماتنا ��لمتميزة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
               نقدم مجموعة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
