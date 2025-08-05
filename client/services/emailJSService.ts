@@ -29,18 +29,26 @@ export class EmailJSService {
   // تكوين خدمة EmailJS
   configure(config: EmailJSSettings): { success: boolean; errors?: string[] } {
     const errors = validateEmailJSConfig(config);
-    
+
     if (errors.length > 0) {
       this.connectionStatus = ConnectionStatus.ERROR;
+      console.error('EmailJS configuration errors:', errors);
       return { success: false, errors };
     }
 
     this.config = config;
     this.connectionStatus = config.enabled ? ConnectionStatus.CONFIGURED : ConnectionStatus.NOT_CONFIGURED;
-    
+
     // تهيئة EmailJS
     if (config.enabled && config.publicKey) {
-      emailjs.init(config.publicKey);
+      try {
+        emailjs.init(config.publicKey);
+        console.log('EmailJS initialized successfully with publicKey:', config.publicKey);
+      } catch (error) {
+        console.error('Error initializing EmailJS:', error);
+        this.connectionStatus = ConnectionStatus.ERROR;
+        return { success: false, errors: ['خطأ في تهيئة EmailJS'] };
+      }
     }
 
     return { success: true };
@@ -63,15 +71,23 @@ export class EmailJSService {
   // اختبار الاتصال
   async testConnection(): Promise<EmailResult> {
     if (!this.isConfigured() || !this.config) {
-      return { 
-        success: false, 
-        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح' 
+      return {
+        success: false,
+        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key'
       };
     }
 
     this.connectionStatus = ConnectionStatus.TESTING;
 
     try {
+      // التحقق من إعداد EmailJS أولاً
+      if (!this.config.publicKey || !this.config.serviceId || !this.config.templateId) {
+        throw new Error('معلومات EmailJS غير مكتملة');
+      }
+
+      // إعادة تهيئة EmailJS للتأكد
+      emailjs.init(this.config.publicKey);
+
       // إرسال بريد اختبار لنفس البريد المُرسِل
       const testData = {
         to_email: this.config.senderEmail,
@@ -80,8 +96,27 @@ export class EmailJSService {
         clinic_name: this.config.senderName,
         test_time: new Date().toLocaleString('ar-EG'),
         message: 'هذا اختبار لصحة إعدادات EmailJS. إذا وصلتك هذه الرسالة، فالنظام يعمل بشكل صحيح!',
-        subject: '🧪 اختبار نظام الإشعارات - EmailJS'
+        subject: '🧪 اختبار نظام الإشعارات - EmailJS',
+        // إضافة البيانات المطلوبة للقالب
+        icon: '🧪',
+        notification_type: 'اختبار النظام',
+        instructions: 'إذا وصلتك هذه الرسالة، فالنظام يعمل بشكل صحيح!',
+        appointment_id: 'TEST-' + Date.now(),
+        appointment_date: new Date().toLocaleDateString('ar-EG'),
+        appointment_time: new Date().toLocaleTimeString('ar-EG'),
+        doctor_name: 'نظام الاختبار',
+        clinic_phone: 'غير محدد',
+        clinic_address: 'غير محدد',
+        notes: 'هذه رسالة اختبار',
+        current_time: new Date().toLocaleString('ar-EG')
       };
+
+      console.log('Sending test email with data:', testData);
+      console.log('EmailJS config:', {
+        serviceId: this.config.serviceId,
+        templateId: this.config.templateId,
+        publicKey: this.config.publicKey ? 'SET' : 'NOT SET'
+      });
 
       const result = await emailjs.send(
         this.config.serviceId,
@@ -89,25 +124,42 @@ export class EmailJSService {
         testData
       );
 
+      console.log('EmailJS result:', result);
+
       if (result.status === 200) {
         this.connectionStatus = ConnectionStatus.CONNECTED;
-        return { 
-          success: true, 
-          messageId: result.text 
+        return {
+          success: true,
+          messageId: result.text
         };
       } else {
         this.connectionStatus = ConnectionStatus.ERROR;
-        return { 
-          success: false, 
-          error: `خطأ في الإرسال: ${result.status}` 
+        return {
+          success: false,
+          error: `خطأ في الإرسال - كود الحالة: ${result.status}. تحقق من صحة Service ID و Template ID`
         };
       }
     } catch (error) {
       this.connectionStatus = ConnectionStatus.ERROR;
       console.error('EmailJS test error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'خطأ غير معروف في الاختبار' 
+
+      let errorMessage = 'خطأ غير معروف في الاختبار';
+
+      if (error instanceof Error) {
+        if (error.message.includes('Unauthorized')) {
+          errorMessage = 'خطأ في الصلاحية - تحقق من صحة Public Key';
+        } else if (error.message.includes('Not Found')) {
+          errorMessage = 'Service ID أو Template ID غير صحيح';
+        } else if (error.message.includes('Bad Request')) {
+          errorMessage = 'بيانات الطلب غير صحيحة - تحقق من قالب البريد الإلكتروني';
+        } else {
+          errorMessage = error.message;
+        }
+      }
+
+      return {
+        success: false,
+        error: errorMessage + '. راجع console للمزيد من التفاصيل'
       };
     }
   }
@@ -155,17 +207,20 @@ export class EmailJSService {
 
   // إرسال بريد اختبار مخصص
   async sendTestEmail(
-    toEmail: string, 
+    toEmail: string,
     recipientName: string = 'مستخدم النظام'
   ): Promise<EmailResult> {
     if (!this.isConfigured() || !this.config) {
-      return { 
-        success: false, 
-        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح' 
+      return {
+        success: false,
+        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح'
       };
     }
 
     try {
+      // إعادة تهيئة EmailJS للتأكد
+      emailjs.init(this.config.publicKey);
+
       const testData = {
         to_email: toEmail,
         to_name: recipientName,
@@ -173,8 +228,22 @@ export class EmailJSService {
         clinic_name: this.config.senderName,
         test_time: new Date().toLocaleString('ar-EG'),
         message: 'تهانينا! تم إرسال هذا البريد بنجاح من نظام الإشعارات. النظام جاهز للاستخدام!',
-        subject: '✅ اختبار نظام الإشعارات - تم بنجاح!'
+        subject: '✅ اختبار نظام الإشعارات - تم بنجاح!',
+        // إضافة البيانات المطلوبة للقالب
+        icon: '✅',
+        notification_type: 'رسالة اختبار',
+        instructions: 'النظام يعمل بشكل ممتاز! يمكنك الآن استخدام الإشعارات الحقيقية.',
+        appointment_id: 'TEST-' + Date.now(),
+        appointment_date: new Date().toLocaleDateString('ar-EG'),
+        appointment_time: new Date().toLocaleTimeString('ar-EG'),
+        doctor_name: 'نظام الاختبار',
+        clinic_phone: this.config.senderEmail || 'غير محدد',
+        clinic_address: 'نظام الإشعارات الإلكترونية',
+        notes: 'هذه رسالة اختبار لتأكيد عمل النظام',
+        current_time: new Date().toLocaleString('ar-EG')
       };
+
+      console.log('Sending custom test email to:', toEmail);
 
       const result = await emailjs.send(
         this.config.serviceId,
@@ -183,21 +252,21 @@ export class EmailJSService {
       );
 
       if (result.status === 200) {
-        return { 
-          success: true, 
-          messageId: result.text 
+        return {
+          success: true,
+          messageId: result.text
         };
       } else {
-        return { 
-          success: false, 
-          error: `خطأ في الإرسال: ${result.status}` 
+        return {
+          success: false,
+          error: `خطأ في الإرسال: ${result.status}`
         };
       }
     } catch (error) {
       console.error('EmailJS test email error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'خطأ غير معروف في إرسال بريد الاختبار' 
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'خطأ غير معروف في إرسال بريد الاختبار'
       };
     }
   }
