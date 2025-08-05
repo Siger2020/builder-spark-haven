@@ -4,6 +4,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Yemeni-themed animations and effects */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Yemen-inspired gradient backgrounds */
+.bg-yemen-gradient {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 50%, #7f1d1d 100%);
+}
+
+.bg-yemen-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(220, 38, 38, 0.1);
+}
+
 @layer base {
   /**
    * Tailwind CSS theme
