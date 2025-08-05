@@ -43,6 +43,7 @@ import {
 } from "../lib/emailConfig";
 import EmailJSSetupHelper from "../components/EmailJSSetupHelper";
 import EmailJSTroubleshooter from "../components/EmailJSTroubleshooter";
+import EmailJSStatus from "../components/EmailJSStatus";
 
 interface NotificationLog {
   id: number;
@@ -113,7 +114,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error loading notification logs:', error);
-      // ��ا نظهر خطأ هنا لأن الإشعارات القديمة قد لا تكون متوفرة
+      // لا نظهر خطأ هنا لأن الإشعارات القديمة قد لا تكون متوفرة
     }
   };
 
@@ -200,7 +201,7 @@ export default function NotificationSettings() {
     const now = Date.now();
     const timeSinceLastAction = now - lastActionTime;
 
-    if (timeSinceLastAction < 3000) { // 3 ثواني بين الطلبات
+    if (timeSinceLastAction < 3000) { // 3 ثواني بين الط��بات
       toast.error('يرجى الانتظار قبل إرسال طلب جديد');
       return false;
     }
@@ -237,7 +238,7 @@ export default function NotificationSettings() {
         toast.success('✅ تم إرسال بريد الاختبار بنجاح!');
         setTestEmail('');
       } else {
-        toast.error(`❌ ��شل إرسال بريد الاختبار: ${result.error}`);
+        toast.error(`❌ فشل إرسال بريد الاختبار: ${result.error}`);
       }
     } catch (error) {
       console.error('Error sending test email:', error);
@@ -560,7 +561,7 @@ export default function NotificationSettings() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card className="border-dashed">
                   <CardContent className="p-4">
-                    <h4 className="font-bold mb-2 font-arabic">�� اختبار بسيط</h4>
+                    <h4 className="font-bold mb-2 font-arabic">🧪 اختبار بسيط</h4>
                     <p className="text-sm text-gray-600 mb-3 font-arabic">
                       يرسل بريد إلكتروني بسيط للتأكد من صحة إعدادات EmailJS
                     </p>
