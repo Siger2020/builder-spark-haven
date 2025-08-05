@@ -208,22 +208,22 @@ export function scheduleReminder(data: BookingNotificationData): void {
       console.log(`📊 نتيجة التذكير - SMS: ${result.sms ? '✅' : '❌'}, WhatsApp: ${result.whatsapp ? '✅' : '❌'}`);
     }, timeUntilReminder);
   } else {
-    console.log(`⚠️ الموعد قريب جداً - لن يتم إرسال تذكير للم��يض ${data.patientName}`);
+    console.log(`⚠️ الموعد قريب جداً - لن يتم إرسال تذكير للمريض ${data.patientName}`);
   }
 }
 
-// دالة شاملة للتعامل مع إشعارات الحجز
+// دالة شاملة لل��عامل مع إشعارات الحجز
 export async function handleBookingNotifications(data: BookingNotificationData): Promise<void> {
   try {
     console.log(`🚀 بدء إرسال إشعارات الحجز للمريض ${data.patientName}`);
     
     // إرسال تأكيد فوري
     const confirmationResult = await sendBookingConfirmation(data);
-    console.log(`📊 نتيجة التأكيد - SMS: ${confirmationResult.sms ? '✅' : '❌'}, WhatsApp: ${confirmationResult.whatsapp ? '✅' : '❌'}`);
-    
+    console.log(`📊 نتيجة التأكيد - SMS: ${confirmationResult.sms ? '✅' : '❌'}, WhatsApp: ${confirmationResult.whatsapp ? '✅' : '❌'}, Email: ${confirmationResult.email ? '✅' : '❌'}`);
+
     // جدولة التذكير
     scheduleReminder(data);
-    
+
     console.log(`✅ تم إعداد جميع إشعارات الحجز للمريض ${data.patientName}`);
   } catch (error) {
     console.error(`❌ خطأ في التعامل مع إشعارات الحجز:`, error);
