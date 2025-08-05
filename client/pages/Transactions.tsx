@@ -91,7 +91,7 @@ const getStatusBadge = (status: string) => {
     case "paid":
       return <Badge className="bg-green-100 text-green-800">مدفوع</Badge>;
     case "partial":
-      return <Badge className="bg-yellow-100 text-yellow-800">��دفوع جزئي��ً</Badge>;
+      return <Badge className="bg-yellow-100 text-yellow-800">����دفوع جزئي��ً</Badge>;
     case "pending":
       return <Badge className="bg-red-100 text-red-800">غير ��دفوع</Badge>;
     default:
@@ -241,7 +241,7 @@ export default function Transactions() {
                     </Button>
                     <Button variant="outline" className="font-arabic">
                       <Download className="h-4 w-4 mr-2" />
-                      تصدي��
+                      تصدير
                     </Button>
                   </div>
                 </div>
@@ -319,7 +319,7 @@ export default function Transactions() {
                   <Button className="h-20 font-arabic" variant="outline">
                     <div className="text-center">
                       <Calendar className="h-6 w-6 mx-auto mb-2" />
-                      تقرير شه��ي
+                      تقرير شهري
                     </div>
                   </Button>
                   <Button className="h-20 font-arabic" variant="outline">
@@ -355,7 +355,7 @@ export default function Transactions() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">العملة الافتراضية</Label>
+                  <Label className="font-arabic">العملة ��لافتراضية</Label>
                   <Select defaultValue="sar">
                     <SelectTrigger className="font-arabic">
                       <SelectValue />
@@ -394,7 +394,7 @@ export default function Transactions() {
             <DialogHeader>
               <DialogTitle className="font-arabic">��سجيل دفعة جديدة</DialogTitle>
               <DialogDescription className="font-arabic">
-                {selectedTransaction && `للمريض: ${selectedTransaction.patientName} - المبلغ المتبقي: ${selectedTransaction.remaining} ريال`}
+                {selectedTransaction && `للمريض: ${selectedTransaction.patientName} - المبلغ المتبقي: ${selectedTransaction.remaining} ر.ي`}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
