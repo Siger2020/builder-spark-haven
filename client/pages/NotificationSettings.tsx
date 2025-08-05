@@ -81,6 +81,7 @@ export default function NotificationSettings() {
   const [notificationLogs, setNotificationLogs] = useState<NotificationLog[]>([]);
   const [notificationStats, setNotificationStats] = useState<NotificationStats | null>(null);
   const [showGuide, setShowGuide] = useState(false);
+  const [lastActionTime, setLastActionTime] = useState(0);
 
   // تحميل إعدادات EmailJS
   const loadEmailJSSettings = async () => {
@@ -112,7 +113,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error loading notification logs:', error);
-      // لا نظهر خطأ هنا لأن الإشعارات القديمة قد لا تكون متوفرة
+      // ��ا نظهر خطأ هنا لأن الإشعارات القديمة قد لا تكون متوفرة
     }
   };
 
@@ -164,12 +165,20 @@ export default function NotificationSettings() {
 
   // اختبار اتصال EmailJS
   const testEmailJSConnection = async () => {
+    if (!checkRateLimit()) return;
+
+    if (isTesting) {
+      toast.error('يوجد طلب آخر قيد التنفيذ');
+      return;
+    }
+
     setIsTesting(true);
     setConnectionStatus(ConnectionStatus.TESTING);
-    
+
     try {
+      console.log('Testing EmailJS connection...');
       const result = await emailJSService.testConnection();
-      
+
       if (result.success) {
         setConnectionStatus(ConnectionStatus.CONNECTED);
         toast.success('✅ تم الاتصال بنجاح! النظام جاهز للاستخدام');
@@ -186,8 +195,24 @@ export default function NotificationSettings() {
     }
   };
 
+  // منع الطلبات المتكررة
+  const checkRateLimit = (): boolean => {
+    const now = Date.now();
+    const timeSinceLastAction = now - lastActionTime;
+
+    if (timeSinceLastAction < 3000) { // 3 ثواني بين الطلبات
+      toast.error('يرجى الانتظار قبل إرسال طلب جديد');
+      return false;
+    }
+
+    setLastActionTime(now);
+    return true;
+  };
+
   // إرسال بريد اختبار عبر EmailJS
   const sendTestEmail = async () => {
+    if (!checkRateLimit()) return;
+
     if (!testEmail) {
       toast.error('يرجى إدخال بريد إلكتروني للاختبار');
       return;
@@ -195,6 +220,11 @@ export default function NotificationSettings() {
 
     if (!emailJSService.isConfigured()) {
       toast.error('يرجى تكوين إعدادات EmailJS أولاً');
+      return;
+    }
+
+    if (isTesting) {
+      toast.error('يوجد طلب آخر قيد التنفيذ');
       return;
     }
 
@@ -207,7 +237,7 @@ export default function NotificationSettings() {
         toast.success('✅ تم إرسال بريد الاختبار بنجاح!');
         setTestEmail('');
       } else {
-        toast.error(`❌ فشل إرسال بريد الاختبار: ${result.error}`);
+        toast.error(`❌ ��شل إرسال بريد الاختبار: ${result.error}`);
       }
     } catch (error) {
       console.error('Error sending test email:', error);
@@ -219,6 +249,8 @@ export default function NotificationSettings() {
 
   // اختبار إشعار حجز حقيقي عبر EmailJS
   const sendTestBookingNotification = async () => {
+    if (!checkRateLimit()) return;
+
     if (!testEmail) {
       toast.error('يرجى إدخال بريد إلكتروني للاختبار');
       return;
@@ -229,9 +261,15 @@ export default function NotificationSettings() {
       return;
     }
 
+    if (isTesting) {
+      toast.error('يوجد طلب آخر قيد التنفيذ');
+      return;
+    }
+
     setIsTesting(true);
 
     try {
+      console.log('Starting test booking notification to:', testEmail);
       const result = await emailJSService.sendTestBookingNotification(testEmail);
 
       if (result.success) {
@@ -522,7 +560,7 @@ export default function NotificationSettings() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card className="border-dashed">
                   <CardContent className="p-4">
-                    <h4 className="font-bold mb-2 font-arabic">🧪 اختبار بسيط</h4>
+                    <h4 className="font-bold mb-2 font-arabic">�� اختبار بسيط</h4>
                     <p className="text-sm text-gray-600 mb-3 font-arabic">
                       يرسل بريد إلكتروني بسيط للتأكد من صحة إعدادات EmailJS
                     </p>
