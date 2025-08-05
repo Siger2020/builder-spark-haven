@@ -141,9 +141,9 @@ export default function AdminDashboard() {
     },
     {
       title: "إدارة الموظفين",
-      description: "الأطباء والموظفين",
+      description: "إدارة الأطباء والموظفين",
       icon: UserCheck,
-      path: "/reports",
+      path: "/doctors",
       color: "bg-teal-500",
       count: stats.totalDoctors,
       bgColor: "bg-teal-50",
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
       path: "/reports",
       color: "bg-orange-500",
       count: null,
-      bgColor: "bg-orange-50", 
+      bgColor: "bg-orange-50",
       textColor: "text-orange-600",
     },
     {
@@ -170,8 +170,8 @@ export default function AdminDashboard() {
       textColor: "text-red-600",
     },
     {
-      title: "الإعدادات",
-      description: "إعدادات النظام والأمان",
+      title: "إعدادات النظام",
+      description: "فحص النظام والإعدادات",
       icon: Settings,
       path: "/system-check",
       color: "bg-gray-500",
@@ -392,7 +392,7 @@ export default function AdminDashboard() {
             <CardHeader>
               <CardTitle className="font-arabic">روابط سريعة</CardTitle>
               <CardDescription className="font-arabic">
-                اختصارات للمهام الشائعة
+                اختصارات للمهام الش��ئعة
               </CardDescription>
             </CardHeader>
             <CardContent>
