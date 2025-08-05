@@ -68,7 +68,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية ف��و��ة تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز ��لى الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
@@ -93,7 +93,7 @@ const features = [
     icon: Calendar,
   },
   {
-    title: "فريق طبي متخ��ص",
+    title: "فريق طبي متخصص",
     description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
     icon: Users,
   },
@@ -351,14 +351,14 @@ export default function Index() {
               التقنيات المتقدمة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نستخدم أحدث ال��قنيات في طب الأسنان لضمان أفضل النتائج
+              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-8">
-                <div className="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                  <Settings className="h-10 w-10 text-blue-600" />
+                <div className="bg-dental-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                  <Settings className="h-10 w-10 text-dental-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
                   الواقع الافتراضي
@@ -398,7 +398,7 @@ export default function Index() {
                   التصميم الرقمي ثلاثي الأبعاد
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تصميم ابتس��متك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
+                  تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
                 </p>
                 <div className="text-sm text-green-600 font-arabic">
                   تصميم مخصص لكل مريض
@@ -530,7 +530,7 @@ export default function Index() {
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>{showMoreResults ? "إخفا�� ��لنتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
@@ -669,7 +669,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
+                    شا��ع المقالح -حي الاصبحي ����ام سيتي ماكس
                   </span>
                 </div>
               </div>
