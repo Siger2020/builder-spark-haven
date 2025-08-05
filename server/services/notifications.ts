@@ -55,18 +55,18 @@ async function sendWhatsApp(phone: string, message: string): Promise<boolean> {
   try {
     console.log(`📱 إرسال رسالة واتس آب إلى ${phone}:`);
     console.log(`📄 النص: ${message}`);
-    
+
     // هنا يتم دمج مع WhatsApp Business API
     // في الوقت الحالي سنحاكي الإرسال
-    
-    // محاكاة تأ��ير الشبكة
+
+    // محاكاة تأخير الشبكة
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     // محاكاة نجاح الإرسال 95% من الوقت
     const success = Math.random() > 0.05;
-    
+
     if (success) {
-      console.log(`✅ تم إرسال رسالة واتس آب بنجاح إلى ${phone}`);
+      console.log(`✅ تم إرسال رسالة واتس ��ب بنجاح إلى ${phone}`);
       return true;
     } else {
       console.log(`❌ فشل إرسال رسالة واتس آب إلى ${phone}`);
@@ -74,6 +74,44 @@ async function sendWhatsApp(phone: string, message: string): Promise<boolean> {
     }
   } catch (error) {
     console.error(`❌ خطأ في إرسال رسالة واتس آب إلى ${phone}:`, error);
+    return false;
+  }
+}
+
+// إرسال بريد إلكتروني
+async function sendEmail(type: 'confirmation' | 'reminder' | 'cancellation', data: BookingNotificationData): Promise<boolean> {
+  try {
+    if (!data.email) {
+      console.log(`📧 لا يوجد بريد إلكتروني للمريض ${data.patientName}`);
+      return false;
+    }
+
+    console.log(`📧 إرسال بريد إلكتروني (${type}) إلى ${data.email}`);
+
+    const emailData: EmailNotificationData = {
+      patientName: data.patientName,
+      patientEmail: data.email,
+      appointmentId: data.bookingNumber,
+      appointmentDate: data.appointmentDate,
+      appointmentTime: data.appointmentTime,
+      doctorName: data.doctorName,
+      clinicName: 'عيادة الدكتور كمال الملصي',
+      clinicPhone: '+967 777 775 545',
+      clinicAddress: 'شارع المقالح -حي الاصبحي امام سيتي ماكس',
+      notes: `الخدمة: ${data.service}`
+    };
+
+    const result = await emailService.sendNotification(type, emailData);
+
+    if (result.success) {
+      console.log(`✅ تم إرسال البريد الإلكتروني بنجاح إلى ${data.email} - Message ID: ${result.messageId}`);
+      return true;
+    } else {
+      console.log(`❌ فشل إرسال البريد الإلكتروني إلى ${data.email}: ${result.error}`);
+      return false;
+    }
+  } catch (error) {
+    console.error(`❌ خطأ في إرسال البريد الإلكتروني إلى ${data.email}:`, error);
     return false;
   }
 }
@@ -99,7 +137,7 @@ export async function sendBookingConfirmation(data: BookingNotificationData): Pr
 نتطلع لرؤيتك! 😊
   `.trim();
 
-  // إرسال الإشعارات بالتوازي
+  // إرسال الإشعارات بالتواز��
   const [smsResult, whatsappResult] = await Promise.all([
     sendSMS(data.phone, message),
     sendWhatsApp(data.phone, message)
