@@ -1,4 +1,4 @@
--- قاعدة بيانات ��يادة الدكتور كمال
+-- قاعدة بيانات عيادة الدكتور كمال
 -- إنشاء جميع الجداول المطلوبة للنظام
 
 -- جدول المستخدمين
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS email_notifications (
     message_id TEXT,
     error_message TEXT,
     retry_count INTEGER DEFAULT 0,
-    metadata TEXT, -- JSON format لحفظ بيانات إضافية
+    metadata TEXT, -- JSON format لحفظ بيا��ات إضافية
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -412,6 +412,11 @@ CREATE INDEX IF NOT EXISTS idx_notifications_recipient_id ON notifications(recip
 CREATE INDEX IF NOT EXISTS idx_notifications_status ON notifications(status);
 CREATE INDEX IF NOT EXISTS idx_activity_logs_user_id ON activity_logs(user_id);
 CREATE INDEX IF NOT EXISTS idx_activity_logs_timestamp ON activity_logs(timestamp);
+CREATE INDEX IF NOT EXISTS idx_email_notifications_appointment_id ON email_notifications(appointment_id);
+CREATE INDEX IF NOT EXISTS idx_email_notifications_recipient_email ON email_notifications(recipient_email);
+CREATE INDEX IF NOT EXISTS idx_email_notifications_delivery_status ON email_notifications(delivery_status);
+CREATE INDEX IF NOT EXISTS idx_email_notifications_sent_at ON email_notifications(sent_at);
+CREATE INDEX IF NOT EXISTS idx_notification_stats_date ON notification_stats(date);
 
 -- إدراج البيانات الأولية
 INSERT OR IGNORE INTO system_settings (category, setting_key, setting_value, description) VALUES
