@@ -154,7 +154,7 @@ export default function Transactions() {
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{totalPending.toLocaleString()} ريال</div>
+              <div className="text-2xl font-bold text-red-600">{totalPending.toLocaleString()} ر.ي</div>
               <p className="text-xs text-muted-foreground font-arabic">
                 <TrendingDown className="h-4 w-4 inline mr-1" />
                 -5% من الشهر الماضي
