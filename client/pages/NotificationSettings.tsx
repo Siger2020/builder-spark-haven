@@ -42,6 +42,7 @@ import {
   getConnectionStatusColor
 } from "../lib/emailConfig";
 import EmailJSSetupHelper from "../components/EmailJSSetupHelper";
+import EmailJSTroubleshooter from "../components/EmailJSTroubleshooter";
 
 interface NotificationLog {
   id: number;
@@ -155,7 +156,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error saving EmailJS settings:', error);
-      toast.error('خ��أ في حفظ إعدادات EmailJS');
+      toast.error('خطأ في حفظ إعدادات EmailJS');
     } finally {
       setIsLoading(false);
     }
@@ -377,7 +378,7 @@ export default function NotificationSettings() {
                   }
                 />
                 <Label htmlFor="emailjs-enabled" className="font-arabic">
-                  تفعيل نظام الإشعارات الحقيقية (EmailJS)
+                  تفعيل نظام الإشعارات الحقي��ية (EmailJS)
                 </Label>
               </div>
 
@@ -464,7 +465,7 @@ export default function NotificationSettings() {
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      <strong>أمان البيانات:</strong> جميع الإعدادات تُحفظ محلياً في متصفحك ولا تُرسل لأي خادم خارجي.
+                      <strong>أمان البيانات:</strong> جميع ��لإعدادات تُحفظ محلياً في متصفحك ولا تُرسل لأي خادم خارجي.
                       EmailJS آمن ولا يكشف بيانات حساسة.
                     </AlertDescription>
                   </Alert>
@@ -625,7 +626,7 @@ export default function NotificationSettings() {
               <Separator className="my-6" />
 
               <div className="space-y-4">
-                <h3 className="text-lg font-bold font-arabic">قوالب البريد الإلكترون�� المطلوبة</h3>
+                <h3 className="text-lg font-bold font-arabic">قوالب البريد الإلكتروني المطلوبة</h3>
                 <p className="text-sm text-gray-600 font-arabic">
                   يمكنك استخدام قالب واحد لجميع أنواع الإشعارات أو إنشاء قوالب منفصلة
                 </p>
@@ -734,7 +735,7 @@ export default function NotificationSettings() {
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription className="font-arabic">
-              <strong>��لاحظة:</strong> الإحصائيات المعروضة هنا للإشعارات السابقة فقط. 
+              <strong>ملاحظة:</strong> الإحصائيات المعروضة هنا للإشعارات السابقة فقط. 
               الإشعارات الجديدة عبر EmailJS سيتم إرسالها مباشرة بدون تسجيل محلي.
             </AlertDescription>
           </Alert>
