@@ -32,15 +32,16 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { emailJSService } from "../services/emailJSService";
-import { 
-  EmailJSSettings, 
-  defaultEmailJSSettings, 
-  SETUP_GUIDE, 
+import {
+  EmailJSSettings,
+  defaultEmailJSSettings,
+  SETUP_GUIDE,
   EMAIL_TEMPLATES,
   ConnectionStatus,
   getConnectionStatusText,
   getConnectionStatusColor
 } from "../lib/emailConfig";
+import EmailJSSetupHelper from "../components/EmailJSSetupHelper";
 
 interface NotificationLog {
   id: number;
@@ -154,7 +155,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error saving EmailJS settings:', error);
-      toast.error('خطأ في حفظ إعدادات EmailJS');
+      toast.error('خ��أ في حفظ إعدادات EmailJS');
     } finally {
       setIsLoading(false);
     }
@@ -624,7 +625,7 @@ export default function NotificationSettings() {
               <Separator className="my-6" />
 
               <div className="space-y-4">
-                <h3 className="text-lg font-bold font-arabic">قوالب البريد الإلكتروني المطلوبة</h3>
+                <h3 className="text-lg font-bold font-arabic">قوالب البريد الإلكترون�� المطلوبة</h3>
                 <p className="text-sm text-gray-600 font-arabic">
                   يمكنك استخدام قالب واحد لجميع أنواع الإشعارات أو إنشاء قوالب منفصلة
                 </p>
@@ -733,7 +734,7 @@ export default function NotificationSettings() {
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription className="font-arabic">
-              <strong>ملاحظة:</strong> الإحصائيات المعروضة هنا للإشعارات السابقة فقط. 
+              <strong>��لاحظة:</strong> الإحصائيات المعروضة هنا للإشعارات السابقة فقط. 
               الإشعارات الجديدة عبر EmailJS سيتم إرسالها مباشرة بدون تسجيل محلي.
             </AlertDescription>
           </Alert>
