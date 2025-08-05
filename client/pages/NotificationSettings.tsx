@@ -107,14 +107,18 @@ export default function NotificationSettings() {
   const loadNotificationLogs = async () => {
     try {
       const response = await fetch('/api/notifications/logs?limit=50');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
       const data = await response.json();
-      
+
       if (data.success) {
         setNotificationLogs(data.data);
       }
     } catch (error) {
-      console.error('Error loading notification logs:', error);
-      // لا نظهر خطأ هنا لأن الإشعارات القديمة قد لا تكون متوفرة
+      console.warn('Old notification logs not available (expected with EmailJS):', error);
+      // تعيين قائمة فارغة للسجلات القديمة
+      setNotificationLogs([]);
     }
   };
 
@@ -122,14 +126,24 @@ export default function NotificationSettings() {
   const loadNotificationStats = async () => {
     try {
       const response = await fetch('/api/notifications/stats');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
       const data = await response.json();
-      
+
       if (data.success) {
         setNotificationStats(data.data);
       }
     } catch (error) {
-      console.error('Error loading notification stats:', error);
-      // لا نظهر خطأ هنا لأن الإحصائيات القديمة قد لا تكون متوفرة
+      console.warn('Old notification stats not available (expected with EmailJS):', error);
+      // تعيين إحصائيات افتراضية لـ EmailJS
+      setNotificationStats({
+        total: 0,
+        successful: 0,
+        failed: 0,
+        pending: 0,
+        byType: []
+      });
     }
   };
 
@@ -158,7 +172,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error saving EmailJS settings:', error);
-      toast.error('خ��أ في حفظ إعدادات EmailJS');
+      toast.error('خطأ في حفظ إعدادات EmailJS');
     } finally {
       setIsLoading(false);
     }
@@ -248,7 +262,7 @@ export default function NotificationSettings() {
     }
   };
 
-  // اختبار إ��عار حجز حقيقي عبر EmailJS
+  // اختبار إشعار حجز حقيقي عبر EmailJS
   const sendTestBookingNotification = async () => {
     if (!checkRateLimit()) return;
 
@@ -646,7 +660,7 @@ export default function NotificationSettings() {
             <CardHeader>
               <CardTitle className="font-arabic">دليل إعداد EmailJS</CardTitle>
               <CardDescription className="font-arabic">
-                اتبع هذه الخطوات لإعد��د نظام الإشعارات الحقيقية
+                اتبع هذه الخطوات لإعداد نظام الإشعارات الحقيقية
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -742,46 +756,52 @@ export default function NotificationSettings() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">إجمالي الإشعارات</p>
-                    <p className="text-2xl font-bold text-dental-primary">{notificationStats?.total || 0}</p>
-                  </div>
-                  <Mail className="h-8 w-8 text-dental-primary" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">تم الإرسال بنجاح</p>
-                    <p className="text-2xl font-bold text-green-600">{notificationStats?.successful || 0}</p>
-                  </div>
-                  <CheckCircle className="h-8 w-8 text-green-600" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">فشل في الإرسال</p>
-                    <p className="text-2xl font-bold text-red-600">{notificationStats?.failed || 0}</p>
-                  </div>
-                  <XCircle className="h-8 w-8 text-red-600" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">نظام EmailJS</p>
-                    <p className="text-sm font-bold text-blue-600">إشعارات حقيقية</p>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">النظام الحالي</p>
+                    <p className="text-2xl font-bold text-blue-600">EmailJS</p>
                   </div>
                   <Shield className="h-8 w-8 text-blue-600" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">حالة الاتصال</p>
+                    <p className="text-sm font-bold text-green-600">
+                      {connectionStatus === ConnectionStatus.CONNECTED ? 'متصل' : 'غير متصل'}
+                    </p>
+                  </div>
+                  {connectionStatus === ConnectionStatus.CONNECTED ? (
+                    <CheckCircle className="h-8 w-8 text-green-600" />
+                  ) : (
+                    <XCircle className="h-8 w-8 text-red-600" />
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">نوع الإشعارات</p>
+                    <p className="text-sm font-bold text-green-600">حقيقية مباشرة</p>
+                  </div>
+                  <Mail className="h-8 w-8 text-green-600" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">الحد المجاني</p>
+                    <p className="text-sm font-bold text-orange-600">200 بريد/شهر</p>
+                  </div>
+                  <Activity className="h-8 w-8 text-orange-600" />
                 </div>
               </CardContent>
             </Card>
@@ -790,10 +810,37 @@ export default function NotificationSettings() {
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription className="font-arabic">
-              <strong>ملاحظة:</strong> الإحصائيات المعروضة هنا للإشعارات السابقة فقط. 
-              الإشعارات الجديدة عبر EmailJS سيتم إرسالها مباشرة بدون تسجيل محلي.
+              <strong>نظام EmailJS الجديد:</strong> الإشعارات تُرسل مباشرة عبر EmailJS بدون تخزين محلي.
+              يمكنك مراقبة الإحصائيات التفصيلية من لوحة تحكم EmailJS على موقعهم الرسمي.
             </AlertDescription>
           </Alert>
+
+          {notificationStats && (notificationStats.total > 0 || notificationLogs.length > 0) && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-arabic">إحصائيات النظام السابق</CardTitle>
+                <CardDescription className="font-arabic">
+                  بيانات الإشعارات من النظام القديم (قبل التحديث لـ EmailJS)
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-600">{notificationStats?.total || 0}</div>
+                    <div className="text-sm text-gray-500 font-arabic">إجمالي قديم</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">{notificationStats?.successful || 0}</div>
+                    <div className="text-sm text-gray-500 font-arabic">نجح قديماً</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-red-600">{notificationStats?.failed || 0}</div>
+                    <div className="text-sm text-gray-500 font-arabic">فشل قديماً</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
       </Tabs>
     </div>
