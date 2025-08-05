@@ -50,7 +50,7 @@ const services = [
   },
   {
     title: "زراعة الأسنان",
-    description: "زراعة م��طورة مع ضمان طويل المدى",
+    description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204"
   },
@@ -127,7 +127,7 @@ const beforeAfterCases = [
   {
     id: 2,
     title: "تبييض الأسنان",
-    description: "تبييض احترافي مع تحسن 8 د��جات",
+    description: "تبييض ا��ترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
@@ -391,8 +391,8 @@ export default function Index() {
 
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-8">
-                <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                  <Heart className="h-10 w-10 text-green-600" />
+                <div className="bg-dental-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                  <Heart className="h-10 w-10 text-dental-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
                   التصميم الرقمي ثلاثي الأبعاد
@@ -669,7 +669,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
+                    شا��ع المقالح -��ي الاصبحي ��مام سيتي ماكس
                   </span>
                 </div>
               </div>
