@@ -68,7 +68,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو����ة تدوم مدى الحياة",
     icon: Baby,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
@@ -89,7 +89,7 @@ const services = [
 const features = [
   {
     title: "حجز سهل عبر الإنترنت",
-    description: "احجز م��عدك بسهولة من خلال منصتنا الرقمية",
+    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
   {
@@ -126,7 +126,7 @@ const beforeAfterCases = [
   },
   {
     id: 2,
-    title: "تب��يض الأسنان",
+    title: "تبييض الأسنان",
     description: "تبييض احترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
@@ -148,7 +148,7 @@ const beforeAfterCases = [
   {
     id: 5,
     title: "قشور الأسن��ن",
-    description: "ابتسامة هوليوودية طب��عية ومتينة",
+    description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fb52362602fbf42f2866ffd758b9c49e3",
   },
@@ -236,7 +236,7 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
-                <div className="text-3xl md:text-4xl font-bold text-dental-primary mb-2 group-hover:text-red-600 transition-colors duration-300">
+                <div className="text-3xl md:text-4xl font-bold text-dental-primary mb-2 group-hover:text-dental-primary/80 transition-colors duration-300">
                   {stat.number}
                 </div>
                 <div className="text-gray-600 font-arabic group-hover:text-gray-800 transition-colors duration-300">{stat.label}</div>
@@ -351,7 +351,7 @@ export default function Index() {
               التقنيات المتقدمة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
+              نستخدم أحدث التقنيات في طب الأسنان لضما�� أفضل النتائج
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
