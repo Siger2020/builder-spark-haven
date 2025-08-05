@@ -236,6 +236,7 @@ router.post('/', async (req, res) => {
     const notificationData = {
       patientName: name,
       phone: formattedPhone,
+      email: email,
       appointmentDate: date,
       appointmentTime: time,
       doctorName: doctorName || 'د. كمال الملصي',
