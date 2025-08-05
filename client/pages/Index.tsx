@@ -34,7 +34,6 @@ const services = [
     title: "تنظيف الأسنان",
     description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
     icon: Smile,
-    price: "من 10,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579?alt=media&token=62965839-1bc1-457a-b834-e0dd1c178bf4&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -74,7 +73,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     price: "من 7,500 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
@@ -580,7 +579,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً وال��تائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -708,7 +707,7 @@ export default function Index() {
               <div className="space-y-4">
                 <Link to="/admin" className="block">
                   <Button className="w-full font-arabic" variant="outline">
-                    لوحة الإدارة
+                    لوح�� الإدارة
                     <Settings className="mr-2 h-4 w-4" />
                   </Button>
                 </Link>
