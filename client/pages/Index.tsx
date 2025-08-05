@@ -300,7 +300,7 @@ export default function Index() {
               لماذا تختارنا؟
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نتميز بالخدمة المهنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
+              نتميز بالخدمة ال��هنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -336,10 +336,10 @@ export default function Index() {
           <Link to="/booking">
             <Button
               size="lg"
-              className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3"
+              className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               احجز موعداً مجانياً
-              <Calendar className="mr-2 h-5 w-5" />
+              <Calendar className="mr-2 h-5 w-5 animate-pulse" />
             </Button>
           </Link>
         </div>
@@ -400,7 +400,7 @@ export default function Index() {
                   التصميم الرقمي ثلاثي الأبعاد
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تصميم ابتسامتك المثالية باستخدام أحدث برامج التصميم ثلاثي الأبعاد
+                  تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
                 </p>
                 <div className="text-sm text-green-600 font-arabic">
                   تصميم مخصص لكل مريض
