@@ -241,7 +241,7 @@ export default function Transactions() {
                     </Button>
                     <Button variant="outline" className="font-arabic">
                       <Download className="h-4 w-4 mr-2" />
-                      تصدير
+                      تصدي��
                     </Button>
                   </div>
                 </div>
@@ -277,9 +277,9 @@ export default function Transactions() {
                         <TableCell className="font-medium">{transaction.id}</TableCell>
                         <TableCell className="font-arabic">{transaction.patientName}</TableCell>
                         <TableCell className="font-arabic">{transaction.service}</TableCell>
-                        <TableCell>{transaction.amount.toLocaleString()} ريال</TableCell>
-                        <TableCell className="text-green-600">{transaction.paid.toLocaleString()} ريال</TableCell>
-                        <TableCell className="text-red-600">{transaction.remaining.toLocaleString()} ريال</TableCell>
+                        <TableCell>{transaction.amount.toLocaleString()} ر.ي</TableCell>
+                        <TableCell className="text-green-600">{transaction.paid.toLocaleString()} ر.ي</TableCell>
+                        <TableCell className="text-red-600">{transaction.remaining.toLocaleString()} ر.ي</TableCell>
                         <TableCell>{getStatusBadge(transaction.status)}</TableCell>
                         <TableCell>{new Date(transaction.date).toLocaleDateString('ar-SA')}</TableCell>
                         <TableCell>
@@ -319,7 +319,7 @@ export default function Transactions() {
                   <Button className="h-20 font-arabic" variant="outline">
                     <div className="text-center">
                       <Calendar className="h-6 w-6 mx-auto mb-2" />
-                      تقرير شهري
+                      تقرير شه��ي
                     </div>
                   </Button>
                   <Button className="h-20 font-arabic" variant="outline">
