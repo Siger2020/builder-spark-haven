@@ -1,4 +1,9 @@
-// خدمة الإشعارات للـ SMS والواتس آب
+// خدمة الإشعارات للـ SMS والواتس آب والبريد الإلكتروني
+import { emailService, NotificationData as EmailNotificationData } from './emailService.js';
+import Database from 'better-sqlite3';
+
+const db = new Database('clinic_database.sqlite');
+
 interface NotificationData {
   phone: string;
   message: string;
@@ -9,6 +14,7 @@ interface NotificationData {
 interface BookingNotificationData {
   patientName: string;
   phone: string;
+  email?: string;
   appointmentDate: string;
   appointmentTime: string;
   doctorName: string;
@@ -53,7 +59,7 @@ async function sendWhatsApp(phone: string, message: string): Promise<boolean> {
     // هنا يتم دمج مع WhatsApp Business API
     // في الوقت الحالي سنحاكي الإرسال
     
-    // محاكاة تأخير الشبكة
+    // محاكاة تأ��ير الشبكة
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     // محاكاة نجاح الإرسال 95% من الوقت
