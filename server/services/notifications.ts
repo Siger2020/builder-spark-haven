@@ -66,10 +66,10 @@ async function sendWhatsApp(phone: string, message: string): Promise<boolean> {
     const success = Math.random() > 0.05;
 
     if (success) {
-      console.log(`✅ تم إرسال رسالة واتس ��ب بنجاح إلى ${phone}`);
+      console.log(`✅ تم إرسال رسالة واتس آب بنجاح إلى ${phone}`);
       return true;
     } else {
-      console.log(`❌ فشل إرسال رسالة واتس آب إلى ${phone}`);
+      console.log(`❌ فشل إرسال رسالة واتس آب ��لى ${phone}`);
       return false;
     }
   } catch (error) {
@@ -104,7 +104,7 @@ async function sendEmail(type: 'confirmation' | 'reminder' | 'cancellation', dat
     const result = await emailService.sendNotification(type, emailData);
 
     if (result.success) {
-      console.log(`✅ تم إرسال البريد الإلكتروني بنجاح إلى ${data.email} - Message ID: ${result.messageId}`);
+      console.log(`✅ تم إرسال البريد الإلكت��وني بنجاح إلى ${data.email} - Message ID: ${result.messageId}`);
       return true;
     } else {
       console.log(`❌ فشل إرسال البريد الإلكتروني إلى ${data.email}: ${result.error}`);
@@ -117,7 +117,7 @@ async function sendEmail(type: 'confirmation' | 'reminder' | 'cancellation', dat
 }
 
 // إرسال إشعار تأكيد الحجز
-export async function sendBookingConfirmation(data: BookingNotificationData): Promise<{sms: boolean, whatsapp: boolean}> {
+export async function sendBookingConfirmation(data: BookingNotificationData): Promise<{sms: boolean, whatsapp: boolean, email: boolean}> {
   const message = `
 🦷 عيادة الدكتور كمال الملصي
 
@@ -137,15 +137,17 @@ export async function sendBookingConfirmation(data: BookingNotificationData): Pr
 نتطلع لرؤيتك! 😊
   `.trim();
 
-  // إرسال الإشعارات بالتواز��
-  const [smsResult, whatsappResult] = await Promise.all([
+  // إرسال الإشعارات بالتوازي
+  const [smsResult, whatsappResult, emailResult] = await Promise.all([
     sendSMS(data.phone, message),
-    sendWhatsApp(data.phone, message)
+    sendWhatsApp(data.phone, message),
+    sendEmail('confirmation', data)
   ]);
 
   return {
     sms: smsResult,
-    whatsapp: whatsappResult
+    whatsapp: whatsappResult,
+    email: emailResult
   };
 }
 
