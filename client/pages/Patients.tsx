@@ -323,7 +323,7 @@ export default function Patients() {
               <CardContent>
                 <div className="text-center py-8">
                   <Calendar className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة إدارة المواعيد قريباً</p>
+                  <p className="text-gray-600 font-arabic">سي��م إضافة إدارة المواعيد قريباً</p>
                 </div>
               </CardContent>
             </Card>
@@ -379,7 +379,7 @@ export default function Patients() {
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">رقم الهاتف</Label>
-                <Input placeholder="+966xxxxxxxxx" className="font-arabic" />
+                <Input placeholder="+967 77x xxx xxx" className="font-arabic" />
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">البريد الإلكتروني</Label>
