@@ -93,7 +93,7 @@ const sentNotifications = [
   {
     id: 3,
     patientName: "محمد سالم",
-    phone: "+966512345678",
+    phone: "+967 772 345 678",
     type: "appointment_confirmation",
     channel: "sms",
     status: "delivered",
@@ -177,7 +177,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
             </div>
 
             <div className="space-y-2">
-              <Label className="font-arabic">قناة الإرس��ل</Label>
+              <Label className="font-arabic">قناة الإرسال</Label>
               <Select value={selectedChannel} onValueChange={setSelectedChannel}>
                 <SelectTrigger className="font-arabic">
                   <SelectValue placeholder="اختر قناة الإرسال" />
@@ -362,7 +362,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic">إعدادات ا��واتس آب</CardTitle>
+            <CardTitle className="font-arabic">إعدادات الواتس آب</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
