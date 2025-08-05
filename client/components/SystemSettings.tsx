@@ -80,7 +80,7 @@ const SecuritySettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">يجب تضمين رموز خاصة</Label>
+            <Label className="font-arabic">يجب تضمين رموز خ��صة</Label>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
@@ -104,7 +104,7 @@ const SecuritySettings = () => {
             <Input type="number" defaultValue="15" className="w-20" />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">تفعيل المصادقة الثنائية</Label>
+            <Label className="font-arabic">تفعيل المصادقة ال��نائية</Label>
             <Switch />
           </div>
         </CardContent>
@@ -158,14 +158,14 @@ const UserManagement = () => {
     return status === "active" ? (
       <Badge className="bg-green-100 text-green-800">نشط</Badge>
     ) : (
-      <Badge className="bg-gray-100 text-gray-800">غير نشط</Badge>
+      <Badge className="bg-gray-100 text-gray-800">غير ��شط</Badge>
     );
   };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-bold font-arabic">إدارة المستخدمين</h3>
+        <h3 className="text-lg font-bold font-arabic">إ��ارة المستخدمين</h3>
         <Button onClick={() => setIsAddUserOpen(true)} className="font-arabic">
           <Plus className="h-4 w-4 mr-2" />
           إضافة مستخدم
@@ -180,7 +180,7 @@ const UserManagement = () => {
             <TableHead className="font-arabic">الدور</TableHead>
             <TableHead className="font-arabic">الحالة</TableHead>
             <TableHead className="font-arabic">آخر دخول</TableHead>
-            <TableHead className="font-arabic">الإجراءات</TableHead>
+            <TableHead className="font-arabic">الإجرا��ا��</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -210,9 +210,9 @@ const UserManagement = () => {
       <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
         <DialogContent className="sm:max-w-[500px]" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="font-arabic">إضافة مستخدم جديد</DialogTitle>
+            <DialogTitle className="font-arabic">إ��افة مستخدم جديد</DialogTitle>
             <DialogDescription className="font-arabic">
-              أدخل بيانات المستخدم الجديد
+              أدخل بيانات المستخدم ا��ج��يد
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -263,7 +263,7 @@ const BackupSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">تفعيل النسخ التلقائي</Label>
+            <Label className="font-arabic">��فعيل النسخ التلقائي</Label>
             <Switch defaultChecked />
           </div>
           <div className="space-y-2">
@@ -364,7 +364,7 @@ const GeneralSettings = () => {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="font-arabic">من السبت إلى الخميس</Label>
+              <Label className="font-arabic">من ��لسبت إل�� الخميس</Label>
               <div className="flex gap-2">
                 <Input type="time" defaultValue="09:00" />
                 <span className="self-center font-arabic">إلى</span>
@@ -401,12 +401,13 @@ const GeneralSettings = () => {
             </Select>
           </div>
           <div className="space-y-2">
-            <Label className="font-arabic">العملة</Label>
+            <Label className="font-arabic">العمل��</Label>
             <Select defaultValue="sar">
               <SelectTrigger className="font-arabic">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="yer" className="font-arabic">ريال يمني (YER)</SelectItem>
                 <SelectItem value="sar" className="font-arabic">ريال سعودي (SAR)</SelectItem>
                 <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
               </SelectContent>
@@ -439,7 +440,7 @@ const NotificationSettings = () => {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <Label className="font-arabic">إشعارات الرسائل النصية</Label>
+              <Label className="font-arabic">إشعارات ال��سائل النصية</Label>
               <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر الرسائل النصية</p>
             </div>
             <Switch defaultChecked />
@@ -460,11 +461,11 @@ const NotificationSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">مواعيد جديدة</Label>
+            <Label className="font-arabic">مواعيد ��ديدة</Label>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">إلغاء المواعيد</Label>
+            <Label className="font-arabic">إلغاء الموا��يد</Label>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
@@ -472,7 +473,7 @@ const NotificationSettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">مدفوعات جديدة</Label>
+            <Label className="font-arabic">مدفوع��ت جديدة</Label>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
@@ -501,7 +502,7 @@ const NotificationSettings = () => {
           </div>
           <Button className="font-arabic">
             <Check className="h-4 w-4 mr-2" />
-            اختبار الاتصا��
+            اختبار الاتصال
           </Button>
         </CardContent>
       </Card>
