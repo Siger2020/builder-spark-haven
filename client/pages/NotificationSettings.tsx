@@ -5,10 +5,10 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import {
   Mail,
@@ -22,20 +22,25 @@ import {
   History,
   TestTube,
   Shield,
-  Eye,
-  EyeOff,
+  ExternalLink,
+  Wifi,
+  WifiOff,
+  Activity,
+  Info,
+  HelpCircle,
+  Copy,
+  RefreshCw,
 } from "lucide-react";
-
-interface EmailSettings {
-  enabled: boolean;
-  service: string;
-  host?: string;
-  port: number;
-  secure: boolean;
-  username: string;
-  from_name: string;
-  hasPassword: boolean;
-}
+import { emailJSService } from "../services/emailJSService";
+import { 
+  EmailJSSettings, 
+  defaultEmailJSSettings, 
+  SETUP_GUIDE, 
+  EMAIL_TEMPLATES,
+  ConnectionStatus,
+  getConnectionStatusText,
+  getConnectionStatusColor
+} from "../lib/emailConfig";
 
 interface NotificationLog {
   id: number;
@@ -66,40 +71,35 @@ interface NotificationStats {
 
 export default function NotificationSettings() {
   const [activeTab, setActiveTab] = useState("settings");
-  const [emailSettings, setEmailSettings] = useState<EmailSettings>({
-    enabled: false,
-    service: 'gmail',
-    host: '',
-    port: 587,
-    secure: false,
-    username: '',
-    from_name: 'عيادة الدكتور كمال الملصي',
-    hasPassword: false,
-  });
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [emailJSSettings, setEmailJSSettings] = useState<EmailJSSettings>(defaultEmailJSSettings);
   const [testEmail, setTestEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.NOT_CONFIGURED);
   const [notificationLogs, setNotificationLogs] = useState<NotificationLog[]>([]);
   const [notificationStats, setNotificationStats] = useState<NotificationStats | null>(null);
+  const [showGuide, setShowGuide] = useState(false);
 
-  // تحميل إعدادات البريد الإلكتروني
-  const loadEmailSettings = async () => {
+  // تحميل إعدادات EmailJS
+  const loadEmailJSSettings = async () => {
     try {
-      const response = await fetch('/api/notifications/email-settings');
-      const data = await response.json();
-      
-      if (data.success) {
-        setEmailSettings(data.data);
+      // محاولة تحميل الإعدادات من localStorage
+      const savedSettings = localStorage.getItem('emailjs_settings');
+      if (savedSettings) {
+        const settings = JSON.parse(savedSettings);
+        setEmailJSSettings(settings);
+        
+        // تكوين الخدمة
+        emailJSService.configure(settings);
+        setConnectionStatus(emailJSService.getConnectionStatus());
       }
     } catch (error) {
-      console.error('Error loading email settings:', error);
-      toast.error('خطأ في تحميل إعدادات البريد ��لإلكتروني');
+      console.error('Error loading EmailJS settings:', error);
+      toast.error('خطأ في تحميل إعدادات EmailJS');
     }
   };
 
-  // تحميل سجل الإشعارات
+  // تحميل سجل الإشعارات (محفوظ للتوافق)
   const loadNotificationLogs = async () => {
     try {
       const response = await fetch('/api/notifications/logs?limit=50');
@@ -110,11 +110,11 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error loading notification logs:', error);
-      toast.error('خطأ في تحميل سجل الإشعارات');
+      // لا نظهر خطأ هنا لأن الإشعارات القديمة قد لا تكون متوفرة
     }
   };
 
-  // تحميل إحصائيات الإشعارات
+  // تحميل إحصائيات الإشعارات (محفوظ للتوافق)
   const loadNotificationStats = async () => {
     try {
       const response = await fetch('/api/notifications/stats');
@@ -125,96 +125,87 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error loading notification stats:', error);
-      toast.error('خطأ في تحميل إحصائيات الإشعارات');
+      // لا نظهر خطأ هنا لأن الإحصائيات القديمة قد لا تكون متوفرة
     }
   };
 
-  // حفظ إعدادات البريد الإلكتروني
-  const saveEmailSettings = async () => {
+  // حفظ إعدادات EmailJS
+  const saveEmailJSSettings = async () => {
     setIsLoading(true);
     
     try {
-      const settingsToSave = {
-        ...emailSettings,
-        password: password || undefined
-      };
-
-      const response = await fetch('/api/notifications/email-settings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(settingsToSave),
-      });
-
-      const data = await response.json();
+      // التحقق من صحة الإعدادات
+      const configResult = emailJSService.configure(emailJSSettings);
       
-      if (data.success) {
-        toast.success(data.message);
-        setPassword(''); // مسح كلمة المرور بعد الحفظ
-        loadEmailSettings(); // إعادة تحميل الإعدادات
-      } else {
-        toast.error(data.error);
+      if (!configResult.success) {
+        toast.error(`خطأ في الإعدادات: ${configResult.errors?.join(', ')}`);
+        return;
+      }
+
+      // حفظ الإعدادات في localStorage
+      localStorage.setItem('emailjs_settings', JSON.stringify(emailJSSettings));
+      
+      setConnectionStatus(emailJSService.getConnectionStatus());
+      toast.success('تم حفظ إعدادات EmailJS بنجاح');
+      
+      // اختبار الاتصال تلقائياً إذا كان النظام مفعل
+      if (emailJSSettings.enabled) {
+        await testEmailJSConnection();
       }
     } catch (error) {
-      console.error('Error saving email settings:', error);
-      toast.error('خطأ في حفظ إعدادات البريد الإلكتروني');
+      console.error('Error saving EmailJS settings:', error);
+      toast.error('خطأ في حفظ إعدادات EmailJS');
     } finally {
       setIsLoading(false);
     }
   };
 
-  // اختبار إعدادات البريد الإلكتروني
-  const testEmailSettings = async () => {
+  // اختبار اتصال EmailJS
+  const testEmailJSConnection = async () => {
     setIsTesting(true);
+    setConnectionStatus(ConnectionStatus.TESTING);
     
     try {
-      const response = await fetch('/api/notifications/test-email-settings', {
-        method: 'POST',
-      });
-
-      const data = await response.json();
+      const result = await emailJSService.testConnection();
       
-      if (data.success) {
-        toast.success(data.message);
+      if (result.success) {
+        setConnectionStatus(ConnectionStatus.CONNECTED);
+        toast.success('✅ تم الاتصال بنجاح! النظام جاهز للاستخدام');
       } else {
-        toast.error(data.error);
+        setConnectionStatus(ConnectionStatus.ERROR);
+        toast.error(`❌ فشل الاتصال: ${result.error}`);
       }
     } catch (error) {
-      console.error('Error testing email settings:', error);
-      toast.error('خطأ في اختبار إعدادات البريد الإلكتروني');
+      setConnectionStatus(ConnectionStatus.ERROR);
+      console.error('Error testing EmailJS connection:', error);
+      toast.error('خطأ في اختبار اتصال EmailJS');
     } finally {
       setIsTesting(false);
     }
   };
 
-  // إرسال بريد اختبار
+  // إرسال بريد اختبار عبر EmailJS
   const sendTestEmail = async () => {
     if (!testEmail) {
       toast.error('يرجى إدخال بريد إلكتروني للاختبار');
       return;
     }
 
+    if (!emailJSService.isConfigured()) {
+      toast.error('يرجى تكوين إعدادات EmailJS أولاً');
+      return;
+    }
+
     setIsTesting(true);
 
     try {
-      const response = await fetch('/api/notifications/send-test-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: testEmail }),
-      });
+      const result = await emailJSService.sendTestEmail(testEmail);
 
-      const data = await response.json();
-
-      if (data.success) {
-        toast.success(data.message);
+      if (result.success) {
+        toast.success('✅ تم إرسال بريد الاختبار بنجاح!');
         setTestEmail('');
-        loadNotificationLogs(); // إعادة تحميل السجل
-        loadNotificationStats(); // إعادة تحميل الإحصائيات
       } else {
-        toast.error(data.error);
+        toast.error(`❌ فشل إرسال بريد الاختبار: ${result.error}`);
       }
     } catch (error) {
       console.error('Error sending test email:', error);
@@ -224,33 +215,28 @@ export default function NotificationSettings() {
     }
   };
 
-  // اختبار إشعار حجز حقيقي
+  // اختبار إشعار حجز حقيقي عبر EmailJS
   const sendTestBookingNotification = async () => {
     if (!testEmail) {
       toast.error('يرجى إدخال بريد إلكتروني للاختبار');
       return;
     }
 
+    if (!emailJSService.isConfigured()) {
+      toast.error('يرجى تكوين إعدادات EmailJS أولاً');
+      return;
+    }
+
     setIsTesting(true);
 
     try {
-      const response = await fetch('/api/notifications/test-booking-notification', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: testEmail }),
-      });
+      const result = await emailJSService.sendTestBookingNotification(testEmail);
 
-      const data = await response.json();
-
-      if (data.success) {
-        toast.success(`${data.message} - رقم الموعد: ${data.appointmentId}`);
+      if (result.success) {
+        toast.success(`✅ تم إرسال إشعار تأكيد الحجز بنجاح! رقم الموعد: ${result.appointmentId}`);
         setTestEmail('');
-        loadNotificationLogs(); // إعادة تحميل السجل
-        loadNotificationStats(); // إعادة تحميل الإحصائيات
       } else {
-        toast.error(data.error);
+        toast.error(`❌ فشل إرسال إشعار الحجز: ${result.error}`);
       }
     } catch (error) {
       console.error('Error sending test booking notification:', error);
@@ -262,7 +248,7 @@ export default function NotificationSettings() {
 
   // تحميل البيانات عند بدء الصفحة
   useEffect(() => {
-    loadEmailSettings();
+    loadEmailJSSettings();
     loadNotificationLogs();
     loadNotificationStats();
   }, []);
@@ -298,13 +284,54 @@ export default function NotificationSettings() {
     }
   };
 
+  // نسخ النص للحافظة
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success('تم النسخ للحافظة');
+  };
+
+  // مؤشر حالة الاتصال
+  const ConnectionStatusIndicator = () => {
+    const statusText = getConnectionStatusText(connectionStatus);
+    const statusColor = getConnectionStatusColor(connectionStatus);
+    
+    const getStatusIcon = () => {
+      switch (connectionStatus) {
+        case ConnectionStatus.NOT_CONFIGURED:
+          return <WifiOff className="w-4 h-4" />;
+        case ConnectionStatus.CONFIGURED:
+          return <Activity className="w-4 h-4" />;
+        case ConnectionStatus.TESTING:
+          return <RefreshCw className="w-4 h-4 animate-spin" />;
+        case ConnectionStatus.CONNECTED:
+          return <Wifi className="w-4 h-4" />;
+        case ConnectionStatus.ERROR:
+          return <XCircle className="w-4 h-4" />;
+        default:
+          return <WifiOff className="w-4 h-4" />;
+      }
+    };
+
+    return (
+      <div className="flex items-center gap-2">
+        <div className={`flex items-center gap-1 ${statusColor}`}>
+          {getStatusIcon()}
+          <span className="text-sm font-medium">{statusText}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="container mx-auto p-6 max-w-6xl" dir="rtl">
       <div className="flex items-center gap-4 mb-8">
         <Mail className="h-8 w-8 text-dental-primary" />
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 font-arabic">إدارة الإشعارات</h1>
-          <p className="text-gray-600 font-arabic">إعداد وإدارة نظام الإشعارات بالبريد الإلكتروني</p>
+          <h1 className="text-3xl font-bold text-gray-900 font-arabic">إدارة الإشعارات الحقيقية</h1>
+          <p className="text-gray-600 font-arabic">نظام إشعارات متطور باستخدام EmailJS</p>
+        </div>
+        <div className="mr-auto">
+          <ConnectionStatusIndicator />
         </div>
       </div>
 
@@ -312,15 +339,15 @@ export default function NotificationSettings() {
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="settings" className="font-arabic">
             <Settings className="w-4 h-4 ml-2" />
-            الإعدادات
+            إعدادات EmailJS
           </TabsTrigger>
           <TabsTrigger value="test" className="font-arabic">
             <TestTube className="w-4 h-4 ml-2" />
             الاختبار
           </TabsTrigger>
-          <TabsTrigger value="logs" className="font-arabic">
-            <History className="w-4 h-4 ml-2" />
-            السجل
+          <TabsTrigger value="guide" className="font-arabic">
+            <HelpCircle className="w-4 h-4 ml-2" />
+            دليل الإعداد
           </TabsTrigger>
           <TabsTrigger value="stats" className="font-arabic">
             <BarChart3 className="w-4 h-4 ml-2" />
@@ -331,159 +358,113 @@ export default function NotificationSettings() {
         <TabsContent value="settings" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="font-arabic">إعدادات البريد الإلكتروني</CardTitle>
+              <CardTitle className="font-arabic flex items-center gap-2">
+                <Shield className="w-5 h-5" />
+                إعدادات EmailJS للإشعارات الحقيقية
+              </CardTitle>
               <CardDescription className="font-arabic">
-                تكوين خدمة البريد الإلكتروني لإرسال الإشعارات
+                كوّن EmailJS لإرسال إشعارات حقيقية عبر البريد الإلكتروني بدون خادم خلفي
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="flex items-center space-x-2 space-x-reverse">
                 <Switch
-                  id="email-enabled"
-                  checked={emailSettings.enabled}
+                  id="emailjs-enabled"
+                  checked={emailJSSettings.enabled}
                   onCheckedChange={(checked) =>
-                    setEmailSettings(prev => ({ ...prev, enabled: checked }))
+                    setEmailJSSettings(prev => ({ ...prev, enabled: checked }))
                   }
                 />
-                <Label htmlFor="email-enabled" className="font-arabic">
-                  تفعيل نظام الإشعارات بالبريد الإلكتروني
+                <Label htmlFor="emailjs-enabled" className="font-arabic">
+                  تفعيل نظام الإشعارات الحقيقية (EmailJS)
                 </Label>
               </div>
 
-              {emailSettings.enabled && (
+              {emailJSSettings.enabled && (
                 <div className="space-y-4 p-4 border rounded-lg bg-gray-50">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="service" className="font-arabic">نوع الخدمة</Label>
-                      <Select
-                        value={emailSettings.service}
-                        onValueChange={(value) =>
-                          setEmailSettings(prev => ({ 
-                            ...prev, 
-                            service: value,
-                            host: value === 'smtp' ? prev.host : '',
-                            port: value === 'gmail' ? 587 : value === 'outlook' ? 587 : prev.port
-                          }))
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="gmail">Gmail</SelectItem>
-                          <SelectItem value="outlook">Outlook/Hotmail</SelectItem>
-                          <SelectItem value="yahoo">Yahoo</SelectItem>
-                          <SelectItem value="smtp">SMTP مخصص</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="from_name" className="font-arabic">اسم المرسل</Label>
-                      <Input
-                        id="from_name"
-                        value={emailSettings.from_name}
-                        onChange={(e) =>
-                          setEmailSettings(prev => ({ ...prev, from_name: e.target.value }))
-                        }
-                        placeholder="عيادة الدكتور كمال الملصي"
-                        className="font-arabic"
-                      />
-                    </div>
-                  </div>
-
-                  {emailSettings.service === 'smtp' && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="host" className="font-arabic">خادم SMTP</Label>
-                        <Input
-                          id="host"
-                          value={emailSettings.host || ''}
-                          onChange={(e) =>
-                            setEmailSettings(prev => ({ ...prev, host: e.target.value }))
-                          }
-                          placeholder="smtp.example.com"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="port" className="font-arabic">منفذ SMTP</Label>
-                        <Input
-                          id="port"
-                          type="number"
-                          value={emailSettings.port}
-                          onChange={(e) =>
-                            setEmailSettings(prev => ({ ...prev, port: parseInt(e.target.value) || 587 }))
-                          }
-                          placeholder="587"
-                        />
-                      </div>
-                    </div>
-                  )}
+                  <Alert>
+                    <Info className="h-4 w-4" />
+                    <AlertDescription className="font-arabic">
+                      📧 <strong>الإشعارات الحقيقية:</strong> سيتم إرسال رسائل بريد إلكتروني حقيقية للمرضى عبر خدمة EmailJS.
+                      تأكد من إكمال إعداد EmailJS أولاً (راجع تبويب "دليل الإعداد").
+                    </AlertDescription>
+                  </Alert>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="username" className="font-arabic">البريد الإلكتروني</Label>
+                      <Label htmlFor="service-id" className="font-arabic">Service ID</Label>
                       <Input
-                        id="username"
-                        type="email"
-                        value={emailSettings.username}
+                        id="service-id"
+                        value={emailJSSettings.serviceId}
                         onChange={(e) =>
-                          setEmailSettings(prev => ({ ...prev, username: e.target.value }))
+                          setEmailJSSettings(prev => ({ ...prev, serviceId: e.target.value }))
                         }
-                        placeholder="your-email@gmail.com"
+                        placeholder="service_xxxxxxx"
                         dir="ltr"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="password" className="font-arabic">
-                        كلمة المرور
-                        {emailSettings.hasPassword && (
-                          <span className="text-green-600 text-sm mr-2">✓ محفوظة</span>
-                        )}
-                      </Label>
-                      <div className="relative">
-                        <Input
-                          id="password"
-                          type={showPassword ? "text" : "password"}
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          placeholder={emailSettings.hasPassword ? "• • • • • • • •" : "كلمة المرور"}
-                          dir="ltr"
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="absolute left-2 top-1/2 transform -translate-y-1/2"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </Button>
-                      </div>
+                      <Label htmlFor="template-id" className="font-arabic">Template ID</Label>
+                      <Input
+                        id="template-id"
+                        value={emailJSSettings.templateId}
+                        onChange={(e) =>
+                          setEmailJSSettings(prev => ({ ...prev, templateId: e.target.value }))
+                        }
+                        placeholder="template_xxxxxxx"
+                        dir="ltr"
+                      />
                     </div>
                   </div>
 
-                  {emailSettings.service === 'smtp' && (
-                    <div className="flex items-center space-x-2 space-x-reverse">
-                      <Switch
-                        id="secure"
-                        checked={emailSettings.secure}
-                        onCheckedChange={(checked) =>
-                          setEmailSettings(prev => ({ ...prev, secure: checked }))
+                  <div className="space-y-2">
+                    <Label htmlFor="public-key" className="font-arabic">Public Key</Label>
+                    <Input
+                      id="public-key"
+                      value={emailJSSettings.publicKey}
+                      onChange={(e) =>
+                        setEmailJSSettings(prev => ({ ...prev, publicKey: e.target.value }))
+                      }
+                      placeholder="your_public_key_here"
+                      dir="ltr"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="sender-name" className="font-arabic">اسم المرسل</Label>
+                      <Input
+                        id="sender-name"
+                        value={emailJSSettings.senderName}
+                        onChange={(e) =>
+                          setEmailJSSettings(prev => ({ ...prev, senderName: e.target.value }))
                         }
+                        placeholder="عيادة الدكتور كمال الملصي"
+                        className="font-arabic"
                       />
-                      <Label htmlFor="secure" className="font-arabic">
-                        اتصال آمن (SSL/TLS)
-                      </Label>
                     </div>
-                  )}
+
+                    <div className="space-y-2">
+                      <Label htmlFor="sender-email" className="font-arabic">بريد المرسل</Label>
+                      <Input
+                        id="sender-email"
+                        type="email"
+                        value={emailJSSettings.senderEmail}
+                        onChange={(e) =>
+                          setEmailJSSettings(prev => ({ ...prev, senderEmail: e.target.value }))
+                        }
+                        placeholder="info@clinic.com"
+                        dir="ltr"
+                      />
+                    </div>
+                  </div>
 
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      تأكد من استخدام كلمة مرور التطبيق (App Password) بدلاً من كلمة المرور العادية للحسابات مع التحقق بخطوتين.
+                      <strong>أمان البيانات:</strong> جميع الإعدادات تُحفظ محلياً في متصفحك ولا تُرسل لأي خادم خارجي.
+                      EmailJS آمن ولا يكشف بيانات حساسة.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -492,15 +473,24 @@ export default function NotificationSettings() {
               <Separator />
 
               <div className="flex gap-4">
-                <Button onClick={saveEmailSettings} disabled={isLoading} className="font-arabic">
+                <Button onClick={saveEmailJSSettings} disabled={isLoading} className="font-arabic">
                   {isLoading ? "جاري الحفظ..." : "حفظ الإعدادات"}
                 </Button>
                 
-                {emailSettings.enabled && (
-                  <Button variant="outline" onClick={testEmailSettings} disabled={isTesting} className="font-arabic">
+                {emailJSSettings.enabled && (
+                  <Button variant="outline" onClick={testEmailJSConnection} disabled={isTesting} className="font-arabic">
                     {isTesting ? "جاري الاختبار..." : "اختبار الاتصال"}
                   </Button>
                 )}
+
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setActiveTab("guide")} 
+                  className="font-arabic"
+                >
+                  <HelpCircle className="w-4 h-4 ml-2" />
+                  دليل الإعداد
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -509,9 +499,9 @@ export default function NotificationSettings() {
         <TabsContent value="test" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="font-arabic">اختبار النظام</CardTitle>
+              <CardTitle className="font-arabic">اختبار النظام الحقيقي</CardTitle>
               <CardDescription className="font-arabic">
-                إرسال بريد اختبار للتأكد من صحة الإعدادات
+                إرسال رسائل بريد إلكتروني حقيقية للتأكد من صحة الإعدادات
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -532,11 +522,11 @@ export default function NotificationSettings() {
                   <CardContent className="p-4">
                     <h4 className="font-bold mb-2 font-arabic">🧪 اختبار بسيط</h4>
                     <p className="text-sm text-gray-600 mb-3 font-arabic">
-                      يرسل بريد إلكتروني بسيط للتأكد من صحة الإعدادات
+                      يرسل بريد إلكتروني بسيط للتأكد من صحة إعدادات EmailJS
                     </p>
                     <Button
                       onClick={sendTestEmail}
-                      disabled={isTesting || !testEmail || !emailSettings.enabled}
+                      disabled={isTesting || !testEmail || !emailJSSettings.enabled}
                       className="w-full font-arabic"
                       variant="outline"
                     >
@@ -554,7 +544,7 @@ export default function NotificationSettings() {
                     </p>
                     <Button
                       onClick={sendTestBookingNotification}
-                      disabled={isTesting || !testEmail || !emailSettings.enabled}
+                      disabled={isTesting || !testEmail || !emailJSSettings.enabled}
                       className="w-full font-arabic"
                     >
                       <Send className="w-4 h-4 ml-2" />
@@ -564,20 +554,29 @@ export default function NotificationSettings() {
                 </Card>
               </div>
 
-              {!emailSettings.enabled && (
+              {!emailJSSettings.enabled && (
                 <Alert>
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription className="font-arabic">
-                    يجب تفعيل نظام الإشعارات أولاً من تبويب الإعدادات
+                    يجب تفعيل نظام الإشعارات وإعداد EmailJS أولاً من تبويب الإعدادات
                   </AlertDescription>
                 </Alert>
               )}
 
-              {emailSettings.enabled && (
+              {emailJSSettings.enabled && connectionStatus === ConnectionStatus.CONNECTED && (
                 <Alert>
                   <CheckCircle className="h-4 w-4" />
                   <AlertDescription className="font-arabic">
-                    ✅ النظام مفعل ومستعد للإرسال! جرب "اختبار تأكيد حجز" للحصول على أفضل تجربة.
+                    ✅ النظام متصل ومستعد للإرسال! جرب "اختبار تأكيد حجز" للحصول على أفضل تجربة.
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {emailJSSettings.enabled && connectionStatus === ConnectionStatus.ERROR && (
+                <Alert variant="destructive">
+                  <XCircle className="h-4 w-4" />
+                  <AlertDescription className="font-arabic">
+                    ❌ هناك مشكلة في الاتصال. تأكد من صحة إعدادات EmailJS أو راجع دليل الإعداد.
                   </AlertDescription>
                 </Alert>
               )}
@@ -585,55 +584,96 @@ export default function NotificationSettings() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="logs" className="space-y-6">
+        <TabsContent value="guide" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="font-arabic">سجل الإشعارات</CardTitle>
+              <CardTitle className="font-arabic">دليل إعداد EmailJS</CardTitle>
               <CardDescription className="font-arabic">
-                سجل جميع الإشعارات المرسلة وحالة التسليم
+                اتبع هذه الخطوات لإعداد نظام الإشعارات الحقيقية
               </CardDescription>
             </CardHeader>
             <CardContent>
+              <Accordion type="single" collapsible className="w-full">
+                {SETUP_GUIDE.steps.map((step, index) => (
+                  <AccordionItem key={index} value={`step-${index}`}>
+                    <AccordionTrigger className="font-arabic text-right">
+                      {step.title}
+                    </AccordionTrigger>
+                    <AccordionContent className="space-y-4">
+                      <p className="font-arabic">{step.description}</p>
+                      <ul className="list-disc list-inside space-y-2 font-arabic">
+                        {step.details.map((detail, detailIndex) => (
+                          <li key={detailIndex} className="text-sm text-gray-600">{detail}</li>
+                        ))}
+                      </ul>
+                      {index === 0 && (
+                        <Button 
+                          variant="outline" 
+                          onClick={() => window.open('https://www.emailjs.com', '_blank')}
+                          className="font-arabic"
+                        >
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                          زيارة موقع EmailJS
+                        </Button>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+
+              <Separator className="my-6" />
+
               <div className="space-y-4">
-                {notificationLogs.length === 0 ? (
-                  <div className="text-center py-8 text-gray-500 font-arabic">
-                    لا توجد إشعارات مرسلة بعد
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {notificationLogs.map((log) => (
-                      <div key={log.id} className="border rounded-lg p-4 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{getNotificationTypeIcon(log.notification_type)}</span>
-                            <span className="font-bold font-arabic">{log.recipient_name}</span>
-                            <Badge variant="outline" className="font-arabic">
-                              {log.notification_type === 'confirmation' && 'تأكيد موعد'}
-                              {log.notification_type === 'reminder' && 'تذكير موعد'}
-                              {log.notification_type === 'cancellation' && 'إلغاء موعد'}
-                              {log.notification_type === 'test' && 'بريد اختبار'}
-                            </Badge>
-                          </div>
-                          {getStatusBadge(log.delivery_status)}
-                        </div>
-                        
-                        <div className="text-sm text-gray-600 space-y-1">
-                          <div><strong>البريد الإلكتروني:</strong> {log.recipient_email}</div>
-                          <div><strong>الموضوع:</strong> {log.subject}</div>
-                          {log.appointment_id && (
-                            <div><strong>رقم الموعد:</strong> {log.appointment_id}</div>
-                          )}
-                          <div><strong>وقت الإرسال:</strong> {
-                            log.sent_at ? new Date(log.sent_at).toLocaleString('ar-EG') : 'لم يتم الإرسال'
-                          }</div>
-                          {log.error_message && (
-                            <div className="text-red-600"><strong>خطأ:</strong> {log.error_message}</div>
-                          )}
+                <h3 className="text-lg font-bold font-arabic">قوالب البريد الإلكتروني المطلوبة</h3>
+                <p className="text-sm text-gray-600 font-arabic">
+                  يمكنك استخدام قالب واحد لجميع أنواع الإشعارات أو إنشاء قوالب منفصلة
+                </p>
+                
+                {Object.entries(EMAIL_TEMPLATES).map(([key, template]) => (
+                  <Card key={key} className="border-l-4 border-l-blue-500">
+                    <CardContent className="p-4">
+                      <h4 className="font-bold font-arabic mb-2">{template.name}</h4>
+                      <p className="text-sm text-gray-600 font-arabic mb-3">{template.description}</p>
+                      <div className="space-y-2">
+                        <Label className="font-arabic text-sm">المتغيرات المطلوب��:</Label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          {template.variables.map((variable) => (
+                            <div key={variable} className="flex items-center gap-1">
+                              <code className="text-xs bg-gray-100 px-1 rounded">{`{{${variable}}}`}</code>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => copyToClipboard(`{{${variable}}}`)}
+                                className="h-6 w-6 p-0"
+                              >
+                                <Copy className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <Separator className="my-6" />
+
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold font-arabic">استكشاف الأخطاء وإصلاحها</h3>
+                
+                {SETUP_GUIDE.troubleshooting.map((item, index) => (
+                  <Card key={index}>
+                    <CardContent className="p-4">
+                      <h4 className="font-bold font-arabic mb-2 text-red-600">{item.issue}</h4>
+                      <ul className="list-disc list-inside space-y-1 font-arabic">
+                        {item.solutions.map((solution, solutionIndex) => (
+                          <li key={solutionIndex} className="text-sm text-gray-600">{solution}</li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -681,57 +721,22 @@ export default function NotificationSettings() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">في الانتظار</p>
-                    <p className="text-2xl font-bold text-yellow-600">{notificationStats?.pending || 0}</p>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">نظام EmailJS</p>
+                    <p className="text-sm font-bold text-blue-600">إشعارات حقيقية</p>
                   </div>
-                  <Clock className="h-8 w-8 text-yellow-600" />
+                  <Shield className="h-8 w-8 text-blue-600" />
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {notificationStats?.byType && notificationStats.byType.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-arabic">إحصائيات حسب نوع الإشعار</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {notificationStats.byType.map((stat) => (
-                    <div key={stat.notification_type} className="border rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">{getNotificationTypeIcon(stat.notification_type)}</span>
-                          <span className="font-bold font-arabic">
-                            {stat.notification_type === 'confirmation' && 'تأكيد المواعيد'}
-                            {stat.notification_type === 'reminder' && 'تذكير المواعيد'}
-                            {stat.notification_type === 'cancellation' && 'إلغاء المواعيد'}
-                            {stat.notification_type === 'test' && 'رسائل الاختبار'}
-                          </span>
-                        </div>
-                        <span className="text-lg font-bold">{stat.total}</span>
-                      </div>
-                      
-                      <div className="grid grid-cols-3 gap-4 text-sm">
-                        <div className="text-center">
-                          <div className="text-green-600 font-bold">{stat.successful}</div>
-                          <div className="text-gray-600 font-arabic">نجح</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-red-600 font-bold">{stat.failed}</div>
-                          <div className="text-gray-600 font-arabic">فشل</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-yellow-600 font-bold">{stat.pending}</div>
-                          <div className="text-gray-600 font-arabic">انتظار</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+          <Alert>
+            <Info className="h-4 w-4" />
+            <AlertDescription className="font-arabic">
+              <strong>ملاحظة:</strong> الإحصائيات المعروضة هنا للإشعارات السابقة فقط. 
+              الإشعارات الجديدة عبر EmailJS سيتم إرسالها مباشرة بدون تسجيل محلي.
+            </AlertDescription>
+          </Alert>
         </TabsContent>
       </Tabs>
     </div>
