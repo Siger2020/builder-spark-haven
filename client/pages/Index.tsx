@@ -68,7 +68,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى ال��غار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
@@ -89,7 +89,7 @@ const services = [
 const features = [
   {
     title: "حجز سهل عبر الإنترنت",
-    description: "احجز موعدك بسهولة من خلال منصتنا ال��قمية",
+    description: "احجز موعدك بسهولة من خل��ل منصتنا الرقمية",
     icon: Calendar,
   },
   {
@@ -127,7 +127,7 @@ const beforeAfterCases = [
   {
     id: 2,
     title: "تبييض الأسنان",
-    description: "تبيي�� احترافي مع تحسن 8 د��جات",
+    description: "تبييض احترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
@@ -213,7 +213,7 @@ export default function Index() {
                   size="lg"
                   className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                  احجز موعداً الآن
+                  احجز موعدا�� الآن
                   <Calendar className="mr-2 h-5 w-5 animate-pulse" />
                 </Button>
               </Link>
@@ -267,7 +267,7 @@ export default function Index() {
                       loading="lazy"
                       src={service.image}
                       className="w-full h-32 object-cover object-center rounded-t-lg mb-4"
-                      alt={`��دمة ${service.title}`}
+                      alt={`خدمة ${service.title}`}
                     />
                     <div className="flex items-center justify-center">
                       <div className="p-3 rounded-full bg-dental-primary/10 group-hover:bg-dental-primary/20 transition-colors duration-300">
@@ -526,11 +526,11 @@ export default function Index() {
           <div className="text-center mt-12">
             <Button
               onClick={() => setShowMoreResults(!showMoreResults)}
-              className="bg-gradient-to-r from-dental-primary to-blue-600 hover:from-dental-primary/90 hover:to-blue-600/90 text-white px-8 py-4 text-lg font-arabic transition-all duration-300 transform hover:scale-105"
+              className="bg-dental-primary hover:bg-dental-primary/90 text-white px-8 py-4 text-lg font-arabic transition-all duration-300 transform hover:scale-105"
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>{showMoreResults ? "إخفا�� النتا��ج الإضافية" : "شاهد المزيد من النتائج"}</span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
