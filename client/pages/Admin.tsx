@@ -181,7 +181,7 @@ export default function Admin() {
       }
 
     } catch (error) {
-      console.error('خطأ في جلب بيانات لوحة التحكم:', error);
+      console.error('خطأ في ��لب بيانات لوحة التحكم:', error);
     } finally {
       setLoading(false);
     }
@@ -416,7 +416,7 @@ export default function Admin() {
               <Card>
                 <CardHeader>
                   <CardTitle className="font-arabic">
-                    أكثر الخدمات طلباً
+                    ��كثر الخدمات طلباً
                   </CardTitle>
                   <CardDescription className="font-arabic">
                     إحصائيات الخدمات الأكثر حجزاً هذا الشهر
@@ -442,7 +442,7 @@ export default function Admin() {
                         </div>
                         <div className="text-left">
                           <div className="font-medium">
-                            {service.revenue.toLocaleString()} ريال
+                            {service.revenue.toLocaleString()} ر.ي
                           </div>
                           <Progress
                             value={service.percentage}
@@ -472,7 +472,7 @@ export default function Admin() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="font-arabic">رضا المرضى</span>
+                      <span className="font-arabic">رضا ال��رضى</span>
                       <div className="flex items-center gap-2">
                         <Progress value={98} className="w-20" />
                         <span className="text-sm">98%</span>
@@ -721,7 +721,7 @@ export default function Admin() {
                     }}
                   >
                     <UserCheck className="h-4 w-4 mr-2" />
-                    إدارة المستخدمين
+                    إ��ارة المستخدمين
                   </Button>
                   <Button
                     className="w-full font-arabic"
