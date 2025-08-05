@@ -98,7 +98,7 @@ const features = [
     icon: Users,
   },
   {
-    title: "تقنيات متقدمة",
+    title: "��قنيات متقدمة",
     description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمياً",
     icon: Shield,
   },
@@ -127,7 +127,7 @@ const beforeAfterCases = [
   {
     id: 2,
     title: "تبييض الأسنان",
-    description: "تبييض ا��ترافي مع تحسن 8 د��جات",
+    description: "تبييض احترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
@@ -400,7 +400,7 @@ export default function Index() {
                 <p className="text-gray-600 font-arabic mb-4">
                   تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
                 </p>
-                <div className="text-sm text-green-600 font-arabic">
+                <div className="text-sm text-dental-primary font-arabic">
                   تصميم مخصص لكل مريض
                 </div>
               </CardContent>
@@ -669,7 +669,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شا��ع المقالح -��ي الاصبحي ��مام سيتي ماكس
+                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
                   </span>
                 </div>
               </div>
