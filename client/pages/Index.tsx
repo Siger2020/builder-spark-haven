@@ -269,11 +269,11 @@ export default function Index() {
                       alt={`خدمة ${service.title}`}
                     />
                     <div className="flex items-center justify-between">
-                      <Icon className="h-10 w-10 text-dental-primary" />
-                      <span className="text-dental-primary font-bold">
-                        <p>
-                          <br />
-                        </p>
+                      <div className="p-3 rounded-full bg-dental-primary/10 group-hover:bg-dental-primary/20 transition-colors duration-300">
+                        <Icon className="h-8 w-8 text-dental-primary group-hover:scale-110 transition-transform duration-300" />
+                      </div>
+                      <span className="text-dental-primary font-bold text-lg font-arabic bg-gradient-to-r from-dental-primary to-blue-600 bg-clip-text text-transparent">
+                        {service.price}
                       </span>
                     </div>
                     <CardTitle className="font-arabic">
