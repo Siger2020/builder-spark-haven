@@ -62,7 +62,7 @@ const services = [
     title: "تبييض الأسنان",
     description: "تبييض آمن وفعال لابتسامة مشرقة",
     icon: Star,
-    price: "من 800 ريال",
+    price: "من 40,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12?alt=media&token=0aad9bfe-c865-4eee-a16d-072936f66615&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -156,7 +156,7 @@ const beforeAfterCases = [
   },
   {
     id: 5,
-    title: "ق��ور الأسنان",
+    title: "قش��ر الأسنان",
     description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
