@@ -108,7 +108,7 @@ router.post('/email-settings', (req, res) => {
       const finalPassword = password || settings.password; // استخدام كلمة المرور القديمة إذا لم يتم تقديم واحدة جديدة
       updateEmailSettings.run(enabled, service, host, port, secure, username, finalPassword, from_name, settings.id);
     } else {
-      // إنشاء إعدادات جديدة
+      // إنشاء ��عدادات جديدة
       if (!password) {
         return res.status(400).json({ 
           success: false, 
@@ -149,7 +149,7 @@ router.post('/test-email-settings', async (req, res) => {
     const result = await emailService.testConfiguration();
     
     if (result.success) {
-      res.json({ success: true, message: 'إعدادات البريد الإلكتروني صحيحة' });
+      res.json({ success: true, message: 'إعدادات البريد الإلكتروني صح��حة' });
     } else {
       res.status(400).json({ success: false, error: result.error });
     }
@@ -310,7 +310,7 @@ router.get('/logs', (req, res) => {
   }
 });
 
-// الحصول على إحصائيات الإشعارات
+// الحصول عل�� إحصائيات الإشعارات
 router.get('/stats', (req, res) => {
   try {
     const stats = getNotificationStats.all();
@@ -340,11 +340,75 @@ router.get('/stats', (req, res) => {
   }
 });
 
+// اختبار سريع للإشعارات - محاكاة حجز
+router.post('/test-booking-notification', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, error: 'البريد الإلكتروني مطلوب' });
+    }
+
+    // بيانات اختبار للحجز
+    const testData: NotificationData = {
+      patientName: 'أحمد محمد (اختبار)',
+      patientEmail: email,
+      appointmentId: 'TEST' + Math.floor(Math.random() * 10000),
+      appointmentDate: new Date(Date.now() + 24*60*60*1000).toLocaleDateString('ar-EG'),
+      appointmentTime: '10:00 ص',
+      doctorName: 'د. كمال الملصي',
+      clinicName: 'عيادة الدكتور كمال الملصي',
+      clinicPhone: '+967 777 775 545',
+      clinicAddress: 'شارع المقالح -حي الاصبحي امام سيتي ماكس',
+      notes: 'هذا اختبار لنظام الإشعارات'
+    };
+
+    const result = await emailService.sendNotification('confirmation', testData);
+
+    // تسجيل النتيجة في قاعدة البيانات
+    const today = new Date().toISOString().split('T')[0];
+    insertNotificationLog.run(
+      'confirmation',
+      email,
+      'أحمد محمد (اختبار)',
+      testData.appointmentId,
+      `✅ تأكيد موعدك - ${testData.appointmentId}`,
+      'Test booking notification',
+      result.success ? new Date().toISOString() : null,
+      result.success ? 'sent' : 'failed',
+      result.messageId || null,
+      result.error || null,
+      JSON.stringify({ ...testData, isTest: true })
+    );
+
+    // تحديث الإحصائيات
+    updateNotificationStats.run(
+      today, 'confirmation', today, 'confirmation', today, 'confirmation',
+      result.success ? 1 : 0,
+      today, 'confirmation', result.success ? 0 : 1
+    );
+
+    if (result.success) {
+      res.json({
+        success: true,
+        message: 'تم إرسال إشعار تأكيد الحجز التجريبي بنجاح!',
+        messageId: result.messageId,
+        appointmentId: testData.appointmentId
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.error });
+    }
+  } catch (error) {
+    console.error('Error sending test booking notification:', error);
+    res.status(500).json({ success: false, error: 'خطأ في إرسال الإشعار التجريبي' });
+  }
+});
+
 // تهيئة خدمة البريد الإلكتروني عند بدء التشغيل
 const initializeEmailService = () => {
   try {
     const settings = getEmailSettings.get() as any;
-    
+
     if (settings && settings.enabled) {
       const config: EmailConfig = {
         enabled: settings.enabled,
