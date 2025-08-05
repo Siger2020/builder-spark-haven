@@ -63,12 +63,12 @@ export default function Register() {
       !formData.password ||
       !formData.phone
     ) {
-      setError("يرجى ملء جميع الحقول المطلوبة");
+      setError("يرجى ملء جميع ال��قول المطلوبة");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError("كلمة المرور وتأكيد كلمة المرور غير متطابقتين");
+      setError("كلمة المرور ��تأكيد كلمة المرور غير متطابقتين");
       return;
     }
 
@@ -146,7 +146,7 @@ export default function Register() {
             إنشاء حساب جديد
           </h2>
           <p className="mt-2 text-sm text-gray-600 font-arabic">
-            أنشئ حسابك للوصول إلى خدمات العيادة
+            أنشئ حسابك للوصول إلى خدم��ت العيادة
           </p>
         </div>
 
@@ -209,7 +209,7 @@ export default function Register() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    placeholder="967xxxxxxxxx"
+                    placeholder="+967 77x xxx xxx"
                     className="font-arabic"
                     disabled={isLoading}
                   />
@@ -337,7 +337,7 @@ export default function Register() {
                 to="/"
                 className="text-sm text-gray-600 hover:text-gray-900 font-arabic"
               >
-                العودة للصفح�� الرئيسية
+                العودة للصفحة الرئيسية
               </Link>
             </div>
           </CardContent>
