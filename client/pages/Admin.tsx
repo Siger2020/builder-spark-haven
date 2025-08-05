@@ -298,7 +298,7 @@ export default function Admin() {
                 {dashboardStats.totalTransactions}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                معاملة مالية م��جلة
+                معاملة مالي�� م��جلة
               </p>
             </CardContent>
           </Card>
@@ -825,5 +825,3 @@ export default function Admin() {
     </div>
   );
 }
-
-export default Admin;
