@@ -69,7 +69,7 @@ async function sendWhatsApp(phone: string, message: string): Promise<boolean> {
       console.log(`✅ تم إرسال رسالة واتس آب بنجاح إلى ${phone}`);
       return true;
     } else {
-      console.log(`❌ فشل إرسال رسالة واتس آب ��لى ${phone}`);
+      console.log(`❌ فشل إرسال رسالة واتس آب إلى ${phone}`);
       return false;
     }
   } catch (error) {
@@ -104,7 +104,7 @@ async function sendEmail(type: 'confirmation' | 'reminder' | 'cancellation', dat
     const result = await emailService.sendNotification(type, emailData);
 
     if (result.success) {
-      console.log(`✅ تم إرسال البريد الإلكت��وني بنجاح إلى ${data.email} - Message ID: ${result.messageId}`);
+      console.log(`✅ تم إرسال البريد الإلكتروني بنجاح إلى ${data.email} - Message ID: ${result.messageId}`);
       return true;
     } else {
       console.log(`❌ فشل إرسال البريد الإلكتروني إلى ${data.email}: ${result.error}`);
@@ -152,7 +152,7 @@ export async function sendBookingConfirmation(data: BookingNotificationData): Pr
 }
 
 // إرسال تذكير قبل الموعد بيوم واحد
-export async function sendAppointmentReminder(data: BookingNotificationData): Promise<{sms: boolean, whatsapp: boolean}> {
+export async function sendAppointmentReminder(data: BookingNotificationData): Promise<{sms: boolean, whatsapp: boolean, email: boolean}> {
   const message = `
 🔔 تذكير موعد - عيادة الدكتور كمال الملصي
 
@@ -176,14 +176,16 @@ export async function sendAppointmentReminder(data: BookingNotificationData): Pr
   `.trim();
 
   // إرسال التذكيرات بالتوازي
-  const [smsResult, whatsappResult] = await Promise.all([
+  const [smsResult, whatsappResult, emailResult] = await Promise.all([
     sendSMS(data.phone, message),
-    sendWhatsApp(data.phone, message)
+    sendWhatsApp(data.phone, message),
+    sendEmail('reminder', data)
   ]);
 
   return {
     sms: smsResult,
-    whatsapp: whatsappResult
+    whatsapp: whatsappResult,
+    email: emailResult
   };
 }
 
@@ -206,7 +208,7 @@ export function scheduleReminder(data: BookingNotificationData): void {
       console.log(`📊 نتيجة التذكير - SMS: ${result.sms ? '✅' : '❌'}, WhatsApp: ${result.whatsapp ? '✅' : '❌'}`);
     }, timeUntilReminder);
   } else {
-    console.log(`⚠️ الموعد قريب جداً - لن يتم إرسال تذكير للمريض ${data.patientName}`);
+    console.log(`⚠️ الموعد قريب جداً - لن يتم إرسال تذكير للم��يض ${data.patientName}`);
   }
 }
 
