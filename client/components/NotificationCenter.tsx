@@ -146,9 +146,9 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
     const [customMessage, setCustomMessage] = useState("");
 
     const patients = [
-      { id: "1", name: "أحمد محمد", phone: "+966501234567" },
-      { id: "2", name: "فاطمة علي", phone: "+966507654321" },
-      { id: "3", name: "محمد سالم", phone: "+966512345678" }
+      { id: "1", name: "أحمد محمد", phone: "+967 777 123 456" },
+      { id: "2", name: "فاطمة علي", phone: "+967 771 654 321" },
+      { id: "3", name: "محمد سالم", phone: "+967 772 345 678" }
     ];
 
     return (
@@ -169,7 +169,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
-                  <SelectItem value="today" className="font-arabic">مرضى اليوم</SelectItem>
+                  <SelectItem value="today" className="font-arabic">مر��ى اليوم</SelectItem>
                   <SelectItem value="overdue" className="font-arabic">المتأخرين في الدفع</SelectItem>
                   <SelectItem value="custom" className="font-arabic">اختيار محدد</SelectItem>
                 </SelectContent>
