@@ -28,6 +28,7 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
+  Mail,
 } from "lucide-react";
 
 interface DashboardStats {
