@@ -278,13 +278,10 @@ export default function Index() {
                       className="w-full h-32 object-cover object-center rounded-t-lg mb-4"
                       alt={`خدمة ${service.title}`}
                     />
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center">
                       <div className="p-3 rounded-full bg-dental-primary/10 group-hover:bg-dental-primary/20 transition-colors duration-300">
                         <Icon className="h-8 w-8 text-dental-primary group-hover:scale-110 transition-transform duration-300" />
                       </div>
-                      <span className="text-dental-primary font-bold text-lg font-arabic bg-gradient-to-r from-dental-primary to-blue-600 bg-clip-text text-transparent">
-                        {service.price}
-                      </span>
                     </div>
                     <CardTitle className="font-arabic">
                       {service.title}
@@ -583,7 +580,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً وال��تائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
