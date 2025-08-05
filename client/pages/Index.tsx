@@ -244,11 +244,11 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-dental-primary mb-2">
+              <div key={index} className="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
+                <div className="text-3xl md:text-4xl font-bold text-dental-primary mb-2 group-hover:text-red-600 transition-colors duration-300">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-arabic">{stat.label}</div>
+                <div className="text-gray-600 font-arabic group-hover:text-gray-800 transition-colors duration-300">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -341,7 +341,7 @@ export default function Index() {
             جاهز لبدء رحلة العناية بأسنانك؟
           </h2>
           <p className="text-xl mb-8 font-arabic opacity-90">
-            احجز موعدك اليوم واحصل على استشارة مجانية
+            احجز موعد�� اليوم واحصل على استشارة مجانية
           </p>
           <Link to="/booking">
             <Button
