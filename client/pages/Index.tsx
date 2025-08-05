@@ -307,14 +307,14 @@ export default function Index() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div key={index} className="text-center">
-                  <div className="bg-dental-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-8 w-8 text-dental-primary" />
+                <div key={index} className="text-center group cursor-pointer transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="bg-dental-primary/10 group-hover:bg-dental-primary/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                    <Icon className="h-8 w-8 text-dental-primary group-hover:text-dental-primary/90" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 font-arabic">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 font-arabic group-hover:text-dental-primary transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 font-arabic">
+                  <p className="text-gray-600 font-arabic group-hover:text-gray-700 transition-colors duration-300">
                     {feature.description}
                   </p>
                 </div>
@@ -573,7 +573,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال الملصي."
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
