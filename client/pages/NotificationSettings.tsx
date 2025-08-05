@@ -575,10 +575,22 @@ export default function NotificationSettings() {
               )}
 
               {emailJSSettings.enabled && connectionStatus === ConnectionStatus.ERROR && (
-                <Alert variant="destructive">
-                  <XCircle className="h-4 w-4" />
+                <EmailJSTroubleshooter
+                  connectionStatus={connectionStatus}
+                  hasServiceId={!!emailJSSettings.serviceId}
+                  hasTemplateId={!!emailJSSettings.templateId}
+                  hasPublicKey={!!emailJSSettings.publicKey}
+                  hasSenderEmail={!!emailJSSettings.senderEmail}
+                  onRetry={testEmailJSConnection}
+                />
+              )}
+
+              {emailJSSettings.enabled && connectionStatus === ConnectionStatus.CONFIGURED && (
+                <Alert>
+                  <Activity className="w-4 h-4" />
                   <AlertDescription className="font-arabic">
-                    ❌ هناك مشكلة في الاتصال. تأكد من صحة إعدادات EmailJS أو راجع دليل الإعداد.
+                    ⚠️ <strong>النظام مُعَدّ ولكن لم يتم اختباره بعد.</strong>
+                    للتأكد من عمل النظام، اضغط "اختبار الاتصال" أو جرب إرسال رسالة اختبار.
                   </AlertDescription>
                 </Alert>
               )}
