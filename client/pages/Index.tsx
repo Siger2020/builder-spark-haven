@@ -197,7 +197,7 @@ export default function Index() {
   return (
     <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
-      <section className="bg-gradient-to-l from-dental-primary to-dental-primary/90 text-white py-20">
+      <section className="bg-yemen-gradient text-white py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
@@ -383,7 +383,7 @@ export default function Index() {
                   محاكاة الابتسامة
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناعي
+                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناع��
                 </p>
                 <div className="text-sm text-purple-600 font-arabic">
                   دقة 95% في التوقعات
@@ -573,7 +573,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
+                    "تجربة رائعة مع فريق متميز. الع��اج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
