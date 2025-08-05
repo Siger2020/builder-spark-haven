@@ -74,7 +74,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاية أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
     icon: Baby,
     price: "من 7,500 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
@@ -201,7 +201,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
-              عيادة الدكتور كمال الملصي
+              عيا��ة الدكتور كمال الملصي
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
               رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
@@ -659,7 +659,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <Phone className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    <p>00967777775545</p>
+                    <p>+967 777 775 545</p>
                   </span>
                 </div>
                 <div className="flex items-center space-x-reverse space-x-3">
