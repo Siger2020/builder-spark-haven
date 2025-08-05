@@ -74,7 +74,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاية أسنان لطيفة وممتعة مصممة خ��يصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
+    description: "رعاية أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
     icon: Baby,
     price: "من 7,500 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
@@ -83,7 +83,7 @@ const services = [
     title: "طب الأسنان الترميمي",
     description: "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها. نقدم لك الحشوات والتيجان والجسور وغيرها لاستعادة صحة أسنانك",
     icon: Wrench,
-    price: "من 400 ريال",
+    price: "من 20,000 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F4ecc0485788f45fab358a32e32695be9"
   },
   {
@@ -512,7 +512,7 @@ export default function Index() {
                       }}
                     />
                     <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
-                      ب��د
+                      بعد
                     </div>
                   </div>
                 </div>
