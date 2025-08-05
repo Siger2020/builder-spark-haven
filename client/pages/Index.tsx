@@ -89,7 +89,7 @@ const services = [
 const features = [
   {
     title: "حجز سهل عبر الإنترنت",
-    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
+    description: "احجز م��عدك بسهولة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
   {
@@ -126,14 +126,14 @@ const beforeAfterCases = [
   },
   {
     id: 2,
-    title: "تبييض الأسنان",
+    title: "تب��يض الأسنان",
     description: "تبييض احترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
   {
     id: 3,
-    title: "زرا��ة الأسنان",
+    title: "زراعة الأسنان",
     description: "زراعة متكاملة مع نتائج طبيعية 100%",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fddcb4c2e26404b149b607d3da80d435e",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6e92e485ef534ae2ab04f48f54412c8b",
@@ -148,14 +148,14 @@ const beforeAfterCases = [
   {
     id: 5,
     title: "قشور الأسن��ن",
-    description: "ابتسامة هوليوودية طبيعية ومتينة",
+    description: "ابتسامة هوليوودية طب��عية ومتينة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fb52362602fbf42f2866ffd758b9c49e3",
   },
   {
     id: 6,
     title: "علاج الجذور",
-    description: "إنقاذ السن وإزالة الأل�� نهائياً",
+    description: "إنقاذ السن وإزالة الألم نهائياً",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6c25357a685f49c087674c72a7515f79",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F03af0a006e6d426bb83f0f44b613e007",
   },
@@ -188,7 +188,7 @@ export default function Index() {
   return (
     <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
-      <section className="bg-yemen-gradient text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-dental-primary to-dental-primary/80 text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="animate-float absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
@@ -251,7 +251,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
-              خدماتنا ��لمتميزة
+              خدماتنا المتميزة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
               نقدم مجموعة شاملة من خدمات طب الأسنان بأعلى معايير الجودة
