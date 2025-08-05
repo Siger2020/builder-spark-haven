@@ -205,7 +205,12 @@ export default function Index() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center animate-fadeInUp">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-white/30 mx-auto mb-2"></div>
+              <div className="w-24 h-1 bg-white/50 mx-auto mb-2"></div>
+              <div className="w-16 h-1 bg-white/30 mx-auto"></div>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent">
               عيا��ة الدكتور كمال الملصي
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
@@ -391,7 +396,7 @@ export default function Index() {
                   رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناعي
                 </p>
                 <div className="text-sm text-purple-600 font-arabic">
-                  دقة 95% في التوقعات
+                  دقة 95% في التوق��ات
                 </div>
               </CardContent>
             </Card>
