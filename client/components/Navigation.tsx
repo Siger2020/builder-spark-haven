@@ -36,6 +36,7 @@ const adminNavigationItems = [
   { name: "لوحة المدير", path: "/admin-dashboard", icon: Settings },
   { name: "إدارة المرضى", path: "/patients", icon: Users },
   { name: "إدارة المواعيد", path: "/appointment-management", icon: Calendar },
+  { name: "إدارة الإشعارات", path: "/notifications", icon: Mail },
   { name: "التقارير المالية", path: "/transactions", icon: CreditCard },
   { name: "إدارة قاعدة البيانات", path: "/database", icon: Shield },
   { name: "فحص النظام", path: "/system-check", icon: Shield },
