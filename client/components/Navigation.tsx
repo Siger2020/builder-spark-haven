@@ -56,11 +56,15 @@ export function Navigation() {
 
   // تحديد القوائم حسب نوع المستخدم
   const getNavigationItems = () => {
+    console.log('User role:', user?.role); // للتصحيح
     if (user?.role === 'patient') {
+      console.log('Showing patient navigation');
       return patientNavigationItems;
     } else if (user?.role === 'admin') {
+      console.log('Showing admin navigation');
       return adminNavigationItems;
     } else {
+      console.log('Showing doctor navigation for role:', user?.role);
       // للأطباء والموظفين الآخرين
       return doctorNavigationItems;
     }
@@ -139,7 +143,7 @@ export function Navigation() {
                 <Link to="/login">
                   <Button size="sm" className="font-arabic">
                     <LogIn className="h-4 w-4 mr-1" />
-                    تسجيل الدخول
+                    تسجيل ا��دخول
                   </Button>
                 </Link>
               )}
