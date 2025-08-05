@@ -27,6 +27,9 @@ export class EmailJSService {
   private connectionStatus: ConnectionStatus = ConnectionStatus.NOT_CONFIGURED;
   private isInitialized: boolean = false;
   private pendingRequests: Set<Promise<any>> = new Set();
+  private requestQueue: Array<() => Promise<any>> = [];
+  private isProcessingQueue: boolean = false;
+  private lastRequestTime: number = 0;
 
   // تكوين خدمة EmailJS
   configure(config: EmailJSSettings): { success: boolean; errors?: string[] } {
@@ -68,11 +71,24 @@ export class EmailJSService {
     this.connectionStatus = ConnectionStatus.NOT_CONFIGURED;
     this.isInitialized = false;
     this.pendingRequests.clear();
+    this.requestQueue = [];
+    this.isProcessingQueue = false;
+    this.lastRequestTime = 0;
+    console.log('EmailJS service reset');
   }
 
   // الحصول على عدد الطلبات المعلقة
   getPendingRequestsCount(): number {
-    return this.pendingRequests.size;
+    return this.requestQueue.length;
+  }
+
+  // الحصول على حالة الطابور
+  getQueueStatus(): { processing: boolean; queued: number; pending: number } {
+    return {
+      processing: this.isProcessingQueue,
+      queued: this.requestQueue.length,
+      pending: this.pendingRequests.size
+    };
   }
 
   // التحقق من صحة التكوين
@@ -93,8 +109,8 @@ export class EmailJSService {
       };
     }
 
-    // التحقق من وجود طلبات معلقة
-    if (this.pendingRequests.size > 0) {
+    // التحقق من وجود طلبات معلقة في الطابور
+    if (this.isProcessingQueue || this.requestQueue.length > 0) {
       return {
         success: false,
         error: 'يوجد طلب آخر قيد التنفيذ - يرجى الانتظار'
@@ -103,40 +119,21 @@ export class EmailJSService {
 
     this.connectionStatus = ConnectionStatus.TESTING;
 
-    const testData = {
-      to_email: this.config.senderEmail,
-      to_name: 'مدير النظام',
-      from_name: this.config.senderName,
-      clinic_name: this.config.senderName,
-      test_time: new Date().toLocaleString('ar-EG'),
-      message: 'هذا اختبار لصحة إعدادات EmailJS. إذا وص��تك هذه الرسالة، فالنظام يعمل بشكل صحيح!',
-      subject: '🧪 اختبار نظام الإشعارات - EmailJS',
-      icon: '🧪',
-      notification_type: 'اختبار النظام',
-      instructions: 'إذا وصلتك هذه الرسالة، فالنظام يعمل بشكل صحيح!',
-      appointment_id: 'TEST-' + Date.now(),
-      appointment_date: new Date().toLocaleDateString('ar-EG'),
-      appointment_time: new Date().toLocaleTimeString('ar-EG'),
-      doctor_name: 'نظام الاختبار',
-      clinic_phone: 'غير محدد',
-      clinic_address: 'غير محدد',
-      notes: 'هذه رسالة اختبار',
-      current_time: new Date().toLocaleString('ar-EG')
-    };
-
     try {
-      const result = await this.performSend('test', {
-        patientName: testData.to_name,
-        patientEmail: testData.to_email,
-        appointmentId: testData.appointment_id,
-        appointmentDate: testData.appointment_date,
-        appointmentTime: testData.appointment_time,
-        doctorName: testData.doctor_name,
-        clinicName: testData.clinic_name,
-        clinicPhone: testData.clinic_phone,
-        clinicAddress: testData.clinic_address,
-        notes: testData.notes
-      });
+      const result = await this.queueRequest(() =>
+        this.performSendWithDelay('test', {
+          patientName: 'مدير النظام',
+          patientEmail: this.config!.senderEmail,
+          appointmentId: 'TEST-' + Date.now(),
+          appointmentDate: new Date().toLocaleDateString('ar-EG'),
+          appointmentTime: new Date().toLocaleTimeString('ar-EG'),
+          doctorName: 'نظام الاختبار',
+          clinicName: this.config!.senderName,
+          clinicPhone: 'غير محدد',
+          clinicAddress: 'غير محدد',
+          notes: 'هذه رسالة اختبار لتأكيد عمل النظام'
+        })
+      );
 
       if (result.success) {
         this.connectionStatus = ConnectionStatus.CONNECTED;
@@ -155,7 +152,7 @@ export class EmailJSService {
     }
   }
 
-  // إرسال إشعار مع منع الطلبات المتزامنة
+  // إرسال إشعار مع منع الطلبات المتزامنة والطابور
   async sendNotification(
     type: NotificationType,
     data: NotificationData
@@ -167,26 +164,81 @@ export class EmailJSService {
       };
     }
 
+    // إضافة الطلب للطابور
+    return this.queueRequest(() => this.performSendWithDelay(type, data));
+  }
+
+  // إضافة طلب للطابور
+  private async queueRequest<T>(requestFn: () => Promise<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.requestQueue.push(async () => {
+        try {
+          const result = await requestFn();
+          resolve(result);
+          return result;
+        } catch (error) {
+          reject(error);
+          throw error;
+        }
+      });
+
+      this.processQueue();
+    });
+  }
+
+  // معالجة طابور الطلبات
+  private async processQueue(): Promise<void> {
+    if (this.isProcessingQueue || this.requestQueue.length === 0) {
+      return;
+    }
+
+    this.isProcessingQueue = true;
+
+    while (this.requestQueue.length > 0) {
+      const request = this.requestQueue.shift();
+      if (request) {
+        try {
+          await request();
+          // إضافة تأخير بين الطلبات
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        } catch (error) {
+          console.error('Queue request failed:', error);
+        }
+      }
+    }
+
+    this.isProcessingQueue = false;
+  }
+
+  // إجراء الإرسال مع التأخير المطلوب
+  private async performSendWithDelay(
+    type: NotificationType,
+    data: NotificationData
+  ): Promise<EmailResult> {
+    // التأكد من مرور وقت كافي منذ آخر طلب
+    const now = Date.now();
+    const timeSinceLastRequest = now - this.lastRequestTime;
+    const minDelay = 2000; // 2 ثانية بين الطلبات
+
+    if (timeSinceLastRequest < minDelay) {
+      await new Promise(resolve => setTimeout(resolve, minDelay - timeSinceLastRequest));
+    }
+
+    this.lastRequestTime = Date.now();
+
     // التأكد من تهيئة EmailJS
-    if (!this.isInitialized && this.config.publicKey) {
+    if (!this.isInitialized && this.config?.publicKey) {
       try {
         emailjs.init(this.config.publicKey);
         this.isInitialized = true;
+        console.log('EmailJS initialized for request');
       } catch (error) {
-        console.error('Failed to reinitialize EmailJS:', error);
+        console.error('Failed to initialize EmailJS:', error);
         return { success: false, error: 'فشل في تهيئة EmailJS' };
       }
     }
 
-    const sendPromise = this.performSend(type, data);
-    this.pendingRequests.add(sendPromise);
-
-    try {
-      const result = await sendPromise;
-      return result;
-    } finally {
-      this.pendingRequests.delete(sendPromise);
-    }
+    return this.performSend(type, data);
   }
 
   // إجراء الإرسال الفعلي
@@ -200,12 +252,11 @@ export class EmailJSService {
       console.log('Sending EmailJS request with data:', {
         serviceId: this.config?.serviceId,
         templateId: this.config?.templateId,
-        dataKeys: Object.keys(templateData)
+        dataKeys: Object.keys(templateData),
+        timestamp: new Date().toISOString()
       });
 
-      // إضافة تأخير صغير لتجنب تضارب الطلبات
-      await new Promise(resolve => setTimeout(resolve, 100));
-
+      // استخدام محاولة واحدة فقط بدون retry
       const result = await emailjs.send(
         this.config!.serviceId,
         this.config!.templateId,
@@ -232,7 +283,9 @@ export class EmailJSService {
 
       if (error instanceof Error) {
         if (error.message.includes('body stream already read')) {
-          errorMessage = 'طلب مكرر - يرجى المحاولة مرة أخرى بعد قليل';
+          // إعادة تعيين EmailJS وإعادة المحاولة مرة واحدة
+          this.reset();
+          errorMessage = 'تم إعادة تعيين النظام - يرجى المحاولة مرة أخرى';
         } else if (error.message.includes('Unauthorized')) {
           errorMessage = 'خطأ في الصلاحية - تحقق من Public Key';
         } else if (error.message.includes('Not Found')) {
@@ -249,7 +302,7 @@ export class EmailJSService {
     }
   }
 
-  // إرسال بريد اختبار مخصص
+  // إرسال بريد اختبار ��خصص
   async sendTestEmail(
     toEmail: string,
     recipientName: string = 'مستخدم النظام'
@@ -258,14 +311,6 @@ export class EmailJSService {
       return {
         success: false,
         error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح'
-      };
-    }
-
-    // التحقق من عدم وجود طلبات متزامنة
-    if (this.pendingRequests.size > 0) {
-      return {
-        success: false,
-        error: 'يوجد طلب آخر قيد التنفيذ - يرجى الانتظار'
       };
     }
 
@@ -349,14 +394,6 @@ export class EmailJSService {
 
   // محاكاة حجز حقيقي للاختبار مع منع التضارب
   async sendTestBookingNotification(testEmail: string): Promise<EmailResult & { appointmentId?: string }> {
-    // التحقق من عدم وجود طلبات متزامنة
-    if (this.pendingRequests.size > 0) {
-      return {
-        success: false,
-        error: 'يوجد طلب آخر قيد التنفيذ - يرجى الانتظار قبل إرسال طلب جديد'
-      };
-    }
-
     const appointmentId = `APT-${Date.now()}`;
     const mockData: NotificationData = {
       patientName: 'أحمد محمد علي',
