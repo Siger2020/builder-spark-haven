@@ -50,7 +50,7 @@ const transactions = [
   },
   {
     id: "TXN-003",
-    patientName: "محمد علي",
+    patientName: "��حمد علي",
     patientId: "PAT-003",
     service: "زراعة الأسنان",
     amount: 2500,
@@ -74,7 +74,7 @@ const transactions = [
   },
   {
     id: "TXN-005",
-    patientName: "سارة خال��",
+    patientName: "سارة خالد",
     patientId: "PAT-005",
     service: "تبييض الأسنان",
     amount: 800,
@@ -91,9 +91,9 @@ const getStatusBadge = (status: string) => {
     case "paid":
       return <Badge className="bg-green-100 text-green-800">مدفوع</Badge>;
     case "partial":
-      return <Badge className="bg-yellow-100 text-yellow-800">مدفوع جزئياً</Badge>;
+      return <Badge className="bg-yellow-100 text-yellow-800">��دفوع جزئي��ً</Badge>;
     case "pending":
-      return <Badge className="bg-red-100 text-red-800">غير مدفوع</Badge>;
+      return <Badge className="bg-red-100 text-red-800">غير ��دفوع</Badge>;
     default:
       return <Badge variant="secondary">غير محدد</Badge>;
   }
@@ -140,7 +140,7 @@ export default function Transactions() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{totalRevenue.toLocaleString()} ريال</div>
+              <div className="text-2xl font-bold">{totalRevenue.toLocaleString()} ر.ي</div>
               <p className="text-xs text-muted-foreground font-arabic">
                 <TrendingUp className="h-4 w-4 inline mr-1" />
                 +12% من الشهر الماضي
@@ -361,13 +361,13 @@ export default function Transactions() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="sar" className="font-arabic">ريال سعودي (SAR)</SelectItem>
+                      <SelectItem value="sar" className="font-arabic">ريال س��ودي (SAR)</SelectItem>
                       <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-arabic">طرق الدفع المقبولة</Label>
+                  <Label className="font-arabic">طرق الدفع المق��ولة</Label>
                   <div className="space-y-2">
                     <label className="flex items-center space-x-reverse space-x-2">
                       <input type="checkbox" defaultChecked />
@@ -379,7 +379,7 @@ export default function Transactions() {
                     </label>
                     <label className="flex items-center space-x-reverse space-x-2">
                       <input type="checkbox" defaultChecked />
-                      <span className="font-arabic">تحويل بنكي</span>
+                      <span className="font-arabic">��حويل بنكي</span>
                     </label>
                   </div>
                 </div>
@@ -392,7 +392,7 @@ export default function Transactions() {
         <Dialog open={isPaymentDialogOpen} onOpenChange={setIsPaymentDialogOpen}>
           <DialogContent className="sm:max-w-[500px]" dir="rtl">
             <DialogHeader>
-              <DialogTitle className="font-arabic">تسجيل دفعة جديدة</DialogTitle>
+              <DialogTitle className="font-arabic">��سجيل دفعة جديدة</DialogTitle>
               <DialogDescription className="font-arabic">
                 {selectedTransaction && `للمريض: ${selectedTransaction.patientName} - المبلغ المتبقي: ${selectedTransaction.remaining} ريال`}
               </DialogDescription>
