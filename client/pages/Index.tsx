@@ -69,12 +69,12 @@ const services = [
     title: "علاج الجذور",
     description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
-    price: "من 600 ريال",
+    price: "من 30,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
+    description: "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للم��ضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
     icon: Baby,
     price: "من 150 ريال",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
@@ -156,7 +156,7 @@ const beforeAfterCases = [
   },
   {
     id: 5,
-    title: "قش��ر الأسنان",
+    title: "قشور الأسنان",
     description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
@@ -179,7 +179,7 @@ const beforeAfterCases = [
   {
     id: 8,
     title: "جسور الأسنان",
-    description: "جسور ثابتة لتعويض الأسنان المفقودة",
+    description: "جسور ثا��تة لتعويض الأسنان المفقودة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
   },
