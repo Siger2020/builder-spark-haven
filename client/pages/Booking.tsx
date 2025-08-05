@@ -197,7 +197,7 @@ export default function Booking() {
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="05xxxxxxxx"
+                          placeholder="77xxxxxxx (+967)"
                           value={formData.phone}
                           onChange={(e) => handleInputChange("phone", e.target.value)}
                           className="pl-10 font-arabic"
@@ -273,7 +273,7 @@ export default function Booking() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="notes" className="font-arabic">ملاحظات إضافية</Label>
+                    <Label htmlFor="notes" className="font-arabic">ملاح��ات إضافية</Label>
                     <Textarea
                       id="notes"
                       placeholder="أي ملاحظات أو معلومات إضافية تود إضافتها..."
