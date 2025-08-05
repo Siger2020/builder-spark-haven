@@ -95,7 +95,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error loading email settings:', error);
-      toast.error('خطأ في تحميل إعدادات البريد الإلكتروني');
+      toast.error('خطأ في تحميل إعدادات البريد ��لإلكتروني');
     }
   };
 
@@ -191,7 +191,7 @@ export default function NotificationSettings() {
   // إرسال بريد اختبار
   const sendTestEmail = async () => {
     if (!testEmail) {
-      toast.error('يرجى إدخال بريد إلكتروني للاختب��ر');
+      toast.error('يرجى إدخال بريد إلكتروني للاختبار');
       return;
     }
 
@@ -483,7 +483,7 @@ export default function NotificationSettings() {
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      تأكد من ��ستخدام كلمة مرور التطبيق (App Password) بدلاً من كلمة المرور العادية للحسابات مع التحقق بخطوتين.
+                      تأكد من استخدام كلمة مرور التطبيق (App Password) بدلاً من كلمة المرور العادية للحسابات مع التحقق بخطوتين.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -514,7 +514,7 @@ export default function NotificationSettings() {
                 إرسال بريد اختبار للتأكد من صحة الإعدادات
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="test-email" className="font-arabic">البريد الإلكتروني للاختبار</Label>
                 <Input
@@ -527,25 +527,41 @@ export default function NotificationSettings() {
                 />
               </div>
 
-              <div className="flex gap-3">
-                <Button
-                  onClick={sendTestEmail}
-                  disabled={isTesting || !testEmail || !emailSettings.enabled}
-                  className="font-arabic"
-                  variant="outline"
-                >
-                  <TestTube className="w-4 h-4 ml-2" />
-                  {isTesting ? "جاري الإرسال..." : "اختبار بسيط"}
-                </Button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card className="border-dashed">
+                  <CardContent className="p-4">
+                    <h4 className="font-bold mb-2 font-arabic">🧪 اختبار بسيط</h4>
+                    <p className="text-sm text-gray-600 mb-3 font-arabic">
+                      يرسل بريد إلكتروني بسيط للتأكد من صحة الإعدادات
+                    </p>
+                    <Button
+                      onClick={sendTestEmail}
+                      disabled={isTesting || !testEmail || !emailSettings.enabled}
+                      className="w-full font-arabic"
+                      variant="outline"
+                    >
+                      <TestTube className="w-4 h-4 ml-2" />
+                      {isTesting ? "جاري الإرسال..." : "اختبار بسيط"}
+                    </Button>
+                  </CardContent>
+                </Card>
 
-                <Button
-                  onClick={sendTestBookingNotification}
-                  disabled={isTesting || !testEmail || !emailSettings.enabled}
-                  className="font-arabic"
-                >
-                  <Send className="w-4 h-4 ml-2" />
-                  {isTesting ? "جاري الإرسال..." : "اختبار تأكيد حجز"}
-                </Button>
+                <Card className="border-dashed border-dental-primary">
+                  <CardContent className="p-4">
+                    <h4 className="font-bold mb-2 font-arabic text-dental-primary">📧 محاكاة حجز حقيقي</h4>
+                    <p className="text-sm text-gray-600 mb-3 font-arabic">
+                      يرسل إشعار تأكيد حجز كامل مع جميع التفاصيل (الأفضل للاختبار)
+                    </p>
+                    <Button
+                      onClick={sendTestBookingNotification}
+                      disabled={isTesting || !testEmail || !emailSettings.enabled}
+                      className="w-full font-arabic"
+                    >
+                      <Send className="w-4 h-4 ml-2" />
+                      {isTesting ? "جاري الإرسال..." : "اختبار تأكيد حجز"}
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
 
               {!emailSettings.enabled && (
@@ -553,6 +569,15 @@ export default function NotificationSettings() {
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription className="font-arabic">
                     يجب تفعيل نظام الإشعارات أولاً من تبويب الإعدادات
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {emailSettings.enabled && (
+                <Alert>
+                  <CheckCircle className="h-4 w-4" />
+                  <AlertDescription className="font-arabic">
+                    ✅ النظام مفعل ومستعد للإرسال! جرب "اختبار تأكيد حجز" للحصول على أفضل تجربة.
                   </AlertDescription>
                 </Alert>
               )}
