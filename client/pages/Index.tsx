@@ -68,7 +68,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو����ة تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
@@ -89,7 +89,7 @@ const services = [
 const features = [
   {
     title: "حجز سهل عبر الإنترنت",
-    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
+    description: "احجز موعدك بسهولة من خلال منصتنا ال��قمية",
     icon: Calendar,
   },
   {
@@ -127,7 +127,7 @@ const beforeAfterCases = [
   {
     id: 2,
     title: "تبييض الأسنان",
-    description: "تبييض احترافي مع تحسن 8 د��جات",
+    description: "تبيي�� احترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
@@ -261,13 +261,13 @@ export default function Index() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border-0 bg-gradient-to-br from-white to-gray-50 group">
+                <Card key={index} className="hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-dental-primary/10 bg-gradient-to-br from-white to-dental-light group">
                   <CardHeader>
                     <img
                       loading="lazy"
                       src={service.image}
                       className="w-full h-32 object-cover object-center rounded-t-lg mb-4"
-                      alt={`خدمة ${service.title}`}
+                      alt={`��دمة ${service.title}`}
                     />
                     <div className="flex items-center justify-center">
                       <div className="p-3 rounded-full bg-dental-primary/10 group-hover:bg-dental-primary/20 transition-colors duration-300">
@@ -351,7 +351,7 @@ export default function Index() {
               التقنيات المتقدمة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نستخدم أحدث التقنيات في طب الأسنان لضما�� أفضل النتائج
+              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
