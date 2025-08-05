@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS email_notifications (
     message_id TEXT,
     error_message TEXT,
     retry_count INTEGER DEFAULT 0,
-    metadata TEXT, -- JSON format لحفظ بيا��ات إضافية
+    metadata TEXT, -- JSON format لحفظ بيانات إضافية
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -430,14 +430,21 @@ INSERT OR IGNORE INTO system_settings (category, setting_key, setting_value, des
 ('system', 'language', 'arabic', 'لغة النظام الافتراضية'),
 ('notifications', 'sms_enabled', 'false', 'تفعيل الرسائل النصية'),
 ('notifications', 'email_enabled', 'true', 'تفعيل البريد الإلكتروني'),
-('notifications', 'whatsapp_enabled', 'false', 'تفعيل الواتس آب');
+('notifications', 'whatsapp_enabled', 'false', 'تفعيل الواتس آب'),
+('email', 'auto_send_confirmation', 'true', 'إرسال تأكيد الموعد تلقائياً'),
+('email', 'auto_send_reminder', 'true', 'إرسال تذكير بالموعد تلقائياً'),
+('email', 'reminder_hours_before', '24', 'عدد الساعات قبل الموعد لإرسال التذكير');
+
+-- إضافة إعدادات البريد الإلكتروني الافتراضية
+INSERT OR IGNORE INTO email_settings (enabled, service, from_name) VALUES
+(FALSE, 'gmail', 'عيادة الدكتور كمال الملصي');
 
 -- إدراج الخدمات الأساسية
 INSERT OR IGNORE INTO services (name, name_en, description, duration_minutes, category, is_active) VALUES
 ('تنظيف الأسنان', 'Teeth Cleaning', 'تنظيف شامل ومهني لأسنانك مع أحد�� التقنيات', 45, 'general', TRUE),
 ('حشوات الأسنان', 'Dental Fillings', 'حشوات تجميلية بأحدث المواد الطبية المعتمدة', 60, 'restorative', TRUE),
 ('تقويم الأسنان', 'Orthodontics', 'تقويم شامل بأحدث التقنيات الطبية المتقدمة', 90, 'orthodontics', TRUE),
-('زراعة الأسنان', 'Dental Implants', 'زراعة متطورة مع ضمان طويل المدى', 120, 'surgery', TRUE),
+('زراعة الأسنان', 'Dental Implants', 'زراعة متطورة م�� ضمان طويل المدى', 120, 'surgery', TRUE),
 ('تبييض الأسنان', 'Teeth Whitening', 'تبييض آمن وفعال لابتسامة مشرقة', 60, 'cosmetic', TRUE),
 ('علاج الجذور', 'Root Canal Treatment', 'علاج متخصص للجذور بأحدث التقنيات', 90, 'endodontics', TRUE),
 ('فحص دوري', 'Regular Checkup', 'فحص شامل لصحة الفم والأسنان', 30, 'general', TRUE);
