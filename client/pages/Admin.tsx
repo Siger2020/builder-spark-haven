@@ -387,7 +387,7 @@ export default function Admin() {
                 <CardHeader>
                   <CardTitle className="font-arabic">التنبيهات</CardTitle>
                   <CardDescription className="font-arabic">
-                    آخر التحديثات والتن��يهات المهمة
+                    آخر التحديثات والتنبيهات المهمة
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -419,7 +419,7 @@ export default function Admin() {
                     ��كثر الخدمات طلباً
                   </CardTitle>
                   <CardDescription className="font-arabic">
-                    إحصائيا�� الخدمات الأكثر حجزاً هذا الشهر
+                    إحصائيات الخدمات الأكثر حجزاً هذا الشهر
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -600,7 +600,7 @@ export default function Admin() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-red-600">
-                    {dashboardStats.outstandingPayments.toLocaleString()} ريال
+                    {dashboardStats.outstandingPayments.toLocaleString()} ر.ي
                   </div>
                   <p className="text-sm text-gray-500 font-arabic">
                     مبالغ غير محصلة
