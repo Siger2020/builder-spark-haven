@@ -68,7 +68,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى ال��غار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية ف��و��ة تدوم مدى الحياة",
     icon: Baby,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
@@ -89,11 +89,11 @@ const services = [
 const features = [
   {
     title: "حجز سهل عبر الإنترنت",
-    description: "احجز موعدك بسهولة من خل��ل منصتنا الرقمية",
+    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
   {
-    title: "فريق طبي متخصص",
+    title: "فريق طبي متخ��ص",
     description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
     icon: Users,
   },
@@ -213,7 +213,7 @@ export default function Index() {
                   size="lg"
                   className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                  احجز موعدا�� الآن
+                  احجز موعداً الآن
                   <Calendar className="mr-2 h-5 w-5 animate-pulse" />
                 </Button>
               </Link>
@@ -344,14 +344,14 @@ export default function Index() {
       </section>
 
       {/* Advanced Technologies Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <section className="py-20 bg-gradient-to-br from-dental-secondary/20 to-dental-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-arabic">
               التقنيات المتقدمة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
+              نستخدم أحدث ال��قنيات في طب الأسنان لضمان أفضل النتائج
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -398,7 +398,7 @@ export default function Index() {
                   التصميم الرقمي ثلاثي الأبعاد
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
+                  تصميم ابتس��متك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
                 </p>
                 <div className="text-sm text-green-600 font-arabic">
                   تصميم مخصص لكل مريض
@@ -530,7 +530,7 @@ export default function Index() {
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخفا�� النتا��ج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
