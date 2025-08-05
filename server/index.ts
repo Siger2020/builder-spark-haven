@@ -56,6 +56,9 @@ export function createServer() {
   // Appointments cleanup routes
   app.use("/api/appointments", appointmentsCleanupRoutes);
 
+  // Notifications routes
+  app.use("/api/notifications", notificationsRoutes);
+
   // Database API routes
   app.get("/api/database/stats", getDatabaseStatsHandler);
   app.get("/api/database/tables", getTablesHandler);
