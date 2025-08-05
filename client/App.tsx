@@ -26,6 +26,7 @@ import Services from "./pages/Services";
 import SystemCheck from "./pages/SystemCheck";
 import AppointmentManagement from "./pages/AppointmentManagement";
 import AdminDashboard from "./pages/AdminDashboard";
+import NotificationSettings from "./pages/NotificationSettings";
 
 const queryClient = new QueryClient();
 
