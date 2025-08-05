@@ -73,12 +73,12 @@ const sentNotifications = [
   {
     id: 1,
     patientName: "أحمد محمد",
-    phone: "+966501234567",
+    phone: "+967 777 123 456",
     type: "appointment_reminder",
     channel: "whatsapp",
     status: "delivered",
     sentAt: "2024-01-15 10:30",
-    content: "تذكير بالموعد غداً"
+    content: "تذكير بالموعد غد��ً"
   },
   {
     id: 2,
