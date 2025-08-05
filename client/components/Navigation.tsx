@@ -111,6 +111,15 @@ export function Navigation() {
             })}
             {/* Auth Section */}
             <div className="flex items-center space-x-reverse space-x-4">
+              {/* Test User Info Link */}
+              {isAuthenticated && (
+                <Link to="/user-info">
+                  <Button variant="ghost" size="sm" className="font-arabic">
+                    معلومات المستخدم
+                  </Button>
+                </Link>
+              )}
+
               {/* Notification Bell */}
               {isAuthenticated && (
                 <Button variant="ghost" size="sm" className="relative">
@@ -143,7 +152,7 @@ export function Navigation() {
                 <Link to="/login">
                   <Button size="sm" className="font-arabic">
                     <LogIn className="h-4 w-4 mr-1" />
-                    تسجيل ا��دخول
+                    تسجيل الدخول
                   </Button>
                 </Link>
               )}
