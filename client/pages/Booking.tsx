@@ -133,7 +133,7 @@ export default function Booking() {
                   }}
                   className="w-full font-arabic"
                 >
-                  حجز موعد آخر
+                  حج�� موعد آخر
                 </Button>
                 <Button
                   variant="outline"
@@ -168,7 +168,7 @@ export default function Booking() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Booking Form */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="font-arabic">معلومات الحجز</CardTitle>
                 <CardDescription className="font-arabic">
