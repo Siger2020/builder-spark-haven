@@ -168,7 +168,7 @@ export default function Transactions() {
               <Receipt className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{totalTransactions.toLocaleString()} ريال</div>
+              <div className="text-2xl font-bold">{totalTransactions.toLocaleString()} ر.ي</div>
               <p className="text-xs text-muted-foreground font-arabic">
                 {transactions.length} معاملة هذا الشهر
               </p>
