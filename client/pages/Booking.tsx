@@ -298,7 +298,7 @@ export default function Booking() {
 
           {/* Sidebar Information */}
           <div className="space-y-6">
-            <Card>
+            <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="font-arabic">معلومات مهمة</CardTitle>
               </CardHeader>
