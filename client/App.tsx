@@ -180,6 +180,15 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/user-info"
+                element={
+                  <ProtectedRoute>
+                    <Navigation />
+                    <UserInfo />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
