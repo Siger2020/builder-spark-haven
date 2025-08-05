@@ -188,7 +188,7 @@ export default function Booking() {
                           placeholder="أدخل اسمك الكامل"
                           value={formData.name}
                           onChange={(e) => handleInputChange("name", e.target.value)}
-                          className="pl-10 font-arabic"
+                          className="pl-10 font-arabic border-2 focus:border-dental-primary transition-colors duration-300 hover:border-gray-300"
                           required
                         />
                       </div>
