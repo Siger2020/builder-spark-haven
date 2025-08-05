@@ -50,7 +50,7 @@ const services = [
   },
   {
     title: "زراعة الأسنان",
-    description: "زراعة متطورة مع ضمان طويل المدى",
+    description: "زراعة مت��ورة مع ضمان طويل المدى",
     icon: Heart,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204"
   },
@@ -68,7 +68,7 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز ��لى الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
@@ -366,7 +366,7 @@ export default function Index() {
                 <p className="text-gray-600 font-arabic mb-4">
                   تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
                 </p>
-                <div className="text-sm text-blue-600 font-arabic">
+                <div className="text-sm text-dental-primary font-arabic">
                   متوفر في جميع العلاجات
                 </div>
               </CardContent>
@@ -530,7 +530,7 @@ export default function Index() {
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخفا�� ��لنتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
@@ -669,7 +669,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شا��ع المقالح -حي الاصبحي ����ام سيتي ماكس
+                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
                   </span>
                 </div>
               </div>
