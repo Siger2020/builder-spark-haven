@@ -30,7 +30,14 @@ const patientNavigationItems = [
   { name: "لوحة التحكم", path: "/patient-dashboard", icon: User },
 ];
 
-// قوائم لمدير النظام والأطباء
+// قوائم للأطباء والموظفين (بدون العناصر الإدارية الحساسة)
+const doctorNavigationItems = [
+  { name: "الرئيسية", path: "/", icon: Smile },
+  { name: "إدارة المرضى", path: "/patients", icon: Users },
+  { name: "إدارة المواعيد", path: "/appointment-management", icon: Calendar },
+];
+
+// قوائم لمدير النظام فقط (تتضمن جميع العناصر الإدارية)
 const adminNavigationItems = [
   { name: "الرئيسية", path: "/", icon: Smile },
   { name: "لوحة المدير", path: "/admin-dashboard", icon: Settings },
