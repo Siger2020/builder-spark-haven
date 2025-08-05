@@ -50,7 +50,7 @@ const services = [
   },
   {
     title: "زراعة الأسنان",
-    description: "زراعة متطورة مع ضمان طويل المدى",
+    description: "زراعة م��طورة مع ضمان طويل المدى",
     icon: Heart,
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204"
   },
@@ -127,7 +127,7 @@ const beforeAfterCases = [
   {
     id: 2,
     title: "تبييض الأسنان",
-    description: "تبييض ��حترافي مع تحسن 8 د��جات",
+    description: "تبييض احترافي مع تحسن 8 د��جات",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
@@ -383,7 +383,7 @@ export default function Index() {
                 <p className="text-gray-600 font-arabic mb-4">
                   رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناعي
                 </p>
-                <div className="text-sm text-purple-600 font-arabic">
+                <div className="text-sm text-dental-primary font-arabic">
                   دقة 95% في التوق��ات
                 </div>
               </CardContent>
@@ -530,7 +530,7 @@ export default function Index() {
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخ��ا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
@@ -669,7 +669,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شا��ع المقالح -حي الاصب��ي ��مام سيتي ماكس
+                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
                   </span>
                 </div>
               </div>
