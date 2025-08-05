@@ -90,7 +90,7 @@ const services = [
     title: "طب الأسنان التجميلي",
     description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
-    price: "من 500 ريال",
+    price: "من 25,000 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341"
   },
 ];
