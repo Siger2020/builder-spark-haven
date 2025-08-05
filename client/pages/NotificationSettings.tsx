@@ -191,7 +191,7 @@ export default function NotificationSettings() {
   // إرسال بريد اختبار
   const sendTestEmail = async () => {
     if (!testEmail) {
-      toast.error('يرجى إدخال بريد إلكتروني للاختبار');
+      toast.error('يرجى إدخال بريد إلكتروني للاختب��ر');
       return;
     }
 
@@ -212,7 +212,7 @@ export default function NotificationSettings() {
         toast.success(data.message);
         setTestEmail('');
         loadNotificationLogs(); // إعادة تحميل السجل
-        loadNotificationStats(); // إعادة ت��ميل الإحصائيات
+        loadNotificationStats(); // إعادة تحميل الإحصائيات
       } else {
         toast.error(data.error);
       }
@@ -294,7 +294,7 @@ export default function NotificationSettings() {
       case 'test':
         return '🧪';
       default:
-        return '��';
+        return '📧';
     }
   };
 
@@ -483,7 +483,7 @@ export default function NotificationSettings() {
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      تأكد من استخدام كلمة مرور التطبيق (App Password) بدلاً من كلمة المرور العادية للحسابات مع التحقق بخطوتين.
+                      تأكد من ��ستخدام كلمة مرور التطبيق (App Password) بدلاً من كلمة المرور العادية للحسابات مع التحقق بخطوتين.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -527,14 +527,26 @@ export default function NotificationSettings() {
                 />
               </div>
 
-              <Button 
-                onClick={sendTestEmail} 
-                disabled={isTesting || !testEmail || !emailSettings.enabled}
-                className="font-arabic"
-              >
-                <Send className="w-4 h-4 ml-2" />
-                {isTesting ? "جاري الإرسال..." : "إرسال بريد اختبار"}
-              </Button>
+              <div className="flex gap-3">
+                <Button
+                  onClick={sendTestEmail}
+                  disabled={isTesting || !testEmail || !emailSettings.enabled}
+                  className="font-arabic"
+                  variant="outline"
+                >
+                  <TestTube className="w-4 h-4 ml-2" />
+                  {isTesting ? "جاري الإرسال..." : "اختبار بسيط"}
+                </Button>
+
+                <Button
+                  onClick={sendTestBookingNotification}
+                  disabled={isTesting || !testEmail || !emailSettings.enabled}
+                  className="font-arabic"
+                >
+                  <Send className="w-4 h-4 ml-2" />
+                  {isTesting ? "جاري الإرسال..." : "اختبار تأكيد حجز"}
+                </Button>
+              </div>
 
               {!emailSettings.enabled && (
                 <Alert>
