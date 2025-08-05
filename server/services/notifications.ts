@@ -205,14 +205,14 @@ export function scheduleReminder(data: BookingNotificationData): void {
     setTimeout(async () => {
       console.log(`🔔 إرسال تذكير للمريض ${data.patientName}`);
       const result = await sendAppointmentReminder(data);
-      console.log(`📊 نتيجة التذكير - SMS: ${result.sms ? '✅' : '❌'}, WhatsApp: ${result.whatsapp ? '✅' : '❌'}`);
+      console.log(`📊 نتيجة التذكير - SMS: ${result.sms ? '✅' : '❌'}, WhatsApp: ${result.whatsapp ? '✅' : '❌'}, Email: ${result.email ? '✅' : '❌'}`);
     }, timeUntilReminder);
   } else {
     console.log(`⚠️ الموعد قريب جداً - لن يتم إرسال تذكير للمريض ${data.patientName}`);
   }
 }
 
-// دالة شاملة لل��عامل مع إشعارات الحجز
+// دالة شاملة للتعامل مع إشعارات الحجز
 export async function handleBookingNotifications(data: BookingNotificationData): Promise<void> {
   try {
     console.log(`🚀 بدء إرسال إشعارات الحجز للمريض ${data.patientName}`);
