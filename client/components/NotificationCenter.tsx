@@ -78,12 +78,12 @@ const sentNotifications = [
     channel: "whatsapp",
     status: "delivered",
     sentAt: "2024-01-15 10:30",
-    content: "تذكير بالموعد غد��ً"
+    content: "تذكير بالموعد غداً"
   },
   {
     id: 2,
     patientName: "فاطمة علي",
-    phone: "+966507654321",
+    phone: "+967 771 654 321",
     type: "payment_reminder",
     channel: "sms",
     status: "failed",
@@ -177,7 +177,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
             </div>
 
             <div className="space-y-2">
-              <Label className="font-arabic">قناة الإرسال</Label>
+              <Label className="font-arabic">قناة الإرس��ل</Label>
               <Select value={selectedChannel} onValueChange={setSelectedChannel}>
                 <SelectTrigger className="font-arabic">
                   <SelectValue placeholder="اختر قناة الإرسال" />
@@ -362,7 +362,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic">إعدادات الواتس آب</CardTitle>
+            <CardTitle className="font-arabic">إعدادات ا��واتس آب</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
