@@ -196,7 +196,7 @@ export default function NotificationSettings() {
     }
 
     setIsTesting(true);
-    
+
     try {
       const response = await fetch('/api/notifications/send-test-email', {
         method: 'POST',
@@ -207,9 +207,45 @@ export default function NotificationSettings() {
       });
 
       const data = await response.json();
-      
+
       if (data.success) {
         toast.success(data.message);
+        setTestEmail('');
+        loadNotificationLogs(); // إعادة تحميل السجل
+        loadNotificationStats(); // إعادة ت��ميل الإحصائيات
+      } else {
+        toast.error(data.error);
+      }
+    } catch (error) {
+      console.error('Error sending test email:', error);
+      toast.error('خطأ في إرسال بريد الاختبار');
+    } finally {
+      setIsTesting(false);
+    }
+  };
+
+  // اختبار إشعار حجز حقيقي
+  const sendTestBookingNotification = async () => {
+    if (!testEmail) {
+      toast.error('يرجى إدخال بريد إلكتروني للاختبار');
+      return;
+    }
+
+    setIsTesting(true);
+
+    try {
+      const response = await fetch('/api/notifications/test-booking-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: testEmail }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(`${data.message} - رقم الموعد: ${data.appointmentId}`);
         setTestEmail('');
         loadNotificationLogs(); // إعادة تحميل السجل
         loadNotificationStats(); // إعادة تحميل الإحصائيات
@@ -217,8 +253,8 @@ export default function NotificationSettings() {
         toast.error(data.error);
       }
     } catch (error) {
-      console.error('Error sending test email:', error);
-      toast.error('خطأ في إرسال بريد الاختبار');
+      console.error('Error sending test booking notification:', error);
+      toast.error('خطأ في إرسال إشعار الحجز التجريبي');
     } finally {
       setIsTesting(false);
     }
@@ -258,7 +294,7 @@ export default function NotificationSettings() {
       case 'test':
         return '🧪';
       default:
-        return '📧';
+        return '��';
     }
   };
 
@@ -447,7 +483,7 @@ export default function NotificationSettings() {
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      تأكد من استخدام كلمة مرور التطبيق (App Password) بدلاً من كل��ة المرور العادية للحسابات مع التحقق بخطوتين.
+                      تأكد من استخدام كلمة مرور التطبيق (App Password) بدلاً من كلمة المرور العادية للحسابات مع التحقق بخطوتين.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -633,7 +669,7 @@ export default function NotificationSettings() {
                             {stat.notification_type === 'confirmation' && 'تأكيد المواعيد'}
                             {stat.notification_type === 'reminder' && 'تذكير المواعيد'}
                             {stat.notification_type === 'cancellation' && 'إلغاء المواعيد'}
-                            {stat.notification_type === 'test' && 'رسا��ل الاختبار'}
+                            {stat.notification_type === 'test' && 'رسائل الاختبار'}
                           </span>
                         </div>
                         <span className="text-lg font-bold">{stat.total}</span>
