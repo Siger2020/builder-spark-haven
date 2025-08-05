@@ -14,6 +14,7 @@ import {
   LogOut,
   User,
   Shield,
+  Mail,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
