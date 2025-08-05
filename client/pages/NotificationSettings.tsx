@@ -165,11 +165,9 @@ export default function NotificationSettings() {
       
       setConnectionStatus(emailJSService.getConnectionStatus());
       toast.success('تم حفظ إعدادات EmailJS بنجاح');
-      
-      // اختبار الاتصال تلقائياً إذا كان النظام مفعل
-      if (emailJSSettings.enabled) {
-        await testEmailJSConnection();
-      }
+
+      // لا نختبر الاتصال تلقائياً لتجنب تضارب الطلبات
+      // يمكن للمستخدم الاختبار يدوياً من زر "اختبار الاتصال"
     } catch (error) {
       console.error('Error saving EmailJS settings:', error);
       toast.error('خطأ في حفظ إعدادات EmailJS');
@@ -617,7 +615,7 @@ export default function NotificationSettings() {
                 <Alert>
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription className="font-arabic">
-                    يجب تفعيل نظام الإشعارات وإعداد EmailJS أولاً من تبويب الإعدادات
+                    يجب تفعيل نظام الإشع��رات وإعداد EmailJS أولاً من تبويب الإعدادات
                   </AlertDescription>
                 </Alert>
               )}
