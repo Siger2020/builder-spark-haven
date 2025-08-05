@@ -263,7 +263,7 @@ const BackupSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">��فعيل النسخ التلقائي</Label>
+            <Label className="font-arabic">تفعيل النسخ التلقائي</Label>
             <Switch defaultChecked />
           </div>
           <div className="space-y-2">
@@ -337,7 +337,7 @@ const GeneralSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label className="font-arabic">اسم العيادة</Label>
+            <Label className="font-arabic">اسم الع��ادة</Label>
             <Input defaultValue="عيادة الأسنان المتقدمة" className="font-arabic" />
           </div>
           <div className="space-y-2">
@@ -347,7 +347,7 @@ const GeneralSettings = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="font-arabic">رقم الهاتف</Label>
-              <Input defaultValue="+966 50 123 4567" />
+              <Input defaultValue="+967 777 123 456" />
             </div>
             <div className="space-y-2">
               <Label className="font-arabic">البريد الإلكتروني</Label>
