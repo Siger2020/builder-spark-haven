@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Star, MapPin, Phone, Mail, Award, Users, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// بيانات تجريبية للأطباء
+// بيانات تجريبية ��لأطباء
 const doctors = [
   {
     id: 1,
@@ -50,7 +50,7 @@ const doctors = [
     specializations: ["التقويم الشفاف", "التقويم التقليدي", "تقويم الكبار"],
     availableDays: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس"],
     workingHours: "8:00 ص - 5:00 م",
-    phone: "967772345678",
+    phone: "+967 772 345 678",
     email: "dr.ahmed@dkalmoli.com",
     bio: "خبير في تقويم الأسنان مع تخصص في التقويم الشفاف والتقنيات الحديثة. يهتم بتوفير حلول تقويمية مخصصة لكل مريض."
   }
