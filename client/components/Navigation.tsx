@@ -55,7 +55,18 @@ export function Navigation() {
   const { isAuthenticated, user, logout } = useAuth();
 
   // تحديد القوائم حسب نوع المستخدم
-  const navigationItems = user?.role === 'patient' ? patientNavigationItems : adminNavigationItems;
+  const getNavigationItems = () => {
+    if (user?.role === 'patient') {
+      return patientNavigationItems;
+    } else if (user?.role === 'admin') {
+      return adminNavigationItems;
+    } else {
+      // للأطباء والموظفين الآخرين
+      return doctorNavigationItems;
+    }
+  };
+
+  const navigationItems = getNavigationItems();
 
   return (
     <nav
