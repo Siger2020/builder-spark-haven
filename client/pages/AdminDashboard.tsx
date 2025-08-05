@@ -120,6 +120,16 @@ export default function AdminDashboard() {
       textColor: "text-purple-600",
     },
     {
+      title: "إدارة الإشعارات",
+      description: "إعداد وإدارة نظام الإشعارات بالبريد الإلكتروني",
+      icon: Mail,
+      path: "/notifications",
+      color: "bg-pink-500",
+      count: null,
+      bgColor: "bg-pink-50",
+      textColor: "text-pink-600",
+    },
+    {
       title: "لوحة الإدارة",
       description: "إحصائيات ومعلومات شاملة",
       icon: BarChart3,
