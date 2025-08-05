@@ -41,7 +41,7 @@ const services = [
     title: "حشوات الأسنان",
     description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
     icon: Shield,
-    price: "من 300 ريال",
+    price: "من 300 ري��ل",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737?alt=media&token=ec850565-c54e-41b0-8d8f-2865bb1d1cc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -210,16 +210,16 @@ export default function Index() {
               <Link to="/booking">
                 <Button
                   size="lg"
-                  className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3"
+                  className="bg-white text-dental-primary hover:bg-gray-100 font-arabic text-lg px-8 py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   احجز موعداً الآن
-                  <Calendar className="mr-2 h-5 w-5" />
+                  <Calendar className="mr-2 h-5 w-5 animate-pulse" />
                 </Button>
               </Link>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-dental-primary font-arabic text-lg px-8 py-3"
+                className="border-white text-white hover:bg-white hover:text-dental-primary font-arabic text-lg px-8 py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 تواصل معنا
                 <Phone className="mr-2 h-5 w-5" />
