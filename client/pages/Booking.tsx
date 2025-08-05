@@ -287,9 +287,9 @@ export default function Booking() {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full font-arabic">
+                  <Button type="submit" size="lg" className="w-full font-arabic bg-gradient-to-r from-dental-primary to-blue-600 hover:from-dental-primary/90 hover:to-blue-600/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                     تأكيد الحجز
-                    <Calendar className="mr-2 h-5 w-5" />
+                    <Calendar className="mr-2 h-5 w-5 animate-pulse" />
                   </Button>
                 </form>
               </CardContent>
