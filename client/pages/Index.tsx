@@ -48,7 +48,7 @@ const services = [
     title: "تقويم الأسنان",
     description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
     icon: Star,
-    price: "من 3000 ريال",
+    price: "من 150,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
   {
@@ -156,7 +156,7 @@ const beforeAfterCases = [
   },
   {
     id: 5,
-    title: "قشور الأسنان",
+    title: "ق��ور الأسنان",
     description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
