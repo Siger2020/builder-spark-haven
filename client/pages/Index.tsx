@@ -46,7 +46,7 @@ const services = [
   },
   {
     title: "تقويم الأسنان",
-    description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
+    description: "تقويم شامل بأحدث التقنيا�� الطبية المتقدمة",
     icon: Star,
     price: "من 150,000 ر.ي",
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
@@ -260,7 +260,7 @@ export default function Index() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border-0 bg-gradient-to-br from-white to-gray-50 group">
                   <CardHeader>
                     <img
                       loading="lazy"
