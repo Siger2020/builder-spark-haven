@@ -211,7 +211,7 @@ export default function Index() {
               <div className="w-16 h-1 bg-white/30 mx-auto"></div>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 font-arabic bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent">
-              عيا��ة الدكتور كمال الملصي
+              <p>عيادة الدكتور كمال الملصي</p>
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
               رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
