@@ -55,7 +55,7 @@ const notificationTemplates = [
     name: "طلب دفع",
     type: "payment_reminder",
     channels: ["sms", "whatsapp"],
-    content: "لديك مبلغ مستحق {amount} ريال. يرجى زيارة العيادة أو التواصل معنا على {clinic_phone}",
+    content: "لديك مبلغ مستحق {amount} ر.ي. يرجى زيارة العيادة أو التواصل معنا على {clinic_phone}",
     isActive: true
   },
   {
