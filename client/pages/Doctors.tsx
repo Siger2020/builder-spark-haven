@@ -8,17 +8,17 @@ import { Link } from "react-router-dom";
 const doctors = [
   {
     id: 1,
-    name: "د. كمال الملصي",
-    specialty: "جراحة الفم والأسنان",
+    name: "د. كمال الملص��",
+    specialty: "جراحة الفم والأسنا��",
     experience: "15+ سنة",
     education: "دكتوراه في طب الأسنان - جامعة القاهرة",
     image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=face",
     rating: 4.9,
     patients: 2500,
-    specializations: ["زراعة الأسنان", "جراحة الفم", "التقويم الم��قدم"],
+    specializations: ["زراعة الأسنان", "جراحة الفم", "التقويم المتقدم"],
     availableDays: ["السبت", "الأحد", "الاثنين", "الثلاثاء", "الأربعاء"],
     workingHours: "9:00 ص - 9:00 م",
-    phone: "967777775545",
+    phone: "+967 777 775 545",
     email: "dr.kamal@dkalmoli.com",
     bio: "طبيب أسنان متخصص في جراحة الفم والأسنان مع خبرة تزيد عن 15 عاماً. حاصل على دكتوراه في طب الأسنان من جامعة القاهرة ومتخصص في زراعة الأسنان والجراحات المتقدمة."
   },
@@ -32,7 +32,7 @@ const doctors = [
     rating: 4.8,
     patients: 1200,
     specializations: ["طب أسنان الأطفال", "التقويم الوقائي", "طب الأسنان التجميلي"],
-    availableDays: ["السبت", "الأحد", "الثلاثاء", "الأربعاء", "الخميس"],
+    availableDays: ["السبت", "الأحد", "ال��لاثاء", "الأربعاء", "الخميس"],
     workingHours: "10:00 ص - 6:00 م",
     phone: "967771234567",
     email: "dr.sara@dkalmoli.com",
@@ -129,7 +129,7 @@ export default function Doctors() {
                   </div>
                 </div>
 
-                {/* أوقات العمل */}
+                {/* أوقات الع��ل */}
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2 font-arabic">أوقات العمل:</h4>
                   <div className="flex items-center text-sm text-gray-600 mb-1">
@@ -181,7 +181,7 @@ export default function Doctors() {
                   </div>
                   <h3 className="font-bold text-gray-900 mb-2 font-arabic">خبرة واسعة</h3>
                   <p className="text-gray-600 font-arabic">
-                    جميع أطباءنا يتمتعون بخبرات واسعة وشهادات معتمدة دولياً
+                    جميع أطباءنا يتمتع��ن بخبرات واسعة وشهادات معتمدة دولياً
                   </p>
                 </div>
                 <div className="text-center">
