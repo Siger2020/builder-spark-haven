@@ -158,7 +158,7 @@ export default function NotificationSettings() {
       }
     } catch (error) {
       console.error('Error saving EmailJS settings:', error);
-      toast.error('خطأ في حفظ إعدادات EmailJS');
+      toast.error('خ��أ في حفظ إعدادات EmailJS');
     } finally {
       setIsLoading(false);
     }
@@ -201,7 +201,7 @@ export default function NotificationSettings() {
     const now = Date.now();
     const timeSinceLastAction = now - lastActionTime;
 
-    if (timeSinceLastAction < 3000) { // 3 ثواني بين الط��بات
+    if (timeSinceLastAction < 3000) { // 3 ثواني بين الطلبات
       toast.error('يرجى الانتظار قبل إرسال طلب جديد');
       return false;
     }
@@ -248,7 +248,7 @@ export default function NotificationSettings() {
     }
   };
 
-  // اختبار إشعار حجز حقيقي عبر EmailJS
+  // اختبار إ��عار حجز حقيقي عبر EmailJS
   const sendTestBookingNotification = async () => {
     if (!checkRateLimit()) return;
 
@@ -372,7 +372,11 @@ export default function NotificationSettings() {
           <p className="text-gray-600 font-arabic">نظام إشعارات متطور باستخدام EmailJS</p>
         </div>
         <div className="mr-auto">
-          <ConnectionStatusIndicator />
+          <EmailJSStatus
+            connectionStatus={connectionStatus}
+            onRefresh={testEmailJSConnection}
+            isRefreshing={isTesting}
+          />
         </div>
       </div>
 
@@ -642,7 +646,7 @@ export default function NotificationSettings() {
             <CardHeader>
               <CardTitle className="font-arabic">دليل إعداد EmailJS</CardTitle>
               <CardDescription className="font-arabic">
-                اتبع هذه الخطوات لإعداد نظام الإشعارات الحقيقية
+                اتبع هذه الخطوات لإعد��د نظام الإشعارات الحقيقية
               </CardDescription>
             </CardHeader>
             <CardContent>
