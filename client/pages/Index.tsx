@@ -74,9 +74,9 @@ const services = [
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للم��ضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
+    description: "رعاية أسنان لطيفة وممتعة مصممة خ��يصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
     icon: Baby,
-    price: "من 150 ريال",
+    price: "من 7,500 ر.ي",
     image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
   },
   {
@@ -179,7 +179,7 @@ const beforeAfterCases = [
   {
     id: 8,
     title: "جسور الأسنان",
-    description: "جسور ثا��تة لتعويض الأسنان المفقودة",
+    description: "جسور ثابتة لتعويض الأسنان المفقودة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
   },
@@ -512,7 +512,7 @@ export default function Index() {
                       }}
                     />
                     <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
-                      بعد
+                      ب��د
                     </div>
                   </div>
                 </div>
