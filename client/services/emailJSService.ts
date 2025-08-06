@@ -116,7 +116,7 @@ export class EmailJSService {
   }
 
   // اختبار الاتصال مع منع التضارب
-  async testConnection(): Promise<EmailResult> {
+  async testConnection(testEmail?: string): Promise<EmailResult> {
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
@@ -138,8 +138,8 @@ export class EmailJSService {
     try {
       const result = await this.queueRequest(() =>
         this.performSendWithDelay("test", {
-          patientName: "مدير النظام",
-          patientEmail: this.config!.senderEmail,
+          patientName: testEmail ? "مستخدم الاختبار" : "مدير النظام",
+          patientEmail: testEmail || this.config!.senderEmail,
           appointmentId: "TEST-" + Date.now(),
           appointmentDate: new Date().toLocaleDateString("ar-EG"),
           appointmentTime: new Date().toLocaleTimeString("ar-EG"),
@@ -320,7 +320,7 @@ export class EmailJSService {
     }
   }
 
-  // إرسال بريد اختبار ��خصص
+  // إرسال بريد اختبار ����خصص
   async sendTestEmail(
     toEmail: string,
     recipientName: string = "مستخدم النظام",
