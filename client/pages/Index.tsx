@@ -34,13 +34,13 @@ const services = [
     title: "تنظيف الأسنان",
     description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
     icon: Smile,
-    image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579?alt=media&token=62965839-1bc1-457a-b834-e0dd1c178bf4&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d9a2684a264bc7a3c3f7068487b50a"
   },
   {
     title: "حشوات الأسنان",
     description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
     icon: Shield,
-    image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737?alt=media&token=ec850565-c54e-41b0-8d8f-2865bb1d1cc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
+    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295"
   },
   {
     title: "تقويم الأسنان",
@@ -62,7 +62,7 @@ const services = [
   },
   {
     title: "علاج الجذور",
-    description: "علاج متخصص للجذور بأحدث التقنيات",
+    description: "����لاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
     image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
   },
@@ -88,7 +88,7 @@ const services = [
 
 const features = [
   {
-    title: "حجز سهل عبر الإنترنت",
+    title: "حجز سهل ��بر الإنترنت",
     description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
@@ -99,7 +99,7 @@ const features = [
   },
   {
     title: "��قنيات متقدمة",
-    description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمياً",
+    description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمي��ً",
     icon: Shield,
   },
   {
@@ -169,7 +169,7 @@ const beforeAfterCases = [
   },
   {
     id: 8,
-    title: "جسور الأسنان",
+    title: "جسور ال��سنان",
     description: "جسور ثابتة ��تعويض الأسنان المفقودة",
     beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
@@ -364,7 +364,7 @@ export default function Index() {
                   الواقع الافتراضي
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
+                  ت����ربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
                   متوفر في جميع العلاجات
@@ -598,7 +598,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "الدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
+                    "��لدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
