@@ -81,7 +81,7 @@ const getAppointmentStatusBadge = (status: string) => {
     case "no_show":
       return <Badge className="bg-orange-100 text-orange-800">لم يحضر</Badge>;
     default:
-      return <Badge variant="secondary">{status || 'غير محدد'}</Badge>;
+      return <Badge variant="secondary">{status || "غير محدد"}</Badge>;
   }
 };
 
@@ -119,7 +119,9 @@ export default function Admin() {
     scheduledAppointments: 0,
     cancelledAppointments: 0,
   });
-  const [recentAppointments, setRecentAppointments] = useState<RecentAppointment[]>([]);
+  const [recentAppointments, setRecentAppointments] = useState<
+    RecentAppointment[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -131,7 +133,7 @@ export default function Admin() {
       setLoading(true);
 
       // Fetch database statistics
-      const statsResponse = await fetch('/api/database/stats');
+      const statsResponse = await fetch("/api/database/stats");
       if (statsResponse.ok) {
         const statsData = await statsResponse.json();
 
@@ -147,17 +149,23 @@ export default function Admin() {
       }
 
       // Fetch recent appointments
-      const appointmentsResponse = await fetch('/api/bookings');
+      const appointmentsResponse = await fetch("/api/bookings");
       if (appointmentsResponse.ok) {
         const appointmentsData = await appointmentsResponse.json();
         const appointments = appointmentsData.data || [];
 
         // Calculate appointment statistics
-        const completed = appointments.filter((a: any) => a.status === 'completed').length;
-        const scheduled = appointments.filter((a: any) => a.status === 'scheduled' || a.status === 'confirmed').length;
-        const cancelled = appointments.filter((a: any) => a.status === 'cancelled').length;
+        const completed = appointments.filter(
+          (a: any) => a.status === "completed",
+        ).length;
+        const scheduled = appointments.filter(
+          (a: any) => a.status === "scheduled" || a.status === "confirmed",
+        ).length;
+        const cancelled = appointments.filter(
+          (a: any) => a.status === "cancelled",
+        ).length;
 
-        setDashboardStats(prev => ({
+        setDashboardStats((prev) => ({
           ...prev,
           completedAppointments: completed,
           scheduledAppointments: scheduled,
@@ -173,15 +181,14 @@ export default function Admin() {
             patient_name: apt.patient_name,
             appointment_time: apt.appointment_time,
             service_name: apt.service_name || apt.chief_complaint,
-            doctor_name: apt.doctor_name || 'د. كمال الملصي',
+            doctor_name: apt.doctor_name || "د. كمال الملصي",
             status: apt.status,
           }));
 
         setRecentAppointments(recentAppointmentsData);
       }
-
     } catch (error) {
-      console.error('خطأ في ��لب بيانات لوحة التحكم:', error);
+      console.error("خطأ في ��لب بيانات لوحة التحكم:", error);
     } finally {
       setLoading(false);
     }
@@ -193,7 +200,9 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-            <span className="mr-3 font-arabic">جاري تحميل بيانات لوحة التحكم...</span>
+            <span className="mr-3 font-arabic">
+              جاري تحميل بيانات لوحة التحكم...
+            </span>
           </div>
         </div>
       </div>
@@ -344,12 +353,22 @@ export default function Admin() {
                       <Table>
                         <TableHeader>
                           <TableRow>
-                            <TableHead className="font-arabic">رقم الموعد</TableHead>
-                            <TableHead className="font-arabic">المريض</TableHead>
+                            <TableHead className="font-arabic">
+                              رقم الموعد
+                            </TableHead>
+                            <TableHead className="font-arabic">
+                              المريض
+                            </TableHead>
                             <TableHead className="font-arabic">الوقت</TableHead>
-                            <TableHead className="font-arabic">الخدمة</TableHead>
-                            <TableHead className="font-arabic">الطبيب</TableHead>
-                            <TableHead className="font-arabic">الحالة</TableHead>
+                            <TableHead className="font-arabic">
+                              الخدمة
+                            </TableHead>
+                            <TableHead className="font-arabic">
+                              الطبيب
+                            </TableHead>
+                            <TableHead className="font-arabic">
+                              الحالة
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>

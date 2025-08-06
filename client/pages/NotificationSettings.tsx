@@ -4,11 +4,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { toast } from "sonner";
 import {
   Mail,
@@ -39,7 +50,7 @@ import {
   EMAIL_TEMPLATES,
   ConnectionStatus,
   getConnectionStatusText,
-  getConnectionStatusColor
+  getConnectionStatusColor,
 } from "../lib/emailConfig";
 import EmailJSSetupHelper from "../components/EmailJSSetupHelper";
 import EmailJSTroubleshooter from "../components/EmailJSTroubleshooter";
@@ -74,13 +85,20 @@ interface NotificationStats {
 
 export default function NotificationSettings() {
   const [activeTab, setActiveTab] = useState("settings");
-  const [emailJSSettings, setEmailJSSettings] = useState<EmailJSSettings>(defaultEmailJSSettings);
-  const [testEmail, setTestEmail] = useState('');
+  const [emailJSSettings, setEmailJSSettings] = useState<EmailJSSettings>(
+    defaultEmailJSSettings,
+  );
+  const [testEmail, setTestEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.NOT_CONFIGURED);
-  const [notificationLogs, setNotificationLogs] = useState<NotificationLog[]>([]);
-  const [notificationStats, setNotificationStats] = useState<NotificationStats | null>(null);
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(
+    ConnectionStatus.NOT_CONFIGURED,
+  );
+  const [notificationLogs, setNotificationLogs] = useState<NotificationLog[]>(
+    [],
+  );
+  const [notificationStats, setNotificationStats] =
+    useState<NotificationStats | null>(null);
   const [showGuide, setShowGuide] = useState(false);
   const [lastActionTime, setLastActionTime] = useState(0);
 
@@ -88,25 +106,25 @@ export default function NotificationSettings() {
   const loadEmailJSSettings = async () => {
     try {
       // محاولة تحميل الإعدادات من localStorage
-      const savedSettings = localStorage.getItem('emailjs_settings');
+      const savedSettings = localStorage.getItem("emailjs_settings");
       if (savedSettings) {
         const settings = JSON.parse(savedSettings);
         setEmailJSSettings(settings);
-        
+
         // تكوين الخدمة
         emailJSService.configure(settings);
         setConnectionStatus(emailJSService.getConnectionStatus());
       }
     } catch (error) {
-      console.error('Error loading EmailJS settings:', error);
-      toast.error('خطأ في تحميل إعدادات EmailJS');
+      console.error("Error loading EmailJS settings:", error);
+      toast.error("خطأ في تحميل إعدادات EmailJS");
     }
   };
 
   // تحميل سجل الإشعارات (محفوظ للتوافق)
   const loadNotificationLogs = async () => {
     try {
-      const response = await fetch('/api/notifications/logs?limit=50');
+      const response = await fetch("/api/notifications/logs?limit=50");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
@@ -116,7 +134,10 @@ export default function NotificationSettings() {
         setNotificationLogs(data.data);
       }
     } catch (error) {
-      console.warn('Old notification logs not available (expected with EmailJS):', error);
+      console.warn(
+        "Old notification logs not available (expected with EmailJS):",
+        error,
+      );
       // تعيين قائمة فارغة للسجلات القديمة
       setNotificationLogs([]);
     }
@@ -125,7 +146,7 @@ export default function NotificationSettings() {
   // تحميل إحصائيات الإشعارات (محفوظ للتوافق)
   const loadNotificationStats = async () => {
     try {
-      const response = await fetch('/api/notifications/stats');
+      const response = await fetch("/api/notifications/stats");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
@@ -135,14 +156,17 @@ export default function NotificationSettings() {
         setNotificationStats(data.data);
       }
     } catch (error) {
-      console.warn('Old notification stats not available (expected with EmailJS):', error);
+      console.warn(
+        "Old notification stats not available (expected with EmailJS):",
+        error,
+      );
       // تعيين إحصائيات افتراضية لـ EmailJS
       setNotificationStats({
         total: 0,
         successful: 0,
         failed: 0,
         pending: 0,
-        byType: []
+        byType: [],
       });
     }
   };
@@ -150,27 +174,27 @@ export default function NotificationSettings() {
   // حفظ إعدادات EmailJS
   const saveEmailJSSettings = async () => {
     setIsLoading(true);
-    
+
     try {
       // التحقق من صحة الإعدادات
       const configResult = emailJSService.configure(emailJSSettings);
-      
+
       if (!configResult.success) {
-        toast.error(`خطأ في الإعدادات: ${configResult.errors?.join(', ')}`);
+        toast.error(`خطأ في الإعدادات: ${configResult.errors?.join(", ")}`);
         return;
       }
 
       // حفظ الإعدادات في localStorage
-      localStorage.setItem('emailjs_settings', JSON.stringify(emailJSSettings));
-      
+      localStorage.setItem("emailjs_settings", JSON.stringify(emailJSSettings));
+
       setConnectionStatus(emailJSService.getConnectionStatus());
-      toast.success('تم حفظ إعدادات EmailJS بنجاح');
+      toast.success("تم حفظ إعدادات EmailJS بنجاح");
 
       // لا نختبر الاتصال تلقائياً لتجنب تضارب الطلبات
       // يمكن للمستخدم الاختبار يدوياً من زر "اختبار الاتصال"
     } catch (error) {
-      console.error('Error saving EmailJS settings:', error);
-      toast.error('خطأ في حفظ إعدادات EmailJS');
+      console.error("Error saving EmailJS settings:", error);
+      toast.error("خطأ في حفظ إعدادات EmailJS");
     } finally {
       setIsLoading(false);
     }
@@ -181,7 +205,7 @@ export default function NotificationSettings() {
     if (!checkRateLimit()) return;
 
     if (isTesting) {
-      toast.error('يوجد طلب آخر قيد التنفيذ');
+      toast.error("يوجد طلب آخر قيد التنفيذ");
       return;
     }
 
@@ -189,20 +213,20 @@ export default function NotificationSettings() {
     setConnectionStatus(ConnectionStatus.TESTING);
 
     try {
-      console.log('Testing EmailJS connection...');
+      console.log("Testing EmailJS connection...");
       const result = await emailJSService.testConnection();
 
       if (result.success) {
         setConnectionStatus(ConnectionStatus.CONNECTED);
-        toast.success('✅ تم الاتصال بنجاح! النظام جاهز للاستخدام');
+        toast.success("✅ تم الاتصال بنجاح! النظام جاهز للاستخدام");
       } else {
         setConnectionStatus(ConnectionStatus.ERROR);
         toast.error(`❌ فشل الاتصال: ${result.error}`);
       }
     } catch (error) {
       setConnectionStatus(ConnectionStatus.ERROR);
-      console.error('Error testing EmailJS connection:', error);
-      toast.error('خطأ في اختبار اتصال EmailJS');
+      console.error("Error testing EmailJS connection:", error);
+      toast.error("خطأ في اختبار اتصال EmailJS");
     } finally {
       setIsTesting(false);
     }
@@ -213,8 +237,9 @@ export default function NotificationSettings() {
     const now = Date.now();
     const timeSinceLastAction = now - lastActionTime;
 
-    if (timeSinceLastAction < 3000) { // 3 ثواني بين الطلبات
-      toast.error('يرجى الانتظار قبل إرسال طلب جديد');
+    if (timeSinceLastAction < 3000) {
+      // 3 ثواني بين الطلبات
+      toast.error("يرجى الانتظار قبل إرسال طلب جديد");
       return false;
     }
 
@@ -227,17 +252,17 @@ export default function NotificationSettings() {
     if (!checkRateLimit()) return;
 
     if (!testEmail) {
-      toast.error('يرجى إدخال بريد إلكتروني للاختبار');
+      toast.error("يرجى إدخال بريد إلكتروني للاختبار");
       return;
     }
 
     if (!emailJSService.isConfigured()) {
-      toast.error('يرجى تكوين إعدادات EmailJS أولاً');
+      toast.error("يرجى تكوين إعدادات EmailJS أولاً");
       return;
     }
 
     if (isTesting) {
-      toast.error('يوجد طلب آخر قيد التنفيذ');
+      toast.error("يوجد طلب آخر قيد التنفيذ");
       return;
     }
 
@@ -247,14 +272,14 @@ export default function NotificationSettings() {
       const result = await emailJSService.sendTestEmail(testEmail);
 
       if (result.success) {
-        toast.success('✅ تم إرسال بريد الاختبار بنجاح!');
-        setTestEmail('');
+        toast.success("✅ تم إرسال بريد الاختبار بنجاح!");
+        setTestEmail("");
       } else {
         toast.error(`❌ فشل إرسال بريد الاختبار: ${result.error}`);
       }
     } catch (error) {
-      console.error('Error sending test email:', error);
-      toast.error('خطأ في إرسال بريد الاختبار');
+      console.error("Error sending test email:", error);
+      toast.error("خطأ في إرسال بريد الاختبار");
     } finally {
       setIsTesting(false);
     }
@@ -265,35 +290,38 @@ export default function NotificationSettings() {
     if (!checkRateLimit()) return;
 
     if (!testEmail) {
-      toast.error('يرجى إدخال بريد إلكتروني للاختبار');
+      toast.error("يرجى إدخال بريد إلكتروني للاختبار");
       return;
     }
 
     if (!emailJSService.isConfigured()) {
-      toast.error('يرجى تكوين إعدادات EmailJS أولاً');
+      toast.error("يرجى تكوين إعدادات EmailJS أولاً");
       return;
     }
 
     if (isTesting) {
-      toast.error('يوجد طلب آخر قيد التنفيذ');
+      toast.error("يوجد طلب آخر قيد التنفيذ");
       return;
     }
 
     setIsTesting(true);
 
     try {
-      console.log('Starting test booking notification to:', testEmail);
-      const result = await emailJSService.sendTestBookingNotification(testEmail);
+      console.log("Starting test booking notification to:", testEmail);
+      const result =
+        await emailJSService.sendTestBookingNotification(testEmail);
 
       if (result.success) {
-        toast.success(`✅ تم إرسال إشعار تأكيد الحجز بنجاح! رقم الموعد: ${result.appointmentId}`);
-        setTestEmail('');
+        toast.success(
+          `✅ تم إرسال إشعار تأكيد الحجز بنجاح! رقم الموعد: ${result.appointmentId}`,
+        );
+        setTestEmail("");
       } else {
         toast.error(`❌ فشل إرسال إشعار الحجز: ${result.error}`);
       }
     } catch (error) {
-      console.error('Error sending test booking notification:', error);
-      toast.error('خطأ في إرسال إشعار الحجز التجريبي');
+      console.error("Error sending test booking notification:", error);
+      toast.error("خطأ في إرسال إشعار الحجز التجريبي");
     } finally {
       setIsTesting(false);
     }
@@ -309,13 +337,28 @@ export default function NotificationSettings() {
   // دالة لتحديد لون badge حسب حالة التسليم
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'sent':
-      case 'delivered':
-        return <Badge variant="default" className="bg-green-500"><CheckCircle className="w-3 h-3 ml-1" />تم الإرسال</Badge>;
-      case 'failed':
-        return <Badge variant="destructive"><XCircle className="w-3 h-3 ml-1" />فشل</Badge>;
-      case 'pending':
-        return <Badge variant="secondary"><Clock className="w-3 h-3 ml-1" />في الانتظار</Badge>;
+      case "sent":
+      case "delivered":
+        return (
+          <Badge variant="default" className="bg-green-500">
+            <CheckCircle className="w-3 h-3 ml-1" />
+            تم الإرسال
+          </Badge>
+        );
+      case "failed":
+        return (
+          <Badge variant="destructive">
+            <XCircle className="w-3 h-3 ml-1" />
+            فشل
+          </Badge>
+        );
+      case "pending":
+        return (
+          <Badge variant="secondary">
+            <Clock className="w-3 h-3 ml-1" />
+            في الانتظار
+          </Badge>
+        );
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -324,30 +367,30 @@ export default function NotificationSettings() {
   // دالة لتحديد أيقونة نوع الإشعار
   const getNotificationTypeIcon = (type: string) => {
     switch (type) {
-      case 'confirmation':
-        return '✅';
-      case 'reminder':
-        return '⏰';
-      case 'cancellation':
-        return '❌';
-      case 'test':
-        return '🧪';
+      case "confirmation":
+        return "✅";
+      case "reminder":
+        return "⏰";
+      case "cancellation":
+        return "❌";
+      case "test":
+        return "🧪";
       default:
-        return '📧';
+        return "📧";
     }
   };
 
   // نسخ النص للحافظة
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success('تم النسخ للحافظة');
+    toast.success("تم النسخ للحافظة");
   };
 
   // مؤشر حالة الاتصال
   const ConnectionStatusIndicator = () => {
     const statusText = getConnectionStatusText(connectionStatus);
     const statusColor = getConnectionStatusColor(connectionStatus);
-    
+
     const getStatusIcon = () => {
       switch (connectionStatus) {
         case ConnectionStatus.NOT_CONFIGURED:
@@ -380,8 +423,12 @@ export default function NotificationSettings() {
       <div className="flex items-center gap-4 mb-8">
         <Mail className="h-8 w-8 text-dental-primary" />
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 font-arabic">إدارة الإشعارات الحقيقية</h1>
-          <p className="text-gray-600 font-arabic">نظام إشعارات متطور باستخدام EmailJS</p>
+          <h1 className="text-3xl font-bold text-gray-900 font-arabic">
+            إدارة الإشعارات الحقيقية
+          </h1>
+          <p className="text-gray-600 font-arabic">
+            نظام إشعارات متطور باستخدام EmailJS
+          </p>
         </div>
         <div className="mr-auto">
           <EmailJSStatus
@@ -392,7 +439,11 @@ export default function NotificationSettings() {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-6"
+      >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="settings" className="font-arabic">
             <Settings className="w-4 h-4 ml-2" />
@@ -420,7 +471,8 @@ export default function NotificationSettings() {
                 إعدادات EmailJS للإشعارات الحقيقية
               </CardTitle>
               <CardDescription className="font-arabic">
-                كوّن EmailJS لإرسال إشعارات حقيقية عبر البريد الإلكتروني بدون خادم خلفي
+                كوّن EmailJS لإرسال إشعارات حقيقية عبر البريد الإلكتروني بدون
+                خادم خلفي
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -429,7 +481,10 @@ export default function NotificationSettings() {
                   id="emailjs-enabled"
                   checked={emailJSSettings.enabled}
                   onCheckedChange={(checked) =>
-                    setEmailJSSettings(prev => ({ ...prev, enabled: checked }))
+                    setEmailJSSettings((prev) => ({
+                      ...prev,
+                      enabled: checked,
+                    }))
                   }
                 />
                 <Label htmlFor="emailjs-enabled" className="font-arabic">
@@ -442,19 +497,25 @@ export default function NotificationSettings() {
                   <Alert>
                     <Info className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      📧 <strong>الإشعارات الحقيقية:</strong> سيتم إرسال رسائل بريد إلكتروني حقيقية للمرضى عبر خدمة EmailJS.
-                      تأكد من إكمال إعداد EmailJS أولاً (راجع تبويب "دليل الإعداد").
+                      📧 <strong>الإشعارات الحقيقية:</strong> سيتم إرسال رسائل
+                      بريد إلكتروني حقيقية للمرضى عبر خدمة EmailJS. تأكد من
+                      إكمال إعداد EmailJS أولاً (راجع تبويب "دليل الإعداد").
                     </AlertDescription>
                   </Alert>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="service-id" className="font-arabic">Service ID</Label>
+                      <Label htmlFor="service-id" className="font-arabic">
+                        Service ID
+                      </Label>
                       <Input
                         id="service-id"
                         value={emailJSSettings.serviceId}
                         onChange={(e) =>
-                          setEmailJSSettings(prev => ({ ...prev, serviceId: e.target.value }))
+                          setEmailJSSettings((prev) => ({
+                            ...prev,
+                            serviceId: e.target.value,
+                          }))
                         }
                         placeholder="service_xxxxxxx"
                         dir="ltr"
@@ -462,12 +523,17 @@ export default function NotificationSettings() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="template-id" className="font-arabic">Template ID</Label>
+                      <Label htmlFor="template-id" className="font-arabic">
+                        Template ID
+                      </Label>
                       <Input
                         id="template-id"
                         value={emailJSSettings.templateId}
                         onChange={(e) =>
-                          setEmailJSSettings(prev => ({ ...prev, templateId: e.target.value }))
+                          setEmailJSSettings((prev) => ({
+                            ...prev,
+                            templateId: e.target.value,
+                          }))
                         }
                         placeholder="template_xxxxxxx"
                         dir="ltr"
@@ -476,12 +542,17 @@ export default function NotificationSettings() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="public-key" className="font-arabic">Public Key</Label>
+                    <Label htmlFor="public-key" className="font-arabic">
+                      Public Key
+                    </Label>
                     <Input
                       id="public-key"
                       value={emailJSSettings.publicKey}
                       onChange={(e) =>
-                        setEmailJSSettings(prev => ({ ...prev, publicKey: e.target.value }))
+                        setEmailJSSettings((prev) => ({
+                          ...prev,
+                          publicKey: e.target.value,
+                        }))
                       }
                       placeholder="your_public_key_here"
                       dir="ltr"
@@ -490,12 +561,17 @@ export default function NotificationSettings() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="sender-name" className="font-arabic">اسم المرسل</Label>
+                      <Label htmlFor="sender-name" className="font-arabic">
+                        اسم المرسل
+                      </Label>
                       <Input
                         id="sender-name"
                         value={emailJSSettings.senderName}
                         onChange={(e) =>
-                          setEmailJSSettings(prev => ({ ...prev, senderName: e.target.value }))
+                          setEmailJSSettings((prev) => ({
+                            ...prev,
+                            senderName: e.target.value,
+                          }))
                         }
                         placeholder="عيادة الدكتور كمال الملصي"
                         className="font-arabic"
@@ -503,13 +579,18 @@ export default function NotificationSettings() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="sender-email" className="font-arabic">بريد المرسل</Label>
+                      <Label htmlFor="sender-email" className="font-arabic">
+                        بريد المرسل
+                      </Label>
                       <Input
                         id="sender-email"
                         type="email"
                         value={emailJSSettings.senderEmail}
                         onChange={(e) =>
-                          setEmailJSSettings(prev => ({ ...prev, senderEmail: e.target.value }))
+                          setEmailJSSettings((prev) => ({
+                            ...prev,
+                            senderEmail: e.target.value,
+                          }))
                         }
                         placeholder="info@clinic.com"
                         dir="ltr"
@@ -520,8 +601,9 @@ export default function NotificationSettings() {
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      <strong>أمان البيانات:</strong> جميع ��لإعدادات تُحفظ محلياً في متصفحك ولا تُرسل لأي خادم خارجي.
-                      EmailJS آمن ولا يكشف بيانات حساسة.
+                      <strong>أمان البيانات:</strong> جميع ��لإعدادات تُحفظ
+                      محلياً في متصفحك ولا تُرسل لأي خادم خارجي. EmailJS آمن ولا
+                      يكشف بيانات حساسة.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -530,19 +612,28 @@ export default function NotificationSettings() {
               <Separator />
 
               <div className="flex gap-4">
-                <Button onClick={saveEmailJSSettings} disabled={isLoading} className="font-arabic">
+                <Button
+                  onClick={saveEmailJSSettings}
+                  disabled={isLoading}
+                  className="font-arabic"
+                >
                   {isLoading ? "جاري الحفظ..." : "حفظ الإعدادات"}
                 </Button>
-                
+
                 {emailJSSettings.enabled && (
-                  <Button variant="outline" onClick={testEmailJSConnection} disabled={isTesting} className="font-arabic">
+                  <Button
+                    variant="outline"
+                    onClick={testEmailJSConnection}
+                    disabled={isTesting}
+                    className="font-arabic"
+                  >
                     {isTesting ? "جاري الاختبار..." : "اختبار الاتصال"}
                   </Button>
                 )}
 
-                <Button 
-                  variant="ghost" 
-                  onClick={() => setActiveTab("guide")} 
+                <Button
+                  variant="ghost"
+                  onClick={() => setActiveTab("guide")}
                   className="font-arabic"
                 >
                   <HelpCircle className="w-4 h-4 ml-2" />
@@ -556,14 +647,18 @@ export default function NotificationSettings() {
         <TabsContent value="test" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="font-arabic">اختبار النظام الحقيقي</CardTitle>
+              <CardTitle className="font-arabic">
+                اختبار النظام الحقيقي
+              </CardTitle>
               <CardDescription className="font-arabic">
                 إرسال رسائل بريد إلكتروني حقيقية للتأكد من صحة الإعدادات
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="test-email" className="font-arabic">البريد الإلكتروني للاختبار</Label>
+                <Label htmlFor="test-email" className="font-arabic">
+                  البريد الإلكتروني للاختبار
+                </Label>
                 <Input
                   id="test-email"
                   type="email"
@@ -577,13 +672,17 @@ export default function NotificationSettings() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card className="border-dashed">
                   <CardContent className="p-4">
-                    <h4 className="font-bold mb-2 font-arabic">🧪 اختبار بسيط</h4>
+                    <h4 className="font-bold mb-2 font-arabic">
+                      🧪 اختبار بسيط
+                    </h4>
                     <p className="text-sm text-gray-600 mb-3 font-arabic">
                       يرسل بريد إلكتروني بسيط للتأكد من صحة إعدادات EmailJS
                     </p>
                     <Button
                       onClick={sendTestEmail}
-                      disabled={isTesting || !testEmail || !emailJSSettings.enabled}
+                      disabled={
+                        isTesting || !testEmail || !emailJSSettings.enabled
+                      }
                       className="w-full font-arabic"
                       variant="outline"
                     >
@@ -595,13 +694,18 @@ export default function NotificationSettings() {
 
                 <Card className="border-dashed border-dental-primary">
                   <CardContent className="p-4">
-                    <h4 className="font-bold mb-2 font-arabic text-dental-primary">📧 محاكاة حجز حقيقي</h4>
+                    <h4 className="font-bold mb-2 font-arabic text-dental-primary">
+                      📧 محاكاة حجز حقيقي
+                    </h4>
                     <p className="text-sm text-gray-600 mb-3 font-arabic">
-                      يرسل إشعار تأكيد حجز كامل مع جميع التفاصيل (الأفضل للاختبار)
+                      يرسل إشعار تأكيد حجز كامل مع جميع التفاصيل (الأفضل
+                      للاختبار)
                     </p>
                     <Button
                       onClick={sendTestBookingNotification}
-                      disabled={isTesting || !testEmail || !emailJSSettings.enabled}
+                      disabled={
+                        isTesting || !testEmail || !emailJSSettings.enabled
+                      }
                       className="w-full font-arabic"
                     >
                       <Send className="w-4 h-4 ml-2" />
@@ -615,40 +719,46 @@ export default function NotificationSettings() {
                 <Alert>
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription className="font-arabic">
-                    يجب تفعيل نظام الإشع��رات وإعداد EmailJS أولاً من تبويب الإعدادات
+                    يجب تفعيل نظام الإشع��رات وإعداد EmailJS أولاً من تبويب
+                    الإعدادات
                   </AlertDescription>
                 </Alert>
               )}
 
-              {emailJSSettings.enabled && connectionStatus === ConnectionStatus.CONNECTED && (
-                <Alert>
-                  <CheckCircle className="h-4 w-4" />
-                  <AlertDescription className="font-arabic">
-                    ✅ النظام متصل ومستعد للإرسال! جرب "اختبار تأكيد حجز" للحصول على أفضل تجربة.
-                  </AlertDescription>
-                </Alert>
-              )}
+              {emailJSSettings.enabled &&
+                connectionStatus === ConnectionStatus.CONNECTED && (
+                  <Alert>
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription className="font-arabic">
+                      ✅ النظام متصل ومستعد للإرسال! جرب "اختبار تأكيد حجز"
+                      للحصول على أفضل تجربة.
+                    </AlertDescription>
+                  </Alert>
+                )}
 
-              {emailJSSettings.enabled && connectionStatus === ConnectionStatus.ERROR && (
-                <EmailJSTroubleshooter
-                  connectionStatus={connectionStatus}
-                  hasServiceId={!!emailJSSettings.serviceId}
-                  hasTemplateId={!!emailJSSettings.templateId}
-                  hasPublicKey={!!emailJSSettings.publicKey}
-                  hasSenderEmail={!!emailJSSettings.senderEmail}
-                  onRetry={testEmailJSConnection}
-                />
-              )}
+              {emailJSSettings.enabled &&
+                connectionStatus === ConnectionStatus.ERROR && (
+                  <EmailJSTroubleshooter
+                    connectionStatus={connectionStatus}
+                    hasServiceId={!!emailJSSettings.serviceId}
+                    hasTemplateId={!!emailJSSettings.templateId}
+                    hasPublicKey={!!emailJSSettings.publicKey}
+                    hasSenderEmail={!!emailJSSettings.senderEmail}
+                    onRetry={testEmailJSConnection}
+                  />
+                )}
 
-              {emailJSSettings.enabled && connectionStatus === ConnectionStatus.CONFIGURED && (
-                <Alert>
-                  <Activity className="w-4 h-4" />
-                  <AlertDescription className="font-arabic">
-                    ⚠️ <strong>النظام مُعَدّ ولكن لم يتم اختباره بعد.</strong>
-                    للتأكد من عمل النظام، اضغط "اختبار الاتصال" أو جرب إرسال رسالة اختبار.
-                  </AlertDescription>
-                </Alert>
-              )}
+              {emailJSSettings.enabled &&
+                connectionStatus === ConnectionStatus.CONFIGURED && (
+                  <Alert>
+                    <Activity className="w-4 h-4" />
+                    <AlertDescription className="font-arabic">
+                      ⚠️ <strong>النظام مُعَدّ ولكن لم يتم اختباره بعد.</strong>
+                      للتأكد من عمل النظام، اضغط "اختبار الاتصال" أو جرب إرسال
+                      رسالة اختبار.
+                    </AlertDescription>
+                  </Alert>
+                )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -672,13 +782,20 @@ export default function NotificationSettings() {
                       <p className="font-arabic">{step.description}</p>
                       <ul className="list-disc list-inside space-y-2 font-arabic">
                         {step.details.map((detail, detailIndex) => (
-                          <li key={detailIndex} className="text-sm text-gray-600">{detail}</li>
+                          <li
+                            key={detailIndex}
+                            className="text-sm text-gray-600"
+                          >
+                            {detail}
+                          </li>
                         ))}
                       </ul>
                       {index === 0 && (
-                        <Button 
-                          variant="outline" 
-                          onClick={() => window.open('https://www.emailjs.com', '_blank')}
+                        <Button
+                          variant="outline"
+                          onClick={() =>
+                            window.open("https://www.emailjs.com", "_blank")
+                          }
                           className="font-arabic"
                         >
                           <ExternalLink className="w-4 h-4 ml-2" />
@@ -693,26 +810,40 @@ export default function NotificationSettings() {
               <Separator className="my-6" />
 
               <div className="space-y-4">
-                <h3 className="text-lg font-bold font-arabic">قوالب البريد الإلكتروني المطلوبة</h3>
+                <h3 className="text-lg font-bold font-arabic">
+                  قوالب البريد الإلكتروني المطلوبة
+                </h3>
                 <p className="text-sm text-gray-600 font-arabic">
-                  يمكنك استخدام قالب واحد لجميع أنواع الإشعارات أو إنشاء قوالب منفصلة
+                  يمكنك استخدام قالب واحد لجميع أنواع الإشعارات أو إنشاء قوالب
+                  منفصلة
                 </p>
-                
+
                 {Object.entries(EMAIL_TEMPLATES).map(([key, template]) => (
                   <Card key={key} className="border-l-4 border-l-blue-500">
                     <CardContent className="p-4">
-                      <h4 className="font-bold font-arabic mb-2">{template.name}</h4>
-                      <p className="text-sm text-gray-600 font-arabic mb-3">{template.description}</p>
+                      <h4 className="font-bold font-arabic mb-2">
+                        {template.name}
+                      </h4>
+                      <p className="text-sm text-gray-600 font-arabic mb-3">
+                        {template.description}
+                      </p>
                       <div className="space-y-2">
-                        <Label className="font-arabic text-sm">المتغيرات المطلوب��:</Label>
+                        <Label className="font-arabic text-sm">
+                          المتغيرات المطلوب��:
+                        </Label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {template.variables.map((variable) => (
-                            <div key={variable} className="flex items-center gap-1">
+                            <div
+                              key={variable}
+                              className="flex items-center gap-1"
+                            >
                               <code className="text-xs bg-gray-100 px-1 rounded">{`{{${variable}}}`}</code>
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                onClick={() => copyToClipboard(`{{${variable}}}`)}
+                                onClick={() =>
+                                  copyToClipboard(`{{${variable}}}`)
+                                }
                                 className="h-6 w-6 p-0"
                               >
                                 <Copy className="w-3 h-3" />
@@ -729,15 +860,24 @@ export default function NotificationSettings() {
               <Separator className="my-6" />
 
               <div className="space-y-4">
-                <h3 className="text-lg font-bold font-arabic">استكشاف الأخطاء وإصلاحها</h3>
-                
+                <h3 className="text-lg font-bold font-arabic">
+                  استكشاف الأخطاء وإصلاحها
+                </h3>
+
                 {SETUP_GUIDE.troubleshooting.map((item, index) => (
                   <Card key={index}>
                     <CardContent className="p-4">
-                      <h4 className="font-bold font-arabic mb-2 text-red-600">{item.issue}</h4>
+                      <h4 className="font-bold font-arabic mb-2 text-red-600">
+                        {item.issue}
+                      </h4>
                       <ul className="list-disc list-inside space-y-1 font-arabic">
                         {item.solutions.map((solution, solutionIndex) => (
-                          <li key={solutionIndex} className="text-sm text-gray-600">{solution}</li>
+                          <li
+                            key={solutionIndex}
+                            className="text-sm text-gray-600"
+                          >
+                            {solution}
+                          </li>
                         ))}
                       </ul>
                     </CardContent>
@@ -754,7 +894,9 @@ export default function NotificationSettings() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">النظام الحالي</p>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">
+                      النظام الحالي
+                    </p>
                     <p className="text-2xl font-bold text-blue-600">EmailJS</p>
                   </div>
                   <Shield className="h-8 w-8 text-blue-600" />
@@ -766,9 +908,13 @@ export default function NotificationSettings() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">حالة الاتصال</p>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">
+                      حالة الاتصال
+                    </p>
                     <p className="text-sm font-bold text-green-600">
-                      {connectionStatus === ConnectionStatus.CONNECTED ? 'متصل' : 'غير متصل'}
+                      {connectionStatus === ConnectionStatus.CONNECTED
+                        ? "متصل"
+                        : "غير متصل"}
                     </p>
                   </div>
                   {connectionStatus === ConnectionStatus.CONNECTED ? (
@@ -784,8 +930,12 @@ export default function NotificationSettings() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">نوع الإشعارات</p>
-                    <p className="text-sm font-bold text-green-600">حقيقية مباشرة</p>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">
+                      نوع الإشعارات
+                    </p>
+                    <p className="text-sm font-bold text-green-600">
+                      حقيقية مباشرة
+                    </p>
                   </div>
                   <Mail className="h-8 w-8 text-green-600" />
                 </div>
@@ -796,8 +946,12 @@ export default function NotificationSettings() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 font-arabic">الحد المجاني</p>
-                    <p className="text-sm font-bold text-orange-600">200 بريد/شهر</p>
+                    <p className="text-sm font-medium text-gray-600 font-arabic">
+                      الحد المجاني
+                    </p>
+                    <p className="text-sm font-bold text-orange-600">
+                      200 بريد/شهر
+                    </p>
                   </div>
                   <Activity className="h-8 w-8 text-orange-600" />
                 </div>
@@ -808,37 +962,53 @@ export default function NotificationSettings() {
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription className="font-arabic">
-              <strong>نظام EmailJS الجديد:</strong> الإشعارات تُرسل مباشرة عبر EmailJS بدون تخزين محلي.
-              يمكنك مراقبة الإحصائيات التفصيلية من لوحة تحكم EmailJS على موقعهم الرسمي.
+              <strong>نظام EmailJS الجديد:</strong> الإشعارات تُرسل مباشرة عبر
+              EmailJS بدون تخزين محلي. يمكنك مراقبة الإحصائيات التفصيلية من لوحة
+              تحكم EmailJS على موقعهم الرسمي.
             </AlertDescription>
           </Alert>
 
-          {notificationStats && (notificationStats.total > 0 || notificationLogs.length > 0) && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-arabic">إحصائيات النظام السابق</CardTitle>
-                <CardDescription className="font-arabic">
-                  بيانات الإشعارات من النظام القديم (قبل التحديث لـ EmailJS)
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-600">{notificationStats?.total || 0}</div>
-                    <div className="text-sm text-gray-500 font-arabic">إجمالي قديم</div>
+          {notificationStats &&
+            (notificationStats.total > 0 || notificationLogs.length > 0) && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-arabic">
+                    إحصائيات النظام السابق
+                  </CardTitle>
+                  <CardDescription className="font-arabic">
+                    بيانات الإشعارات من النظام القديم (قبل التحديث لـ EmailJS)
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-gray-600">
+                        {notificationStats?.total || 0}
+                      </div>
+                      <div className="text-sm text-gray-500 font-arabic">
+                        إجمالي قديم
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">
+                        {notificationStats?.successful || 0}
+                      </div>
+                      <div className="text-sm text-gray-500 font-arabic">
+                        نجح قديماً
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-red-600">
+                        {notificationStats?.failed || 0}
+                      </div>
+                      <div className="text-sm text-gray-500 font-arabic">
+                        فشل قديماً
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">{notificationStats?.successful || 0}</div>
-                    <div className="text-sm text-gray-500 font-arabic">نجح قديماً</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">{notificationStats?.failed || 0}</div>
-                    <div className="text-sm text-gray-500 font-arabic">فشل قديماً</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                </CardContent>
+              </Card>
+            )}
         </TabsContent>
       </Tabs>
     </div>

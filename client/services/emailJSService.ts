@@ -1,5 +1,9 @@
-import emailjs from '@emailjs/browser';
-import { EmailJSSettings, validateEmailJSConfig, ConnectionStatus } from '../lib/emailConfig';
+import emailjs from "@emailjs/browser";
+import {
+  EmailJSSettings,
+  validateEmailJSConfig,
+  ConnectionStatus,
+} from "../lib/emailConfig";
 
 export interface NotificationData {
   patientName: string;
@@ -14,7 +18,11 @@ export interface NotificationData {
   notes?: string;
 }
 
-export type NotificationType = 'confirmation' | 'reminder' | 'cancellation' | 'test';
+export type NotificationType =
+  | "confirmation"
+  | "reminder"
+  | "cancellation"
+  | "test";
 
 export interface EmailResult {
   success: boolean;
@@ -37,23 +45,28 @@ export class EmailJSService {
 
     if (errors.length > 0) {
       this.connectionStatus = ConnectionStatus.ERROR;
-      console.error('EmailJS configuration errors:', errors);
+      console.error("EmailJS configuration errors:", errors);
       return { success: false, errors };
     }
 
     this.config = config;
-    this.connectionStatus = config.enabled ? ConnectionStatus.CONFIGURED : ConnectionStatus.NOT_CONFIGURED;
+    this.connectionStatus = config.enabled
+      ? ConnectionStatus.CONFIGURED
+      : ConnectionStatus.NOT_CONFIGURED;
 
     // تهيئة EmailJS مرة واحدة فقط
     if (config.enabled && config.publicKey && !this.isInitialized) {
       try {
         emailjs.init(config.publicKey);
         this.isInitialized = true;
-        console.log('EmailJS initialized successfully with publicKey:', config.publicKey);
+        console.log(
+          "EmailJS initialized successfully with publicKey:",
+          config.publicKey,
+        );
       } catch (error) {
-        console.error('Error initializing EmailJS:', error);
+        console.error("Error initializing EmailJS:", error);
         this.connectionStatus = ConnectionStatus.ERROR;
-        return { success: false, errors: ['خطأ في تهيئة EmailJS'] };
+        return { success: false, errors: ["خطأ في تهيئة EmailJS"] };
       }
     }
 
@@ -74,7 +87,7 @@ export class EmailJSService {
     this.requestQueue = [];
     this.isProcessingQueue = false;
     this.lastRequestTime = 0;
-    console.log('EmailJS service reset');
+    console.log("EmailJS service reset");
   }
 
   // الحصول على عدد الطلبات المعلقة
@@ -87,17 +100,19 @@ export class EmailJSService {
     return {
       processing: this.isProcessingQueue,
       queued: this.requestQueue.length,
-      pending: this.pendingRequests.size
+      pending: this.pendingRequests.size,
     };
   }
 
   // التحقق من صحة التكوين
   isConfigured(): boolean {
-    return this.config !== null && 
-           this.config.enabled && 
-           !!this.config.serviceId && 
-           !!this.config.templateId && 
-           !!this.config.publicKey;
+    return (
+      this.config !== null &&
+      this.config.enabled &&
+      !!this.config.serviceId &&
+      !!this.config.templateId &&
+      !!this.config.publicKey
+    );
   }
 
   // اختبار الاتصال مع منع التضارب
@@ -105,7 +120,8 @@ export class EmailJSService {
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
-        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key'
+        error:
+          "خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
       };
     }
 
@@ -113,7 +129,7 @@ export class EmailJSService {
     if (this.isProcessingQueue || this.requestQueue.length > 0) {
       return {
         success: false,
-        error: 'يوجد طلب آخر قيد التنفيذ - يرجى الانتظار'
+        error: "يوجد طلب آخر قيد التنفيذ - يرجى الانتظار",
       };
     }
 
@@ -121,18 +137,18 @@ export class EmailJSService {
 
     try {
       const result = await this.queueRequest(() =>
-        this.performSendWithDelay('test', {
-          patientName: 'مدير النظام',
+        this.performSendWithDelay("test", {
+          patientName: "مدير النظام",
           patientEmail: this.config!.senderEmail,
-          appointmentId: 'TEST-' + Date.now(),
-          appointmentDate: new Date().toLocaleDateString('ar-EG'),
-          appointmentTime: new Date().toLocaleTimeString('ar-EG'),
-          doctorName: 'نظام الاختبار',
+          appointmentId: "TEST-" + Date.now(),
+          appointmentDate: new Date().toLocaleDateString("ar-EG"),
+          appointmentTime: new Date().toLocaleTimeString("ar-EG"),
+          doctorName: "نظام الاختبار",
           clinicName: this.config!.senderName,
-          clinicPhone: 'غير محدد',
-          clinicAddress: 'غير محدد',
-          notes: 'هذه رسالة اختبار لتأكيد عمل النظام'
-        })
+          clinicPhone: "غير محدد",
+          clinicAddress: "غير محدد",
+          notes: "هذه رسالة اختبار لتأكيد عمل النظام",
+        }),
       );
 
       if (result.success) {
@@ -144,10 +160,10 @@ export class EmailJSService {
       return result;
     } catch (error) {
       this.connectionStatus = ConnectionStatus.ERROR;
-      console.error('Test connection error:', error);
+      console.error("Test connection error:", error);
       return {
         success: false,
-        error: 'فشل في اختبار الاتصال'
+        error: "فشل في اختبار الاتصال",
       };
     }
   }
@@ -155,12 +171,12 @@ export class EmailJSService {
   // إرسال إشعار مع منع الطلبات المتزامنة والطابور
   async sendNotification(
     type: NotificationType,
-    data: NotificationData
+    data: NotificationData,
   ): Promise<EmailResult> {
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
-        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح'
+        error: "خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح",
       };
     }
 
@@ -200,9 +216,9 @@ export class EmailJSService {
         try {
           await request();
           // إضافة تأخير بين الطلبات
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 1000));
         } catch (error) {
-          console.error('Queue request failed:', error);
+          console.error("Queue request failed:", error);
         }
       }
     }
@@ -213,7 +229,7 @@ export class EmailJSService {
   // إجراء الإرسال مع التأخير المطلوب
   private async performSendWithDelay(
     type: NotificationType,
-    data: NotificationData
+    data: NotificationData,
   ): Promise<EmailResult> {
     // التأكد من مرور وقت كافي منذ آخر طلب
     const now = Date.now();
@@ -221,7 +237,9 @@ export class EmailJSService {
     const minDelay = 2000; // 2 ثانية بين الطلبات
 
     if (timeSinceLastRequest < minDelay) {
-      await new Promise(resolve => setTimeout(resolve, minDelay - timeSinceLastRequest));
+      await new Promise((resolve) =>
+        setTimeout(resolve, minDelay - timeSinceLastRequest),
+      );
     }
 
     this.lastRequestTime = Date.now();
@@ -231,10 +249,10 @@ export class EmailJSService {
       try {
         emailjs.init(this.config.publicKey);
         this.isInitialized = true;
-        console.log('EmailJS initialized for request');
+        console.log("EmailJS initialized for request");
       } catch (error) {
-        console.error('Failed to initialize EmailJS:', error);
-        return { success: false, error: 'فشل في تهيئة EmailJS' };
+        console.error("Failed to initialize EmailJS:", error);
+        return { success: false, error: "فشل في تهيئة EmailJS" };
       }
     }
 
@@ -244,52 +262,52 @@ export class EmailJSService {
   // إجراء الإرسال الفعلي
   private async performSend(
     type: NotificationType,
-    data: NotificationData
+    data: NotificationData,
   ): Promise<EmailResult> {
     try {
       const templateData = this.prepareTemplateData(type, data);
 
-      console.log('Sending EmailJS request with data:', {
+      console.log("Sending EmailJS request with data:", {
         serviceId: this.config?.serviceId,
         templateId: this.config?.templateId,
         dataKeys: Object.keys(templateData),
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
 
       // استخدام محاولة واحدة فقط بدون retry
       const result = await emailjs.send(
         this.config!.serviceId,
         this.config!.templateId,
-        templateData
+        templateData,
       );
 
-      console.log('EmailJS send result:', result);
+      console.log("EmailJS send result:", result);
 
       if (result.status === 200) {
         return {
           success: true,
-          messageId: result.text
+          messageId: result.text,
         };
       } else {
         return {
           success: false,
-          error: `خطأ في الإرسال - كود الحالة: ${result.status}`
+          error: `خطأ في الإرسال - كود الحالة: ${result.status}`,
         };
       }
     } catch (error) {
-      console.error('EmailJS send error:', error);
+      console.error("EmailJS send error:", error);
 
-      let errorMessage = 'خطأ غير معروف في الإرسال';
+      let errorMessage = "خطأ غير معروف في الإرسال";
 
       if (error instanceof Error) {
-        if (error.message.includes('body stream already read')) {
+        if (error.message.includes("body stream already read")) {
           // إعادة تعيين EmailJS وإعادة المحاولة مرة واحدة
           this.reset();
-          errorMessage = 'تم إعادة تعيين النظام - يرجى المحاولة مرة أخرى';
-        } else if (error.message.includes('Unauthorized')) {
-          errorMessage = 'خطأ في الصلاحية - تحقق من Public Key';
-        } else if (error.message.includes('Not Found')) {
-          errorMessage = 'Service ID أو Template ID غير صحيح';
+          errorMessage = "تم إعادة تعيين النظام - يرجى المحاولة مرة أخرى";
+        } else if (error.message.includes("Unauthorized")) {
+          errorMessage = "خطأ في الصلاحية - تحقق من Public Key";
+        } else if (error.message.includes("Not Found")) {
+          errorMessage = "Service ID أو Template ID غير صحيح";
         } else {
           errorMessage = error.message;
         }
@@ -297,7 +315,7 @@ export class EmailJSService {
 
       return {
         success: false,
-        error: errorMessage
+        error: errorMessage,
       };
     }
   }
@@ -305,35 +323,38 @@ export class EmailJSService {
   // إرسال بريد اختبار ��خصص
   async sendTestEmail(
     toEmail: string,
-    recipientName: string = 'مستخدم النظام'
+    recipientName: string = "مستخدم النظام",
   ): Promise<EmailResult> {
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
-        error: 'خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح'
+        error: "خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح",
       };
     }
 
-    return this.sendNotification('test', {
+    return this.sendNotification("test", {
       patientName: recipientName,
       patientEmail: toEmail,
-      appointmentId: 'TEST-' + Date.now(),
-      appointmentDate: new Date().toLocaleDateString('ar-EG'),
-      appointmentTime: new Date().toLocaleTimeString('ar-EG'),
-      doctorName: 'نظام الاختبار',
+      appointmentId: "TEST-" + Date.now(),
+      appointmentDate: new Date().toLocaleDateString("ar-EG"),
+      appointmentTime: new Date().toLocaleTimeString("ar-EG"),
+      doctorName: "نظام الاختبار",
       clinicName: this.config.senderName,
-      clinicPhone: this.config.senderEmail || 'غير محدد',
-      clinicAddress: 'نظام الإشعارات الإلكترونية',
-      notes: 'هذه رسالة اختبار لتأكيد عمل النظام'
+      clinicPhone: this.config.senderEmail || "غير محدد",
+      clinicAddress: "نظام الإشعارات الإلكترونية",
+      notes: "هذه رسالة اختبار لتأكيد عمل النظام",
     });
   }
 
   // تحضير بيانات القالب حسب نوع الإشعار
-  private prepareTemplateData(type: NotificationType, data: NotificationData): any {
+  private prepareTemplateData(
+    type: NotificationType,
+    data: NotificationData,
+  ): any {
     const baseData = {
       to_email: data.patientEmail,
       to_name: data.patientName,
-      from_name: this.config?.senderName || 'عيادة الدكتور كمال الملصي',
+      from_name: this.config?.senderName || "عيادة الدكتور كمال الملصي",
       patient_name: data.patientName,
       appointment_id: data.appointmentId,
       appointment_date: data.appointmentDate,
@@ -342,49 +363,51 @@ export class EmailJSService {
       clinic_name: data.clinicName,
       clinic_phone: data.clinicPhone,
       clinic_address: data.clinicAddress,
-      notes: data.notes || '',
-      current_time: new Date().toLocaleString('ar-EG')
+      notes: data.notes || "",
+      current_time: new Date().toLocaleString("ar-EG"),
     };
 
     switch (type) {
-      case 'confirmation':
+      case "confirmation":
         return {
           ...baseData,
           subject: `✅ تأكيد موعدك - ${data.appointmentId}`,
-          notification_type: 'تأكيد موعد',
-          icon: '✅',
+          notification_type: "تأكيد موعد",
+          icon: "✅",
           message: `تم تأكيد موعدك بنجاح في ${data.clinicName}. نتطلع لرؤيتك في الموعد المحدد.`,
-          instructions: 'يرجى الحضور قبل 15 دقيقة من الموعد. أحضر معك بطاقة الهوية وأي وثائق طبية سابقة.'
+          instructions:
+            "يرجى الحضور قبل 15 دقيقة من الموعد. أحضر معك بطاقة الهوية وأي وثائق طبية سابقة.",
         };
 
-      case 'reminder':
+      case "reminder":
         return {
           ...baseData,
           subject: `⏰ تذكير بموعدك غداً - ${data.appointmentId}`,
-          notification_type: 'تذكير موعد',
-          icon: '⏰',
+          notification_type: "تذكير موعد",
+          icon: "⏰",
           message: `نذكرك بموعدك المحجوز غداً في ${data.clinicName}. نتطلع لرؤيتك!`,
-          instructions: 'لا تنس موعدك غداً. في حالة عدم القدرة على الحضور، يرجى الاتصال بنا.'
+          instructions:
+            "لا تنس موعدك غداً. في حالة عدم القدرة على الحضور، يرجى الاتصال بنا.",
         };
 
-      case 'cancellation':
+      case "cancellation":
         return {
           ...baseData,
           subject: `❌ إلغاء موعدك - ${data.appointmentId}`,
-          notification_type: 'إلغاء موعد',
-          icon: '❌',
+          notification_type: "إلغاء موعد",
+          icon: "❌",
           message: `تم إلغاء موعدك في ${data.clinicName}. يمكنك حجز موعد جديد في أي وقت.`,
-          instructions: 'اتصل بنا لحجز موعد جديد أو لمناقشة مواعيد بديلة.'
+          instructions: "اتصل بنا لحجز موعد جديد أو لمناقشة مواعيد بديلة.",
         };
 
-      case 'test':
+      case "test":
         return {
           ...baseData,
-          subject: '🧪 اختبار نظام الإشعارات',
-          notification_type: 'رسالة اختبار',
-          icon: '🧪',
-          message: 'هذه رسالة اختبار للتأكد من صحة إعدادات نظام الإشعارات.',
-          instructions: 'إذا وصلتك هذه الرسالة، فال��ظام يعمل بشكل صحيح!'
+          subject: "🧪 اختبار نظام الإشعارات",
+          notification_type: "رسالة اختبار",
+          icon: "🧪",
+          message: "هذه رسالة اختبار للتأكد من صحة إعدادات نظام الإشعارات.",
+          instructions: "إذا وصلتك هذه الرسالة، فال��ظام يعمل بشكل صحيح!",
         };
 
       default:
@@ -393,37 +416,41 @@ export class EmailJSService {
   }
 
   // محاكاة حجز حقيقي للاختبار مع منع التضارب
-  async sendTestBookingNotification(testEmail: string): Promise<EmailResult & { appointmentId?: string }> {
+  async sendTestBookingNotification(
+    testEmail: string,
+  ): Promise<EmailResult & { appointmentId?: string }> {
     const appointmentId = `APT-${Date.now()}`;
     const mockData: NotificationData = {
-      patientName: 'أحمد محمد علي',
+      patientName: "أحمد محمد علي",
       patientEmail: testEmail,
       appointmentId,
-      appointmentDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString('ar-EG'),
-      appointmentTime: '10:00 صباحاً',
-      doctorName: 'الدكتور كمال الملصي',
-      clinicName: 'عيادة الدكتور كمال الملصي لطب الأسنان',
-      clinicPhone: '+966 11 234 5678',
-      clinicAddress: 'شارع الملك فهد، الرياض، المملكة العربية السعودية',
-      notes: 'فحص دوري وتنظيف الأسنان'
+      appointmentDate: new Date(
+        Date.now() + 24 * 60 * 60 * 1000,
+      ).toLocaleDateString("ar-EG"),
+      appointmentTime: "10:00 صباحاً",
+      doctorName: "الدكتور كمال الملصي",
+      clinicName: "عيادة الدكتور كمال الملصي لطب الأسنان",
+      clinicPhone: "+966 11 234 5678",
+      clinicAddress: "شارع الملك فهد، الرياض، المملكة العربية السعودية",
+      notes: "فحص دوري وتنظيف الأسنان",
     };
 
     try {
-      const result = await this.sendNotification('confirmation', mockData);
+      const result = await this.sendNotification("confirmation", mockData);
 
       if (result.success) {
         return {
           ...result,
-          appointmentId: mockData.appointmentId
+          appointmentId: mockData.appointmentId,
         };
       }
 
       return result;
     } catch (error) {
-      console.error('Test booking notification error:', error);
+      console.error("Test booking notification error:", error);
       return {
         success: false,
-        error: 'فشل في إرسال إشعار الحجز التجريبي'
+        error: "فشل في إرسال إشعار الحجز التجريبي",
       };
     }
   }

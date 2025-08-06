@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { 
-  AlertTriangle, 
-  CheckCircle, 
-  ExternalLink, 
+import {
+  AlertTriangle,
+  CheckCircle,
+  ExternalLink,
   Copy,
   Settings,
   Mail,
   Key,
   FileText,
-  HelpCircle
+  HelpCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -24,57 +30,57 @@ interface EmailJSSetupHelperProps {
   onOpenGuide?: () => void;
 }
 
-export default function EmailJSSetupHelper({ 
-  hasServiceId, 
-  hasTemplateId, 
-  hasPublicKey, 
+export default function EmailJSSetupHelper({
+  hasServiceId,
+  hasTemplateId,
+  hasPublicKey,
   hasSenderEmail,
-  onOpenGuide 
+  onOpenGuide,
 }: EmailJSSetupHelperProps) {
   const [showQuickTemplate, setShowQuickTemplate] = useState(false);
 
   const setupSteps = [
     {
-      id: 'service',
-      title: 'Service ID',
+      id: "service",
+      title: "Service ID",
       completed: hasServiceId,
-      description: 'معرف خدمة البريد الإلكتروني من EmailJS',
+      description: "معرف خدمة البريد الإلكتروني من EmailJS",
       icon: <Settings className="w-4 h-4" />,
-      example: 'service_abc123xyz'
+      example: "service_abc123xyz",
     },
     {
-      id: 'template', 
-      title: 'Template ID',
+      id: "template",
+      title: "Template ID",
       completed: hasTemplateId,
-      description: 'معرف قالب البريد الإلكتروني',
+      description: "معرف قالب البريد الإلكتروني",
       icon: <FileText className="w-4 h-4" />,
-      example: 'template_xyz789abc'
+      example: "template_xyz789abc",
     },
     {
-      id: 'key',
-      title: 'Public Key',
+      id: "key",
+      title: "Public Key",
       completed: hasPublicKey,
-      description: 'المفتاح العام للمصادقة',
+      description: "المفتاح العام للمصادقة",
       icon: <Key className="w-4 h-4" />,
-      example: 'user_1234567890abcdef'
+      example: "user_1234567890abcdef",
     },
     {
-      id: 'email',
-      title: 'بريد المرسل',
+      id: "email",
+      title: "بريد المرسل",
       completed: hasSenderEmail,
-      description: 'البريد الإلكتروني للعيادة',
+      description: "البريد الإلكتروني للعيادة",
       icon: <Mail className="w-4 h-4" />,
-      example: 'clinic@example.com'
-    }
+      example: "clinic@example.com",
+    },
   ];
 
-  const completedSteps = setupSteps.filter(step => step.completed).length;
+  const completedSteps = setupSteps.filter((step) => step.completed).length;
   const totalSteps = setupSteps.length;
   const isComplete = completedSteps === totalSteps;
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success('تم النسخ للحافظة');
+    toast.success("تم النسخ للحافظة");
   };
 
   const quickTemplate = `<!DOCTYPE html>
@@ -120,7 +126,9 @@ export default function EmailJSSetupHelper({
   return (
     <div className="space-y-4">
       {/* حالة التقدم */}
-      <Card className={`border-2 ${isComplete ? 'border-green-500' : 'border-orange-500'}`}>
+      <Card
+        className={`border-2 ${isComplete ? "border-green-500" : "border-orange-500"}`}
+      >
         <CardHeader>
           <CardTitle className="font-arabic flex items-center gap-2">
             {isComplete ? (
@@ -131,28 +139,44 @@ export default function EmailJSSetupHelper({
             حالة إعداد EmailJS
           </CardTitle>
           <CardDescription className="font-arabic">
-            {isComplete 
-              ? 'تم الإعداد بنجاح! يمكنك الآن اختبار النظام'
-              : `${completedSteps} من ${totalSteps} خطوات مكتملة`
-            }
+            {isComplete
+              ? "تم الإعداد بنجاح! يمكنك الآن اختبار النظام"
+              : `${completedSteps} من ${totalSteps} خطوات مكتملة`}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {setupSteps.map((step) => (
-              <div key={step.id} className="flex items-center gap-3 p-3 border rounded-lg">
-                <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                  step.completed ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'
-                }`}>
-                  {step.completed ? <CheckCircle className="w-4 h-4" /> : step.icon}
+              <div
+                key={step.id}
+                className="flex items-center gap-3 p-3 border rounded-lg"
+              >
+                <div
+                  className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                    step.completed
+                      ? "bg-green-100 text-green-600"
+                      : "bg-gray-100 text-gray-400"
+                  }`}
+                >
+                  {step.completed ? (
+                    <CheckCircle className="w-4 h-4" />
+                  ) : (
+                    step.icon
+                  )}
                 </div>
                 <div className="flex-1">
-                  <div className="font-bold text-sm font-arabic">{step.title}</div>
-                  <div className="text-xs text-gray-500 font-arabic">{step.description}</div>
-                  <code className="text-xs text-blue-600 bg-blue-50 px-1 rounded">{step.example}</code>
+                  <div className="font-bold text-sm font-arabic">
+                    {step.title}
+                  </div>
+                  <div className="text-xs text-gray-500 font-arabic">
+                    {step.description}
+                  </div>
+                  <code className="text-xs text-blue-600 bg-blue-50 px-1 rounded">
+                    {step.example}
+                  </code>
                 </div>
                 <Badge variant={step.completed ? "default" : "secondary"}>
-                  {step.completed ? 'مكتمل' : 'مطلوب'}
+                  {step.completed ? "مكتمل" : "مطلوب"}
                 </Badge>
               </div>
             ))}
@@ -162,17 +186,17 @@ export default function EmailJSSetupHelper({
 
       {/* أزرار المساعدة */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Button 
-          variant="outline" 
-          onClick={() => window.open('https://www.emailjs.com', '_blank')}
+        <Button
+          variant="outline"
+          onClick={() => window.open("https://www.emailjs.com", "_blank")}
           className="font-arabic"
         >
           <ExternalLink className="w-4 h-4 ml-2" />
           زيارة EmailJS
         </Button>
 
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           onClick={() => setShowQuickTemplate(!showQuickTemplate)}
           className="font-arabic"
         >
@@ -181,8 +205,8 @@ export default function EmailJSSetupHelper({
         </Button>
 
         {onOpenGuide && (
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={onOpenGuide}
             className="font-arabic"
           >
@@ -196,7 +220,9 @@ export default function EmailJSSetupHelper({
       {showQuickTemplate && (
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic text-sm">قالب HTML سريع للبريد الإلكتروني</CardTitle>
+            <CardTitle className="font-arabic text-sm">
+              قالب HTML سريع للبريد الإلكتروني
+            </CardTitle>
             <CardDescription className="font-arabic text-xs">
               انسخ هذا القالب واستخدم�� في EmailJS لإنشاء قالب البريد الإلكتروني
             </CardDescription>
@@ -224,8 +250,9 @@ export default function EmailJSSetupHelper({
         <Alert>
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription className="font-arabic">
-            <strong>خطوات مطلوبة:</strong> يجب إكمال جميع الحقول أعلاه قبل استخدام نظام الإشعارات الحقيقية.
-            راجع دليل الإعداد للحصول على تعليمات مفصلة.
+            <strong>خطوات مطلوبة:</strong> يجب إكمال جميع الحقول أعلاه قبل
+            استخدام نظام الإشعارات الحقيقية. راجع دليل الإعداد للحصول على
+            تعليمات مفصلة.
           </AlertDescription>
         </Alert>
       )}
@@ -234,7 +261,7 @@ export default function EmailJSSetupHelper({
         <Alert>
           <CheckCircle className="h-4 w-4" />
           <AlertDescription className="font-arabic">
-            ✅ <strong>جاهز للاستخدام!</strong> تم إعداد جميع البيانات المطلوبة. 
+            ✅ <strong>جاهز للاستخدام!</strong> تم إعداد جميع البيانات المطلوبة.
             يمكنك الآن اختبار النظام من تبويب "الاختبار".
           </AlertDescription>
         </Alert>

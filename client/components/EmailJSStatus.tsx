@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  Wifi, 
-  WifiOff, 
-  Activity, 
-  RefreshCw, 
-  CheckCircle, 
+import {
+  Wifi,
+  WifiOff,
+  Activity,
+  RefreshCw,
+  CheckCircle,
   XCircle,
-  AlertTriangle
+  AlertTriangle,
 } from "lucide-react";
 import { emailJSService } from "../services/emailJSService";
-import { ConnectionStatus, getConnectionStatusText, getConnectionStatusColor } from "../lib/emailConfig";
+import {
+  ConnectionStatus,
+  getConnectionStatusText,
+  getConnectionStatusColor,
+} from "../lib/emailConfig";
 
 interface EmailJSStatusProps {
   connectionStatus: ConnectionStatus;
@@ -19,10 +23,10 @@ interface EmailJSStatusProps {
   isRefreshing?: boolean;
 }
 
-export default function EmailJSStatus({ 
-  connectionStatus, 
-  onRefresh, 
-  isRefreshing = false 
+export default function EmailJSStatus({
+  connectionStatus,
+  onRefresh,
+  isRefreshing = false,
 }: EmailJSStatusProps) {
   const [pendingCount, setPendingCount] = useState(0);
 
@@ -68,7 +72,9 @@ export default function EmailJSStatus({
     <div className="flex items-center gap-2">
       <Badge variant={getStatusVariant()} className="font-arabic">
         {getStatusIcon()}
-        <span className="mr-1">{getConnectionStatusText(connectionStatus)}</span>
+        <span className="mr-1">
+          {getConnectionStatusText(connectionStatus)}
+        </span>
       </Badge>
 
       {pendingCount > 0 && (
@@ -79,14 +85,16 @@ export default function EmailJSStatus({
       )}
 
       {onRefresh && (
-        <Button 
-          size="sm" 
-          variant="ghost" 
+        <Button
+          size="sm"
+          variant="ghost"
           onClick={onRefresh}
           disabled={isRefreshing || pendingCount > 0}
           className="h-6 px-2"
         >
-          <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw
+            className={`w-3 h-3 ${isRefreshing ? "animate-spin" : ""}`}
+          />
         </Button>
       )}
 

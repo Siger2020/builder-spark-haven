@@ -56,9 +56,9 @@ export function Navigation() {
 
   // تحديد القوائم حسب نوع المستخدم
   const getNavigationItems = () => {
-    if (user?.role === 'patient') {
+    if (user?.role === "patient") {
       return patientNavigationItems;
-    } else if (user?.role === 'admin') {
+    } else if (user?.role === "admin") {
       return adminNavigationItems;
     } else {
       // للأطباء والموظفين الآخرين
@@ -76,10 +76,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link
-              to="/"
-              className="text-gray-900 text-xl font-arabic pr-2"
-            >
+            <Link to="/" className="text-gray-900 text-xl font-arabic pr-2">
               <p>عيادة الدكتور كمال&nbsp;الملصي</p>
             </Link>
           </div>

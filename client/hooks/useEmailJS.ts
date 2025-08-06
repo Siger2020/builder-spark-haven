@@ -1,6 +1,10 @@
-import { useState, useEffect } from 'react';
-import { emailJSService } from '../services/emailJSService';
-import { EmailJSSettings, defaultEmailJSSettings, ConnectionStatus } from '../lib/emailConfig';
+import { useState, useEffect } from "react";
+import { emailJSService } from "../services/emailJSService";
+import {
+  EmailJSSettings,
+  defaultEmailJSSettings,
+  ConnectionStatus,
+} from "../lib/emailConfig";
 
 interface UseEmailJSReturn {
   settings: EmailJSSettings;
@@ -8,7 +12,9 @@ interface UseEmailJSReturn {
   saveSettings: () => Promise<boolean>;
   testConnection: () => Promise<boolean>;
   sendTestEmail: (email: string) => Promise<boolean>;
-  sendTestBooking: (email: string) => Promise<{ success: boolean; appointmentId?: string }>;
+  sendTestBooking: (
+    email: string,
+  ) => Promise<{ success: boolean; appointmentId?: string }>;
   isLoading: boolean;
   isTesting: boolean;
   connectionStatus: ConnectionStatus;
@@ -16,10 +22,14 @@ interface UseEmailJSReturn {
 }
 
 export const useEmailJS = (): UseEmailJSReturn => {
-  const [settings, setSettings] = useState<EmailJSSettings>(defaultEmailJSSettings);
+  const [settings, setSettings] = useState<EmailJSSettings>(
+    defaultEmailJSSettings,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.NOT_CONFIGURED);
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(
+    ConnectionStatus.NOT_CONFIGURED,
+  );
 
   // تحديث الإعدادات
   const updateSettings = (newSettings: EmailJSSettings) => {
@@ -29,25 +39,25 @@ export const useEmailJS = (): UseEmailJSReturn => {
   // حفظ الإعدادات
   const saveSettings = async (): Promise<boolean> => {
     setIsLoading(true);
-    
+
     try {
       // تكوين الخدمة
       const configResult = emailJSService.configure(settings);
-      
+
       if (!configResult.success) {
-        console.error('EmailJS configuration errors:', configResult.errors);
+        console.error("EmailJS configuration errors:", configResult.errors);
         return false;
       }
 
       // حفظ في localStorage
-      localStorage.setItem('emailjs_settings', JSON.stringify(settings));
-      
+      localStorage.setItem("emailjs_settings", JSON.stringify(settings));
+
       // تحديث حالة الاتصال
       setConnectionStatus(emailJSService.getConnectionStatus());
-      
+
       return true;
     } catch (error) {
-      console.error('Error saving EmailJS settings:', error);
+      console.error("Error saving EmailJS settings:", error);
       return false;
     } finally {
       setIsLoading(false);
@@ -58,10 +68,10 @@ export const useEmailJS = (): UseEmailJSReturn => {
   const testConnection = async (): Promise<boolean> => {
     setIsTesting(true);
     setConnectionStatus(ConnectionStatus.TESTING);
-    
+
     try {
       const result = await emailJSService.testConnection();
-      
+
       if (result.success) {
         setConnectionStatus(ConnectionStatus.CONNECTED);
         return true;
@@ -84,7 +94,7 @@ export const useEmailJS = (): UseEmailJSReturn => {
     }
 
     setIsTesting(true);
-    
+
     try {
       const result = await emailJSService.sendTestEmail(email);
       return result.success;
@@ -96,18 +106,20 @@ export const useEmailJS = (): UseEmailJSReturn => {
   };
 
   // إرسال اختبار حجز
-  const sendTestBooking = async (email: string): Promise<{ success: boolean; appointmentId?: string }> => {
+  const sendTestBooking = async (
+    email: string,
+  ): Promise<{ success: boolean; appointmentId?: string }> => {
     if (!emailJSService.isConfigured()) {
       return { success: false };
     }
 
     setIsTesting(true);
-    
+
     try {
       const result = await emailJSService.sendTestBookingNotification(email);
       return {
         success: result.success,
-        appointmentId: result.appointmentId
+        appointmentId: result.appointmentId,
       };
     } catch (error) {
       return { success: false };
@@ -119,17 +131,17 @@ export const useEmailJS = (): UseEmailJSReturn => {
   // تحميل الإعدادات المحفوظة عند البدء
   useEffect(() => {
     try {
-      const savedSettings = localStorage.getItem('emailjs_settings');
+      const savedSettings = localStorage.getItem("emailjs_settings");
       if (savedSettings) {
         const parsedSettings = JSON.parse(savedSettings);
         setSettings(parsedSettings);
-        
+
         // تكوين الخدمة
         emailJSService.configure(parsedSettings);
         setConnectionStatus(emailJSService.getConnectionStatus());
       }
     } catch (error) {
-      console.error('Error loading saved EmailJS settings:', error);
+      console.error("Error loading saved EmailJS settings:", error);
     }
   }, []);
 
@@ -143,6 +155,6 @@ export const useEmailJS = (): UseEmailJSReturn => {
     isLoading,
     isTesting,
     connectionStatus,
-    isConfigured: emailJSService.isConfigured()
+    isConfigured: emailJSService.isConfigured(),
   };
 };
