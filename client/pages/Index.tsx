@@ -34,55 +34,67 @@ const services = [
     title: "تنظيف الأسنان",
     description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
     icon: Smile,
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d9a2684a264bc7a3c3f7068487b50a"
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d9a2684a264bc7a3c3f7068487b50a",
   },
   {
     title: "حشوات الأسنان",
     description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
     icon: Shield,
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295"
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295",
   },
   {
     title: "تقويم الأسنان",
     description: "تقويم شامل بأحدث التقنيا�� الطبية المتقدمة",
     icon: Star,
-    image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
+    image:
+      "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b",
   },
   {
     title: "زراعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204"
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
   },
   {
     title: "تبييض الأسنان",
     description: "تبييض آمن وفعال لابتسامة مشرقة",
     icon: Star,
-    image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12?alt=media&token=0aad9bfe-c865-4eee-a16d-072936f66615&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
+    image:
+      "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12?alt=media&token=0aad9bfe-c865-4eee-a16d-072936f66615&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b",
   },
   {
     title: "علاج الجذور",
     description: "����لاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
-    image: "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b"
+    image:
+      "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b",
   },
   {
     title: "طب أسنان الأطفال",
-    description: "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+    description:
+      "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e"
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e",
   },
   {
     title: "طب الأسنان الترميمي",
-    description: "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها. نقدم لك الحشوات والتيجان والجسور وغيرها لاستعادة صحة أسنانك",
+    description:
+      "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها. نقدم لك الحشوات والتيجان والجسور وغيرها لاستعادة صحة أسنانك",
     icon: Wrench,
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F4ecc0485788f45fab358a32e32695be9"
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F4ecc0485788f45fab358a32e32695be9",
   },
   {
     title: "طب الأسنان التجميلي",
-    description: "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+    description:
+      "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
-    image: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341"
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341",
   },
 ];
 
@@ -121,65 +133,83 @@ const beforeAfterCases = [
     id: 1,
     title: "تقويم الأسنان",
     description: "تقويم شامل لمدة 18 شهر مع نتائج مذهلة",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F498b557e655b4717aebccef277928cb8",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fd15de2edbd7e480288bbefeb6673351d",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F498b557e655b4717aebccef277928cb8",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fd15de2edbd7e480288bbefeb6673351d",
   },
   {
     id: 2,
     title: "تبييض الأسنان",
     description: "تبييض احترافي مع تحسن 8 د��جات",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F26113c77982743bb91bbb6482b36781f",
   },
   {
     id: 3,
     title: "زراعة الأسنان",
     description: "زراعة متكاملة مع نتائج طبيعية 100%",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fddcb4c2e26404b149b607d3da80d435e",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6e92e485ef534ae2ab04f48f54412c8b",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fddcb4c2e26404b149b607d3da80d435e",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6e92e485ef534ae2ab04f48f54412c8b",
   },
   {
     id: 4,
     title: "حشوات تجميلية",
     description: "حشوات تطابق لون الأسنان الطبيعي 100%",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa824911772c54f459d59bf3b972be819",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa824911772c54f459d59bf3b972be819",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295",
   },
   {
     id: 5,
     title: "قشور الأسن��ن",
     description: "ابتسامة هوليوودية طبيعية ومتينة",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fb52362602fbf42f2866ffd758b9c49e3",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fb52362602fbf42f2866ffd758b9c49e3",
   },
   {
     id: 6,
     title: "علاج الجذور",
     description: "إنقاذ السن وإزالة الألم نهائياً",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6c25357a685f49c087674c72a7515f79",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F03af0a006e6d426bb83f0f44b613e007",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F6c25357a685f49c087674c72a7515f79",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F03af0a006e6d426bb83f0f44b613e007",
   },
   // Additional cases for "View More"
   {
     id: 7,
     title: "تركيب التيجان",
     description: "تيجان خزفية بجودة عالية وشكل طبيعي",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece",
   },
   {
     id: 8,
     title: "جسور ال��سنان",
     description: "جسور ثابتة ��تعويض الأسنان المفقودة",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F1b3a064be2df4fceaab047c5445f5579",
   },
   {
     id: 9,
     title: "علاج اللثة",
     description: "علاج التهابات اللثة وتحسين صحة الفم",
-    beforeImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737",
-    afterImage: "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
+    beforeImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Febb9d4d3fc0d430ea2056739377e5737",
+    afterImage:
+      "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d27b1b54994c99afa37896bf474b12",
   },
 ];
 
@@ -192,7 +222,10 @@ export default function Index() {
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="animate-float absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-          <div className="animate-float absolute bottom-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl" style={{animationDelay: '1s'}}></div>
+          <div
+            className="animate-float absolute bottom-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"
+            style={{ animationDelay: "1s" }}
+          ></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center animate-fadeInUp">
@@ -235,11 +268,16 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
+              <div
+                key={index}
+                className="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300"
+              >
                 <div className="text-3xl md:text-4xl font-bold text-dental-primary mb-2 group-hover:text-dental-primary/80 transition-colors duration-300">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-arabic group-hover:text-gray-800 transition-colors duration-300">{stat.label}</div>
+                <div className="text-gray-600 font-arabic group-hover:text-gray-800 transition-colors duration-300">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -261,7 +299,10 @@ export default function Index() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-dental-primary/10 bg-gradient-to-br from-white to-dental-light group">
+                <Card
+                  key={index}
+                  className="hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-dental-primary/10 bg-gradient-to-br from-white to-dental-light group"
+                >
                   <CardHeader>
                     <img
                       loading="lazy"
@@ -305,7 +346,10 @@ export default function Index() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div key={index} className="text-center group cursor-pointer transform hover:-translate-y-1 transition-all duration-300">
+                <div
+                  key={index}
+                  className="text-center group cursor-pointer transform hover:-translate-y-1 transition-all duration-300"
+                >
                   <div className="bg-dental-primary/10 group-hover:bg-dental-primary/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
                     <Icon className="h-8 w-8 text-dental-primary group-hover:text-dental-primary/90" />
                   </div>
@@ -364,7 +408,8 @@ export default function Index() {
                   الواقع الافتراضي
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  ت����ربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل القلق والتوتر
+                  ت����ربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل
+                  القلق والتوتر
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
                   متوفر في جميع العلاجات
@@ -381,7 +426,8 @@ export default function Index() {
                   محاكاة الابتسامة
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء الاصطناعي
+                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء
+                  الاصطناعي
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
                   دقة 95% في التوق��ات
@@ -398,7 +444,8 @@ export default function Index() {
                   التصميم الرقمي ثلاثي الأبعاد
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي الأبعاد
+                  تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي
+                  الأبعاد
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
                   تصميم مخصص لكل مريض
@@ -423,7 +470,10 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Render initial cases (first 6) */}
             {beforeAfterCases.slice(0, 6).map((caseItem) => (
-              <Card key={caseItem.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Card
+                key={caseItem.id}
+                className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+              >
                 <div className="grid grid-cols-2 gap-1">
                   <div className="relative bg-gray-100">
                     <img
@@ -432,12 +482,13 @@ export default function Index() {
                       className="w-full h-32 object-cover"
                       loading="lazy"
                       style={{
-                        WebkitUserSelect: 'none',
-                        WebkitTouchCallout: 'none',
-                        WebkitTapHighlightColor: 'transparent'
+                        WebkitUserSelect: "none",
+                        WebkitTouchCallout: "none",
+                        WebkitTapHighlightColor: "transparent",
                       }}
                       onError={(e) => {
-                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                        e.currentTarget.src =
+                          "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+";
                       }}
                     />
                     <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
@@ -451,12 +502,13 @@ export default function Index() {
                       className="w-full h-32 object-cover"
                       loading="lazy"
                       style={{
-                        WebkitUserSelect: 'none',
-                        WebkitTouchCallout: 'none',
-                        WebkitTapHighlightColor: 'transparent'
+                        WebkitUserSelect: "none",
+                        WebkitTouchCallout: "none",
+                        WebkitTapHighlightColor: "transparent",
                       }}
                       onError={(e) => {
-                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
+                        e.currentTarget.src =
+                          "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+";
                       }}
                     />
                     <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
@@ -465,61 +517,75 @@ export default function Index() {
                   </div>
                 </div>
                 <CardContent className="p-4">
-                  <h3 className="font-bold text-gray-900 mb-2 font-arabic">{caseItem.title}</h3>
-                  <p className="text-sm text-gray-600 font-arabic">{caseItem.description}</p>
+                  <h3 className="font-bold text-gray-900 mb-2 font-arabic">
+                    {caseItem.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 font-arabic">
+                    {caseItem.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
 
             {/* Render additional cases if showMoreResults is true */}
-            {showMoreResults && beforeAfterCases.slice(6).map((caseItem) => (
-              <Card key={caseItem.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                <div className="grid grid-cols-2 gap-1">
-                  <div className="relative bg-gray-100">
-                    <img
-                      src={caseItem.beforeImage}
-                      alt={`قبل ${caseItem.title}`}
-                      className="w-full h-32 object-cover"
-                      loading="lazy"
-                      style={{
-                        WebkitUserSelect: 'none',
-                        WebkitTouchCallout: 'none',
-                        WebkitTapHighlightColor: 'transparent'
-                      }}
-                      onError={(e) => {
-                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
-                      }}
-                    />
-                    <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
-                      قبل
+            {showMoreResults &&
+              beforeAfterCases.slice(6).map((caseItem) => (
+                <Card
+                  key={caseItem.id}
+                  className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <div className="grid grid-cols-2 gap-1">
+                    <div className="relative bg-gray-100">
+                      <img
+                        src={caseItem.beforeImage}
+                        alt={`قبل ${caseItem.title}`}
+                        className="w-full h-32 object-cover"
+                        loading="lazy"
+                        style={{
+                          WebkitUserSelect: "none",
+                          WebkitTouchCallout: "none",
+                          WebkitTapHighlightColor: "transparent",
+                        }}
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2YLYqNmEINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+";
+                        }}
+                      />
+                      <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                        قبل
+                      </div>
+                    </div>
+                    <div className="relative bg-gray-100">
+                      <img
+                        src={caseItem.afterImage}
+                        alt={`بعد ${caseItem.title}`}
+                        className="w-full h-32 object-cover"
+                        loading="lazy"
+                        style={{
+                          WebkitUserSelect: "none",
+                          WebkitTouchCallout: "none",
+                          WebkitTapHighlightColor: "transparent",
+                        }}
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+";
+                        }}
+                      />
+                      <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
+                        بعد
+                      </div>
                     </div>
                   </div>
-                  <div className="relative bg-gray-100">
-                    <img
-                      src={caseItem.afterImage}
-                      alt={`بعد ${caseItem.title}`}
-                      className="w-full h-32 object-cover"
-                      loading="lazy"
-                      style={{
-                        WebkitUserSelect: 'none',
-                        WebkitTouchCallout: 'none',
-                        WebkitTapHighlightColor: 'transparent'
-                      }}
-                      onError={(e) => {
-                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDIwMCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTI4IiBmaWxsPSIjRUNGREY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMxMDczMzciIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+2KjYudivINin2YTYudmE2KfYrDwvdGV4dD4KPC9zdmc+';
-                      }}
-                    />
-                    <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-arabic font-bold">
-                      بعد
-                    </div>
-                  </div>
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-bold text-gray-900 mb-2 font-arabic">{caseItem.title}</h3>
-                  <p className="text-sm text-gray-600 font-arabic">{caseItem.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardContent className="p-4">
+                    <h3 className="font-bold text-gray-900 mb-2 font-arabic">
+                      {caseItem.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 font-arabic">
+                      {caseItem.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
           </div>
 
           {/* عرض المزيد */}
@@ -530,7 +596,11 @@ export default function Index() {
               size="lg"
             >
               <div className="flex items-center space-x-reverse space-x-3">
-                <span>{showMoreResults ? "إخفا�� النتائج الإضافية" : "شاهد المزيد من النتائج"}</span>
+                <span>
+                  {showMoreResults
+                    ? "إخفا�� النتائج الإضافية"
+                    : "شاهد المزيد من النتائج"}
+                </span>
                 {showMoreResults ? (
                   <ChevronUp className="h-5 w-5" />
                 ) : (
@@ -540,10 +610,9 @@ export default function Index() {
               </div>
             </Button>
             <p className="text-gray-600 font-arabic mt-4">
-              {showMoreResults ?
-                `عرض ${beforeAfterCases.length} حالة نجاح موثقة` :
-                "+500 حالة نجاح موثقة"
-              }
+              {showMoreResults
+                ? `عرض ${beforeAfterCases.length} حالة نجاح موثقة`
+                : "+500 حالة نجاح موثقة"}
             </p>
           </div>
         </div>
@@ -567,11 +636,15 @@ export default function Index() {
                 <div className="mb-4">
                   <div className="flex justify-center mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                      <Star
+                        key={i}
+                        className="h-5 w-5 text-yellow-400 fill-current"
+                      />
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت
+                    توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -581,8 +654,12 @@ export default function Index() {
                     className="w-12 h-12 rounded-full ml-3"
                   />
                   <div>
-                    <div className="font-bold text-gray-900 font-arabic">أمل محمد</div>
-                    <div className="text-sm text-gray-600 font-arabic">تقويم الأسنان</div>
+                    <div className="font-bold text-gray-900 font-arabic">
+                      أمل محمد
+                    </div>
+                    <div className="text-sm text-gray-600 font-arabic">
+                      تقويم الأسنان
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -594,11 +671,15 @@ export default function Index() {
                 <div className="mb-4">
                   <div className="flex justify-center mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                      <Star
+                        key={i}
+                        className="h-5 w-5 text-yellow-400 fill-current"
+                      />
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "��لدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
+                    "��لدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان
+                    تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -608,8 +689,12 @@ export default function Index() {
                     className="w-12 h-12 rounded-full ml-3"
                   />
                   <div>
-                    <div className="font-bold text-gray-900 font-arabic">محمد أحمد</div>
-                    <div className="text-sm text-gray-600 font-arabic">زراعة الأسن��ن</div>
+                    <div className="font-bold text-gray-900 font-arabic">
+                      محمد أحمد
+                    </div>
+                    <div className="text-sm text-gray-600 font-arabic">
+                      زراعة الأسن��ن
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -621,11 +706,15 @@ export default function Index() {
                 <div className="mb-4">
                   <div className="flex justify-center mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                      <Star
+                        key={i}
+                        className="h-5 w-5 text-yellow-400 fill-current"
+                      />
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وف��الاً. أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وف��الاً.
+                    أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -635,8 +724,12 @@ export default function Index() {
                     className="w-12 h-12 rounded-full ml-3"
                   />
                   <div>
-                    <div className="font-bold text-gray-900 font-arabic">فاطمة علي</div>
-                    <div className="text-sm text-gray-600 font-arabic">تبييض الأسنان</div>
+                    <div className="font-bold text-gray-900 font-arabic">
+                      فاطمة علي
+                    </div>
+                    <div className="text-sm text-gray-600 font-arabic">
+                      تبييض الأسنان
+                    </div>
                   </div>
                 </div>
               </CardContent>
