@@ -25,9 +25,13 @@ export function initializeDatabase() {
     seedDatabase();
 
     // تحديث وفحص قاعدة البيانات
-    const { updateDatabase, validateDatabaseIntegrity } = require("./update.js");
-    updateDatabase();
-    validateDatabaseIntegrity();
+    try {
+      const { updateDatabase, validateDatabaseIntegrity } = await import("./update.js");
+      updateDatabase();
+      validateDatabaseIntegrity();
+    } catch (error) {
+      console.log("⚠️ تحديث قاعدة البيانات غير متاح:", error.message);
+    }
 
     // التأكد من وجود حساب المدير
     ensureAdminExists();
