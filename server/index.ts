@@ -8,6 +8,7 @@ import bookingsRoutes from "./routes/bookings.js";
 import appointmentsCleanupRoutes from "./routes/appointments-cleanup.js";
 import notificationsRoutes from "./routes/notifications.js";
 import aiAnalysisRoutes from "./routes/ai-analysis.js";
+import paymentsRoutes from "./routes/payments.js";
 import {
   getDatabaseStatsHandler,
   getTablesHandler,
