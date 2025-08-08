@@ -220,20 +220,44 @@ export default function Transactions() {
     setIsLoading(true);
 
     try {
-      // Create payment record
-      const paymentRecord = {
-        id: `PAY-${Date.now()}`,
-        transactionId: selectedTransaction?.id || "NEW",
-        patientName: selectedTransaction?.patientName || "مريض جديد",
+      // Prepare payment data
+      const paymentData = {
+        transaction_id: selectedTransaction?.id || null,
+        patient_name: selectedTransaction?.patientName || "مريض جديد",
         amount: amount,
-        method: paymentMethod,
+        payment_method: paymentMethod,
         notes: paymentNotes,
-        date: new Date().toISOString().split('T')[0],
-        timestamp: new Date().toLocaleString('ar-SA')
+        service_name: selectedTransaction?.service || "خدمة عامة"
       };
 
-      // Add to payment history
-      setPaymentHistory(prev => [paymentRecord, ...prev]);
+      // Send to backend
+      const response = await fetch('/api/payments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'فشل في تسجيل الدفعة');
+      }
+
+      // Update local state
+      const newPayment = {
+        id: result.data.id,
+        transactionId: result.data.transaction_id,
+        patientName: result.data.patient_name,
+        amount: result.data.amount,
+        method: result.data.payment_method,
+        notes: result.data.notes,
+        date: result.data.payment_date.split('T')[0],
+        timestamp: new Date(result.data.payment_date).toLocaleString('ar-SA')
+      };
+
+      setPaymentHistory(prev => [newPayment, ...prev]);
 
       if (selectedTransaction) {
         // Update existing transaction
@@ -256,9 +280,6 @@ export default function Transactions() {
         setTransactionsList(updatedTransactions);
       }
 
-      // Here you would normally send to backend
-      // await fetch('/api/payments', { method: 'POST', body: JSON.stringify(paymentRecord) });
-
       toast({
         title: "تم بنجاح",
         description: `تم تسجيل دفعة بمبلغ ${amount.toLocaleString()} ر.ي`,
@@ -268,9 +289,10 @@ export default function Transactions() {
       setIsNewPaymentDialogOpen(false);
 
     } catch (error) {
+      console.error('Payment error:', error);
       toast({
         title: "خطأ",
-        description: "حدث خطأ أثناء معالجة الدفعة",
+        description: error instanceof Error ? error.message : "حدث خطأ أثناء معالجة الدفعة",
         variant: "destructive",
       });
     } finally {
@@ -549,7 +571,7 @@ export default function Transactions() {
           <TabsContent value="reports" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">��لتقارير المالية</CardTitle>
+                <CardTitle className="font-arabic">التقارير المالية</CardTitle>
                 <CardDescription className="font-arabic">
                   تقارير شاملة عن الإيرادات والمصروفات
                 </CardDescription>
