@@ -460,6 +460,22 @@ const BackupSettings = () => {
 };
 
 const GeneralSettings = () => {
+  const [settings, setSettings] = useState({
+    clinicName: 'عيادة الأسنان المتقدمة',
+    address: 'شارع الملك فهد، الرياض، المملكة العربية السعودية',
+    phone: '+966 11 234 5678',
+    email: 'info@dentalclinic.com',
+    workingHours: '8:00 - 18:00',
+    timezone: 'Asia/Riyadh',
+    currency: 'SAR',
+    language: 'ar'
+  });
+
+  const handleSaveSettings = () => {
+    // Here you would normally save to API
+    alert('تم حفظ الإعدادات بنجاح!');
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -608,7 +624,7 @@ const NotificationSettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">مدفوعات متأخرة</Label>
+            <Label className="font-arabic">مدفوعات ��تأخرة</Label>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
