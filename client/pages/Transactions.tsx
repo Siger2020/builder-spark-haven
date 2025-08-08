@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,18 +8,23 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { 
-  CreditCard, 
-  DollarSign, 
-  TrendingUp, 
-  TrendingDown, 
-  Search, 
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import {
+  CreditCard,
+  DollarSign,
+  TrendingUp,
+  TrendingDown,
+  Search,
   Plus,
   Eye,
   Download,
   Calendar,
   Filter,
-  Receipt
+  Receipt,
+  History,
+  Check,
+  X
 } from "lucide-react";
 
 // Mock data for transactions
