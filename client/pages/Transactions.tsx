@@ -229,7 +229,7 @@ export default function Transactions() {
     const amount = parseFloat(paymentAmount);
     if (amount <= 0) {
       toast({
-        title: "خطأ",
+        title: "خط��",
         description: "يجب أن يكون مبلغ الدفعة أكبر من صفر",
         variant: "destructive",
       });
@@ -411,7 +411,7 @@ export default function Transactions() {
                 {Math.round((totalRevenue / totalTransactions) * 100)}%
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                من إجمالي المبالغ المطلوبة
+                م�� إجمالي المبالغ المطلوبة
               </p>
             </CardContent>
           </Card>
@@ -700,16 +700,11 @@ export default function Transactions() {
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">طريقة الدفع <span className="text-red-500">*</span></Label>
-                <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                  <SelectTrigger className="font-arabic">
-                    <SelectValue placeholder="اختر طريقة الدفع" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="نقداً" className="font-arabic">نقداً</SelectItem>
-                    <SelectItem value="بطاقة ائتمانية" className="font-arabic">بطاقة ائتمانية</SelectItem>
-                    <SelectItem value="تحويل بنكي" className="font-arabic">تحويل بنكي</SelectItem>
-                    <SelectItem value="شيك" className="font-arabic">شيك</SelectItem>
-                  </SelectContent>
+                <Select value={paymentMethod} onValueChange={setPaymentMethod} placeholder="اختر طريقة الدفع" className="font-arabic">
+                  <SelectItem value="نقداً">نقداً</SelectItem>
+                  <SelectItem value="بطاقة ائتمانية">بطاقة ائتمانية</SelectItem>
+                  <SelectItem value="تحويل بنكي">تحويل بنكي</SelectItem>
+                  <SelectItem value="شيك">شيك</SelectItem>
                 </Select>
               </div>
               <div className="space-y-2">
