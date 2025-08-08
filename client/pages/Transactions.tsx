@@ -96,7 +96,7 @@ const getStatusBadge = (status: string) => {
     case "paid":
       return <Badge className="bg-green-100 text-green-800">مدفوع</Badge>;
     case "partial":
-      return <Badge className="bg-yellow-100 text-yellow-800">����دفوع جزئي��ً</Badge>;
+      return <Badge className="bg-yellow-100 text-yellow-800">����دفوع جزئي����ً</Badge>;
     case "pending":
       return <Badge className="bg-red-100 text-red-800">غير ��دفوع</Badge>;
     default:
@@ -598,32 +598,51 @@ export default function Transactions() {
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="font-arabic">مبلغ الدفعة</Label>
-                <Input type="number" placeholder="أدخل المبلغ" className="font-arabic" />
+                <Label className="font-arabic">مبلغ الدفعة <span className="text-red-500">*</span></Label>
+                <Input
+                  type="number"
+                  placeholder="أدخل المبلغ"
+                  className="font-arabic"
+                  value={paymentAmount}
+                  onChange={(e) => setPaymentAmount(e.target.value)}
+                />
+                {selectedTransaction && (
+                  <p className="text-sm text-gray-500 font-arabic">
+                    الحد الأقصى: {selectedTransaction.remaining.toLocaleString()} ر.ي
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
-                <Label className="font-arabic">طريقة الدفع</Label>
-                <Select>
+                <Label className="font-arabic">طريقة الدفع <span className="text-red-500">*</span></Label>
+                <Select value={paymentMethod} onValueChange={setPaymentMethod}>
                   <SelectTrigger className="font-arabic">
                     <SelectValue placeholder="اختر طريقة الدفع" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="cash" className="font-arabic">نقداً</SelectItem>
-                    <SelectItem value="card" className="font-arabic">بطاقة ائتمانية</SelectItem>
-                    <SelectItem value="transfer" className="font-arabic">تحويل بنكي</SelectItem>
+                    <SelectItem value="نقداً" className="font-arabic">نقداً</SelectItem>
+                    <SelectItem value="بطاقة ائتمانية" className="font-arabic">بطاقة ائتمانية</SelectItem>
+                    <SelectItem value="تحويل بنكي" className="font-arabic">تحويل بنكي</SelectItem>
+                    <SelectItem value="شيك" className="font-arabic">شيك</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">ملاحظات</Label>
-                <Input placeholder="ملاحظات إضافية..." className="font-arabic" />
+                <Textarea
+                  placeholder="ملاحظات إضافية..."
+                  className="font-arabic"
+                  value={paymentNotes}
+                  onChange={(e) => setPaymentNotes(e.target.value)}
+                />
               </div>
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setIsPaymentDialogOpen(false)} className="font-arabic">
                 إلغاء
               </Button>
-              <Button className="font-arabic">تأكيد الدفع</Button>
+              <Button onClick={processPayment} disabled={isLoading} className="font-arabic">
+                {isLoading ? "جاري المعالجة..." : "تأكيد الدفع"}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
