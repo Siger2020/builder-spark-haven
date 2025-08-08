@@ -10,6 +10,11 @@ const __dirname = dirname(__filename);
 const dbPath = join(__dirname, "../../clinic_database.sqlite");
 export const db = new Database(dbPath);
 
+// Export getDatabase function for API routes
+export function getDatabase() {
+  return db;
+}
+
 // تكوين قاعدة البيانات
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
@@ -276,7 +281,7 @@ function seedDatabase() {
         "حشوة سن",
       );
 
-      console.log("✅ تم إضافة البيانات التجريبية بنجاح");
+      console.log("✅ تم إ��افة البيانات التجريبية بنجاح");
     }
   } catch (error) {
     console.error("❌ خطأ في إضافة البيانات التجريبية:", error);
