@@ -119,12 +119,12 @@ export default function Transactions() {
   const { toast } = useToast();
 
   // Calculate totals
-  const totalRevenue = transactions.reduce((sum, t) => sum + t.paid, 0);
-  const totalPending = transactions.reduce((sum, t) => sum + t.remaining, 0);
-  const totalTransactions = transactions.reduce((sum, t) => sum + t.amount, 0);
+  const totalRevenue = transactionsList.reduce((sum, t) => sum + t.paid, 0);
+  const totalPending = transactionsList.reduce((sum, t) => sum + t.remaining, 0);
+  const totalTransactions = transactionsList.reduce((sum, t) => sum + t.amount, 0);
 
   // Filter transactions
-  const filteredTransactions = transactions.filter(transaction => {
+  const filteredTransactions = transactionsList.filter(transaction => {
     const matchesSearch = transaction.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          transaction.id.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = selectedStatus === "all" || transaction.status === selectedStatus;
@@ -133,7 +133,129 @@ export default function Transactions() {
 
   const handlePayment = (transaction: any) => {
     setSelectedTransaction(transaction);
+    setPaymentAmount("");
+    setPaymentMethod("");
+    setPaymentNotes("");
     setIsPaymentDialogOpen(true);
+  };
+
+  const handleNewPayment = () => {
+    setSelectedTransaction(null);
+    setPaymentAmount("");
+    setPaymentMethod("");
+    setPaymentNotes("");
+    setIsNewPaymentDialogOpen(true);
+  };
+
+  const processPayment = async () => {
+    if (!paymentAmount || !paymentMethod) {
+      toast({
+        title: "خطأ",
+        description: "يرجى ملء جميع الحقول المطلوبة",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const amount = parseFloat(paymentAmount);
+    if (amount <= 0) {
+      toast({
+        title: "خطأ",
+        description: "يجب أن يكون مبلغ الدفعة أكبر من صفر",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (selectedTransaction && amount > selectedTransaction.remaining) {
+      toast({
+        title: "خطأ",
+        description: "مبلغ الدفعة أكبر من المبلغ المتبقي",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Create payment record
+      const paymentRecord = {
+        id: `PAY-${Date.now()}`,
+        transactionId: selectedTransaction?.id || "NEW",
+        patientName: selectedTransaction?.patientName || "مريض جديد",
+        amount: amount,
+        method: paymentMethod,
+        notes: paymentNotes,
+        date: new Date().toISOString().split('T')[0],
+        timestamp: new Date().toLocaleString('ar-SA')
+      };
+
+      // Add to payment history
+      setPaymentHistory(prev => [paymentRecord, ...prev]);
+
+      if (selectedTransaction) {
+        // Update existing transaction
+        const updatedTransactions = transactionsList.map(t => {
+          if (t.id === selectedTransaction.id) {
+            const newPaid = t.paid + amount;
+            const newRemaining = t.amount - newPaid;
+            const newStatus = newRemaining === 0 ? "paid" : (newPaid > 0 ? "partial" : "pending");
+
+            return {
+              ...t,
+              paid: newPaid,
+              remaining: newRemaining,
+              status: newStatus,
+              paymentMethod: paymentMethod
+            };
+          }
+          return t;
+        });
+        setTransactionsList(updatedTransactions);
+      }
+
+      // Here you would normally send to backend
+      // await fetch('/api/payments', { method: 'POST', body: JSON.stringify(paymentRecord) });
+
+      toast({
+        title: "تم بنجاح",
+        description: `تم تسجيل دفعة بمبلغ ${amount.toLocaleString()} ر.ي`,
+      });
+
+      setIsPaymentDialogOpen(false);
+      setIsNewPaymentDialogOpen(false);
+
+    } catch (error) {
+      toast({
+        title: "خطأ",
+        description: "حدث خطأ أثناء معالجة الدفعة",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadPaymentHistory = async (transactionId: string) => {
+    // Mock payment history - in real app this would come from backend
+    const mockHistory = [
+      {
+        id: "PAY-001",
+        amount: 1000,
+        method: "نقداً",
+        date: "2024-01-10",
+        notes: "دفعة أولى"
+      },
+      {
+        id: "PAY-002",
+        amount: 500,
+        method: "بطاقة ائتمانية",
+        date: "2024-01-12",
+        notes: "دفعة ثانية"
+      }
+    ];
+    setPaymentHistory(mockHistory);
   };
 
   return (
@@ -388,7 +510,7 @@ export default function Transactions() {
                     </label>
                     <label className="flex items-center space-x-reverse space-x-2">
                       <input type="checkbox" defaultChecked />
-                      <span className="font-arabic">ب��اقة ائتمانية</span>
+                      <span className="font-arabic">بطاقة ائتمانية</span>
                     </label>
                     <label className="flex items-center space-x-reverse space-x-2">
                       <input type="checkbox" defaultChecked />
