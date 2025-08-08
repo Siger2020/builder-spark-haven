@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS doctors (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- جدول الخدمات
+-- جدو�� الخدمات
 CREATE TABLE IF NOT EXISTS services (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -467,6 +467,15 @@ CREATE TABLE IF NOT EXISTS backups (
 
 -- الفهارس لتحسين الأداء
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_transactions_patient_id ON transactions(patient_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_status ON transactions(status);
+CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions(transaction_date);
+CREATE INDEX IF NOT EXISTS idx_payments_transaction_id ON payments(transaction_id);
+CREATE INDEX IF NOT EXISTS idx_payments_date ON payments(payment_date);
+CREATE INDEX IF NOT EXISTS idx_payments_method ON payments(payment_method);
+CREATE INDEX IF NOT EXISTS idx_installments_transaction_id ON payment_installments(transaction_id);
+CREATE INDEX IF NOT EXISTS idx_installments_due_date ON payment_installments(due_date);
+CREATE INDEX IF NOT EXISTS idx_installments_status ON payment_installments(status);
 CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
 CREATE INDEX IF NOT EXISTS idx_patients_user_id ON patients(user_id);
 CREATE INDEX IF NOT EXISTS idx_patients_patient_number ON patients(patient_number);
@@ -497,7 +506,7 @@ INSERT OR IGNORE INTO system_settings (category, setting_key, setting_value, des
 ('clinic', 'currency', 'YER', 'الريال اليمني'),
 ('clinic', 'timezone', 'Asia/Aden', 'المنطقة الزمنية'),
 ('system', 'language', 'arabic', 'لغة النظام الافتراضية'),
-('notifications', 'sms_enabled', 'false', 'تفعيل الرسائل النصية'),
+('notifications', 'sms_enabled', 'false', 'تفعي�� الرسائل النصية'),
 ('notifications', 'email_enabled', 'true', 'تفعيل البريد الإلكتروني'),
 ('notifications', 'whatsapp_enabled', 'false', 'تفعيل الواتس آب'),
 ('email', 'auto_send_confirmation', 'true', 'إرسال تأكيد الموعد تلقائياً'),
@@ -581,7 +590,7 @@ CREATE TABLE IF NOT EXISTS ai_analysis_reports (
     FOREIGN KEY (analysis_id) REFERENCES ai_analyses(id) ON DELETE CASCADE
 );
 
--- جدول نماذج الذكاء الاصطناعي
+-- جدول نماذج الذكاء الاصطناع��
 CREATE TABLE IF NOT EXISTS ai_models (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     model_name TEXT UNIQUE NOT NULL,
