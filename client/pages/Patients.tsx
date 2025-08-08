@@ -114,12 +114,24 @@ export default function Patients() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [isAddPatientDialogOpen, setIsAddPatientDialogOpen] = useState(false);
+  const [isEditPatientDialogOpen, setIsEditPatientDialogOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [isViewPatientDialogOpen, setIsViewPatientDialogOpen] = useState(false);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [activeTab, setActiveTab] = useState("patients");
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    gender: '',
+    insurance_company: '',
+    medical_history: '',
+    allergies: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch patients data from database
   useEffect(() => {
@@ -1050,7 +1062,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        الجنس: {selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنثى' : selectedPatient.gender}
+                        الجنس: {selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنث��' : selectedPatient.gender}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
