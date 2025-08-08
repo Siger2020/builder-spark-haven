@@ -135,6 +135,15 @@ const SecuritySettings = () => {
 
 const UserManagement = () => {
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
+  const [usersList, setUsersList] = useState(users);
+  const [newUser, setNewUser] = useState({
+    name: '',
+    email: '',
+    role: '',
+    password: ''
+  });
+  const [editingUser, setEditingUser] = useState<any>(null);
+  const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 
   const getRoleBadge = (role: string) => {
     const roleColors = {
@@ -231,14 +240,14 @@ const UserManagement = () => {
                   <SelectValue placeholder="اختر الدور" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin" className="font-arabic">مدير</SelectItem>
+                  <SelectItem value="admin" className="font-arabic">مدي��</SelectItem>
                   <SelectItem value="doctor" className="font-arabic">طبيب</SelectItem>
                   <SelectItem value="receptionist" className="font-arabic">استقبال</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label className="font-arabic">كلمة الم��ور</Label>
+              <Label className="font-arabic">كلمة المرور</Label>
               <Input type="password" placeholder="كلمة المرور" />
             </div>
           </div>
@@ -547,7 +556,7 @@ export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
           <Button variant="outline" onClick={onClose} className="font-arabic">
             إلغاء
           </Button>
-          <Button className="font-arabic">حفظ التغييرات</Button>
+          <Button className="font-arabic">حفظ الت��ييرات</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
