@@ -41,7 +41,7 @@ const treatmentSessions = [
     duration: 45,
     status: "مكتمل",
     doctor: "د. محمد علي",
-    notes: "تم تعديل السلك وتقييم التقدم. النتائج ممتازة.",
+    notes: "تم تعديل السلك وتقييم التقدم. النتائج ممتا��ة.",
     nextSession: "2024-02-15",
     progress: 25,
     procedures: ["فحص التقويم", "تعديل السلك", "تنظيف الأقواس"]
@@ -791,28 +791,34 @@ export default function Sessions() {
                 </div>
                 <div className="space-y-2">
                   <Label className="font-arabic">الطبيب المعالج</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر الطبيب" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="doc1" className="font-arabic">د. سارة أحمد</SelectItem>
-                      <SelectItem value="doc2" className="font-arabic">د. محمد علي</SelectItem>
-                      <SelectItem value="doc3" className="font-arabic">د. نورا سالم</SelectItem>
-                    </SelectContent>
+                  <Select
+                    value={sessionForm.doctor}
+                    onValueChange={(value) => setSessionForm(prev => ({ ...prev, doctor: value }))}
+                    className="font-arabic"
+                  >
+                    <SelectItem value="د. سارة أحمد">د. سارة أحمد</SelectItem>
+                    <SelectItem value="د. محمد علي">د. محمد علي</SelectItem>
+                    <SelectItem value="د. نورا سالم">د. نورا سالم</SelectItem>
                   </Select>
                 </div>
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">ملاحظات</Label>
-                <Textarea placeholder="ملاحظات حول الجلسة..." className="font-arabic" />
+                <Textarea
+                  placeholder="ملاحظات حول الجلسة..."
+                  className="font-arabic"
+                  value={sessionForm.notes}
+                  onChange={(e) => setSessionForm(prev => ({ ...prev, notes: e.target.value }))}
+                />
               </div>
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setIsNewSessionDialogOpen(false)} className="font-arabic">
                 إلغاء
               </Button>
-              <Button className="font-arabic">جدولة الجلسة</Button>
+              <Button onClick={handleSaveSession} disabled={isLoading} className="font-arabic">
+                {isLoading ? "جاري الحفظ..." : "جدولة الجلسة"}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
