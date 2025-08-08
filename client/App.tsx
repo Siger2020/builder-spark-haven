@@ -190,6 +190,15 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/ai-analysis"
+                element={
+                  <ProtectedRoute requiredRole="doctor">
+                    <Navigation />
+                    <AIAnalysis />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
