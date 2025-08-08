@@ -74,16 +74,25 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    // البحث عن المستخدم بالإيميل أولاً للتشخيص
+    const emailCheck = db
+      .prepare("SELECT id, name, email, role FROM users WHERE email = ?")
+      .get(email);
+
+    console.log("Email check result:", emailCheck);
+
     // البحث عن المستخدم
     const user = db
       .prepare(
         `
-      SELECT id, name, email, phone, role 
-      FROM users 
+      SELECT id, name, email, phone, role
+      FROM users
       WHERE email = ? AND password = ?
     `,
       )
       .get(email, password);
+
+    console.log("Login check result:", user ? "User found" : "User not found");
 
     if (user) {
       res.json({
@@ -106,7 +115,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// التحقق من صحة الج��سة
+// التحقق من صحة الجلسة
 router.get("/verify", async (req, res) => {
   try {
     const { userId } = req.query;
