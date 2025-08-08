@@ -772,16 +772,11 @@ export default function Sessions() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="font-arabic">المدة المتوقعة</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر المدة" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="30" className="font-arabic">30 دقيقة</SelectItem>
-                      <SelectItem value="45" className="font-arabic">45 دقيقة</SelectItem>
-                      <SelectItem value="60" className="font-arabic">60 دقيقة</SelectItem>
-                      <SelectItem value="90" className="font-arabic">90 دقيقة</SelectItem>
-                    </SelectContent>
+                  <Select placeholder="اختر المدة" className="font-arabic">
+                    <SelectItem value="30">30 دقيقة</SelectItem>
+                    <SelectItem value="45">45 دقيقة</SelectItem>
+                    <SelectItem value="60">60 دقيقة</SelectItem>
+                    <SelectItem value="90">90 دقيقة</SelectItem>
                   </Select>
                 </div>
                 <div className="space-y-2">
