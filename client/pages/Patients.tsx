@@ -143,7 +143,7 @@ export default function Patients() {
         setPatients([]);
       }
     } catch (error) {
-      console.error('خطأ في جلب بيانات ��لمرضى:', error);
+      console.error('خطأ في جلب بيانات المرضى:', error);
       setPatients([]);
     } finally {
       setLoading(false);
@@ -273,16 +273,16 @@ export default function Patients() {
                   </div>
                   <div className="w-full md:w-48">
                     <Label className="font-arabic">حالة المريض</Label>
-                    <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-                      <SelectTrigger className="font-arabic">
-                        <SelectValue placeholder="اختر حالة المريض" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
-                        <SelectItem value="active" className="font-arabic">نشط</SelectItem>
-                        <SelectItem value="inactive" className="font-arabic">غير نشط</SelectItem>
-                        <SelectItem value="pending" className="font-arabic">في الانتظار</SelectItem>
-                      </SelectContent>
+                    <Select
+                      value={selectedStatus}
+                      onValueChange={setSelectedStatus}
+                      placeholder="اختر حالة المريض"
+                      className="font-arabic"
+                    >
+                      <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
+                      <SelectItem value="active" className="font-arabic">نشط</SelectItem>
+                      <SelectItem value="inactive" className="font-arabic">غير نشط</SelectItem>
+                      <SelectItem value="pending" className="font-arabic">في الانتظار</SelectItem>
                     </Select>
                   </div>
                 </div>
@@ -618,7 +618,7 @@ export default function Patients() {
                       <TableCell>2024-01-16</TableCell>
                       <TableCell>9:30 AM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">حشو الأسنان</TableCell>
+                      <TableCell className="font-arabic">حشو الأس��ان</TableCell>
                       <TableCell>
                         <Badge className="bg-yellow-100 text-yellow-800 font-arabic">في الانتظار</Badge>
                       </TableCell>
@@ -855,7 +855,7 @@ export default function Patients() {
                       <TableHead className="font-arabic">الخدمة</TableHead>
                       <TableHead className="font-arabic">المبلغ</TableHead>
                       <TableHead className="font-arabic">طريقة الدفع</TableHead>
-                      <TableHead className="font-arabic">ال��اريخ</TableHead>
+                      <TableHead className="font-arabic">التاريخ</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
                       <TableHead className="font-arabic">الإجراءات</TableHead>
                     </TableRow>
@@ -1076,7 +1076,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}
+                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غ��ر محدد'}
                       </span>
                     </div>
                   </div>
