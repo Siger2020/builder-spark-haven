@@ -129,11 +129,11 @@ export class EmailJSService {
       return {
         success: false,
         error:
-          "خدمة البريد الإلكتروني غير مُ���َدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
+          "خدمة البريد الإلكتروني غير مُ��َدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
       };
     }
 
-    // Check EmailJS library availability
+    // Enhanced EmailJS library check
     try {
       if (typeof emailjs === 'undefined') {
         return {
@@ -142,14 +142,28 @@ export class EmailJSService {
         };
       }
 
-      if (typeof emailjs.send !== 'function') {
+      let emailjsToUse;
+      if (emailjs && typeof emailjs === 'object') {
+        if (typeof emailjs.send === 'function') {
+          emailjsToUse = emailjs;
+        } else if ((emailjs as any).default && typeof (emailjs as any).default.send === 'function') {
+          emailjsToUse = (emailjs as any).default;
+        } else {
+          return {
+            success: false,
+            error: "دالة الإرسال غير متوفرة في مكتبة EmailJS."
+          };
+        }
+      } else {
         return {
           success: false,
-          error: "وظيفة الإرسال في EmailJS غير متاحة."
+          error: "مكتبة EmailJS لم يتم تحميلها بشكل صحيح."
         };
       }
 
-      console.log("EmailJS library check passed");
+      console.log("EmailJS library check passed", {
+        structure: emailjsToUse === emailjs ? 'direct' : 'default'
+      });
     } catch (checkError) {
       return {
         success: false,
@@ -179,7 +193,7 @@ export class EmailJSService {
           clinicName: this.config!.senderName,
           clinicPhone: "غير محدد",
           clinicAddress: "غير محدد",
-          notes: "هذه رسالة اختبار لتأكيد عمل النظام",
+          notes: "هذه رسالة اختبار لت��كيد عمل النظام",
         }),
       );
 
@@ -702,7 +716,7 @@ export class EmailJSService {
       }
     } catch (error) {
       issues.push("خطأ في إعداد بيانات القالب");
-      recommendations.push("تحقق من صحة بيانات القالب");
+      recommendations.push("تحقق من صحة ��يانات القالب");
     }
 
     // 4. Check promise handling
