@@ -116,6 +116,10 @@ export default function Patients() {
   const [isAddPatientDialogOpen, setIsAddPatientDialogOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [isViewPatientDialogOpen, setIsViewPatientDialogOpen] = useState(false);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>([]);
+  const [payments, setPayments] = useState<Payment[]>([]);
+  const [activeTab, setActiveTab] = useState("patients");
 
   // Fetch patients data from database
   useEffect(() => {
@@ -288,7 +292,7 @@ export default function Patients() {
               <CardHeader>
                 <CardTitle className="font-arabic">قائمة المرضى</CardTitle>
                 <CardDescription className="font-arabic">
-                  إدارة بيانات المرضى والملفات الطبية
+                  إدارة بيانات المرضى والملف��ت الطبية
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -310,7 +314,7 @@ export default function Patients() {
                       <TableHead className="font-arabic">العمر/الجنس</TableHead>
                       <TableHead className="font-arabic">اله��تف</TableHead>
                       <TableHead className="font-arabic">التأمين</TableHead>
-                      <TableHead className="font-arabic">آخر زيارة</TableHead>
+                      <TableHead className="font-arabic">آخ�� زيارة</TableHead>
                       <TableHead className="font-arabic">الموعد القادم</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
                       <TableHead className="font-arabic">الإجراءات</TableHead>
@@ -537,7 +541,7 @@ export default function Patients() {
                 <div>
                   <h4 className="font-bold font-arabic mb-2">فصيلة الدم:</h4>
                   <Badge variant="outline" className="font-arabic">
-                    {selectedPatient.blood_type || '��ير محدد'}
+                    {selectedPatient.blood_type || 'غير محدد'}
                   </Badge>
                 </div>
               </div>
