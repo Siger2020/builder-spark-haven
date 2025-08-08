@@ -145,6 +145,63 @@ const UserManagement = () => {
   const [editingUser, setEditingUser] = useState<any>(null);
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 
+  const handleAddUser = () => {
+    if (!newUser.name || !newUser.email || !newUser.role) {
+      alert('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    const user = {
+      id: Date.now(),
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+      status: 'active',
+      lastLogin: new Date().toISOString().split('T')[0]
+    };
+
+    setUsersList([...usersList, user]);
+    setNewUser({ name: '', email: '', role: '', password: '' });
+    setIsAddUserOpen(false);
+    alert('تم إضافة المستخدم بنجاح');
+  };
+
+  const handleEditUser = (user: any) => {
+    setEditingUser(user);
+    setNewUser({
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      password: ''
+    });
+    setIsEditUserOpen(true);
+  };
+
+  const handleUpdateUser = () => {
+    if (!newUser.name || !newUser.email || !newUser.role) {
+      alert('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    setUsersList(usersList.map(user =>
+      user.id === editingUser.id
+        ? { ...user, name: newUser.name, email: newUser.email, role: newUser.role }
+        : user
+    ));
+
+    setNewUser({ name: '', email: '', role: '', password: '' });
+    setEditingUser(null);
+    setIsEditUserOpen(false);
+    alert('تم تحديث بيانات المستخدم بنجاح');
+  };
+
+  const handleDeleteUser = (userId: number) => {
+    if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
+      setUsersList(usersList.filter(user => user.id !== userId));
+      alert('تم حذف المستخدم بنجاح');
+    }
+  };
+
   const getRoleBadge = (role: string) => {
     const roleColors = {
       admin: "bg-red-100 text-red-800",
@@ -240,7 +297,7 @@ const UserManagement = () => {
                   <SelectValue placeholder="اختر الدور" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin" className="font-arabic">مدي��</SelectItem>
+                  <SelectItem value="admin" className="font-arabic">مدير</SelectItem>
                   <SelectItem value="doctor" className="font-arabic">طبيب</SelectItem>
                   <SelectItem value="receptionist" className="font-arabic">استقبال</SelectItem>
                 </SelectContent>
@@ -556,7 +613,7 @@ export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
           <Button variant="outline" onClick={onClose} className="font-arabic">
             إلغاء
           </Button>
-          <Button className="font-arabic">حفظ الت��ييرات</Button>
+          <Button className="font-arabic">حفظ التغييرات</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
