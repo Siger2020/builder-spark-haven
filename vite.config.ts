@@ -17,6 +17,10 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist/spa",
   },
   plugins: [react(), expressPlugin()],
+  optimizeDeps: {
+    exclude: ['@radix-ui/react-tooltip'],
+    force: true
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
