@@ -176,6 +176,100 @@ export default function Patients() {
     setIsViewPatientDialogOpen(true);
   };
 
+  const handleEditPatient = (patient: any) => {
+    setSelectedPatient(patient);
+    setFormData({
+      name: patient.name || '',
+      phone: patient.phone || '',
+      email: patient.email || '',
+      address: patient.address || '',
+      gender: patient.gender || '',
+      insurance_company: patient.insurance_company || '',
+      medical_history: patient.medical_history || '',
+      allergies: patient.allergies || ''
+    });
+    setIsEditPatientDialogOpen(true);
+  };
+
+  const handleAddPatient = () => {
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      address: '',
+      gender: '',
+      insurance_company: '',
+      medical_history: '',
+      allergies: ''
+    });
+    setSelectedPatient(null);
+    setIsAddPatientDialogOpen(true);
+  };
+
+  const handleDeletePatient = async (patientId: number) => {
+    if (!confirm('هل أنت متأكد من حذف هذا المريض؟ لا يمكن التراجع عن هذا الإجراء.')) {
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/database/tables/patients/${patientId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('تم حذف المريض بنجاح');
+        fetchPatients(); // Refresh the list
+      } else {
+        alert('حدث خطأ أثناء حذف المريض');
+      }
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+      alert('حدث خطأ أثناء حذف المريض');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSavePatient = async () => {
+    if (!formData.name || !formData.phone) {
+      alert('يرجى ملء الحقول المطلوبة على الأقل (الاسم والهاتف)');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const isEdit = selectedPatient && selectedPatient.id;
+      const url = isEdit
+        ? `/api/database/tables/patients/${selectedPatient.id}`
+        : '/api/database/tables/patients';
+
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert(isEdit ? 'تم تحديث بيانات المريض بنجاح' : 'تم إضافة المريض بنجاح');
+        setIsAddPatientDialogOpen(false);
+        setIsEditPatientDialogOpen(false);
+        fetchPatients(); // Refresh the list
+      } else {
+        alert('حدث خطأ أثناء حفظ بيانات المريض');
+      }
+    } catch (error) {
+      console.error('Error saving patient:', error);
+      alert('حدث خطأ أثناء حفظ بيانات المريض');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
@@ -661,7 +755,7 @@ export default function Patients() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">247</div>
-                  <p className="text-xs text-muted-foreground font-arabic">سجل طبي</p>
+                  <p className="text-xs text-muted-foreground font-arabic">سجل طب��</p>
                 </CardContent>
               </Card>
               <Card>
@@ -1062,7 +1156,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        الجنس: {selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنث��' : selectedPatient.gender}
+                        الجنس: {selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنثى' : selectedPatient.gender}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
