@@ -50,6 +50,7 @@ const adminNavigationItems = [
   { name: "التقارير المالية", path: "/transactions", icon: CreditCard },
   { name: "إدارة قاعدة البيانات", path: "/database", icon: Shield },
   { name: "فحص النظام", path: "/system-check", icon: Shield },
+  { name: "تشخيص EmailJS", path: "/emailjs-debug", icon: Bell },
 ];
 
 export function Navigation() {
