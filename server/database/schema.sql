@@ -677,5 +677,29 @@ INSERT OR IGNORE INTO ai_models (model_name, model_version, model_type, speciali
 ('xray_diagnostic', '2.1', 'computer_vision', 'الأشعة', 'تحليل صور الأشعة وتحديد المشاكل', 92.1, TRUE),
 ('lab_results_interpreter', '1.5', 'text_analysis', 'المختبر', 'تفسير نتائج التحاليل المخبرية', 85.7, TRUE);
 
+-- بيانات أولية لطرق الدفع
+INSERT OR IGNORE INTO payment_methods (name, name_ar, is_active, requires_reference, fees_percentage, fees_fixed) VALUES
+('cash', 'نقداً', 1, 0, 0, 0),
+('credit_card', 'بطاقة ائتمانية', 1, 0, 2.5, 0),
+('debit_card', 'بطاقة خصم', 1, 0, 1.5, 0),
+('bank_transfer', 'تحويل بنكي', 1, 1, 0, 5),
+('check', 'شيك', 1, 1, 0, 0),
+('insurance', 'تأمين طبي', 1, 1, 0, 0);
+
+-- بيانات تجريبية للمعاملات المالية
+INSERT OR IGNORE INTO transactions (id, patient_name, service_name, total_amount, paid_amount, remaining_amount, status, payment_method, transaction_date) VALUES
+('TXN-001', 'أحمد محمد', 'تنظيف الأسنان', 200, 200, 0, 'paid', 'نقداً', '2024-01-15 10:30:00'),
+('TXN-002', 'فاطمة أحمد', 'تقويم الأسنان', 3000, 1500, 1500, 'partial', 'بطاقة ائتمانية', '2024-01-14 14:15:00'),
+('TXN-003', 'محمد علي', 'زراعة الأسنان', 2500, 0, 2500, 'pending', null, '2024-01-13 09:45:00'),
+('TXN-004', 'نورا سالم', 'حشوات الأسنان', 300, 300, 0, 'paid', 'تحويل بنكي', '2024-01-12 11:45:00'),
+('TXN-005', 'سارة خالد', 'تبييض الأسنان', 800, 400, 400, 'partial', 'نقداً', '2024-01-11 16:20:00');
+
+-- بيانات تجريبية للمدفوعات
+INSERT OR IGNORE INTO payments (id, transaction_id, patient_name, amount, payment_method, payment_date, notes) VALUES
+('PAY-001', 'TXN-001', 'أحمد محمد', 200, 'نقداً', '2024-01-15 10:30:00', 'دفعة كاملة'),
+('PAY-002', 'TXN-002', 'فاطمة أحمد', 1500, 'بطاقة ائتمانية', '2024-01-14 14:15:00', 'دفعة أولى من تقويم الأسنان'),
+('PAY-003', 'TXN-004', 'نورا سالم', 300, 'تحويل بنكي', '2024-01-12 11:45:00', 'دفعة كاملة للحشوات'),
+('PAY-004', 'TXN-005', 'سارة خالد', 400, 'نقداً', '2024-01-11 16:20:00', 'دفعة أولى من تبييض الأسنان');
+
 -- تفعيل القيود الخارجية
 PRAGMA foreign_keys = ON;
