@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS notifications (
     FOREIGN KEY (sender_id) REFERENCES users(id)
 );
 
--- جدول قوالب الإشعارات
+-- جدول قو��لب الإشعارات
 CREATE TABLE IF NOT EXISTS notification_templates (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -454,6 +454,150 @@ INSERT OR IGNORE INTO services (name, name_en, description, duration_minutes, ca
 -- إضافة حساب مدير النظام الوحيد
 INSERT OR IGNORE INTO users (id, name, email, password, phone, role, created_at, updated_at) VALUES
 (1, 'مدير النظام', 'admin@dkalmoli.com', '123456', '967777775545', 'admin', datetime('now'), datetime('now'));
+
+-- جدول تحليلات الذكاء الاصطناعي
+CREATE TABLE IF NOT EXISTS ai_analyses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    analysis_number TEXT UNIQUE NOT NULL,
+    patient_id INTEGER,
+    doctor_id INTEGER,
+    analysis_type TEXT CHECK(analysis_type IN ('image', 'symptoms', 'text', 'lab_results')) NOT NULL,
+    input_data TEXT NOT NULL, -- JSON format للبيانات المدخلة
+    file_path TEXT, -- مسار الملف المرفوع (للصور)
+    file_type TEXT, -- نوع الملف
+    file_size INTEGER, -- ��جم الملف بالبايت
+    ai_model_used TEXT, -- نموذج الذكاء الاصطناعي المستخدم
+    confidence_score REAL, -- درجة الثقة في التحليل (0-100)
+    diagnosis TEXT, -- التشخيص المقترح
+    recommendations TEXT, -- JSON format للتوصيات
+    severity_level TEXT CHECK(severity_level IN ('low', 'medium', 'high', 'critical')) DEFAULT 'medium',
+    follow_up_required BOOLEAN DEFAULT FALSE,
+    follow_up_date DATE,
+    status TEXT CHECK(status IN ('processing', 'completed', 'failed', 'reviewed')) DEFAULT 'processing',
+    processing_time_ms INTEGER, -- وقت المعالجة بالميلي ثانية
+    accuracy_feedback REAL, -- تقييم دقة التحليل من الطبيب (0-100)
+    doctor_notes TEXT, -- ملاحظات الطبيب على التحليل
+    created_by INTEGER,
+    reviewed_by INTEGER,
+    reviewed_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE SET NULL,
+    FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(id),
+    FOREIGN KEY (reviewed_by) REFERENCES users(id)
+);
+
+-- جدول تقارير التحليلات
+CREATE TABLE IF NOT EXISTS ai_analysis_reports (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    analysis_id INTEGER NOT NULL,
+    report_type TEXT CHECK(report_type IN ('detailed', 'summary', 'comparative', 'trend')) DEFAULT 'detailed',
+    title TEXT NOT NULL,
+    content TEXT NOT NULL, -- محتوى التقرير
+    charts_data TEXT, -- JSON format للرسوم البيانية
+    insights TEXT, -- JSON format للنتائج والتحليلات
+    risk_factors TEXT, -- JSON format لعوامل الخطر
+    prevention_tips TEXT, -- JSON format لنصائح الوقاية
+    related_conditions TEXT, -- JSON format للحالات ذات الصلة
+    medical_references TEXT, -- JSON format للمراجع الطبية
+    urgency_indicators TEXT, -- JSON format لمؤشرات الإلحاح
+    is_public BOOLEAN DEFAULT FALSE, -- هل التقرير عام أم خاص
+    language TEXT DEFAULT 'arabic',
+    generated_by_ai BOOLEAN DEFAULT TRUE,
+    human_reviewed BOOLEAN DEFAULT FALSE,
+    review_notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (analysis_id) REFERENCES ai_analyses(id) ON DELETE CASCADE
+);
+
+-- جدول نماذج الذكاء الاصطناعي
+CREATE TABLE IF NOT EXISTS ai_models (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    model_name TEXT UNIQUE NOT NULL,
+    model_version TEXT NOT NULL,
+    model_type TEXT CHECK(model_type IN ('image_classification', 'text_analysis', 'nlp', 'computer_vision', 'diagnostic')) NOT NULL,
+    specialization TEXT, -- التخصص الطبي
+    description TEXT,
+    accuracy_rate REAL, -- معدل الدقة
+    supported_inputs TEXT, -- JSON format للمدخلات المدعومة
+    output_format TEXT, -- JSON format لشكل المخرجات
+    training_data_info TEXT, -- معلومات عن بيانات التدريب
+    model_size_mb REAL, -- حجم النموذج
+    inference_time_ms REAL, -- متوسط وقت الاستنتاج
+    is_active BOOLEAN DEFAULT TRUE,
+    api_endpoint TEXT, -- endpoint للوصول للنموذج
+    api_key_required BOOLEAN DEFAULT FALSE,
+    cost_per_request REAL DEFAULT 0,
+    usage_limits TEXT, -- JSON format لحدود الاستخدام
+    created_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES users(id)
+);
+
+-- جدول إحصائيات استخدام الذكاء الاصطناعي
+CREATE TABLE IF NOT EXISTS ai_usage_stats (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date DATE NOT NULL,
+    model_id INTEGER,
+    total_requests INTEGER DEFAULT 0,
+    successful_analyses INTEGER DEFAULT 0,
+    failed_analyses INTEGER DEFAULT 0,
+    average_confidence REAL,
+    average_processing_time_ms REAL,
+    total_cost REAL DEFAULT 0,
+    accuracy_feedback_avg REAL, -- متوسط تقييم الدقة من الأطباء
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (model_id) REFERENCES ai_models(id),
+    UNIQUE(date, model_id)
+);
+
+-- جدول تدريب النماذج وتحسينها
+CREATE TABLE IF NOT EXISTS ai_model_training (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    model_id INTEGER NOT NULL,
+    training_session_id TEXT UNIQUE NOT NULL,
+    training_type TEXT CHECK(training_type IN ('initial', 'fine_tuning', 'retraining', 'validation')) NOT NULL,
+    training_data_count INTEGER,
+    validation_data_count INTEGER,
+    training_accuracy REAL,
+    validation_accuracy REAL,
+    loss_value REAL,
+    epochs_completed INTEGER,
+    training_duration_minutes INTEGER,
+    improvements_made TEXT, -- JSON format للتحسينات
+    performance_metrics TEXT, -- JSON format لمقاييس الأداء
+    status TEXT CHECK(status IN ('started', 'in_progress', 'completed', 'failed', 'aborted')) DEFAULT 'started',
+    started_by INTEGER,
+    started_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    completed_at DATETIME,
+    FOREIGN KEY (model_id) REFERENCES ai_models(id) ON DELETE CASCADE,
+    FOREIGN KEY (started_by) REFERENCES users(id)
+);
+
+-- الفهارس لتحسين الأداء في جداول الذكاء الاصطناعي
+CREATE INDEX IF NOT EXISTS idx_ai_analyses_patient_id ON ai_analyses(patient_id);
+CREATE INDEX IF NOT EXISTS idx_ai_analyses_doctor_id ON ai_analyses(doctor_id);
+CREATE INDEX IF NOT EXISTS idx_ai_analyses_type ON ai_analyses(analysis_type);
+CREATE INDEX IF NOT EXISTS idx_ai_analyses_status ON ai_analyses(status);
+CREATE INDEX IF NOT EXISTS idx_ai_analyses_created_at ON ai_analyses(created_at);
+CREATE INDEX IF NOT EXISTS idx_ai_analyses_confidence ON ai_analyses(confidence_score);
+CREATE INDEX IF NOT EXISTS idx_ai_analysis_reports_analysis_id ON ai_analysis_reports(analysis_id);
+CREATE INDEX IF NOT EXISTS idx_ai_models_type ON ai_models(model_type);
+CREATE INDEX IF NOT EXISTS idx_ai_models_active ON ai_models(is_active);
+CREATE INDEX IF NOT EXISTS idx_ai_usage_stats_date ON ai_usage_stats(date);
+CREATE INDEX IF NOT EXISTS idx_ai_usage_stats_model_id ON ai_usage_stats(model_id);
+CREATE INDEX IF NOT EXISTS idx_ai_training_model_id ON ai_model_training(model_id);
+CREATE INDEX IF NOT EXISTS idx_ai_training_status ON ai_model_training(status);
+
+-- إدراج نماذج الذكاء الاصطناعي الأساسية
+INSERT OR IGNORE INTO ai_models (model_name, model_version, model_type, specialization, description, accuracy_rate, is_active) VALUES
+('dental_image_classifier', '1.0', 'image_classification', 'طب الأسنان', 'تصنيف صور الأسنان وتشخيص المشاكل', 87.5, TRUE),
+('symptom_analyzer', '1.2', 'nlp', 'طب عام', 'تحليل الأعراض المكتوبة وتقديم تشخيص أولي', 78.3, TRUE),
+('xray_diagnostic', '2.1', 'computer_vision', 'الأشعة', 'تحليل صور الأشعة وتحديد المشاكل', 92.1, TRUE),
+('lab_results_interpreter', '1.5', 'text_analysis', 'المختبر', 'تفسير نتائج التحاليل المخبرية', 85.7, TRUE);
 
 -- تفعيل القيود الخارجية
 PRAGMA foreign_keys = ON;
