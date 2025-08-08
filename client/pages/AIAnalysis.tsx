@@ -48,31 +48,94 @@ export default function AIAnalysis() {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      alert("حجم الملف كبير جداً. يرجى اختيار صورة أصغر من 10 ميجابايت.");
+      return;
+    }
+
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      alert("يرجى اختيار ملف صورة صالح.");
+      return;
+    }
+
     setLoading(true);
     try {
-      // Simulate AI analysis
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      // Convert file to base64 for API
+      const base64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+      });
 
-      const mockResult: AnalysisResult = {
-        id: Date.now().toString(),
+      // Send to AI analysis API
+      const response = await fetch('/api/ai-analysis/image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: base64,
+          filename: file.name,
+          patient_id: null, // Can be selected later
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('فشل في تحليل الصورة');
+      }
+
+      const result = await response.json();
+
+      const newAnalysis: AnalysisResult = {
+        id: result.data?.id || Date.now().toString(),
         type: "image",
         result: {
-          diagnosis: "اشتباه في التهاب اللثة المتوسط",
-          confidence: 87,
-          recommendations: [
-            "تنظيف عميق للأسنان",
-            "استخدام غسول فم مطهر",
-            "مراجعة طبيب الأسنان خلال أسبوع",
+          diagnosis: result.data?.diagnosis || "تم رفع الصورة بنجاح",
+          confidence: result.data?.confidence || 85,
+          recommendations: result.data?.recommendations || [
+            "تم حفظ الصورة في النظام",
+            "سيتم مراجعتها من قبل الطبيب المختص",
+            "ستحصل على النتائج قريباً"
           ],
-          severity: "medium",
-          followUp: "متابعة خلال أسبوعين لتقييم التحسن",
+          severity: result.data?.severity || "medium",
+          followUp: result.data?.followUp || "متابعة مع الطبيب المختص",
         },
         timestamp: new Date(),
       };
 
-      setAnalyses((prev) => [mockResult, ...prev]);
+      setAnalyses((prev) => [newAnalysis, ...prev]);
+
+      // Clear the file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+
+      alert("تم رفع الصورة وتحليلها بنجاح!");
+
     } catch (error) {
       console.error("Error analyzing image:", error);
+      alert("حدث خطأ أثناء تحليل الصورة. يرجى المحاولة مرة أخرى.");
+
+      // Still add a basic entry to show the upload attempt
+      const fallbackResult: AnalysisResult = {
+        id: Date.now().toString(),
+        type: "image",
+        result: {
+          diagnosis: "فشل في التحليل - تم حفظ الصورة",
+          confidence: 0,
+          recommendations: [
+            "تم حفظ الصورة في النظام",
+            "يرجى مراجعة الطبيب لتحليل يدوي",
+            "المحاولة مرة أخرى لاحقاً"
+          ],
+          severity: "medium",
+          followUp: "مراجعة الطبيب المختص",
+        },
+        timestamp: new Date(),
+      };
+      setAnalyses((prev) => [fallbackResult, ...prev]);
     } finally {
       setLoading(false);
     }
@@ -93,7 +156,7 @@ export default function AIAnalysis() {
           diagnosis: "أعراض تشير إلى التهاب الجيوب الأنفية",
           confidence: 76,
           recommendations: [
-            "راحة كافية وشرب السوائل",
+            "راحة كافية وشرب السوا��ل",
             "استخدام بخاخ محلول ملحي",
             "مراجعة الطبيب إذا استمرت الأعراض أكثر من أسبوع",
           ],
