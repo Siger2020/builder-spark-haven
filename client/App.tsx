@@ -17,6 +17,7 @@ import Register from "./pages/Register";
 import Booking from "./pages/Booking";
 import Patients from "./pages/Patients";
 import Transactions from "./pages/Transactions";
+import TransactionsFallback from "./components/TransactionsFallback";
 import Reports from "./pages/Reports";
 import Sessions from "./pages/Sessions";
 import Admin from "./pages/Admin";
@@ -80,7 +81,9 @@ const App = () => (
                 element={
                   <ProtectedRoute requiredRole="admin">
                     <Navigation />
-                    <Transactions />
+                    <ErrorBoundary fallback={TransactionsFallback}>
+                      <Transactions />
+                    </ErrorBoundary>
                   </ProtectedRoute>
                 }
               />
