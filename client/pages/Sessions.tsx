@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -146,7 +146,7 @@ const getStatusBadge = (status: string) => {
       return <Badge className="bg-green-100 text-green-800">مكتمل</Badge>;
     case "جاري العلاج":
       return <Badge className="bg-blue-100 text-blue-800">جاري العلاج</Badge>;
-    case "مجد��ل":
+    case "مجدول":
       return <Badge className="bg-yellow-100 text-yellow-800">مجدول</Badge>;
     case "مؤجل":
       return <Badge className="bg-gray-100 text-gray-800">مؤجل</Badge>;
