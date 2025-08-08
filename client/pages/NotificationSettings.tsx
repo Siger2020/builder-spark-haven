@@ -219,7 +219,7 @@ export default function NotificationSettings() {
 
       if (result.success) {
         setConnectionStatus(ConnectionStatus.CONNECTED);
-        toast.success("✅ تم الاتصال بنجاح! النظام جاهز للاستخدام");
+        toast.success("✅ تم ا��اتصال بنجاح! النظام جاهز للاستخدام");
       } else {
         setConnectionStatus(ConnectionStatus.ERROR);
         toast.error(`❌ فشل الاتصال: ${result.error}`);
@@ -445,7 +445,7 @@ export default function NotificationSettings() {
         onValueChange={setActiveTab}
         className="space-y-6"
       >
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="settings" className="font-arabic">
             <Settings className="w-4 h-4 ml-2" />
             إعدادات EmailJS
@@ -453,6 +453,10 @@ export default function NotificationSettings() {
           <TabsTrigger value="test" className="font-arabic">
             <TestTube className="w-4 h-4 ml-2" />
             الاختبار
+          </TabsTrigger>
+          <TabsTrigger value="diagnostics" className="font-arabic">
+            <Activity className="w-4 h-4 ml-2" />
+            التشخيص
           </TabsTrigger>
           <TabsTrigger value="guide" className="font-arabic">
             <HelpCircle className="w-4 h-4 ml-2" />
@@ -658,7 +662,7 @@ export default function NotificationSettings() {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="test-email" className="font-arabic">
-                  البريد الإلكتر��ني للاختبار
+                  البريد الإلكتروني للاختبار
                 </Label>
                 <Input
                   id="test-email"
@@ -896,7 +900,7 @@ export default function NotificationSettings() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600 font-arabic">
-                      النظام ا��حالي
+                      النظام الحالي
                     </p>
                     <p className="text-2xl font-bold text-blue-600">EmailJS</p>
                   </div>
