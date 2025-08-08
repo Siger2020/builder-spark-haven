@@ -285,7 +285,7 @@ const UserManagement = () => {
             <div className="space-y-2">
               <Label className="font-arabic">الاسم الكامل</Label>
               <Input
-                placeholder="أدخل الاسم الكامل"
+                placeholder="أدخل الاسم ال��امل"
                 className="font-arabic"
                 value={newUser.name}
                 onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
@@ -500,6 +500,11 @@ const GeneralSettings = () => {
               <Label className="font-arabic">البريد الإلكتروني</Label>
               <Input defaultValue="info@dentalclinic.sa" />
             </div>
+          </div>
+          <div className="mt-6">
+            <Button onClick={handleSaveSettings} className="font-arabic">
+              حفظ الإعدادات
+            </Button>
           </div>
         </CardContent>
       </Card>
