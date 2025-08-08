@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectItem } from "@/components/ui/safe-select";
+import { Select, SelectItem } from "@/components/ui/native-select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -246,7 +246,7 @@ export default function Patients() {
             <TabsTrigger value="patients">قائمة المرضى</TabsTrigger>
             <TabsTrigger value="profile">الملف الشخصي</TabsTrigger>
             <TabsTrigger value="appointments">المواعيد</TabsTrigger>
-            <TabsTrigger value="medical">السجل الط��ي</TabsTrigger>
+            <TabsTrigger value="medical">السجل الطبي</TabsTrigger>
             <TabsTrigger value="payments">المدفوعات</TabsTrigger>
           </TabsList>
 
@@ -272,7 +272,7 @@ export default function Patients() {
                     </div>
                   </div>
                   <div className="w-full md:w-48">
-                    <Label className="font-arabic">حالة ا��مريض</Label>
+                    <Label className="font-arabic">حالة المريض</Label>
                     <Select
                       value={selectedStatus}
                       onValueChange={setSelectedStatus}
@@ -282,7 +282,7 @@ export default function Patients() {
                       <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
                       <SelectItem value="active" className="font-arabic">نشط</SelectItem>
                       <SelectItem value="inactive" className="font-arabic">غير نشط</SelectItem>
-                      <SelectItem value="pending" className="font-arabic">في الانتظار</SelectItem>
+                      <SelectItem value="pending" className="font-arabic">في الانت��ار</SelectItem>
                     </Select>
                   </div>
                 </div>
@@ -338,7 +338,7 @@ export default function Patients() {
                         </TableCell>
                         <TableCell className="font-arabic">غير محدد / {patient.gender === 'male' ? 'ذكر' : patient.gender === 'female' ? 'أنثى' : patient.gender}</TableCell>
                         <TableCell>{patient.phone}</TableCell>
-                        <TableCell className="font-arabic">{patient.insurance_company || 'غير محد��'}</TableCell>
+                        <TableCell className="font-arabic">{patient.insurance_company || 'غير محدد'}</TableCell>
                         <TableCell>{patient.created_at ? new Date(patient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}</TableCell>
                         <TableCell>
                           <span className="text-gray-500 font-arabic">لا يوجد</span>
@@ -566,7 +566,7 @@ export default function Patients() {
                       <TableHead className="font-arabic">التاريخ</TableHead>
                       <TableHead className="font-arabic">الوقت</TableHead>
                       <TableHead className="font-arabic">الطبيب</TableHead>
-                      <TableHead className="font-arabic">الخدمة</TableHead>
+                      <TableHead className="font-arabic">ال��دمة</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
                       <TableHead className="font-arabic">الإجراءات</TableHead>
                     </TableRow>
@@ -771,7 +771,7 @@ export default function Patients() {
                       <TableCell className="font-arabic">سارة محمود</TableCell>
                       <TableCell>2024-01-12</TableCell>
                       <TableCell className="font-arabic">التهاب اللثة</TableCell>
-                      <TableCell className="font-arabic">علاج التهاب اللثة + م��اد حيوي</TableCell>
+                      <TableCell className="font-arabic">علاج التهاب اللثة + مضاد حيوي</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="font-arabic">علاج</Badge>
