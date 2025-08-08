@@ -61,7 +61,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (!response.ok) {
-        console.error("Login response not ok:", response.status, response.statusText);
+        console.error(
+          "Login response not ok:",
+          response.status,
+          response.statusText,
+        );
         setIsLoading(false);
         return false;
       }
@@ -101,7 +105,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (!response.ok) {
-        console.error("Register response not ok:", response.status, response.statusText);
+        console.error(
+          "Register response not ok:",
+          response.status,
+          response.statusText,
+        );
         return { success: false, error: "خطأ في الاتصال بالخادم" };
       }
 
