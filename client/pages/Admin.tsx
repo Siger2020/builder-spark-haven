@@ -122,6 +122,10 @@ function AdminComponent() {
     completedAppointments: 0,
     scheduledAppointments: 0,
     cancelledAppointments: 0,
+    pendingAppointments: 0,
+    canceledAppointments: 0,
+    monthlyRevenue: 0,
+    outstandingPayments: 0,
   });
 
   // Mock data for missing variables
@@ -825,7 +829,7 @@ function AdminComponent() {
                     }}
                   >
                     <Bell className="h-4 w-4 mr-2" />
-                    إعدادات الإشعا��ات
+                    إعدادات الإشعارات
                   </Button>
                   <Link to="/database">
                     <Button className="w-full font-arabic" variant="outline">
