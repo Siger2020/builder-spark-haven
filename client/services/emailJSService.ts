@@ -175,7 +175,7 @@ export class EmailJSService {
           appointmentId: "TEST-" + Date.now(),
           appointmentDate: new Date().toLocaleDateString("ar-EG"),
           appointmentTime: new Date().toLocaleTimeString("ar-EG"),
-          doctorName: "نظام الاختب��ر",
+          doctorName: "نظام الاختبار",
           clinicName: this.config!.senderName,
           clinicPhone: "غير محدد",
           clinicAddress: "غير محدد",
@@ -234,7 +234,7 @@ export class EmailJSService {
     });
   }
 
-  // معالجة طابور الطلبات
+  // معالجة طاب��ر الطلبات
   private async processQueue(): Promise<void> {
     if (this.isProcessingQueue || this.requestQueue.length === 0) {
       return;
@@ -482,7 +482,7 @@ export class EmailJSService {
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
-        error: "خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح",
+        error: "خدمة البري�� الإلكتروني غير مُعَدّة بشكل صحيح",
       };
     }
 
@@ -602,6 +602,106 @@ export class EmailJSService {
     };
   }
 
+  // اختبار متقدم للكشف عن أخطاء TypeError المحتملة
+  async runTypeErrorDiagnosis(): Promise<{ success: boolean; issues: string[]; recommendations: string[] }> {
+    const issues: string[] = [];
+    const recommendations: string[] = [];
+
+    console.log("=== Running TypeError Diagnosis ===");
+
+    // 1. Check EmailJS library structure
+    try {
+      if (typeof emailjs === 'undefined') {
+        issues.push("مكتبة EmailJS غير محملة");
+        recommendations.push("تحقق من تحميل مكتبة EmailJS في index.html");
+      } else {
+        console.log("EmailJS object structure:", Object.getOwnPropertyNames(emailjs));
+
+        if (typeof emailjs.send !== 'function') {
+          issues.push("دالة emailjs.send غير متاحة");
+          recommendations.push("تحقق من إصدار مكتبة EmailJS");
+        }
+
+        if (typeof emailjs.init !== 'function') {
+          issues.push("دالة emailjs.init غير متاحة");
+          recommendations.push("تحقق من إصدار مكتبة EmailJS");
+        }
+      }
+    } catch (error) {
+      issues.push("خطأ في فحص مكتبة EmailJS");
+      recommendations.push("إعادة تحميل الصفحة قد يحل المشكلة");
+    }
+
+    // 2. Check configuration validity
+    if (!this.config) {
+      issues.push("لا توجد إعدادات محفوظة");
+      recommendations.push("قم بإعداد EmailJS من صفحة الإشعارات");
+    } else {
+      // Check for null/undefined values that might cause TypeError
+      const configChecks = [
+        { key: 'serviceId', value: this.config.serviceId },
+        { key: 'templateId', value: this.config.templateId },
+        { key: 'publicKey', value: this.config.publicKey }
+      ];
+
+      configChecks.forEach(check => {
+        if (!check.value || check.value === 'undefined' || check.value === 'null') {
+          issues.push(`${check.key} فارغ أو غير صالح`);
+          recommendations.push(`تحقق من صحة ${check.key} في إعدادات EmailJS`);
+        }
+      });
+    }
+
+    // 3. Test template data preparation
+    try {
+      const testData: NotificationData = {
+        patientName: "test",
+        patientEmail: "test@example.com",
+        appointmentId: "TEST",
+        appointmentDate: "2024-01-01",
+        appointmentTime: "10:00",
+        doctorName: "test",
+        clinicName: "test",
+        clinicPhone: "test",
+        clinicAddress: "test"
+      };
+
+      const templateData = this.prepareTemplateData("test", testData);
+
+      if (!templateData || typeof templateData !== 'object') {
+        issues.push("إعداد بيانات القالب فاشل");
+        recommendations.push("تحقق من دالة prepareTemplateData");
+      }
+    } catch (error) {
+      issues.push("خطأ في إعداد بيانات القالب");
+      recommendations.push("تحقق من صحة بيانات القالب");
+    }
+
+    // 4. Check promise handling
+    try {
+      // Test Promise.race setup
+      const testPromise = new Promise(resolve => resolve("test"));
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("timeout")), 100)
+      );
+
+      await Promise.race([testPromise, timeoutPromise]);
+    } catch (error) {
+      if (error instanceof Error && error.message !== "timeout") {
+        issues.push("خطأ في معالجة Promise");
+        recommendations.push("مشكلة في بيئة JavaScript");
+      }
+    }
+
+    console.log("TypeError Diagnosis Results:", { issues, recommendations });
+
+    return {
+      success: issues.length === 0,
+      issues,
+      recommendations
+    };
+  }
+
   // محاكاة حجز حقيقي للاختبار مع منع التضارب
   async sendTestBookingNotification(
     testEmail: string,
@@ -618,7 +718,7 @@ export class EmailJSService {
       doctorName: "الدكتور كمال الملصي",
       clinicName: "عيادة الدكتور كمال الملصي لطب الأسنان",
       clinicPhone: "+966 11 234 5678",
-      clinicAddress: "شارع الملك فهد، الرياض، المملكة العربية السعودية",
+      clinicAddress: "شارع الملك فهد، الرياض، المملكة العربية السع��دية",
       notes: "فحص دوري وتنظيف الأسنان",
     };
 
@@ -637,7 +737,7 @@ export class EmailJSService {
       console.error("Test booking notification error:", error);
       return {
         success: false,
-        error: "فشل في إرسا�� إشعار الحجز التجريبي",
+        error: "فشل في إرسال إشعار الحجز التجريبي",
       };
     }
   }
