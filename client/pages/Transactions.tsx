@@ -219,7 +219,7 @@ export default function Transactions() {
       // await fetch('/api/payments', { method: 'POST', body: JSON.stringify(paymentRecord) });
 
       toast({
-        title: "تم بنج��ح",
+        title: "تم بنجاح",
         description: `تم تسجيل دفعة بمبلغ ${amount.toLocaleString()} ر.ي`,
       });
 
@@ -446,6 +446,65 @@ export default function Transactions() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="payments" className="space-y-6">
+            {/* Payment History */}
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="font-arabic">سجل الم��فوعات</CardTitle>
+                    <CardDescription className="font-arabic">
+                      جميع الدفعات المسجلة في النظام
+                    </CardDescription>
+                  </div>
+                  <Button onClick={handleNewPayment} className="font-arabic">
+                    <Plus className="h-4 w-4 mr-2" />
+                    إضافة دفعة
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {paymentHistory.length > 0 ? (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="font-arabic">رقم الدفعة</TableHead>
+                        <TableHead className="font-arabic">رقم المعاملة</TableHead>
+                        <TableHead className="font-arabic">اسم المريض</TableHead>
+                        <TableHead className="font-arabic">المبلغ</TableHead>
+                        <TableHead className="font-arabic">طريقة الدفع</TableHead>
+                        <TableHead className="font-arabic">التاريخ</TableHead>
+                        <TableHead className="font-arabic">ملاحظات</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {paymentHistory.map((payment) => (
+                        <TableRow key={payment.id}>
+                          <TableCell className="font-medium">{payment.id}</TableCell>
+                          <TableCell>{payment.transactionId}</TableCell>
+                          <TableCell className="font-arabic">{payment.patientName}</TableCell>
+                          <TableCell className="text-green-600">{payment.amount.toLocaleString()} ر.ي</TableCell>
+                          <TableCell className="font-arabic">{payment.method}</TableCell>
+                          <TableCell>{payment.timestamp || payment.date}</TableCell>
+                          <TableCell className="font-arabic">{payment.notes || "-"}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    <Receipt className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                    <p className="font-arabic">لا توجد مدفوعات مسجلة بعد</p>
+                    <Button onClick={handleNewPayment} className="mt-4 font-arabic">
+                      <Plus className="h-4 w-4 mr-2" />
+                      إضافة أول دفعة
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="reports" className="space-y-6">
             <Card>
               <CardHeader>
@@ -465,7 +524,7 @@ export default function Transactions() {
                   <Button className="h-20 font-arabic" variant="outline">
                     <div className="text-center">
                       <TrendingUp className="h-6 w-6 mx-auto mb-2" />
-                      تقرير الإيرادات
+                      تقرير الإيرادا��
                     </div>
                   </Button>
                   <Button className="h-20 font-arabic" variant="outline">
