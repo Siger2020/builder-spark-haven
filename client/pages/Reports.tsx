@@ -117,6 +117,93 @@ export default function Reports() {
     setIsViewReportDialogOpen(true);
   };
 
+  const exportMedicalReports = () => {
+    try {
+      const dataToExport = filteredReports.map(report => ({
+        'رقم التقرير': report.id,
+        'اسم المريض': report.patientName,
+        'نوع الكشف': report.type,
+        'التشخيص': report.diagnosis,
+        'العلاج': report.treatment,
+        'الطبيب': report.doctor,
+        'التاريخ': new Date(report.date).toLocaleDateString('ar-SA'),
+        'الحالة': report.status,
+        'التوصيات': report.recommendations,
+        'الزيارة القادمة': report.nextVisit ? new Date(report.nextVisit).toLocaleDateString('ar-SA') : ''
+      }));
+
+      const headers = Object.keys(dataToExport[0] || {});
+      const csvContent = [
+        '\ufeff', // BOM for Arabic
+        headers.join(','),
+        ...dataToExport.map(row =>
+          headers.map(header => `"${row[header] || ''}"`).join(',')
+        )
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `medical_reports_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      alert(`تم تصدير ${dataToExport.length} تقرير طبي بنجاح!`);
+    } catch (error) {
+      console.error('Error exporting medical reports:', error);
+      alert('حدث خطأ أثناء تصدير التقارير الطبية');
+    }
+  };
+
+  const exportFinancialReport = () => {
+    try {
+      const financialData = [
+        { name: "تقويم الأسنان", revenue: 85000, percentage: 35 },
+        { name: "زراعة الأسنان", revenue: 72000, percentage: 30 },
+        { name: "تبييض الأسنان", revenue: 48000, percentage: 20 },
+        { name: "حشوات الأسنان", revenue: 24000, percentage: 10 },
+        { name: "علاج اللثة", revenue: 12000, percentage: 5 }
+      ];
+
+      const dataToExport = financialData.map(item => ({
+        'نوع العلاج': item.name,
+        'الإيرادات': item.revenue,
+        'النسبة المئوية': `${item.percentage}%`
+      }));
+
+      const headers = Object.keys(dataToExport[0] || {});
+      const csvContent = [
+        '\ufeff',
+        headers.join(','),
+        ...dataToExport.map(row =>
+          headers.map(header => `"${row[header] || ''}"`).join(',')
+        )
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `financial_report_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      alert('تم تصدير التقرير المالي بنجاح!');
+    } catch (error) {
+      console.error('Error exporting financial report:', error);
+      alert('حدث خطأ أثناء تصدير التقرير المالي');
+    }
+  };
+
+  const printReport = () => {
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -199,7 +286,7 @@ export default function Reports() {
                   <div className="flex gap-2">
                     <Button variant="outline" className="font-arabic">
                       <Filter className="h-4 w-4 mr-2" />
-                      تصفية متقدمة
+                      تصفية متقدم��
                     </Button>
                   </div>
                 </div>
@@ -477,7 +564,7 @@ export default function Reports() {
               <CardHeader>
                 <CardTitle className="font-arabic">تصدير التقارير</CardTitle>
                 <CardDescription className="font-arabic">
-                  تصدير البيانات بصيغ مختلفة
+                  تصدير البيانات بص��غ مختلفة
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -500,7 +587,7 @@ export default function Reports() {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <h3 className="font-bold font-arabic">تصدير التقارير المالية</h3>
+                    <h3 className="font-bold font-arabic">تصدير التقارير ا��مالية</h3>
                     <div className="space-y-2">
                       <Button className="w-full font-arabic" variant="outline">
                         <Download className="h-4 w-4 mr-2" />
