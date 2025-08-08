@@ -36,6 +36,7 @@ const doctorNavigationItems = [
   { name: "الرئيسية", path: "/", icon: Smile },
   { name: "إدارة المرضى", path: "/patients", icon: Users },
   { name: "إدارة المواعيد", path: "/appointment-management", icon: Calendar },
+  { name: "تحليلات الذكاء الاصطناعي", path: "/ai-analysis", icon: Brain },
 ];
 
 // قوائم لمدير النظام فقط (تتضمن جميع العناصر الإدارية)
