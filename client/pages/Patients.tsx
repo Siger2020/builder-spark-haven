@@ -98,7 +98,7 @@ interface Payment {
 const getStatusBadge = (status: string) => {
   switch (status) {
     case "active":
-      return <Badge className="bg-green-100 text-green-800">نشط</Badge>;
+      return <Badge className="bg-green-100 text-green-800">ن��ط</Badge>;
     case "inactive":
       return <Badge className="bg-gray-100 text-gray-800">غير نشط</Badge>;
     case "pending":
@@ -351,7 +351,7 @@ export default function Patients() {
           <TabsList className="font-arabic">
             <TabsTrigger value="patients">قائمة المرضى</TabsTrigger>
             <TabsTrigger value="profile">الملف الشخصي</TabsTrigger>
-            <TabsTrigger value="appointments">��لمواعيد</TabsTrigger>
+            <TabsTrigger value="appointments">المواعيد</TabsTrigger>
             <TabsTrigger value="medical">السجل الطبي</TabsTrigger>
             <TabsTrigger value="payments">المدفوعات</TabsTrigger>
           </TabsList>
@@ -452,15 +452,30 @@ export default function Patients() {
                         <TableCell>{getStatusBadge(patient.status)}</TableCell>
                         <TableCell>
                           <div className="flex gap-2">
-                            <Button 
-                              size="sm" 
+                            <Button
+                              size="sm"
                               variant="outline"
                               onClick={() => handleViewPatient(patient)}
+                              title="عرض التفاصيل"
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
-                            <Button size="sm" variant="outline">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleEditPatient(patient)}
+                              title="تعديل"
+                            >
                               <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDeletePatient(patient.id)}
+                              title="حذف"
+                              disabled={isLoading}
+                            >
+                              <X className="h-4 w-4" />
                             </Button>
                           </div>
                         </TableCell>
@@ -591,7 +606,7 @@ export default function Patients() {
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold font-arabic mb-2">الحساسيات:</h4>
+                          <h4 className="font-bold font-arabic mb-2">��لحساسيات:</h4>
                           <p className="text-sm font-arabic text-gray-600 bg-red-50 p-3 rounded">
                             {selectedPatient.allergies || 'لا توجد حساسيات معروفة'}
                           </p>
@@ -670,7 +685,7 @@ export default function Patients() {
                     <TableRow>
                       <TableHead className="font-arabic">المريض</TableHead>
                       <TableHead className="font-arabic">التاريخ</TableHead>
-                      <TableHead className="font-arabic">الوقت</TableHead>
+                      <TableHead className="font-arabic">ا��وقت</TableHead>
                       <TableHead className="font-arabic">الطبيب</TableHead>
                       <TableHead className="font-arabic">ال��دمة</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
