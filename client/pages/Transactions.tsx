@@ -219,7 +219,7 @@ export default function Transactions() {
       // await fetch('/api/payments', { method: 'POST', body: JSON.stringify(paymentRecord) });
 
       toast({
-        title: "تم بنجاح",
+        title: "تم بنج��ح",
         description: `تم تسجيل دفعة بمبلغ ${amount.toLocaleString()} ر.ي`,
       });
 
@@ -229,7 +229,7 @@ export default function Transactions() {
     } catch (error) {
       toast({
         title: "خطأ",
-        description: "حدث خطأ أثناء معالجة الدفع��",
+        description: "حدث خطأ أثناء معالجة الدفعة",
         variant: "destructive",
       });
     } finally {
@@ -371,6 +371,10 @@ export default function Transactions() {
                     </Select>
                   </div>
                   <div className="flex gap-2">
+                    <Button onClick={handleNewPayment} className="font-arabic">
+                      <Plus className="h-4 w-4 mr-2" />
+                      إضافة دفعة جديدة
+                    </Button>
                     <Button variant="outline" className="font-arabic">
                       <Filter className="h-4 w-4 mr-2" />
                       تصفية متقدمة
