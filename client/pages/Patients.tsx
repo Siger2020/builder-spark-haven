@@ -16,6 +16,7 @@ import {
   Plus,
   Eye,
   Edit,
+  X,
   Phone,
   Mail,
   Calendar,
@@ -98,7 +99,7 @@ interface Payment {
 const getStatusBadge = (status: string) => {
   switch (status) {
     case "active":
-      return <Badge className="bg-green-100 text-green-800">ن��ط</Badge>;
+      return <Badge className="bg-green-100 text-green-800">نشط</Badge>;
     case "inactive":
       return <Badge className="bg-gray-100 text-gray-800">غير نشط</Badge>;
     case "pending":
@@ -255,7 +256,7 @@ export default function Patients() {
       });
 
       if (response.ok) {
-        alert(isEdit ? 'تم تحديث بيانات المريض بنجاح' : 'تم إضافة المريض بنجاح');
+        alert(isEdit ? 'تم تحديث بيانات المريض بنج��ح' : 'تم إضافة المريض بنجاح');
         setIsAddPatientDialogOpen(false);
         setIsEditPatientDialogOpen(false);
         fetchPatients(); // Refresh the list
@@ -606,7 +607,7 @@ export default function Patients() {
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold font-arabic mb-2">��لحساسيات:</h4>
+                          <h4 className="font-bold font-arabic mb-2">الحساسيات:</h4>
                           <p className="text-sm font-arabic text-gray-600 bg-red-50 p-3 rounded">
                             {selectedPatient.allergies || 'لا توجد حساسيات معروفة'}
                           </p>
@@ -631,7 +632,7 @@ export default function Patients() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">مواعيد اليوم</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">م��اعيد اليوم</CardTitle>
                   <CalendarCheck className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -685,7 +686,7 @@ export default function Patients() {
                     <TableRow>
                       <TableHead className="font-arabic">المريض</TableHead>
                       <TableHead className="font-arabic">التاريخ</TableHead>
-                      <TableHead className="font-arabic">ا��وقت</TableHead>
+                      <TableHead className="font-arabic">الوقت</TableHead>
                       <TableHead className="font-arabic">الطبيب</TableHead>
                       <TableHead className="font-arabic">ال��دمة</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
@@ -1094,7 +1095,7 @@ export default function Patients() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="font-arabic">الاسم الكامل</Label>
-                <Input placeholder="أدخل الاسم الكامل" className="font-arabic" />
+                <Input placeholder="أدخل الا��م الكامل" className="font-arabic" />
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">العمر</Label>
