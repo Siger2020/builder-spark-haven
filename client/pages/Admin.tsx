@@ -201,6 +201,10 @@ function AdminComponent() {
           completedAppointments: 0, // Will be calculated from appointments
           scheduledAppointments: 0,
           cancelledAppointments: 0,
+          pendingAppointments: 0,
+          canceledAppointments: 0,
+          monthlyRevenue: 125000, // Mock data
+          outstandingPayments: 15000, // Mock data
         });
       }
 
@@ -275,7 +279,7 @@ function AdminComponent() {
               لوحة الإدارة
             </h1>
             <p className="text-gray-600 font-arabic">
-              نظام إداري متكامل لمتابعة جميع عمليات العيادة
+              نظام إ��اري متكامل لمتابعة جميع عمليات العيادة
             </p>
           </div>
           <div className="flex gap-2">
@@ -844,7 +848,7 @@ function AdminComponent() {
                 <CardHeader>
                   <CardTitle className="font-arabic">إحصائيات النظام</CardTitle>
                   <CardDescription className="font-arabic">
-                    معلومات حول حالة النظام
+                    معل��مات حول حالة النظام
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
