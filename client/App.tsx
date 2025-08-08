@@ -34,7 +34,8 @@ import AIAnalysis from "./pages/AIAnalysis";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
       <Toaster />
       <Sonner />
       <BrowserRouter>
@@ -214,7 +215,8 @@ const App = () => (
           </div>
         </AuthProvider>
       </BrowserRouter>
-  </QueryClientProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 createRoot(document.getElementById("root")!).render(<App />);
