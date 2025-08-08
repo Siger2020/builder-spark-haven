@@ -295,22 +295,31 @@ export class EmailJSService {
         };
       }
     } catch (error) {
-      console.error("EmailJS send error:", error);
+      // Safe error logging to prevent text@[native code] issues
+      console.error("EmailJS send error occurred");
 
       let errorMessage = "خطأ غير معروف في الإرسال";
 
       if (error instanceof Error) {
-        if (error.message.includes("body stream already read")) {
+        if (error.message && error.message.includes("body stream already read")) {
           // إعادة تعيين EmailJS وإعادة المحاولة مرة واحدة
           this.reset();
           errorMessage = "تم إعادة تعيين النظام - يرجى المحاولة مرة أخرى";
-        } else if (error.message.includes("Unauthorized")) {
+        } else if (error.message && error.message.includes("Unauthorized")) {
           errorMessage = "خطأ في الصلاحية - تحقق من Public Key";
-        } else if (error.message.includes("Not Found")) {
+        } else if (error.message && error.message.includes("Not Found")) {
           errorMessage = "Service ID أو Template ID غير صحيح";
-        } else {
+        } else if (error.message && typeof error.message === 'string') {
           errorMessage = error.message;
+        } else {
+          errorMessage = "خطأ في الاتصال بخدمة البريد الإلكتروني";
         }
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      } else {
+        // Handle non-Error objects safely
+        errorMessage = "خطأ في الاتصال بخدمة EmailJS";
+        console.error("Non-Error object caught:", Object.prototype.toString.call(error));
       }
 
       return {
