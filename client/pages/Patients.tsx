@@ -104,7 +104,7 @@ const getStatusBadge = (status: string) => {
     case "pending":
       return <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>;
     default:
-      return <Badge variant="secondary">غير مح��د</Badge>;
+      return <Badge variant="secondary">غير محدد</Badge>;
   }
 };
 
@@ -143,7 +143,7 @@ export default function Patients() {
         setPatients([]);
       }
     } catch (error) {
-      console.error('خطأ في جلب بيانات المرضى:', error);
+      console.error('خطأ ��ي جلب بيانات المرضى:', error);
       setPatients([]);
     } finally {
       setLoading(false);
@@ -174,7 +174,7 @@ export default function Patients() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 font-arabic">ملفات المر��ى</h1>
+            <h1 className="text-3xl font-bold text-gray-900 font-arabic">ملفات المرضى</h1>
             <p className="text-gray-600 font-arabic">إدارة شاملة لبيانات وملفات المرضى</p>
           </div>
           <Button onClick={() => setIsAddPatientDialogOpen(true)} className="font-arabic">
@@ -281,7 +281,7 @@ export default function Patients() {
                         <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
                         <SelectItem value="active" className="font-arabic">نشط</SelectItem>
                         <SelectItem value="inactive" className="font-arabic">غير نشط</SelectItem>
-                        <SelectItem value="pending" className="font-arabic">في ال��نتظار</SelectItem>
+                        <SelectItem value="pending" className="font-arabic">في الانتظار</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -506,18 +506,135 @@ export default function Patients() {
           </TabsContent>
 
           <TabsContent value="appointments" className="space-y-6">
+            {/* Appointments Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">مواعيد اليوم</CardTitle>
+                  <CalendarCheck className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">8</div>
+                  <p className="text-xs text-muted-foreground font-arabic">3 منجزة، 5 متبقية</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">مواعيد الأسبوع</CardTitle>
+                  <CalendarClock className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">24</div>
+                  <p className="text-xs text-muted-foreground font-arabic">زيادة 15% عن الأسبوع الماضي</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">معدل الحضور</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-600">92%</div>
+                  <p className="text-xs text-muted-foreground font-arabic">أداء ممتاز</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">إلغاءات</CardTitle>
+                  <AlertCircle className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-red-600">3</div>
+                  <p className="text-xs text-muted-foreground font-arabic">هذا الأسبوع</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Appointments Table */}
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">إدارة المواعيد</CardTitle>
+                <CardTitle className="font-arabic">جدول المواعيد</CardTitle>
                 <CardDescription className="font-arabic">
-                  جدولة ومتابعة مواعيد المرضى
+                  إدارة ومتابعة مواعيد جميع المرضى
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <Calendar className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سي��م إضافة إدارة المواعيد قريباً</p>
-                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="font-arabic">المريض</TableHead>
+                      <TableHead className="font-arabic">التاريخ</TableHead>
+                      <TableHead className="font-arabic">الوقت</TableHead>
+                      <TableHead className="font-arabic">الطبيب</TableHead>
+                      <TableHead className="font-arabic">الخدمة</TableHead>
+                      <TableHead className="font-arabic">الحالة</TableHead>
+                      <TableHead className="font-arabic">الإجراءات</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Sample appointments data */}
+                    <TableRow>
+                      <TableCell className="font-arabic">أحمد محمد علي</TableCell>
+                      <TableCell>2024-01-15</TableCell>
+                      <TableCell>10:00 AM</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">فحص دوري</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">مكتمل</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-arabic">فاطمة أحمد</TableCell>
+                      <TableCell>2024-01-15</TableCell>
+                      <TableCell>2:00 PM</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
+                      <TableCell>
+                        <Badge className="bg-blue-100 text-blue-800 font-arabic">مجدول</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-arabic">محمد علي حسن</TableCell>
+                      <TableCell>2024-01-16</TableCell>
+                      <TableCell>9:30 AM</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">حشو الأسنان</TableCell>
+                      <TableCell>
+                        <Badge className="bg-yellow-100 text-yellow-800 font-arabic">في الانتظار</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </TabsContent>
@@ -527,7 +644,7 @@ export default function Patients() {
               <CardHeader>
                 <CardTitle className="font-arabic">السجلات الطبية</CardTitle>
                 <CardDescription className="font-arabic">
-                  إدارة السجلات والتاريخ الطبي للمرضى
+                  إدارة السجلا�� والتاريخ الطبي للمرضى
                 </CardDescription>
               </CardHeader>
               <CardContent>
