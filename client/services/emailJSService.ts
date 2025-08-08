@@ -129,7 +129,7 @@ export class EmailJSService {
       return {
         success: false,
         error:
-          "خدمة البريد الإلكتروني غير مُ��َدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
+          "خدمة البريد الإلكتروني غير مُ���َدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
       };
     }
 
@@ -234,7 +234,7 @@ export class EmailJSService {
     });
   }
 
-  // معالجة طاب��ر الطلبات
+  // معالجة طابور الطلبات
   private async processQueue(): Promise<void> {
     if (this.isProcessingQueue || this.requestQueue.length === 0) {
       return;
@@ -307,9 +307,37 @@ export class EmailJSService {
         throw new Error("EmailJS only works in browser environment");
       }
 
-      // Ensure EmailJS library is loaded
-      if (typeof emailjs !== 'object' || typeof emailjs.send !== 'function') {
-        throw new Error("EmailJS library not properly loaded");
+      // Enhanced EmailJS library check with better error reporting
+      let emailjsToUse;
+      try {
+        // Check if emailjs is imported correctly
+        if (typeof emailjs === 'undefined') {
+          throw new Error("EmailJS library is undefined - import failed");
+        }
+
+        // Handle different import structures
+        if (emailjs && typeof emailjs === 'object') {
+          if (typeof emailjs.send === 'function') {
+            emailjsToUse = emailjs;
+          } else if (emailjs.default && typeof emailjs.default.send === 'function') {
+            emailjsToUse = emailjs.default;
+          } else {
+            throw new Error("EmailJS send function not found in library structure");
+          }
+        } else {
+          throw new Error("EmailJS is not an object as expected");
+        }
+
+        console.log("EmailJS library validation passed:", {
+          hasEmailJS: !!emailjs,
+          hasDefaultSend: !!(emailjs as any)?.default?.send,
+          hasDirectSend: !!(emailjs as any)?.send,
+          selectedStructure: emailjsToUse === emailjs ? 'direct' : 'default'
+        });
+
+      } catch (libraryError) {
+        console.error("EmailJS library validation failed:", libraryError);
+        throw new Error(`EmailJS library error: ${libraryError instanceof Error ? libraryError.message : 'Unknown library error'}`);
       }
 
       const templateData = this.prepareTemplateData(type, data);
@@ -322,7 +350,7 @@ export class EmailJSService {
       });
 
       // استخدام محاولة واحدة فقط بدون retry مع timeout
-      const sendPromise = emailjs.send(
+      const sendPromise = emailjsToUse.send(
         this.config.serviceId,
         this.config.templateId,
         templateData,
@@ -482,7 +510,7 @@ export class EmailJSService {
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
-        error: "خدمة البري�� الإلكتروني غير مُعَدّة بشكل صحيح",
+        error: "خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح",
       };
     }
 
@@ -718,7 +746,7 @@ export class EmailJSService {
       doctorName: "الدكتور كمال الملصي",
       clinicName: "عيادة الدكتور كمال الملصي لطب الأسنان",
       clinicPhone: "+966 11 234 5678",
-      clinicAddress: "شارع الملك فهد، الرياض، المملكة العربية السع��دية",
+      clinicAddress: "شارع الملك فهد، الرياض، المملكة العربية السعودية",
       notes: "فحص دوري وتنظيف الأسنان",
     };
 
