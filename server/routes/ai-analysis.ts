@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     const timestamp = Date.now();
     const originalName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, "_");
     cb(null, `${timestamp}_${originalName}`);
-  }
+  },
 });
 
 const upload = multer({
@@ -32,13 +32,18 @@ const upload = multer({
     fileSize: 10 * 1024 * 1024, // 10MB
   },
   fileFilter: function (req, file, cb) {
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "application/pdf",
+    ];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
       cb(new Error("نوع الملف غير مدعوم"));
     }
-  }
+  },
 });
 
 // تحليل الصور الطبية
@@ -47,7 +52,7 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({
         success: false,
-        error: "لم يتم رفع أي ملف"
+        error: "لم يتم رفع أي ملف",
       });
     }
 
@@ -77,7 +82,7 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       "image",
       JSON.stringify({
         fileName: req.file.originalname,
-        uploadedAt: new Date().toISOString()
+        uploadedAt: new Date().toISOString(),
       }),
       req.file.path,
       req.file.mimetype,
@@ -89,7 +94,7 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       mockAIAnalysis.severity,
       "completed",
       mockAIAnalysis.processingTime,
-      1 // مستخدم النظام
+      1, // مستخدم النظام
     );
 
     // إنشاء تقرير مفصل
@@ -110,7 +115,7 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       JSON.stringify(mockAIAnalysis.riskFactors),
       JSON.stringify(mockAIAnalysis.preventionTips),
       JSON.stringify(mockAIAnalysis.urgencyIndicators),
-      true
+      true,
     );
 
     res.json({
@@ -122,15 +127,14 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
         confidence: mockAIAnalysis.confidence,
         recommendations: mockAIAnalysis.recommendations,
         severity: mockAIAnalysis.severity,
-        processingTime: mockAIAnalysis.processingTime
-      }
+        processingTime: mockAIAnalysis.processingTime,
+      },
     });
-
   } catch (error) {
     console.error("خطأ في تحليل الصورة:", error);
     res.status(500).json({
       success: false,
-      error: "حدث خطأ أثناء تحليل الصورة"
+      error: "حدث خطأ أثناء تحليل الصورة",
     });
   }
 });
@@ -138,12 +142,13 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
 // تحليل الأعراض النصية
 router.post("/analyze-symptoms", async (req, res) => {
   try {
-    const { symptoms, patientAge, patientGender, patientId, doctorId } = req.body;
+    const { symptoms, patientAge, patientGender, patientId, doctorId } =
+      req.body;
 
     if (!symptoms || symptoms.trim().length === 0) {
       return res.status(400).json({
         success: false,
-        error: "يرجى كتابة الأعراض"
+        error: "يرجى كتابة الأعراض",
       });
     }
 
@@ -151,7 +156,11 @@ router.post("/analyze-symptoms", async (req, res) => {
     const analysisNumber = `SYM${Date.now()}`;
 
     // محاكاة تحليل الأعراض
-    const mockAIAnalysis = await simulateSymptomsAnalysis(symptoms, patientAge, patientGender);
+    const mockAIAnalysis = await simulateSymptomsAnalysis(
+      symptoms,
+      patientAge,
+      patientGender,
+    );
 
     // حفظ التحليل في قاعدة البيانات
     const insertAnalysis = db.prepare(`
@@ -172,7 +181,7 @@ router.post("/analyze-symptoms", async (req, res) => {
         symptoms: symptoms,
         patientAge: patientAge,
         patientGender: patientGender,
-        analyzedAt: new Date().toISOString()
+        analyzedAt: new Date().toISOString(),
       }),
       "symptom_analyzer",
       mockAIAnalysis.confidence,
@@ -181,7 +190,7 @@ router.post("/analyze-symptoms", async (req, res) => {
       mockAIAnalysis.severity,
       "completed",
       mockAIAnalysis.processingTime,
-      1
+      1,
     );
 
     // إنشاء تقرير مفصل
@@ -203,7 +212,7 @@ router.post("/analyze-symptoms", async (req, res) => {
       JSON.stringify(mockAIAnalysis.preventionTips),
       JSON.stringify(mockAIAnalysis.relatedConditions),
       JSON.stringify(mockAIAnalysis.urgencyIndicators),
-      true
+      true,
     );
 
     res.json({
@@ -216,15 +225,14 @@ router.post("/analyze-symptoms", async (req, res) => {
         recommendations: mockAIAnalysis.recommendations,
         severity: mockAIAnalysis.severity,
         processingTime: mockAIAnalysis.processingTime,
-        relatedConditions: mockAIAnalysis.relatedConditions
-      }
+        relatedConditions: mockAIAnalysis.relatedConditions,
+      },
     });
-
   } catch (error) {
     console.error("خطأ في تحليل الأعراض:", error);
     res.status(500).json({
       success: false,
-      error: "حدث خطأ أثناء تحليل الأعراض"
+      error: "حدث خطأ أثناء تحليل الأعراض",
     });
   }
 });
@@ -234,7 +242,9 @@ router.get("/patient/:patientId", async (req, res) => {
   try {
     const { patientId } = req.params;
 
-    const analyses = db.prepare(`
+    const analyses = db
+      .prepare(
+        `
       SELECT 
         a.*,
         p.patient_number,
@@ -248,22 +258,23 @@ router.get("/patient/:patientId", async (req, res) => {
       LEFT JOIN users du ON d.user_id = du.id
       WHERE a.patient_id = ?
       ORDER BY a.created_at DESC
-    `).all(patientId);
+    `,
+      )
+      .all(patientId);
 
     res.json({
       success: true,
-      analyses: analyses.map(analysis => ({
+      analyses: analyses.map((analysis) => ({
         ...analysis,
-        input_data: JSON.parse(analysis.input_data || '{}'),
-        recommendations: JSON.parse(analysis.recommendations || '[]')
-      }))
+        input_data: JSON.parse(analysis.input_data || "{}"),
+        recommendations: JSON.parse(analysis.recommendations || "[]"),
+      })),
     });
-
   } catch (error) {
     console.error("خطأ في جلب التحليلات:", error);
     res.status(500).json({
       success: false,
-      error: "حدث خطأ أثناء جلب التحليلات"
+      error: "حدث خطأ أثناء جلب التحليلات",
     });
   }
 });
@@ -273,7 +284,9 @@ router.get("/report/:analysisId", async (req, res) => {
   try {
     const { analysisId } = req.params;
 
-    const report = db.prepare(`
+    const report = db
+      .prepare(
+        `
       SELECT 
         r.*,
         a.analysis_number,
@@ -285,12 +298,14 @@ router.get("/report/:analysisId", async (req, res) => {
       WHERE r.analysis_id = ?
       ORDER BY r.created_at DESC
       LIMIT 1
-    `).get(analysisId);
+    `,
+      )
+      .get(analysisId);
 
     if (!report) {
       return res.status(404).json({
         success: false,
-        error: "التقرير غير موجود"
+        error: "التقرير غير موجود",
       });
     }
 
@@ -298,19 +313,18 @@ router.get("/report/:analysisId", async (req, res) => {
       success: true,
       report: {
         ...report,
-        insights: JSON.parse(report.insights || '[]'),
-        risk_factors: JSON.parse(report.risk_factors || '[]'),
-        prevention_tips: JSON.parse(report.prevention_tips || '[]'),
-        related_conditions: JSON.parse(report.related_conditions || '[]'),
-        urgency_indicators: JSON.parse(report.urgency_indicators || '[]')
-      }
+        insights: JSON.parse(report.insights || "[]"),
+        risk_factors: JSON.parse(report.risk_factors || "[]"),
+        prevention_tips: JSON.parse(report.prevention_tips || "[]"),
+        related_conditions: JSON.parse(report.related_conditions || "[]"),
+        urgency_indicators: JSON.parse(report.urgency_indicators || "[]"),
+      },
     });
-
   } catch (error) {
     console.error("خطأ في جلب التقرير:", error);
     res.status(500).json({
       success: false,
-      error: "حدث خطأ أثناء جلب التقرير"
+      error: "حدث خطأ أثناء جلب التقرير",
     });
   }
 });
@@ -319,42 +333,64 @@ router.get("/report/:analysisId", async (req, res) => {
 router.get("/statistics", async (req, res) => {
   try {
     const stats = {
-      totalAnalyses: db.prepare("SELECT COUNT(*) as count FROM ai_analyses").get().count,
-      todayAnalyses: db.prepare(`
+      totalAnalyses: db
+        .prepare("SELECT COUNT(*) as count FROM ai_analyses")
+        .get().count,
+      todayAnalyses: db
+        .prepare(
+          `
         SELECT COUNT(*) as count FROM ai_analyses 
         WHERE DATE(created_at) = DATE('now')
-      `).get().count,
-      completedAnalyses: db.prepare(`
+      `,
+        )
+        .get().count,
+      completedAnalyses: db
+        .prepare(
+          `
         SELECT COUNT(*) as count FROM ai_analyses 
         WHERE status = 'completed'
-      `).get().count,
-      averageConfidence: db.prepare(`
+      `,
+        )
+        .get().count,
+      averageConfidence:
+        db
+          .prepare(
+            `
         SELECT AVG(confidence_score) as avg FROM ai_analyses 
         WHERE status = 'completed'
-      `).get().avg || 0,
-      byType: db.prepare(`
+      `,
+          )
+          .get().avg || 0,
+      byType: db
+        .prepare(
+          `
         SELECT analysis_type, COUNT(*) as count 
         FROM ai_analyses 
         GROUP BY analysis_type
-      `).all(),
-      bySeverity: db.prepare(`
+      `,
+        )
+        .all(),
+      bySeverity: db
+        .prepare(
+          `
         SELECT severity_level, COUNT(*) as count 
         FROM ai_analyses 
         WHERE status = 'completed'
         GROUP BY severity_level
-      `).all()
+      `,
+        )
+        .all(),
     };
 
     res.json({
       success: true,
-      statistics: stats
+      statistics: stats,
     });
-
   } catch (error) {
     console.error("خطأ في جلب الإحصائيات:", error);
     res.status(500).json({
       success: false,
-      error: "حدث خطأ أثناء جلب الإحصائيات"
+      error: "حدث خطأ أثناء جلب الإحصائيات",
     });
   }
 });
@@ -363,7 +399,7 @@ router.get("/statistics", async (req, res) => {
 async function simulateImageAnalysis(file) {
   // محاكاة وقت المعالجة
   const processingTime = Math.floor(Math.random() * 3000) + 1000;
-  await new Promise(resolve => setTimeout(resolve, processingTime));
+  await new Promise((resolve) => setTimeout(resolve, processingTime));
 
   const mockResults = [
     {
@@ -374,10 +410,14 @@ async function simulateImageAnalysis(file) {
         "تنظيف عميق للأسنان واللثة",
         "استخدام غسول فم مطهر مرتين يومياً",
         "تحسين تقنية تنظيف الأسنان",
-        "مراجعة طبيب الأسنان خلال أسبوعين"
+        "مراجعة طبيب الأسنان خلال أسبوعين",
       ],
       riskFactors: ["إهمال تنظيف الأسنان", "تراكم الجير", "التدخين"],
-      preventionTips: ["تنظيف الأسنان مرتين يومياً", "استخدام خيط الأسنان", "المراجعة الدورية"]
+      preventionTips: [
+        "تنظيف الأسنان مرتين يومياً",
+        "استخدام خيط الأسنان",
+        "المراجعة الدورية",
+      ],
     },
     {
       diagnosis: "تسوس أسنان مبكر",
@@ -387,11 +427,15 @@ async function simulateImageAnalysis(file) {
         "حشوة تجميلية للسن المصاب",
         "تطبيق الفلورايد",
         "تقليل السكريات في النظام الغذائي",
-        "المراجعة خلال شهر"
+        "المراجعة خلال شهر",
       ],
       riskFactors: ["تناول السكريات بكثرة", "ضعف التنظيف", "جفاف الفم"],
-      preventionTips: ["تقليل السكريات", "شرب الماء بكثرة", "استخدام معجون يحتوي على الفلورايد"]
-    }
+      preventionTips: [
+        "تقليل السكريات",
+        "شرب الماء بكثرة",
+        "استخدام معجون يحتوي على الفلورايد",
+      ],
+    },
   ];
 
   const result = mockResults[Math.floor(Math.random() * mockResults.length)];
@@ -403,23 +447,29 @@ async function simulateImageAnalysis(file) {
     insights: [
       "تم تحديد المشكلة بدقة عالية",
       "التدخل المبكر يحسن من نتائج العلاج",
-      "المتابعة الدورية ضرورية لمنع تفاقم الحالة"
+      "المتابعة الدورية ضرورية لمنع تفاقم الحالة",
     ],
-    urgencyIndicators: result.severity === "high" ? ["يتطلب تدخل فوري"] : ["يمكن معالجتها ضمن الخطة العادية"]
+    urgencyIndicators:
+      result.severity === "high"
+        ? ["يتطلب تدخل فوري"]
+        : ["يمكن معالجتها ضمن الخطة العادية"],
   };
 }
 
 // محاكاة تحليل الأعراض
 async function simulateSymptomsAnalysis(symptoms, age, gender) {
   const processingTime = Math.floor(Math.random() * 2000) + 500;
-  await new Promise(resolve => setTimeout(resolve, processingTime));
+  await new Promise((resolve) => setTimeout(resolve, processingTime));
 
   // تحليل الأعراض وتحديد التشخيص المحتمل
   const symptomKeywords = symptoms.toLowerCase();
-  
+
   let diagnosis, confidence, severity, recommendations, relatedConditions;
 
-  if (symptomKeywords.includes("صداع") || symptomKeywords.includes("ألم الرأس")) {
+  if (
+    symptomKeywords.includes("صداع") ||
+    symptomKeywords.includes("ألم الرأس")
+  ) {
     diagnosis = "صداع توتري محتمل";
     confidence = 78.5;
     severity = "low";
@@ -427,10 +477,17 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "الراحة في مكان هادئ",
       "شرب كمية كافية من الماء",
       "تجنب الشاشات لفترات طويلة",
-      "مراجعة الطبيب إذا استمر الصداع أكثر من 3 أيام"
+      "مراجعة الطبيب إذا استمر الصداع أكثر من 3 أيام",
     ];
-    relatedConditions = ["الصداع النصفي", "صداع الجيوب الأنفية", "التوتر والقلق"];
-  } else if (symptomKeywords.includes("حمى") || symptomKeywords.includes("حرارة")) {
+    relatedConditions = [
+      "الصداع النصفي",
+      "صداع الجيوب الأنفية",
+      "التوتر والقلق",
+    ];
+  } else if (
+    symptomKeywords.includes("حمى") ||
+    symptomKeywords.includes("حرارة")
+  ) {
     diagnosis = "عدوى فيروسية محتملة";
     confidence = 82.3;
     severity = "medium";
@@ -438,10 +495,13 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "الراحة التامة",
       "شرب السوائل بكثرة",
       "مراقبة درجة الحرارة",
-      "مراجعة الطبيب إذا استمرت الحمى أكثر من 48 ساعة"
+      "مراجعة الطبيب إذا استمرت الحمى أكثر من 48 ساعة",
     ];
     relatedConditions = ["نزلة البرد", "الإنفلونزا", "التهاب الحلق"];
-  } else if (symptomKeywords.includes("ألم البطن") || symptomKeywords.includes("معدة")) {
+  } else if (
+    symptomKeywords.includes("ألم البطن") ||
+    symptomKeywords.includes("معدة")
+  ) {
     diagnosis = "اضطراب معدي معوي";
     confidence = 75.8;
     severity = "medium";
@@ -449,9 +509,13 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "تناول وجبات خفيفة",
       "تجنب الأطعمة الدهنية والحارة",
       "شرب شاي البابونج",
-      "مراجعة الطبيب إذا استمر الألم أو ازداد شدة"
+      "مراجعة الطبيب إذا استمر الألم أو ازداد شدة",
     ];
-    relatedConditions = ["متلازمة القولون العصبي", "التهاب المعدة", "عسر الهضم"];
+    relatedConditions = [
+      "متلازمة القولون العصبي",
+      "التهاب المعدة",
+      "عسر الهضم",
+    ];
   } else {
     diagnosis = "أعراض عامة تحتاج تقييم طبي";
     confidence = 65.2;
@@ -460,7 +524,7 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "المراقبة الدقيقة للأعراض",
       "الراحة والاسترخاء",
       "تسجيل تطور الأعراض",
-      "مراجعة طبيب مختص للتشخيص الدقيق"
+      "مراجعة طبيب مختص للتشخيص الدقيق",
     ];
     relatedConditions = ["حالات طبية متنوعة", "اضطرابات نفسية جسدية"];
   }
@@ -476,11 +540,19 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
     insights: [
       "تم تحليل الأعراض باستخدام خوارزميات متقدمة",
       "التشخيص الأولي ي��اعد في توجيه الرعاية",
-      "المتابعة الطبية ضرورية للتأكد من التشخيص"
+      "المتابعة الطبية ضرورية للتأكد من التشخيص",
     ],
     riskFactors: ["عدم المتابعة الطبية", "إهمال الأعراض", "التأخير في العلاج"],
-    preventionTips: ["نمط حياة صحي", "التغذية المتوازنة", "ممارسة الرياضة", "إدارة التوتر"],
-    urgencyIndicators: severity === "high" ? ["يتطلب عناية طبية فورية"] : ["متابعة طبية عادية مطلوبة"]
+    preventionTips: [
+      "نمط حياة صحي",
+      "التغذية المتوازنة",
+      "ممارسة الرياضة",
+      "إدارة التوتر",
+    ],
+    urgencyIndicators:
+      severity === "high"
+        ? ["يتطلب عناية طبية فورية"]
+        : ["متابعة طبية عادية مطلوبة"],
   };
 }
 

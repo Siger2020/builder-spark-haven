@@ -1,21 +1,36 @@
 import { useState, useRef } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Brain, Upload, FileText, Image, Activity, Stethoscope, AlertTriangle, CheckCircle } from "lucide-react";
+import {
+  Brain,
+  Upload,
+  FileText,
+  Image,
+  Activity,
+  Stethoscope,
+  AlertTriangle,
+  CheckCircle,
+} from "lucide-react";
 
 interface AnalysisResult {
   id: string;
-  type: 'image' | 'text' | 'symptoms';
+  type: "image" | "text" | "symptoms";
   result: {
     diagnosis: string;
     confidence: number;
     recommendations: string[];
-    severity: 'low' | 'medium' | 'high';
+    severity: "low" | "medium" | "high";
     followUp: string;
   };
   timestamp: Date;
@@ -27,33 +42,35 @@ export default function AIAnalysis() {
   const [symptoms, setSymptoms] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     setLoading(true);
     try {
       // Simulate AI analysis
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
       const mockResult: AnalysisResult = {
         id: Date.now().toString(),
-        type: 'image',
+        type: "image",
         result: {
           diagnosis: "اشتباه في التهاب اللثة المتوسط",
           confidence: 87,
           recommendations: [
             "تنظيف عميق للأسنان",
             "استخدام غسول فم مطهر",
-            "مراجعة طبيب الأسنان خلال أسبوع"
+            "مراجعة طبيب الأسنان خلال أسبوع",
           ],
-          severity: 'medium',
-          followUp: "متابعة خلال أسبوعين لتقييم التحسن"
+          severity: "medium",
+          followUp: "متابعة خلال أسبوعين لتقييم التحسن",
         },
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setAnalyses(prev => [mockResult, ...prev]);
+
+      setAnalyses((prev) => [mockResult, ...prev]);
     } catch (error) {
       console.error("Error analyzing image:", error);
     } finally {
@@ -63,30 +80,30 @@ export default function AIAnalysis() {
 
   const handleSymptomsAnalysis = async () => {
     if (!symptoms.trim()) return;
-    
+
     setLoading(true);
     try {
       // Simulate AI analysis
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       const mockResult: AnalysisResult = {
         id: Date.now().toString(),
-        type: 'symptoms',
+        type: "symptoms",
         result: {
           diagnosis: "أعراض تشير إلى التهاب الجيوب الأنفية",
           confidence: 76,
           recommendations: [
             "راحة كافية وشرب السوائل",
             "استخدام بخاخ محلول ملحي",
-            "مراجعة الطبيب إذا استمرت الأعراض أكثر من أسبوع"
+            "مراجعة الطبيب إذا استمرت الأعراض أكثر من أسبوع",
           ],
-          severity: 'low',
-          followUp: "مراجعة خلال 3-5 أيام إذا لم تتحسن الأعراض"
+          severity: "low",
+          followUp: "مراجعة خلال 3-5 أيام إذا لم تتحسن الأعراض",
         },
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setAnalyses(prev => [mockResult, ...prev]);
+
+      setAnalyses((prev) => [mockResult, ...prev]);
       setSymptoms("");
     } catch (error) {
       console.error("Error analyzing symptoms:", error);
@@ -97,19 +114,27 @@ export default function AIAnalysis() {
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'low': return 'bg-green-100 text-green-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'high': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "low":
+        return "bg-green-100 text-green-800";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800";
+      case "high":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
-      case 'low': return <CheckCircle className="h-4 w-4" />;
-      case 'medium': return <Activity className="h-4 w-4" />;
-      case 'high': return <AlertTriangle className="h-4 w-4" />;
-      default: return <Activity className="h-4 w-4" />;
+      case "low":
+        return <CheckCircle className="h-4 w-4" />;
+      case "medium":
+        return <Activity className="h-4 w-4" />;
+      case "high":
+        return <AlertTriangle className="h-4 w-4" />;
+      default:
+        return <Activity className="h-4 w-4" />;
     }
   };
 
@@ -119,7 +144,9 @@ export default function AIAnalysis() {
         <Brain className="h-8 w-8 text-blue-600" />
         <div>
           <h1 className="text-3xl font-bold">تحليلات الذكاء الاصطناعي</h1>
-          <p className="text-muted-foreground">تحليل الأمراض وملفات المرضى بتقنية الذكاء الاصطناعي</p>
+          <p className="text-muted-foreground">
+            تحليل الأمراض وملفات المرضى بتقنية الذكاء الاصطناعي
+          </p>
         </div>
       </div>
 
@@ -147,7 +174,8 @@ export default function AIAnalysis() {
                 رفع صورة طبية للتحليل
               </CardTitle>
               <CardDescription>
-                ارفع صورة أشعة، تحليل مختبري، أو صورة سريرية للحصول على تحليل فوري بالذكاء الاصطناعي
+                ارفع صورة أشعة، تحليل مختبري، أو صورة سريرية للحصول على تحليل
+                فوري بالذكاء الاصطناعي
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -171,7 +199,9 @@ export default function AIAnalysis() {
               {loading && (
                 <div className="mt-4">
                   <Progress value={33} className="w-full" />
-                  <p className="text-center mt-2 text-sm text-muted-foreground">جاري تحليل الصورة...</p>
+                  <p className="text-center mt-2 text-sm text-muted-foreground">
+                    جاري تحليل الصورة...
+                  </p>
                 </div>
               )}
             </CardContent>
@@ -186,7 +216,8 @@ export default function AIAnalysis() {
                 وصف الأعراض للتحليل
               </CardTitle>
               <CardDescription>
-                اكتب الأعراض التي يعاني منها المريض للحصول على تشخيص أولي وتوصيات
+                اكتب الأعراض التي يعاني منها المريض للحصول على تشخيص أولي
+                وتوصيات
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -213,8 +244,12 @@ export default function AIAnalysis() {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <Brain className="h-12 w-12 text-gray-400 mb-4" />
-                  <p className="text-lg text-muted-foreground">لا توجد تحليلات بعد</p>
-                  <p className="text-sm text-muted-foreground">ابدأ بتحليل صورة أو أعراض لرؤية التقارير</p>
+                  <p className="text-lg text-muted-foreground">
+                    لا توجد تحليلات بعد
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    ابدأ بتحليل صورة أو أعراض لرؤية التقارير
+                  </p>
                 </CardContent>
               </Card>
             ) : (
@@ -223,16 +258,22 @@ export default function AIAnalysis() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="flex items-center gap-2">
-                        {analysis.type === 'image' && <Image className="h-5 w-5" />}
-                        {analysis.type === 'symptoms' && <Stethoscope className="h-5 w-5" />}
+                        {analysis.type === "image" && (
+                          <Image className="h-5 w-5" />
+                        )}
+                        {analysis.type === "symptoms" && (
+                          <Stethoscope className="h-5 w-5" />
+                        )}
                         {analysis.result.diagnosis}
                       </CardTitle>
                       <div className="flex items-center gap-2">
-                        <Badge className={getSeverityColor(analysis.result.severity)}>
+                        <Badge
+                          className={getSeverityColor(analysis.result.severity)}
+                        >
                           {getSeverityIcon(analysis.result.severity)}
-                          {analysis.result.severity === 'low' && 'منخفض'}
-                          {analysis.result.severity === 'medium' && 'متوسط'}
-                          {analysis.result.severity === 'high' && 'عالي'}
+                          {analysis.result.severity === "low" && "منخفض"}
+                          {analysis.result.severity === "medium" && "متوسط"}
+                          {analysis.result.severity === "high" && "عالي"}
                         </Badge>
                         <Badge variant="outline">
                           دقة: {analysis.result.confidence}%
@@ -240,7 +281,8 @@ export default function AIAnalysis() {
                       </div>
                     </div>
                     <CardDescription>
-                      {analysis.timestamp.toLocaleDateString('ar-SA')} في {analysis.timestamp.toLocaleTimeString('ar-SA')}
+                      {analysis.timestamp.toLocaleDateString("ar-SA")} في{" "}
+                      {analysis.timestamp.toLocaleTimeString("ar-SA")}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -248,18 +290,22 @@ export default function AIAnalysis() {
                       <h4 className="font-semibold mb-2">التوصيات:</h4>
                       <ul className="list-disc list-inside space-y-1">
                         {analysis.result.recommendations.map((rec, index) => (
-                          <li key={index} className="text-sm">{rec}</li>
+                          <li key={index} className="text-sm">
+                            {rec}
+                          </li>
                         ))}
                       </ul>
                     </div>
                     <Alert>
                       <AlertTriangle className="h-4 w-4" />
                       <AlertDescription>
-                        <strong>المتابعة المطلوبة:</strong> {analysis.result.followUp}
+                        <strong>المتابعة المطلوبة:</strong>{" "}
+                        {analysis.result.followUp}
                       </AlertDescription>
                     </Alert>
                     <div className="text-xs text-muted-foreground border-t pt-2">
-                      <strong>تنبيه:</strong> هذا التحليل مساعد فقط ولا يغني عن استشارة طبيب مختص
+                      <strong>تنبيه:</strong> هذا التحليل مساعد فقط ولا يغني عن
+                      استشارة طبيب مختص
                     </div>
                   </CardContent>
                 </Card>
