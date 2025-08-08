@@ -32,14 +32,8 @@ import AIAnalysis from "./pages/AIAnalysis";
 
 const queryClient = new QueryClient();
 
-// Simple TooltipProvider replacement - just passes through children
-const SimpleTooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="tooltip-provider">{children}</div>
-);
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <SimpleTooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
@@ -219,7 +213,6 @@ const App = () => (
           </div>
         </AuthProvider>
       </BrowserRouter>
-    </SimpleTooltipProvider>
   </QueryClientProvider>
 );
 
