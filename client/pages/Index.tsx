@@ -70,7 +70,7 @@ const services = [
     description: "����لاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
     image:
-      "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F675695eaeaf042d58f3251523ab08d2e?alt=media&token=ee144587-a0a0-4a86-922a-2ad6c36e7fc3&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b",
+      "https://cdn.builder.io/api/v1/image/assets%2Fbda9737868a34e22932733caa3f6e2f4%2F4cf7480d4b84433b9c478a4cccc77334",
   },
   {
     title: "طب أسنان الأطفال",
@@ -105,7 +105,7 @@ const features = [
     icon: Calendar,
   },
   {
-    title: "فريق طبي متخصص",
+    title: "فريق طبي متخ��ص",
     description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
     icon: Users,
   },
@@ -464,7 +464,7 @@ export default function Index() {
               قبل وبعد العلاج
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              اكتشف التحولات المذهلة التي حققناها لمرضانا
+              اكتشف التحولات المذه��ة التي حققناها لمرضانا
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -643,7 +643,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت
+                    "تجربة رائع�� مع فريق متميز. العلاج كان مريحاً والنتائج فاقت
                     توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
                   </p>
                 </div>
@@ -787,7 +787,7 @@ export default function Index() {
                 إدارة النظام
               </h3>
               <p className="text-gray-600 mb-6 font-arabic">
-                دخو�� سريع لإدارة الحجوزات وملفات المرضى
+                دخو�� سر��ع لإدارة الحجوزات وملفات المرضى
               </p>
               <div className="space-y-4">
                 <Link to="/admin" className="block">
