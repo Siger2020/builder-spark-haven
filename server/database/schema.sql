@@ -367,6 +367,75 @@ CREATE TABLE IF NOT EXISTS inventory_movements (
     FOREIGN KEY (performed_by) REFERENCES users(id)
 );
 
+-- جدول المعاملات المالية
+CREATE TABLE IF NOT EXISTS transactions (
+    id TEXT PRIMARY KEY,
+    patient_id INTEGER,
+    patient_name TEXT NOT NULL,
+    service_name TEXT NOT NULL,
+    total_amount REAL NOT NULL,
+    paid_amount REAL DEFAULT 0,
+    remaining_amount REAL NOT NULL,
+    status TEXT CHECK(status IN ('pending', 'partial', 'paid', 'cancelled')) DEFAULT 'pending',
+    payment_method TEXT,
+    transaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    due_date DATETIME,
+    notes TEXT,
+    created_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (patient_id) REFERENCES patients(id),
+    FOREIGN KEY (created_by) REFERENCES users(id)
+);
+
+-- جدول المدفوعات
+CREATE TABLE IF NOT EXISTS payments (
+    id TEXT PRIMARY KEY,
+    transaction_id TEXT,
+    patient_name TEXT NOT NULL,
+    amount REAL NOT NULL,
+    payment_method TEXT NOT NULL,
+    payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    notes TEXT,
+    receipt_number TEXT,
+    processed_by INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE SET NULL,
+    FOREIGN KEY (processed_by) REFERENCES users(id)
+);
+
+-- جدول تقسيطات المدفوعات
+CREATE TABLE IF NOT EXISTS payment_installments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    transaction_id TEXT NOT NULL,
+    installment_number INTEGER NOT NULL,
+    amount REAL NOT NULL,
+    due_date DATETIME NOT NULL,
+    paid_amount REAL DEFAULT 0,
+    status TEXT CHECK(status IN ('pending', 'paid', 'overdue')) DEFAULT 'pending',
+    paid_date DATETIME,
+    payment_id TEXT,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE,
+    FOREIGN KEY (payment_id) REFERENCES payments(id) ON DELETE SET NULL
+);
+
+-- جدول طرق الدفع المتاحة
+CREATE TABLE IF NOT EXISTS payment_methods (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT 1,
+    requires_reference BOOLEAN DEFAULT 0, -- For bank transfers, checks, etc.
+    fees_percentage REAL DEFAULT 0,
+    fees_fixed REAL DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- جدول سجل النشاطات
 CREATE TABLE IF NOT EXISTS activity_logs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
