@@ -159,6 +159,34 @@ export default function Transactions() {
   ]);
   const { toast } = useToast();
 
+  // Load payment history from API
+  useEffect(() => {
+    const loadPaymentHistory = async () => {
+      try {
+        const response = await fetch('/api/payments');
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          const formattedPayments = result.data.map((payment: any) => ({
+            id: payment.id,
+            transactionId: payment.transaction_id,
+            patientName: payment.patient_name,
+            amount: payment.amount,
+            method: payment.payment_method,
+            notes: payment.notes,
+            date: payment.payment_date.split('T')[0],
+            timestamp: new Date(payment.payment_date).toLocaleString('ar-SA')
+          }));
+          setPaymentHistory(formattedPayments);
+        }
+      } catch (error) {
+        console.error('Failed to load payment history:', error);
+      }
+    };
+
+    loadPaymentHistory();
+  }, []);
+
   // Calculate totals
   const totalRevenue = transactionsList.reduce((sum, t) => sum + t.paid, 0);
   const totalPending = transactionsList.reduce((sum, t) => sum + t.remaining, 0);
