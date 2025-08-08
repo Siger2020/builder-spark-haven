@@ -134,27 +134,27 @@ function AdminComponent() {
       id: 1,
       type: "urgent",
       message: "موعد طارئ - أحمد محمد - يحتاج إلى متابعة فورية",
-      time: "منذ 5 دقائق"
+      time: "منذ 5 دقائق",
     },
     {
       id: 2,
       type: "payment",
       message: "مبلغ مستحق - فاطمة أحمد - 150 ر.ي",
-      time: "منذ ساعة"
+      time: "منذ ساعة",
     },
     {
       id: 3,
       type: "appointment",
       message: "موعد جديد تم حجزه - محمد علي - غداً الساعة 10:00",
-      time: "منذ ساعتين"
-    }
+      time: "منذ ساعتين",
+    },
   ];
 
   const topServices = [
     { name: "تنظيف الأسنان", count: 45, revenue: 22500, percentage: 85 },
     { name: "حشو الأسنان", count: 32, revenue: 19200, percentage: 65 },
     { name: "تقويم الأسنان", count: 18, revenue: 27000, percentage: 45 },
-    { name: "تركيب التيجان", count: 12, revenue: 24000, percentage: 30 }
+    { name: "تركيب التيجان", count: 12, revenue: 24000, percentage: 30 },
   ];
 
   const doctors = [
@@ -164,7 +164,7 @@ function AdminComponent() {
       specialty: "طبيب أسنان عام",
       rating: 4.9,
       patients: 156,
-      appointments: 89
+      appointments: 89,
     },
     {
       id: 2,
@@ -172,8 +172,8 @@ function AdminComponent() {
       specialty: "تقويم الأسنان",
       rating: 4.8,
       patients: 98,
-      appointments: 52
-    }
+      appointments: 52,
+    },
   ];
   const [recentAppointments, setRecentAppointments] = useState<
     RecentAppointment[]
@@ -922,7 +922,7 @@ class AdminErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    console.error('Admin component error:', error, errorInfo);
+    console.error("Admin component error:", error, errorInfo);
   }
 
   render() {
@@ -930,8 +930,12 @@ class AdminErrorBoundary extends React.Component {
       return (
         <div className="container mx-auto p-6">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">خطأ في تحميل لوحة الإدارة</h1>
-            <p className="text-gray-600 mb-4">حدث خطأ غير متوقع. يرجى إعادة تحميل الصفحة.</p>
+            <h1 className="text-2xl font-bold text-red-600 mb-4">
+              خطأ في تحميل لوحة الإدارة
+            </h1>
+            <p className="text-gray-600 mb-4">
+              حدث خطأ غير متوقع. يرجى إعادة تحميل الصفحة.
+            </p>
             <button
               onClick={() => window.location.reload()}
               className="bg-blue-600 text-white px-4 py-2 rounded"
