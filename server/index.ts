@@ -60,6 +60,9 @@ export function createServer() {
   // Notifications routes
   app.use("/api/notifications", notificationsRoutes);
 
+  // AI Analysis routes
+  app.use("/api/ai-analysis", aiAnalysisRoutes);
+
   // Database API routes
   app.get("/api/database/stats", getDatabaseStatsHandler);
   app.get("/api/database/tables", getTablesHandler);
