@@ -60,15 +60,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-
+      // Check if response is ok before trying to parse JSON
       if (!response.ok) {
         console.error(
           "Login failed:",
           response.status,
-          response.statusText,
-          data
+          response.statusText
         );
+        setIsLoading(false);
+        return false;
+      }
+
+      // Safe JSON parsing with error handling
+      let data;
+      try {
+        const responseText = await response.text();
+        if (responseText) {
+          data = JSON.parse(responseText);
+        } else {
+          console.error("Empty response from server");
+          setIsLoading(false);
+          return false;
+        }
+      } catch (jsonError) {
+        console.error("Failed to parse JSON response:", jsonError);
         setIsLoading(false);
         return false;
       }
@@ -79,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
         return true;
       } else {
+        console.error("Login failed:", data);
         setIsLoading(false);
         return false;
       }
