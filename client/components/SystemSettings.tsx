@@ -250,7 +250,7 @@ const UserManagement = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.map((user) => (
+          {usersList.map((user) => (
             <TableRow key={user.id}>
               <TableCell className="font-arabic">{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
@@ -259,10 +259,10 @@ const UserManagement = () => {
               <TableCell>{new Date(user.lastLogin).toLocaleDateString('ar-SA')}</TableCell>
               <TableCell>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" onClick={() => handleEditUser(user)}>
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="destructive" onClick={() => handleDeleteUser(user.id)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -341,7 +341,7 @@ const BackupSettings = () => {
               <SelectContent>
                 <SelectItem value="daily" className="font-arabic">يومياً</SelectItem>
                 <SelectItem value="weekly" className="font-arabic">أسبوعياً</SelectItem>
-                <SelectItem value="monthly" className="font-arabic">شهرياً</SelectItem>
+                <SelectItem value="monthly" className="font-arabic">شه��ياً</SelectItem>
               </SelectContent>
             </Select>
           </div>
