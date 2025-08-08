@@ -64,6 +64,9 @@ export function createServer() {
   // AI Analysis routes
   app.use("/api/ai-analysis", aiAnalysisRoutes);
 
+  // Payments routes
+  app.use("/api/payments", paymentsRoutes);
+
   // Database API routes
   app.get("/api/database/stats", getDatabaseStatsHandler);
   app.get("/api/database/tables", getTablesHandler);
