@@ -60,17 +60,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
         console.error(
-          "Login response not ok:",
+          "Login failed:",
           response.status,
           response.statusText,
+          data
         );
         setIsLoading(false);
         return false;
       }
-
-      const data = await response.json();
 
       if (data.success && data.user) {
         setUser(data.user);
