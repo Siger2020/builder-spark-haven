@@ -307,9 +307,32 @@ export default function Reports() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="text-center">
-                      <BarChart3 className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                      <p className="text-gray-600 font-arabic">سيتم إضافة الرسوم البيانية قريباً</p>
+                    <div className="space-y-3">
+                      {[
+                        { name: "تسوس الأسنان", count: 45, percentage: 35 },
+                        { name: "التهاب اللثة", count: 32, percentage: 25 },
+                        { name: "تقويم الأسنان", count: 28, percentage: 22 },
+                        { name: "زراعة الأسنان", count: 15, percentage: 12 },
+                        { name: "تبييض الأسنان", count: 8, percentage: 6 }
+                      ].map((item, index) => (
+                        <div key={index} className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="font-arabic">{item.name}</span>
+                            <span>{item.count} حالة ({item.percentage}%)</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-3">
+                            <div
+                              className="bg-blue-600 h-3 rounded-full transition-all duration-500"
+                              style={{ width: `${item.percentage}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="pt-4 border-t">
+                      <div className="text-center">
+                        <p className="text-sm text-gray-600 font-arabic">إجمالي الحالات: 128 حالة</p>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
