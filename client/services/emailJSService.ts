@@ -121,7 +121,7 @@ export class EmailJSService {
       return {
         success: false,
         error:
-          "خدمة البريد الإلكتروني غير مُعَدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
+          "خدمة البريد الإلكتروني غير مُ��َدّة بشكل صحيح. يرجى إدخال Service ID و Template ID و Public Key",
       };
     }
 
@@ -138,7 +138,7 @@ export class EmailJSService {
     try {
       const result = await this.queueRequest(() =>
         this.performSendWithDelay("test", {
-          patientName: testEmail ? "مستخدم الاختبار" : "مدير النظام",
+          patientName: testEmail ? "مستخد�� الاختبار" : "مدير النظام",
           patientEmail: testEmail || this.config!.senderEmail,
           appointmentId: "TEST-" + Date.now(),
           appointmentDate: new Date().toLocaleDateString("ar-EG"),
@@ -317,8 +317,25 @@ export class EmailJSService {
         };
       }
     } catch (error) {
-      // Safe error logging to prevent text@[native code] issues
+      // Enhanced error logging with more details
       console.error("EmailJS send error occurred");
+      console.error("Error type:", typeof error);
+      console.error("Error constructor:", error?.constructor?.name);
+
+      // Try to get more details safely
+      try {
+        if (error && typeof error === 'object') {
+          const errorInfo = {
+            hasMessage: 'message' in error,
+            hasStatus: 'status' in error,
+            hasText: 'text' in error,
+            keys: Object.keys(error)
+          };
+          console.error("Error object info:", errorInfo);
+        }
+      } catch (inspectionError) {
+        console.error("Could not inspect error object");
+      }
 
       let errorMessage = "خطأ غير معروف في الإرسال";
 
@@ -385,7 +402,7 @@ export class EmailJSService {
     const baseData = {
       to_email: data.patientEmail,
       to_name: data.patientName,
-      from_name: this.config?.senderName || "عيادة الدكتور كمال الملصي",
+      from_name: this.config?.senderName || "عيادة الدكتور كمال الملص��",
       patient_name: data.patientName,
       appointment_id: data.appointmentId,
       appointment_date: data.appointmentDate,
@@ -407,7 +424,7 @@ export class EmailJSService {
           icon: "✅",
           message: `تم تأكيد موعدك بنجاح في ${data.clinicName}. نتطلع لرؤيتك في الموعد المحدد.`,
           instructions:
-            "يرجى الحضور قبل 15 دقيقة من الموعد. أحضر معك بطاقة الهوية وأي وثائق طبية سابقة.",
+            "يرجى الحضور قبل 15 دقيقة ��ن الموعد. أحضر معك بطاقة الهوية وأي وثائق طبية سابقة.",
         };
 
       case "reminder":
