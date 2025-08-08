@@ -64,7 +64,7 @@ const treatmentSessions = [
   },
   {
     id: "SES-003",
-    patientName: "محمد علي القحطاني", 
+    patientName: "محمد علي ال��حطاني", 
     patientId: "PAT-003",
     treatmentPlan: "علاج اللثة",
     sessionNumber: 4,
@@ -421,9 +421,60 @@ export default function Sessions() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <Calendar className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة عرض التقويم قريباً</p>
+                <div className="grid grid-cols-7 gap-2 mb-4">
+                  {/* Calendar Header */}
+                  {['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'ا��سبت'].map(day => (
+                    <div key={day} className="text-center font-medium text-sm text-gray-600 p-2 font-arabic">
+                      {day}
+                    </div>
+                  ))}
+
+                  {/* Calendar Days */}
+                  {Array.from({ length: 35 }, (_, i) => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - date.getDay() + i);
+                    const dayNumber = date.getDate();
+                    const isToday = date.toDateString() === new Date().toDateString();
+                    const hasSession = treatmentSessions.some(session =>
+                      new Date(session.date).toDateString() === date.toDateString()
+                    );
+
+                    return (
+                      <div
+                        key={i}
+                        className={`
+                          p-2 text-center text-sm border rounded cursor-pointer transition-colors
+                          ${isToday ? 'bg-blue-100 border-blue-300 text-blue-800' : 'hover:bg-gray-50'}
+                          ${hasSession ? 'bg-green-100 border-green-300' : ''}
+                        `}
+                      >
+                        <div className="font-medium">{dayNumber}</div>
+                        {hasSession && (
+                          <div className="w-2 h-2 bg-green-500 rounded-full mx-auto mt-1"></div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Upcoming Sessions */}
+                <div className="space-y-3">
+                  <h4 className="font-medium text-gray-900 font-arabic">الجلسات القادمة</h4>
+                  {treatmentSessions
+                    .filter(session => new Date(session.nextSession) > new Date())
+                    .slice(0, 3)
+                    .map(session => (
+                      <div key={session.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                          <div className="font-medium font-arabic">{session.patientName}</div>
+                          <div className="text-sm text-gray-600 font-arabic">{session.treatmentPlan}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-medium">{new Date(session.nextSession).toLocaleDateString('ar-SA')}</div>
+                          <div className="text-xs text-gray-500">جلسة #{session.sessionNumber + 1}</div>
+                        </div>
+                      </div>
+                    ))}
                 </div>
               </CardContent>
             </Card>
