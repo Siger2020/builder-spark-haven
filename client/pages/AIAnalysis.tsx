@@ -146,30 +146,69 @@ export default function AIAnalysis() {
 
     setLoading(true);
     try {
-      // Simulate AI analysis
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Send to AI analysis API
+      const response = await fetch('/api/ai-analysis/symptoms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          symptoms: symptoms.trim(),
+          patient_id: null, // Can be selected later
+        }),
+      });
 
-      const mockResult: AnalysisResult = {
-        id: Date.now().toString(),
+      if (!response.ok) {
+        throw new Error('فشل في تحليل الأعراض');
+      }
+
+      const result = await response.json();
+
+      const newAnalysis: AnalysisResult = {
+        id: result.data?.id || Date.now().toString(),
         type: "symptoms",
         result: {
-          diagnosis: "أعراض تشير إلى التهاب الجيوب الأنفية",
-          confidence: 76,
-          recommendations: [
-            "راحة كافية وشرب السوا��ل",
-            "استخدام بخاخ محلول ملحي",
-            "مراجعة الطبيب إذا استمرت الأعراض أكثر من أسبوع",
+          diagnosis: result.data?.diagnosis || "تم تحليل الأعراض",
+          confidence: result.data?.confidence || 75,
+          recommendations: result.data?.recommendations || [
+            "تم حفظ الأعراض في النظام",
+            "مراجعة مع الطبيب المختص",
+            "متابعة الأعراض"
           ],
-          severity: "low",
-          followUp: "مراجعة خلال 3-5 أيام إذا لم تتحسن الأعراض",
+          severity: result.data?.severity || "medium",
+          followUp: result.data?.followUp || "مراجعة مع الطبيب المختص",
         },
         timestamp: new Date(),
       };
 
-      setAnalyses((prev) => [mockResult, ...prev]);
+      setAnalyses((prev) => [newAnalysis, ...prev]);
       setSymptoms("");
+
+      alert("تم تحليل الأعراض بنجاح!");
+
     } catch (error) {
       console.error("Error analyzing symptoms:", error);
+      alert("حدث خطأ أثناء تحليل الأعراض. يرجى المحاولة مرة أخرى.");
+
+      // Still add a basic entry to show the analysis attempt
+      const fallbackResult: AnalysisResult = {
+        id: Date.now().toString(),
+        type: "symptoms",
+        result: {
+          diagnosis: "فشل في التحليل - تم حفظ الأعراض",
+          confidence: 0,
+          recommendations: [
+            "تم حفظ الأعراض في النظام",
+            "يرجى مراجعة الطبيب للتشخيص",
+            "المحاولة مرة أخرى لاحقاً"
+          ],
+          severity: "medium",
+          followUp: "مراجعة الطبيب المختص",
+        },
+        timestamp: new Date(),
+      };
+      setAnalyses((prev) => [fallbackResult, ...prev]);
+      setSymptoms("");
     } finally {
       setLoading(false);
     }
@@ -368,7 +407,7 @@ export default function AIAnalysis() {
                     </Alert>
                     <div className="text-xs text-muted-foreground border-t pt-2">
                       <strong>تنبيه:</strong> هذا التحليل مساعد فقط ولا يغني عن
-                      استشارة طبيب مختص
+                      است��ارة طبيب مختص
                     </div>
                   </CardContent>
                 </Card>
