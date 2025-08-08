@@ -263,7 +263,7 @@ export class EmailJSService {
     type: NotificationType,
     data: NotificationData,
   ): Promise<EmailResult> {
-    // التأكد من مرور وقت كافي منذ آخر طلب
+    // التأكد من مرور وقت كافي م��ذ آخر طلب
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequestTime;
     const minDelay = 2000; // 2 ثانية بين الطلبات
@@ -383,7 +383,7 @@ export class EmailJSService {
         } else if (error.message && typeof error.message === 'string') {
           errorMessage = error.message;
         } else {
-          errorMessage = "خطأ في الاتصال بخدمة البري�� الإلكتروني";
+          errorMessage = "خطأ في الاتصال بخدمة البريد الإلكتروني";
         }
       } else if (typeof error === 'string') {
         errorMessage = error;
@@ -493,6 +493,39 @@ export class EmailJSService {
       default:
         return baseData;
     }
+  }
+
+  // تشخيص شامل لحالة EmailJS
+  getDiagnosticInfo(): object {
+    return {
+      serviceInfo: {
+        isConfigured: this.isConfigured(),
+        hasConfig: !!this.config,
+        isInitialized: this.isInitialized,
+        connectionStatus: this.connectionStatus,
+        pendingRequests: this.pendingRequests.size,
+        queueLength: this.requestQueue.length,
+        isProcessingQueue: this.isProcessingQueue
+      },
+      configInfo: this.config ? {
+        hasServiceId: !!this.config.serviceId,
+        hasTemplateId: !!this.config.templateId,
+        hasPublicKey: !!this.config.publicKey,
+        hasSenderEmail: !!this.config.senderEmail,
+        enabled: this.config.enabled
+      } : null,
+      libraryInfo: {
+        emailjsAvailable: typeof emailjs !== 'undefined',
+        emailjsType: typeof emailjs,
+        hasSendFunction: typeof emailjs !== 'undefined' && typeof emailjs.send === 'function',
+        hasInitFunction: typeof emailjs !== 'undefined' && typeof emailjs.init === 'function'
+      },
+      environmentInfo: {
+        isBrowser: typeof window !== 'undefined',
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A',
+        timestamp: new Date().toISOString()
+      }
+    };
   }
 
   // محاكاة حجز حقيقي للاختبار مع منع التضارب
