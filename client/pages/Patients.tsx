@@ -59,6 +59,42 @@ interface Patient {
   status: string; // Added for UI compatibility
 }
 
+interface Appointment {
+  id: number;
+  patient_name: string;
+  patient_id: number;
+  date: string;
+  time: string;
+  doctor_name: string;
+  service: string;
+  status: 'scheduled' | 'completed' | 'cancelled' | 'rescheduled';
+  notes?: string;
+}
+
+interface MedicalRecord {
+  id: number;
+  patient_id: number;
+  date: string;
+  diagnosis: string;
+  treatment: string;
+  prescription: string;
+  doctor_name: string;
+  notes?: string;
+  visit_type: string;
+}
+
+interface Payment {
+  id: number;
+  patient_id: number;
+  patient_name: string;
+  amount: number;
+  service: string;
+  payment_method: 'cash' | 'card' | 'insurance';
+  date: string;
+  status: 'paid' | 'pending' | 'partial';
+  invoice_number: string;
+}
+
 const getStatusBadge = (status: string) => {
   switch (status) {
     case "active":
@@ -353,7 +389,7 @@ export default function Patients() {
               <CardContent>
                 <div className="text-center py-8">
                   <FileText className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضاف�� السجلات الطبية قريباً</p>
+                  <p className="text-gray-600 font-arabic">سيتم إضافة السجلات الطبية قريباً</p>
                 </div>
               </CardContent>
             </Card>
@@ -403,7 +439,7 @@ export default function Patients() {
                 <Input placeholder="شركة التأمين" className="font-arabic" />
               </div>
               <div className="col-span-2 space-y-2">
-                <Label className="font-arabic">ا��عنوان</Label>
+                <Label className="font-arabic">العنوان</Label>
                 <Input placeholder="العنوان الكامل" className="font-arabic" />
               </div>
               <div className="col-span-2 space-y-2">
@@ -501,7 +537,7 @@ export default function Patients() {
                 <div>
                   <h4 className="font-bold font-arabic mb-2">فصيلة الدم:</h4>
                   <Badge variant="outline" className="font-arabic">
-                    {selectedPatient.blood_type || 'غير محدد'}
+                    {selectedPatient.blood_type || '��ير محدد'}
                   </Badge>
                 </div>
               </div>
