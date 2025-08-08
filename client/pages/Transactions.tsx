@@ -108,7 +108,15 @@ export default function Transactions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
+  const [isNewPaymentDialogOpen, setIsNewPaymentDialogOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<any>(null);
+  const [paymentAmount, setPaymentAmount] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentNotes, setPaymentNotes] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [transactionsList, setTransactionsList] = useState(transactions);
+  const [paymentHistory, setPaymentHistory] = useState<any[]>([]);
+  const { toast } = useToast();
 
   // Calculate totals
   const totalRevenue = transactions.reduce((sum, t) => sum + t.paid, 0);
@@ -380,7 +388,7 @@ export default function Transactions() {
                     </label>
                     <label className="flex items-center space-x-reverse space-x-2">
                       <input type="checkbox" defaultChecked />
-                      <span className="font-arabic">بطاقة ائتمانية</span>
+                      <span className="font-arabic">ب��اقة ائتمانية</span>
                     </label>
                     <label className="flex items-center space-x-reverse space-x-2">
                       <input type="checkbox" defaultChecked />
