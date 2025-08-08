@@ -251,7 +251,7 @@ export default function Transactions() {
       // Prepare payment data
       const paymentData = {
         transaction_id: selectedTransaction?.id || null,
-        patient_name: selectedTransaction?.patientName || "مريض جديد",
+        patient_name: selectedTransaction?.patientName || "مر��ض جديد",
         amount: amount,
         payment_method: paymentMethod,
         notes: paymentNotes,
@@ -396,7 +396,7 @@ export default function Transactions() {
             <CardContent>
               <div className="text-2xl font-bold">{totalTransactions.toLocaleString()} ر.ي</div>
               <p className="text-xs text-muted-foreground font-arabic">
-                {transactions.length} معاملة هذا الشهر
+                {transactions.length} معاملة ه��ا الشهر
               </p>
             </CardContent>
           </Card>
@@ -449,16 +449,11 @@ export default function Transactions() {
                   </div>
                   <div className="w-full md:w-48">
                     <Label className="font-arabic">حالة الدفع</Label>
-                    <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-                      <SelectTrigger className="font-arabic">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all" className="font-arabic">جميع الحالات</SelectItem>
-                        <SelectItem value="paid" className="font-arabic">مدفوع</SelectItem>
-                        <SelectItem value="partial" className="font-arabic">مدفوع جزئياً</SelectItem>
-                        <SelectItem value="pending" className="font-arabic">غير مدفوع</SelectItem>
-                      </SelectContent>
+                    <Select value={selectedStatus} onValueChange={setSelectedStatus} className="font-arabic">
+                      <SelectItem value="all">جميع الحالات</SelectItem>
+                      <SelectItem value="paid">مدفوع</SelectItem>
+                      <SelectItem value="partial">مدفوع جزئياً</SelectItem>
+                      <SelectItem value="pending">غير مدفوع</SelectItem>
                     </Select>
                   </div>
                   <div className="flex gap-2">
@@ -601,7 +596,7 @@ export default function Transactions() {
               <CardHeader>
                 <CardTitle className="font-arabic">التقارير المالية</CardTitle>
                 <CardDescription className="font-arabic">
-                  تقارير شاملة عن الإيرادات والمصروفات
+                  تقاري�� شاملة عن الإيرادات والمصروفات
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -752,7 +747,7 @@ export default function Transactions() {
                 <div className="space-y-2">
                   <Label className="font-arabic">اسم المريض <span className="text-red-500">*</span></Label>
                   <Input
-                    placeholder="أدخل اسم المريض"
+                    placeholder="أد��ل اسم المريض"
                     className="font-arabic"
                   />
                 </div>
