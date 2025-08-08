@@ -720,7 +720,7 @@ export default function Patients() {
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>2:00 PM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">تنظي�� الأسنان</TableCell>
+                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-blue-100 text-blue-800 font-arabic">مجدول</Badge>
                       </TableCell>
@@ -1010,7 +1010,7 @@ export default function Patients() {
                     <TableRow>
                       <TableCell className="font-mono">#INV-002</TableCell>
                       <TableCell className="font-arabic">فاطمة أحمد</TableCell>
-                      <TableCell className="font-arabic">تنظيف الأس��ان</TableCell>
+                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
                       <TableCell className="font-bold text-green-600">₹ 800</TableCell>
                       <TableCell>
                         <Badge className="bg-blue-100 text-blue-800 font-arabic">بطاقة</Badge>
@@ -1231,7 +1231,15 @@ export default function Patients() {
               <Button variant="outline" onClick={() => setIsViewPatientDialogOpen(false)} className="font-arabic">
                 إغلاق
               </Button>
-              <Button className="font-arabic">تعديل البيانات</Button>
+              <Button
+                onClick={() => {
+                  setIsViewPatientDialogOpen(false);
+                  handleEditPatient(selectedPatient);
+                }}
+                className="font-arabic"
+              >
+                تعديل البيانات
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -1376,7 +1384,7 @@ export default function Patients() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">البريد الإلكتروني</Label>
+                  <Label className="font-arabic">الب��يد الإلكتروني</Label>
                   <Input
                     type="email"
                     placeholder="أدخل البريد الإلكتروني"
@@ -1393,7 +1401,7 @@ export default function Patients() {
                   >
                     <option value="">اختر الجنس</option>
                     <option value="male">ذكر</option>
-                    <option value="female">أن��ى</option>
+                    <option value="female">أنثى</option>
                   </Select>
                 </div>
               </div>
