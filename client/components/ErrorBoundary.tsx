@@ -22,12 +22,26 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
-    // Check if it's a tooltip-related error
-    if (error.message?.includes('TooltipProvider') || 
+
+    // Check if it's a Radix UI related error
+    if (error.message?.includes('TooltipProvider') ||
         error.stack?.includes('TooltipProvider') ||
         error.stack?.includes('@radix-ui/react-tooltip')) {
       console.warn('Tooltip-related error detected, attempting recovery...');
+    }
+
+    // Check if it's a Select component error (common in production)
+    if (error.stack?.includes('Select') ||
+        error.message?.includes('Select') ||
+        error.stack?.includes('SelectTrigger') ||
+        error.stack?.includes('SelectValue') ||
+        error.stack?.includes('SelectContent')) {
+      console.warn('Select component error detected, likely due to Radix UI component mismatch');
+    }
+
+    // Log component stack for debugging
+    if (errorInfo.componentStack) {
+      console.error('Component stack:', errorInfo.componentStack);
     }
   }
 
