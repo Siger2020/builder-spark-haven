@@ -115,7 +115,48 @@ export default function Transactions() {
   const [paymentNotes, setPaymentNotes] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [transactionsList, setTransactionsList] = useState(transactions);
-  const [paymentHistory, setPaymentHistory] = useState<any[]>([]);
+  const [paymentHistory, setPaymentHistory] = useState<any[]>([
+    {
+      id: "PAY-001",
+      transactionId: "TXN-001",
+      patientName: "أحمد محمد",
+      amount: 200,
+      method: "نقداً",
+      notes: "دفعة كاملة",
+      date: "2024-01-15",
+      timestamp: "15/01/2024 - 10:30 ص"
+    },
+    {
+      id: "PAY-002",
+      transactionId: "TXN-002",
+      patientName: "فاطمة أحمد",
+      amount: 1500,
+      method: "بطاقة ائتمانية",
+      notes: "دفعة أولى من تقويم الأسنان",
+      date: "2024-01-14",
+      timestamp: "14/01/2024 - 2:15 م"
+    },
+    {
+      id: "PAY-003",
+      transactionId: "TXN-004",
+      patientName: "نورا سالم",
+      amount: 300,
+      method: "تحويل بنكي",
+      notes: "دفعة كاملة للحشوات",
+      date: "2024-01-12",
+      timestamp: "12/01/2024 - 11:45 ص"
+    },
+    {
+      id: "PAY-004",
+      transactionId: "TXN-005",
+      patientName: "سارة خالد",
+      amount: 400,
+      method: "نقداً",
+      notes: "دفعة أولى من تبييض الأسنان",
+      date: "2024-01-11",
+      timestamp: "11/01/2024 - 4:20 م"
+    }
+  ]);
   const { toast } = useToast();
 
   // Calculate totals
@@ -349,7 +390,7 @@ export default function Transactions() {
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="search"
-                        placeholder="ابحث باسم المريض أو رق�� المعاملة..."
+                        placeholder="ابحث باسم المريض أو رقم المعاملة..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 font-arabic"
@@ -508,7 +549,7 @@ export default function Transactions() {
           <TabsContent value="reports" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">التقارير المالية</CardTitle>
+                <CardTitle className="font-arabic">��لتقارير المالية</CardTitle>
                 <CardDescription className="font-arabic">
                   تقارير شاملة عن الإيرادات والمصروفات
                 </CardDescription>
