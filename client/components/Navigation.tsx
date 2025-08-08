@@ -15,6 +15,7 @@ import {
   User,
   Shield,
   Mail,
+  Brain,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
