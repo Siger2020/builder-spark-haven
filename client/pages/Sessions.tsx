@@ -92,7 +92,7 @@ const treatmentSessions = [
     notes: "الجلسة الأولى لتبييض الأسنان. النتائج واعدة.",
     nextSession: "2024-01-26",
     progress: 33,
-    procedures: ["تطبيق جل التبييض", "تفعيل بالضو��", "قياس درجة البياض"]
+    procedures: ["تطبيق جل التبييض", "تفعيل بالضوء", "قياس درجة البياض"]
   },
   {
     id: "SES-005",
@@ -190,6 +190,62 @@ export default function Sessions() {
   const handleViewSession = (session: any) => {
     setSelectedSession(session);
     setIsViewSessionDialogOpen(true);
+  };
+
+  const handleNewSession = () => {
+    setSessionForm({
+      patientId: '',
+      treatmentPlan: '',
+      sessionDate: '',
+      sessionTime: '',
+      duration: '',
+      notes: '',
+      doctor: 'د. محمد علي'
+    });
+    setIsNewSessionDialogOpen(true);
+  };
+
+  const handleSaveSession = async () => {
+    if (!sessionForm.patientId || !sessionForm.treatmentPlan || !sessionForm.sessionDate) {
+      alert('يرجى ملء الحقول المطلوبة');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // In a real app, you would post to API here
+      const newSession = {
+        id: `SES-${Date.now()}`,
+        patientName: sessionForm.patientId === 'pat1' ? 'أحمد محمد السعد' :
+                    sessionForm.patientId === 'pat2' ? 'فاطمة أحمد العلي' : 'محمد علي القحطاني',
+        patientId: sessionForm.patientId,
+        treatmentPlan: sessionForm.treatmentPlan,
+        sessionNumber: 1,
+        totalSessions: 12,
+        date: sessionForm.sessionDate,
+        duration: parseInt(sessionForm.duration) || 60,
+        status: "مجدول",
+        doctor: sessionForm.doctor,
+        notes: sessionForm.notes,
+        nextSession: sessionForm.sessionDate,
+        progress: 0,
+        procedures: ["جلسة استشارية", "فحص أولي"]
+      };
+
+      // In real app, this would trigger a re-fetch from the API
+      alert('تم حفظ الجلسة بنجاح!');
+      setIsNewSessionDialogOpen(false);
+
+    } catch (error) {
+      console.error('Error saving session:', error);
+      alert('حدث خطأ أثناء حفظ الجلسة');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -371,7 +427,7 @@ export default function Sessions() {
           <TabsContent value="plans" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">خطط العلاج</CardTitle>
+                <CardTitle className="font-arabic">خطط العلا��</CardTitle>
                 <CardDescription className="font-arabic">
                   خطط العلاج المختلفة والمراحل المرتبطة بها
                 </CardDescription>
@@ -727,7 +783,7 @@ export default function Sessions() {
                   <Label className="font-arabic">الطبيب المعالج</Label>
                   <Select>
                     <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر الطبيب" />
+                      <SelectValue placeholder="اخت�� الطبيب" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="doc1" className="font-arabic">د. سارة أحمد</SelectItem>
