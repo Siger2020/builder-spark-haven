@@ -117,6 +117,14 @@ export class EmailJSService {
 
   // اختبار الاتصال مع منع التضارب
   async testConnection(testEmail?: string): Promise<EmailResult> {
+    console.log("Testing EmailJS connection...");
+    console.log("Configuration status:", {
+      isConfigured: this.isConfigured(),
+      hasConfig: !!this.config,
+      isInitialized: this.isInitialized,
+      connectionStatus: this.connectionStatus
+    });
+
     if (!this.isConfigured() || !this.config) {
       return {
         success: false,
@@ -125,7 +133,7 @@ export class EmailJSService {
       };
     }
 
-    // التحقق من وجود طلبات معلقة في الطابور
+    // التحقق من وجود طلبات م��لقة في الطابور
     if (this.isProcessingQueue || this.requestQueue.length > 0) {
       return {
         success: false,
@@ -389,7 +397,7 @@ export class EmailJSService {
       doctorName: "نظام الاختبار",
       clinicName: this.config.senderName,
       clinicPhone: this.config.senderEmail || "غير محدد",
-      clinicAddress: "نظام الإشعارات الإلكترونية",
+      clinicAddress: "نظام الإشعارات الإلكترو��ية",
       notes: "هذه رسالة اختبار لتأكيد عمل النظام",
     });
   }
