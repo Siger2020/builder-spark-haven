@@ -98,7 +98,7 @@ const getStatusBadge = (status: string) => {
     case "partial":
       return <Badge className="bg-yellow-100 text-yellow-800">����دفوع جزئي��ً</Badge>;
     case "pending":
-      return <Badge className="bg-red-100 text-red-800">غ��ر ��دفوع</Badge>;
+      return <Badge className="bg-red-100 text-red-800">غير ��دفوع</Badge>;
     default:
       return <Badge variant="secondary">غير محدد</Badge>;
   }
@@ -131,7 +131,7 @@ export default function Transactions() {
       transactionId: "TXN-002",
       patientName: "فاطمة أحمد",
       amount: 1500,
-      method: "بطاقة ائتماني��",
+      method: "بطاقة ائتمانية",
       notes: "دفعة أولى من تقويم الأسنان",
       date: "2024-01-14",
       timestamp: "14/01/2024 - 2:15 م"
@@ -641,10 +641,14 @@ export default function Transactions() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label className="font-arabic">العملة ��لافتراضية</Label>
-                  <Select defaultValue="sar" className="font-arabic">
-<Select defaultValue="sar" className="font-arabic">
-                    <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
-                    <SelectItem value="usd">دولار أمريكي (USD)</SelectItem>
+                  <Select defaultValue="sar">
+                    <SelectTrigger className="font-arabic">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="sar" className="font-arabic">ريال س��ودي (SAR)</SelectItem>
+                      <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
+                    </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
