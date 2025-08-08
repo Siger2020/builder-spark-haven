@@ -440,7 +440,7 @@ export default function Transactions() {
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="search"
-                        placeholder="ابحث باسم المريض أو رقم المعاملة..."
+                        placeholder="ابحث با��م المريض أو رقم المعاملة..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 font-arabic"
@@ -642,9 +642,6 @@ export default function Transactions() {
                 <div className="space-y-2">
                   <Label className="font-arabic">العملة ��لافتراضية</Label>
                   <Select defaultValue="sar">
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue />
-                    </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="sar" className="font-arabic">ريال س��ودي (SAR)</SelectItem>
                       <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
@@ -789,7 +786,7 @@ export default function Transactions() {
               <div className="space-y-2">
                 <Label className="font-arabic">ملاحظات</Label>
                 <Textarea
-                  placeholder="ملاحظات إضافية حول الدفعة..."
+                  placeholder="ملاح��ات إضافية حول الدفعة..."
                   className="font-arabic"
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
