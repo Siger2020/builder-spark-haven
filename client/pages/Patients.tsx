@@ -283,7 +283,7 @@ export default function Patients() {
             <h1 className="text-3xl font-bold text-gray-900 font-arabic">ملفات المرضى</h1>
             <p className="text-gray-600 font-arabic">إدارة شاملة لبيانات وملفات المرضى</p>
           </div>
-          <Button onClick={() => setIsAddPatientDialogOpen(true)} className="font-arabic">
+          <Button onClick={handleAddPatient} className="font-arabic">
             <Plus className="h-4 w-4 mr-2" />
             إضافة مريض جديد
           </Button>
@@ -351,7 +351,7 @@ export default function Patients() {
           <TabsList className="font-arabic">
             <TabsTrigger value="patients">قائمة المرضى</TabsTrigger>
             <TabsTrigger value="profile">الملف الشخصي</TabsTrigger>
-            <TabsTrigger value="appointments">المواعيد</TabsTrigger>
+            <TabsTrigger value="appointments">��لمواعيد</TabsTrigger>
             <TabsTrigger value="medical">السجل الطبي</TabsTrigger>
             <TabsTrigger value="payments">المدفوعات</TabsTrigger>
           </TabsList>
@@ -755,7 +755,7 @@ export default function Patients() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">247</div>
-                  <p className="text-xs text-muted-foreground font-arabic">سجل طب��</p>
+                  <p className="text-xs text-muted-foreground font-arabic">سجل طبي</p>
                 </CardContent>
               </Card>
               <Card>
