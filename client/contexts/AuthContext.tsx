@@ -130,12 +130,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: false, error: "خطأ في الاتصال بالخادم" };
       }
 
-      const data = await response.json();
+      // Safe JSON parsing
+      let data;
+      try {
+        const responseText = await response.text();
+        if (responseText) {
+          data = JSON.parse(responseText);
+        } else {
+          return { success: false, error: "استجابة فارغة من الخادم" };
+        }
+      } catch (jsonError) {
+        console.error("Failed to parse JSON response:", jsonError);
+        return { success: false, error: "خطأ في تحليل استجابة الخادم" };
+      }
 
       if (data.success) {
         return { success: true };
       } else {
-        return { success: false, error: data.error };
+        return { success: false, error: data.error || "خطأ غير معروف" };
       }
     } catch (error) {
       console.error("Registration error:", error);
