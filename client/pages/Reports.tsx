@@ -87,7 +87,7 @@ const getStatusBadge = (status: string) => {
   switch (status) {
     case "مكتمل":
       return <Badge className="bg-green-100 text-green-800">مكتمل</Badge>;
-    case "جاري العلاج":
+    case "جاري ال��لاج":
       return <Badge className="bg-blue-100 text-blue-800">جاري العلاج</Badge>;
     case "يحتاج متابعة":
       return <Badge className="bg-yellow-100 text-yellow-800">يحتاج متابعة</Badge>;
@@ -270,17 +270,12 @@ export default function Reports() {
                   </div>
                   <div className="w-full md:w-48">
                     <Label className="font-arabic">نوع الكشف</Label>
-                    <Select value={selectedType} onValueChange={setSelectedType}>
-                      <SelectTrigger className="font-arabic">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all" className="font-arabic">جميع الأنواع</SelectItem>
-                        <SelectItem value="كشف دوري" className="font-arabic">كشف دوري</SelectItem>
-                        <SelectItem value="استشارة تقويم" className="font-arabic">استشارة تقويم</SelectItem>
-                        <SelectItem value="علاج اللثة" className="font-arabic">علاج اللثة</SelectItem>
-                        <SelectItem value="زراعة الأسنان" className="font-arabic">زراعة الأسنان</SelectItem>
-                      </SelectContent>
+                    <Select value={selectedType} onValueChange={setSelectedType} className="font-arabic">
+                      <SelectItem value="all">جميع الأنواع</SelectItem>
+                      <SelectItem value="كشف دوري">كشف دوري</SelectItem>
+                      <SelectItem value="استشارة تقويم">استشارة تقويم</SelectItem>
+                      <SelectItem value="علاج اللثة">علاج اللثة</SelectItem>
+                      <SelectItem value="زراعة الأسنان">زراعة الأسنان</SelectItem>
                     </Select>
                   </div>
                   <div className="flex gap-2">
@@ -298,7 +293,7 @@ export default function Reports() {
               <CardHeader>
                 <CardTitle className="font-arabic">الكشوفات الطبية</CardTitle>
                 <CardDescription className="font-arabic">
-                  قائمة بجميع الكشوف��ت والتقارير الطبية
+                  قائمة بجميع الكشوف��ت والتقاري�� الطبية
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -398,7 +393,7 @@ export default function Reports() {
                       {[
                         { name: "تسوس الأسنان", count: 45, percentage: 35 },
                         { name: "التهاب اللثة", count: 32, percentage: 25 },
-                        { name: "تقويم الأس��ان", count: 28, percentage: 22 },
+                        { name: "تقويم ��لأس��ان", count: 28, percentage: 22 },
                         { name: "زراعة الأسنان", count: 15, percentage: 12 },
                         { name: "تبييض الأسنان", count: 8, percentage: 6 }
                       ].map((item, index) => (
@@ -747,7 +742,7 @@ export default function Reports() {
                   <Label className="font-arabic">الطبيب المعالج</Label>
                   <Select>
                     <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر الطبيب" />
+                      <SelectValue placeholder="ا��تر الطبيب" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="doc1" className="font-arabic">د. سارة أحمد</SelectItem>
