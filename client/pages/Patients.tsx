@@ -275,7 +275,7 @@ export default function Patients() {
                     <Label className="font-arabic">حالة المريض</Label>
                     <Select value={selectedStatus} onValueChange={setSelectedStatus}>
                       <SelectTrigger className="font-arabic">
-                        <SelectValue />
+                        <SelectValue placeholder="اختر حالة المريض" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
@@ -850,7 +850,7 @@ export default function Patients() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-arabic">رقم الفاتورة</TableHead>
+                      <TableHead className="font-arabic">رقم ��لفاتورة</TableHead>
                       <TableHead className="font-arabic">المريض</TableHead>
                       <TableHead className="font-arabic">الخدمة</TableHead>
                       <TableHead className="font-arabic">المبلغ</TableHead>
