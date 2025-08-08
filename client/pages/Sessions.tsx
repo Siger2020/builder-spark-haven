@@ -146,7 +146,7 @@ const getStatusBadge = (status: string) => {
       return <Badge className="bg-green-100 text-green-800">مكتمل</Badge>;
     case "جاري العلاج":
       return <Badge className="bg-blue-100 text-blue-800">جاري العلاج</Badge>;
-    case "مجدول":
+    case "مجد��ل":
       return <Badge className="bg-yellow-100 text-yellow-800">مجدول</Badge>;
     case "مؤجل":
       return <Badge className="bg-gray-100 text-gray-800">مؤجل</Badge>;
@@ -257,7 +257,7 @@ export default function Sessions() {
             <h1 className="text-3xl font-bold text-gray-900 font-arabic">جلسات العلاج</h1>
             <p className="text-gray-600 font-arabic">إدارة شاملة لجلسات العلاج المتعددة ومتابعة تطور المرضى</p>
           </div>
-          <Button onClick={() => setIsNewSessionDialogOpen(true)} className="font-arabic">
+          <Button onClick={handleNewSession} className="font-arabic">
             <Plus className="h-4 w-4 mr-2" />
             جدولة جلسة جديدة
           </Button>
@@ -427,7 +427,7 @@ export default function Sessions() {
           <TabsContent value="plans" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">خطط العلا��</CardTitle>
+                <CardTitle className="font-arabic">خطط العلاج</CardTitle>
                 <CardDescription className="font-arabic">
                   خطط العلاج المختلفة والمراحل المرتبطة بها
                 </CardDescription>
@@ -783,7 +783,7 @@ export default function Sessions() {
                   <Label className="font-arabic">الطبيب المعالج</Label>
                   <Select>
                     <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اخت�� الطبيب" />
+                      <SelectValue placeholder="اختر الطبيب" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="doc1" className="font-arabic">د. سارة أحمد</SelectItem>
