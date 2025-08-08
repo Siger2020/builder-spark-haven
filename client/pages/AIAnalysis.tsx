@@ -281,7 +281,7 @@ export default function AIAnalysis() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+              <div className={`border-2 border-dashed ${loading ? 'border-blue-300 bg-blue-50' : 'border-gray-300'} rounded-lg p-8 text-center transition-colors`}>
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -289,20 +289,24 @@ export default function AIAnalysis() {
                   accept="image/*"
                   className="hidden"
                 />
-                <Upload className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                <Upload className={`h-12 w-12 mx-auto mb-4 ${loading ? 'text-blue-500 animate-pulse' : 'text-gray-400'}`} />
                 <p className="text-lg mb-2">اسحب وأفلت الصورة هنا أو</p>
                 <Button
                   onClick={() => fileInputRef.current?.click()}
                   disabled={loading}
+                  className="mb-2"
                 >
-                  اختيار ملف
+                  {loading ? "جاري الرفع..." : "اختيار ملف"}
                 </Button>
+                <p className="text-xs text-gray-500">
+                  الحد الأقصى لحجم الملف: 10 ميجابايت
+                </p>
               </div>
               {loading && (
                 <div className="mt-4">
-                  <Progress value={33} className="w-full" />
+                  <Progress value={66} className="w-full" />
                   <p className="text-center mt-2 text-sm text-muted-foreground">
-                    جاري تحليل الصورة...
+                    جاري رفع وتحليل الصورة...
                   </p>
                 </div>
               )}
@@ -407,7 +411,7 @@ export default function AIAnalysis() {
                     </Alert>
                     <div className="text-xs text-muted-foreground border-t pt-2">
                       <strong>تنبيه:</strong> هذا التحليل مساعد فقط ولا يغني عن
-                      است��ارة طبيب مختص
+                      استشارة طبيب مختص
                     </div>
                   </CardContent>
                 </Card>
