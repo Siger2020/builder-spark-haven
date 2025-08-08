@@ -157,4 +157,24 @@ router.get("/verify", async (req, res) => {
   }
 });
 
+// نقطة اختبار للتحقق من بيانات المدير
+router.get("/test-admin", async (req, res) => {
+  try {
+    const admin = db
+      .prepare("SELECT id, name, email, password, role FROM users WHERE email = 'admin@dkalmoli.com'")
+      .get();
+
+    res.json({
+      success: true,
+      admin: admin
+    });
+  } catch (error) {
+    console.error("Test admin error:", error);
+    res.status(500).json({
+      success: false,
+      error: "خطأ في جلب بيانات المدير"
+    });
+  }
+});
+
 export default router;
