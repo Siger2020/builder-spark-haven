@@ -84,7 +84,7 @@ const SecuritySettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">انتهاء صلاحية كلمة المرور (أيام)</Label>
+            <Label className="font-arabic">انتهاء صلاحية كلمة المرور (��يام)</Label>
             <Input type="number" defaultValue="90" className="w-20" />
           </div>
         </CardContent>
@@ -100,7 +100,7 @@ const SecuritySettings = () => {
             <Input type="number" defaultValue="3" className="w-20" />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">مدة الحظر (��قائق)</Label>
+            <Label className="font-arabic">مدة الحظر (دقائق)</Label>
             <Input type="number" defaultValue="15" className="w-20" />
           </div>
           <div className="flex items-center justify-between">
@@ -493,7 +493,7 @@ const BackupSettings = () => {
           <p className="text-sm text-red-600 font-arabic">
             تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية
           </p>
-          <Button variant="destructive" className="font-arabic">
+          <Button onClick={handleRestoreBackup} variant="destructive" className="font-arabic">
             استعادة من نسخة احتياطية
           </Button>
         </CardContent>
@@ -642,7 +642,7 @@ const NotificationSettings = () => {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <Label className="font-arabic">إشعارات الواتس آب</Label>
+              <Label className="font-arabic">إشعارات الوا��س آب</Label>
               <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر الواتس آب</p>
             </div>
             <Switch />
