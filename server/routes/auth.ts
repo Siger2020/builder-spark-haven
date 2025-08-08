@@ -64,6 +64,8 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    console.log("Login attempt:", { email: email, passwordLength: password?.length });
+
     // التحقق من وجود البيانات المطلوبة
     if (!email || !password) {
       return res.status(400).json({
@@ -104,7 +106,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// التحقق من صحة الجلسة
+// التحقق من صحة الج��سة
 router.get("/verify", async (req, res) => {
   try {
     const { userId } = req.query;
