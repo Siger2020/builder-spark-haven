@@ -16,7 +16,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Booking from "./pages/Booking";
 import Patients from "./pages/Patients";
-import Transactions from "./pages/Transactions";
+import Transactions from "./pages/TransactionsSimple";
 import TransactionsFallback from "./components/TransactionsFallback";
 import Reports from "./pages/Reports";
 import Sessions from "./pages/Sessions";
