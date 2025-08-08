@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import bookingsRoutes from "./routes/bookings.js";
 import appointmentsCleanupRoutes from "./routes/appointments-cleanup.js";
 import notificationsRoutes from "./routes/notifications.js";
+import aiAnalysisRoutes from "./routes/ai-analysis.js";
 import {
   getDatabaseStatsHandler,
   getTablesHandler,
