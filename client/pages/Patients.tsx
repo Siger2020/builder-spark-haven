@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectItem } from "@/components/ui/safe-select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -143,7 +143,7 @@ export default function Patients() {
         setPatients([]);
       }
     } catch (error) {
-      console.error('خطأ في جلب بيانات المرضى:', error);
+      console.error('خطأ في جلب بيانات ��لمرضى:', error);
       setPatients([]);
     } finally {
       setLoading(false);
@@ -850,12 +850,12 @@ export default function Patients() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-arabic">رقم ��لفاتورة</TableHead>
+                      <TableHead className="font-arabic">رقم الفاتورة</TableHead>
                       <TableHead className="font-arabic">المريض</TableHead>
                       <TableHead className="font-arabic">الخدمة</TableHead>
                       <TableHead className="font-arabic">المبلغ</TableHead>
                       <TableHead className="font-arabic">طريقة الدفع</TableHead>
-                      <TableHead className="font-arabic">التاريخ</TableHead>
+                      <TableHead className="font-arabic">ال��اريخ</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
                       <TableHead className="font-arabic">الإجراءات</TableHead>
                     </TableRow>
