@@ -164,7 +164,7 @@ export default function Reports() {
         { name: "تقويم الأسنان", revenue: 85000, percentage: 35 },
         { name: "زراعة الأسنان", revenue: 72000, percentage: 30 },
         { name: "تبييض الأسنان", revenue: 48000, percentage: 20 },
-        { name: "حشوات الأسنان", revenue: 24000, percentage: 10 },
+        { name: "حشوات الأس��ان", revenue: 24000, percentage: 10 },
         { name: "علاج اللثة", revenue: 12000, percentage: 5 }
       ];
 
@@ -572,15 +572,15 @@ export default function Reports() {
                   <div className="space-y-4">
                     <h3 className="font-bold font-arabic">تصدير البيانات الطبية</h3>
                     <div className="space-y-2">
-                      <Button className="w-full font-arabic" variant="outline">
-                        <Download className="h-4 w-4 mr-2" />
-                        تصدير جميع الكشوفات (PDF)
+                      <Button className="w-full font-arabic" variant="outline" onClick={printReport}>
+                        <Printer className="h-4 w-4 mr-2" />
+                        طباعة التقارير
                       </Button>
-                      <Button className="w-full font-arabic" variant="outline">
+                      <Button className="w-full font-arabic" variant="outline" onClick={exportMedicalReports}>
                         <Download className="h-4 w-4 mr-2" />
-                        تصدير قاعدة البيانات (Excel)
+                        تصدير الكشوفات (Excel)
                       </Button>
-                      <Button className="w-full font-arabic" variant="outline">
+                      <Button className="w-full font-arabic" variant="outline" onClick={() => alert('سيتم إضافة هذه الميزة قريباً')}>
                         <Share className="h-4 w-4 mr-2" />
                         مشاركة التقرير الشهري
                       </Button>
