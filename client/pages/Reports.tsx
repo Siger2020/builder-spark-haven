@@ -211,7 +211,7 @@ export default function Reports() {
               <CardHeader>
                 <CardTitle className="font-arabic">الكشوفات الطبية</CardTitle>
                 <CardDescription className="font-arabic">
-                  قائمة بجميع الكشوفات والتقارير الطبية
+                  قائمة بجميع الكشوف��ت والتقارير الطبية
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -349,25 +349,124 @@ export default function Reports() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Button className="h-24 font-arabic" variant="outline">
-                    <div className="text-center">
-                      <PieChart className="h-8 w-8 mx-auto mb-2" />
-                      تقرير الإيرادات حسب العلاج
-                    </div>
-                  </Button>
-                  <Button className="h-24 font-arabic" variant="outline">
-                    <div className="text-center">
-                      <BarChart3 className="h-8 w-8 mx-auto mb-2" />
-                      تقرير الأرباح الشهرية
-                    </div>
-                  </Button>
-                  <Button className="h-24 font-arabic" variant="outline">
-                    <div className="text-center">
-                      <TrendingUp className="h-8 w-8 mx-auto mb-2" />
-                      تقرير معدل النمو
-                    </div>
-                  </Button>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Revenue by Treatment Chart */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="font-arabic flex items-center gap-2">
+                        <PieChart className="h-5 w-5" />
+                        الإيرادات حسب نوع العلاج
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {[
+                          { name: "تقويم الأسنان", revenue: 85000, percentage: 35, color: "bg-blue-500" },
+                          { name: "زراعة الأسنان", revenue: 72000, percentage: 30, color: "bg-green-500" },
+                          { name: "تبييض الأسنان", revenue: 48000, percentage: 20, color: "bg-yellow-500" },
+                          { name: "حشوات الأسنان", revenue: 24000, percentage: 10, color: "bg-purple-500" },
+                          { name: "علاج اللثة", revenue: 12000, percentage: 5, color: "bg-red-500" }
+                        ].map((item, index) => (
+                          <div key={index} className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className={`w-4 h-4 rounded ${item.color}`}></div>
+                              <span className="font-arabic text-sm">{item.name}</span>
+                            </div>
+                            <div className="text-right">
+                              <div className="font-medium">{item.revenue.toLocaleString()} ر.ي</div>
+                              <div className="text-sm text-gray-500">{item.percentage}%</div>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="pt-4 border-t">
+                          <div className="flex justify-between font-bold">
+                            <span className="font-arabic">الإجمالي</span>
+                            <span>241,000 ر.ي</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Monthly Revenue Chart */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="font-arabic flex items-center gap-2">
+                        <BarChart3 className="h-5 w-5" />
+                        الإيرادات الشهرية
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        {[
+                          { month: "يناير", revenue: 45000, growth: 12 },
+                          { month: "فبراير", revenue: 52000, growth: 15 },
+                          { month: "مارس", revenue: 48000, growth: -8 },
+                          { month: "أبريل", revenue: 58000, growth: 20 },
+                          { month: "مايو", revenue: 62000, growth: 7 },
+                          { month: "يونيو", revenue: 55000, growth: -11 }
+                        ].map((item, index) => {
+                          const maxRevenue = 62000;
+                          const width = (item.revenue / maxRevenue) * 100;
+                          return (
+                            <div key={index} className="space-y-1">
+                              <div className="flex justify-between text-sm">
+                                <span className="font-arabic">{item.month}</span>
+                                <div className="flex items-center gap-2">
+                                  <span>{item.revenue.toLocaleString()} ر.ي</span>
+                                  <span className={`text-xs ${item.growth > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    {item.growth > 0 ? '+' : ''}{item.growth}%
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div
+                                  className="bg-blue-600 h-2 rounded-full transition-all duration-500"
+                                  style={{ width: `${width}%` }}
+                                ></div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Financial Summary Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                  <Card>
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-green-600">82%</div>
+                        <div className="text-sm text-gray-600 font-arabic">معدل التحصيل</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-blue-600">156</div>
+                        <div className="text-sm text-gray-600 font-arabic">عدد المعاملات</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-purple-600">1,547</div>
+                        <div className="text-sm text-gray-600 font-arabic">متوسط قيمة المعاملة</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-orange-600">15%</div>
+                        <div className="text-sm text-gray-600 font-arabic">نمو هذا الشهر</div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </CardContent>
             </Card>
@@ -409,7 +508,7 @@ export default function Reports() {
                       </Button>
                       <Button className="w-full font-arabic" variant="outline">
                         <Download className="h-4 w-4 mr-2" />
-                        تقرير المصروفات (Excel)
+                        تق��ير المصروفات (Excel)
                       </Button>
                       <Button className="w-full font-arabic" variant="outline">
                         <Download className="h-4 w-4 mr-2" />
@@ -542,7 +641,7 @@ export default function Reports() {
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">التشخيص</Label>
-                <Textarea placeholder="وصف مفصل للحالة والتشخيص..." className="font-arabic" />
+                <Textarea placeholder="وصف مفصل للحا��ة والتشخيص..." className="font-arabic" />
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">العلاج المقترح</Label>
