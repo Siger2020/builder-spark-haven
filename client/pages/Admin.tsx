@@ -229,7 +229,7 @@ function AdminComponent() {
               onClick={fetchDashboardData}
             >
               <Download className="h-4 w-4 mr-2" />
-              تحديث البيا��ات
+              تحديث البيانات
             </Button>
             <Button
               className="font-arabic"
@@ -808,7 +808,7 @@ function AdminComponent() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="font-arabic">النسخ الاحتياطي</span>
+                      <span className="font-arabic">ا��نسخ الاحتياطي</span>
                       <Badge className="bg-green-100 text-green-800">نشط</Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -844,3 +844,42 @@ function AdminComponent() {
     </div>
   );
 }
+
+// Error Boundary wrapper
+class AdminErrorBoundary extends React.Component {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('Admin component error:', error, errorInfo);
+  }
+
+  render() {
+    if ((this.state as any).hasError) {
+      return (
+        <div className="container mx-auto p-6">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">خطأ في تحميل لوحة الإدارة</h1>
+            <p className="text-gray-600 mb-4">حدث خطأ غير متوقع. يرجى إعادة تحميل الصفحة.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              إعادة تحميل
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return React.createElement(AdminComponent, this.props);
+  }
+}
+
+export default AdminErrorBoundary;
