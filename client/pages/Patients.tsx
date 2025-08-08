@@ -410,7 +410,7 @@ export default function Patients() {
                       <CardHeader>
                         <CardTitle className="font-arabic flex items-center gap-2">
                           <UserCheck className="h-5 w-5" />
-                          المعلومات الأساس��ة
+                          المعلومات الأساسية
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -594,7 +594,7 @@ export default function Patients() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="font-arabic">فاطمة أحمد</TableCell>
+                      <TableCell className="font-arabic">فاطم�� أحمد</TableCell>
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>2:00 PM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
@@ -617,7 +617,7 @@ export default function Patients() {
                       <TableCell className="font-arabic">محمد علي حسن</TableCell>
                       <TableCell>2024-01-16</TableCell>
                       <TableCell>9:30 AM</TableCell>
-                      <TableCell className="font-arabic">��. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
                       <TableCell className="font-arabic">حشو الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-yellow-100 text-yellow-800 font-arabic">في الانتظار</Badge>
@@ -783,6 +783,173 @@ export default function Patients() {
                           </Button>
                           <Button size="sm" variant="outline">
                             <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="payments" className="space-y-6">
+            {/* Payments Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">إجمالي الإيرادات</CardTitle>
+                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-600">₹ 45,230</div>
+                  <p className="text-xs text-muted-foreground font-arabic">هذا الشهر</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">دفعات معلقة</CardTitle>
+                  <CreditCard className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-orange-600">₹ 8,420</div>
+                  <p className="text-xs text-muted-foreground font-arabic">5 فواتير</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">التأمين</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-600">₹ 12,300</div>
+                  <p className="text-xs text-muted-foreground font-arabic">مطالبات معلقة</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">نقدي</CardTitle>
+                  <Receipt className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">₹ 24,510</div>
+                  <p className="text-xs text-muted-foreground font-arabic">دفعات نقدية</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Payments Table */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-arabic">سجل المدفوعات</CardTitle>
+                <CardDescription className="font-arabic">
+                  تتبع جميع المدفوعات والفواتير
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="font-arabic">رقم الفاتورة</TableHead>
+                      <TableHead className="font-arabic">المريض</TableHead>
+                      <TableHead className="font-arabic">الخدمة</TableHead>
+                      <TableHead className="font-arabic">المبلغ</TableHead>
+                      <TableHead className="font-arabic">طريقة الدفع</TableHead>
+                      <TableHead className="font-arabic">التاريخ</TableHead>
+                      <TableHead className="font-arabic">الحالة</TableHead>
+                      <TableHead className="font-arabic">الإجراءات</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Sample payment records */}
+                    <TableRow>
+                      <TableCell className="font-mono">#INV-001</TableCell>
+                      <TableCell className="font-arabic">أحمد محمد علي</TableCell>
+                      <TableCell className="font-arabic">حشو مركب</TableCell>
+                      <TableCell className="font-bold text-green-600">₹ 1,200</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">نقدي</Badge>
+                      </TableCell>
+                      <TableCell>2024-01-15</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">مدفوع</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Receipt className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-mono">#INV-002</TableCell>
+                      <TableCell className="font-arabic">فاطمة أحمد</TableCell>
+                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
+                      <TableCell className="font-bold text-green-600">₹ 800</TableCell>
+                      <TableCell>
+                        <Badge className="bg-blue-100 text-blue-800 font-arabic">بطاقة</Badge>
+                      </TableCell>
+                      <TableCell>2024-01-14</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">مدفوع</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Receipt className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-mono">#INV-003</TableCell>
+                      <TableCell className="font-arabic">محمد علي حسن</TableCell>
+                      <TableCell className="font-arabic">تركيب تاج</TableCell>
+                      <TableCell className="font-bold text-orange-600">₹ 3,500</TableCell>
+                      <TableCell>
+                        <Badge className="bg-purple-100 text-purple-800 font-arabic">تأمين</Badge>
+                      </TableCell>
+                      <TableCell>2024-01-13</TableCell>
+                      <TableCell>
+                        <Badge className="bg-yellow-100 text-yellow-800 font-arabic">معلق</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Receipt className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-mono">#INV-004</TableCell>
+                      <TableCell className="font-arabic">سارة محمود</TableCell>
+                      <TableCell className="font-arabic">علاج التهاب اللثة</TableCell>
+                      <TableCell className="font-bold text-green-600">₹ 1,500</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">نقدي</Badge>
+                      </TableCell>
+                      <TableCell>2024-01-12</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">مدفوع</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Receipt className="h-4 w-4" />
                           </Button>
                         </div>
                       </TableCell>
