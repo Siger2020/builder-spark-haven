@@ -331,6 +331,56 @@ const UserManagement = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Edit User Dialog */}
+      <Dialog open={isEditUserOpen} onOpenChange={setIsEditUserOpen}>
+        <DialogContent className="sm:max-w-[500px]" dir="rtl">
+          <DialogHeader>
+            <DialogTitle className="font-arabic">تعديل بيانات المستخدم</DialogTitle>
+            <DialogDescription className="font-arabic">
+              تحديث بيانات المستخدم
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label className="font-arabic">الاسم الكامل</Label>
+              <Input
+                placeholder="أدخل الاسم الكامل"
+                className="font-arabic"
+                value={newUser.name}
+                onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="font-arabic">البريد الإلكتروني</Label>
+              <Input
+                type="email"
+                placeholder="email@example.com"
+                value={newUser.email}
+                onChange={(e) => setNewUser(prev => ({ ...prev, email: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="font-arabic">الدور</Label>
+              <Select
+                value={newUser.role}
+                onValueChange={(value) => setNewUser(prev => ({ ...prev, role: value }))}
+                className="font-arabic"
+              >
+                <SelectItem value="admin">مدير</SelectItem>
+                <SelectItem value="doctor">طبيب</SelectItem>
+                <SelectItem value="receptionist">استقبال</SelectItem>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsEditUserOpen(false)} className="font-arabic">
+              إلغاء
+            </Button>
+            <Button onClick={handleUpdateUser} className="font-arabic">حفظ التغييرات</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
@@ -401,7 +451,7 @@ const BackupSettings = () => {
             تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية
           </p>
           <Button variant="destructive" className="font-arabic">
-            استعادة من نسخة اح��ياطية
+            استعادة من نسخة احتياطية
           </Button>
         </CardContent>
       </Card>
@@ -620,7 +670,7 @@ export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
         <DialogHeader>
           <DialogTitle className="font-arabic">{getTitle()}</DialogTitle>
           <DialogDescription className="font-arabic">
-            تخصيص وإدارة إعدادات ا��نظام
+            تخصيص وإدارة إعدادات النظام
           </DialogDescription>
         </DialogHeader>
         {renderContent()}
