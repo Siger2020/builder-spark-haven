@@ -35,8 +35,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         error.message?.includes('Select') ||
         error.stack?.includes('SelectTrigger') ||
         error.stack?.includes('SelectValue') ||
-        error.stack?.includes('SelectContent')) {
-      console.warn('Select component error detected, likely due to Radix UI component mismatch');
+        error.stack?.includes('SelectContent') ||
+        error.stack?.includes('Transactions.tsx')) {
+      console.warn('Select component error detected in Transactions page, likely due to Radix UI component mismatch');
+      console.error('Full error details:', error.message, error.stack);
     }
 
     // Log component stack for debugging
