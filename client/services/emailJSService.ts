@@ -138,7 +138,7 @@ export class EmailJSService {
     try {
       const result = await this.queueRequest(() =>
         this.performSendWithDelay("test", {
-          patientName: testEmail ? "مستخدم الاختبار" : "مدير النظام",
+          patientName: testEmail ? "مستخدم الاختبا��" : "مدير النظام",
           patientEmail: testEmail || this.config!.senderEmail,
           appointmentId: "TEST-" + Date.now(),
           appointmentDate: new Date().toLocaleDateString("ar-EG"),
@@ -265,19 +265,28 @@ export class EmailJSService {
     data: NotificationData,
   ): Promise<EmailResult> {
     try {
+      if (!this.config || !this.config.serviceId || !this.config.templateId) {
+        throw new Error("EmailJS configuration is incomplete");
+      }
+
       const templateData = this.prepareTemplateData(type, data);
 
       console.log("Sending EmailJS request with data:", {
-        serviceId: this.config?.serviceId,
-        templateId: this.config?.templateId,
+        serviceId: this.config.serviceId.substring(0, 8) + "...", // Hide sensitive data
+        templateId: this.config.templateId.substring(0, 8) + "...",
         dataKeys: Object.keys(templateData),
         timestamp: new Date().toISOString(),
       });
 
+      // Ensure EmailJS is available before using
+      if (typeof emailjs.send !== 'function') {
+        throw new Error("EmailJS library not properly loaded");
+      }
+
       // استخدام محاولة واحدة فقط بدون retry
       const result = await emailjs.send(
-        this.config!.serviceId,
-        this.config!.templateId,
+        this.config.serviceId,
+        this.config.templateId,
         templateData,
       );
 
@@ -391,7 +400,7 @@ export class EmailJSService {
       case "reminder":
         return {
           ...baseData,
-          subject: `⏰ تذكير بموعدك غداً - ${data.appointmentId}`,
+          subject: `⏰ تذكير بموع��ك غداً - ${data.appointmentId}`,
           notification_type: "تذكير موعد",
           icon: "⏰",
           message: `نذكرك بموعدك المحجوز غداً في ${data.clinicName}. نتطلع لرؤيتك!`,
