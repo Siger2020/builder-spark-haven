@@ -720,7 +720,7 @@ export default function Patients() {
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>2:00 PM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
+                      <TableCell className="font-arabic">تنظي�� الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-blue-100 text-blue-800 font-arabic">مجدول</Badge>
                       </TableCell>
@@ -1010,7 +1010,7 @@ export default function Patients() {
                     <TableRow>
                       <TableCell className="font-mono">#INV-002</TableCell>
                       <TableCell className="font-arabic">فاطمة أحمد</TableCell>
-                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
+                      <TableCell className="font-arabic">تنظيف الأس��ان</TableCell>
                       <TableCell className="font-bold text-green-600">₹ 800</TableCell>
                       <TableCell>
                         <Badge className="bg-blue-100 text-blue-800 font-arabic">بطاقة</Badge>
@@ -1232,6 +1232,220 @@ export default function Patients() {
                 إغلاق
               </Button>
               <Button className="font-arabic">تعديل البيانات</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Patient Dialog */}
+        <Dialog open={isAddPatientDialogOpen} onOpenChange={setIsAddPatientDialogOpen}>
+          <DialogContent className="sm:max-w-[600px]" dir="rtl">
+            <DialogHeader>
+              <DialogTitle className="font-arabic">إضافة مريض جديد</DialogTitle>
+              <DialogDescription className="font-arabic">
+                املأ البيانات التالية لإضافة مريض جديد
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-arabic">الاسم الكامل <span className="text-red-500">*</span></Label>
+                  <Input
+                    placeholder="أدخل الاسم الكامل"
+                    className="font-arabic"
+                    value={formData.name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-arabic">رقم الهاتف <span className="text-red-500">*</span></Label>
+                  <Input
+                    placeholder="أدخل رقم الهاتف"
+                    className="font-arabic"
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-arabic">البريد الإلكتروني</Label>
+                  <Input
+                    type="email"
+                    placeholder="أدخل البريد الإلكتروني"
+                    className="font-arabic"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-arabic">الجنس</Label>
+                  <Select
+                    value={formData.gender}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, gender: value }))}
+                  >
+                    <option value="">اختر الجنس</option>
+                    <option value="male">ذكر</option>
+                    <option value="female">أنثى</option>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">العنوان</Label>
+                <Input
+                  placeholder="أدخل العنوان"
+                  className="font-arabic"
+                  value={formData.address}
+                  onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">شركة التأمين</Label>
+                <Input
+                  placeholder="أدخل اسم شركة التأمين"
+                  className="font-arabic"
+                  value={formData.insurance_company}
+                  onChange={(e) => setFormData(prev => ({ ...prev, insurance_company: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">التاريخ الطبي</Label>
+                <Textarea
+                  placeholder="أدخل التاريخ الطبي والأمراض السابقة..."
+                  className="font-arabic"
+                  value={formData.medical_history}
+                  onChange={(e) => setFormData(prev => ({ ...prev, medical_history: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">الحساسيات</Label>
+                <Textarea
+                  placeholder="أدخل الحساسيات المعروفة..."
+                  className="font-arabic"
+                  value={formData.allergies}
+                  onChange={(e) => setFormData(prev => ({ ...prev, allergies: e.target.value }))}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsAddPatientDialogOpen(false)} className="font-arabic">
+                إلغاء
+              </Button>
+              <Button onClick={handleSavePatient} disabled={isLoading} className="font-arabic">
+                {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                حفظ المريض
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Patient Dialog */}
+        <Dialog open={isEditPatientDialogOpen} onOpenChange={setIsEditPatientDialogOpen}>
+          <DialogContent className="sm:max-w-[600px]" dir="rtl">
+            <DialogHeader>
+              <DialogTitle className="font-arabic">تعديل بيانات المريض</DialogTitle>
+              <DialogDescription className="font-arabic">
+                قم بتعديل البيانات المطلوبة
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-arabic">الاسم الكامل <span className="text-red-500">*</span></Label>
+                  <Input
+                    placeholder="أدخل الاسم الكامل"
+                    className="font-arabic"
+                    value={formData.name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-arabic">رقم الهاتف <span className="text-red-500">*</span></Label>
+                  <Input
+                    placeholder="أدخل رقم الهاتف"
+                    className="font-arabic"
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-arabic">البريد الإلكتروني</Label>
+                  <Input
+                    type="email"
+                    placeholder="أدخل البريد الإلكتروني"
+                    className="font-arabic"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-arabic">الجنس</Label>
+                  <Select
+                    value={formData.gender}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, gender: value }))}
+                  >
+                    <option value="">اختر الجنس</option>
+                    <option value="male">ذكر</option>
+                    <option value="female">أن��ى</option>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">العنوان</Label>
+                <Input
+                  placeholder="أدخل العنوان"
+                  className="font-arabic"
+                  value={formData.address}
+                  onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">شركة التأمين</Label>
+                <Input
+                  placeholder="أدخل اسم شركة التأمين"
+                  className="font-arabic"
+                  value={formData.insurance_company}
+                  onChange={(e) => setFormData(prev => ({ ...prev, insurance_company: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">التاريخ الطبي</Label>
+                <Textarea
+                  placeholder="أدخل التاريخ الطبي والأمراض السابقة..."
+                  className="font-arabic"
+                  value={formData.medical_history}
+                  onChange={(e) => setFormData(prev => ({ ...prev, medical_history: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-arabic">الحساسيات</Label>
+                <Textarea
+                  placeholder="أدخل الحساسيات المعروفة..."
+                  className="font-arabic"
+                  value={formData.allergies}
+                  onChange={(e) => setFormData(prev => ({ ...prev, allergies: e.target.value }))}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsEditPatientDialogOpen(false)} className="font-arabic">
+                إلغاء
+              </Button>
+              <Button onClick={handleSavePatient} disabled={isLoading} className="font-arabic">
+                {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                حفظ التغييرات
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
