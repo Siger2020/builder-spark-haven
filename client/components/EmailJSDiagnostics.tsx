@@ -95,23 +95,44 @@ const EmailJSDiagnostics: React.FC = () => {
       </CardHeader>
       
       <CardContent className="space-y-4">
-        <Button 
-          onClick={runDiagnostics}
-          disabled={isRunning}
-          className="w-full font-arabic"
-        >
-          {isRunning ? (
-            <>
-              <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-              جاري التشخيص...
-            </>
-          ) : (
-            <>
-              <Bug className="w-4 h-4 mr-2" />
-              تشغيل التشخيص الشامل
-            </>
-          )}
-        </Button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <Button
+            onClick={runDiagnostics}
+            disabled={isRunning}
+            className="font-arabic"
+          >
+            {isRunning ? (
+              <>
+                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                جاري التشخيص...
+              </>
+            ) : (
+              <>
+                <Bug className="w-4 h-4 mr-2" />
+                تشخيص شامل
+              </>
+            )}
+          </Button>
+
+          <Button
+            onClick={runTypeErrorDiagnosis}
+            disabled={isRunningTypeError}
+            variant="outline"
+            className="font-arabic"
+          >
+            {isRunningTypeError ? (
+              <>
+                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                فحص TypeError...
+              </>
+            ) : (
+              <>
+                <AlertTriangle className="w-4 h-4 mr-2" />
+                فحص TypeError
+              </>
+            )}
+          </Button>
+        </div>
 
         {diagnostics && (
           <div className="space-y-4">
