@@ -56,6 +56,10 @@ interface DashboardStats {
   completedAppointments: number;
   scheduledAppointments: number;
   cancelledAppointments: number;
+  pendingAppointments: number;
+  canceledAppointments: number;
+  monthlyRevenue: number;
+  outstandingPayments: number;
 }
 
 interface RecentAppointment {
@@ -381,7 +385,7 @@ function AdminComponent() {
                       ��لمواعيد اليوم
                     </CardTitle>
                     <CardDescription className="font-arabic">
-                      قائمة ��مواعيد اليوم وحالتها
+                      قائمة بمواعيد اليوم وحالتها
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -821,7 +825,7 @@ function AdminComponent() {
                     }}
                   >
                     <Bell className="h-4 w-4 mr-2" />
-                    إعدادات الإشعارات
+                    إعدادات الإشعا��ات
                   </Button>
                   <Link to="/database">
                     <Button className="w-full font-arabic" variant="outline">
