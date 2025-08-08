@@ -55,6 +55,7 @@ import {
 import EmailJSSetupHelper from "../components/EmailJSSetupHelper";
 import EmailJSTroubleshooter from "../components/EmailJSTroubleshooter";
 import EmailJSStatus from "../components/EmailJSStatus";
+import EmailJSDiagnostics from "../components/EmailJSDiagnostics";
 
 interface NotificationLog {
   id: number;
@@ -657,7 +658,7 @@ export default function NotificationSettings() {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="test-email" className="font-arabic">
-                  البريد الإلكتروني للاختبار
+                  البريد الإلكتر��ني للاختبار
                 </Label>
                 <Input
                   id="test-email"
@@ -895,7 +896,7 @@ export default function NotificationSettings() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600 font-arabic">
-                      النظام الحالي
+                      النظام ا��حالي
                     </p>
                     <p className="text-2xl font-bold text-blue-600">EmailJS</p>
                   </div>
