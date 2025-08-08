@@ -25,7 +25,20 @@ import {
   User,
   MapPin,
   Clock,
-  Loader2
+  Loader2,
+  DollarSign,
+  CreditCard,
+  Heart,
+  Stethoscope,
+  CalendarCheck,
+  UserCheck,
+  Receipt,
+  History,
+  FileBarChart,
+  Pill,
+  ClipboardList,
+  TrendingUp,
+  CalendarClock
 } from "lucide-react";
 
 interface Patient {
@@ -340,7 +353,7 @@ export default function Patients() {
               <CardContent>
                 <div className="text-center py-8">
                   <FileText className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة السجلات الطبية قريباً</p>
+                  <p className="text-gray-600 font-arabic">سيتم إضاف�� السجلات الطبية قريباً</p>
                 </div>
               </CardContent>
             </Card>
@@ -390,7 +403,7 @@ export default function Patients() {
                 <Input placeholder="شركة التأمين" className="font-arabic" />
               </div>
               <div className="col-span-2 space-y-2">
-                <Label className="font-arabic">العنوان</Label>
+                <Label className="font-arabic">ا��عنوان</Label>
                 <Input placeholder="العنوان الكامل" className="font-arabic" />
               </div>
               <div className="col-span-2 space-y-2">
