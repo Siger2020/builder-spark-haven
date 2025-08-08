@@ -284,35 +284,50 @@ const UserManagement = () => {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label className="font-arabic">الاسم الكامل</Label>
-              <Input placeholder="أدخل الاسم الكامل" className="font-arabic" />
+              <Input
+                placeholder="أدخل الاسم الكامل"
+                className="font-arabic"
+                value={newUser.name}
+                onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
+              />
             </div>
             <div className="space-y-2">
               <Label className="font-arabic">البريد الإلكتروني</Label>
-              <Input type="email" placeholder="email@example.com" />
+              <Input
+                type="email"
+                placeholder="email@example.com"
+                value={newUser.email}
+                onChange={(e) => setNewUser(prev => ({ ...prev, email: e.target.value }))}
+              />
             </div>
             <div className="space-y-2">
               <Label className="font-arabic">الدور</Label>
-              <Select>
-                <SelectTrigger className="font-arabic">
-                  <SelectValue placeholder="اختر الدور" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="admin" className="font-arabic">مدير</SelectItem>
-                  <SelectItem value="doctor" className="font-arabic">طبيب</SelectItem>
-                  <SelectItem value="receptionist" className="font-arabic">استقبال</SelectItem>
-                </SelectContent>
+              <Select
+                value={newUser.role}
+                onValueChange={(value) => setNewUser(prev => ({ ...prev, role: value }))}
+                placeholder="اختر الدور"
+                className="font-arabic"
+              >
+                <SelectItem value="admin">مدير</SelectItem>
+                <SelectItem value="doctor">طبيب</SelectItem>
+                <SelectItem value="receptionist">استقبال</SelectItem>
               </Select>
             </div>
             <div className="space-y-2">
               <Label className="font-arabic">كلمة المرور</Label>
-              <Input type="password" placeholder="كلمة المرور" />
+              <Input
+                type="password"
+                placeholder="كلمة المرور"
+                value={newUser.password}
+                onChange={(e) => setNewUser(prev => ({ ...prev, password: e.target.value }))}
+              />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsAddUserOpen(false)} className="font-arabic">
               إلغاء
             </Button>
-            <Button className="font-arabic">إضافة المستخدم</Button>
+            <Button onClick={handleAddUser} className="font-arabic">إضافة المستخدم</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -386,7 +401,7 @@ const BackupSettings = () => {
             تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية
           </p>
           <Button variant="destructive" className="font-arabic">
-            استعادة من نسخة احتياطية
+            استعادة من نسخة اح��ياطية
           </Button>
         </CardContent>
       </Card>
@@ -605,7 +620,7 @@ export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
         <DialogHeader>
           <DialogTitle className="font-arabic">{getTitle()}</DialogTitle>
           <DialogDescription className="font-arabic">
-            تخصيص وإدارة إعدادات النظام
+            تخصيص وإدارة إعدادات ا��نظام
           </DialogDescription>
         </DialogHeader>
         {renderContent()}
