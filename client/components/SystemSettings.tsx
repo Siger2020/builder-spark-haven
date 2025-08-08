@@ -84,7 +84,7 @@ const SecuritySettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">انتهاء صلاحية كلمة ا��مرور (أيام)</Label>
+            <Label className="font-arabic">انتهاء صلاحية كلمة المرور (أيام)</Label>
             <Input type="number" defaultValue="90" className="w-20" />
           </div>
         </CardContent>
@@ -100,7 +100,7 @@ const SecuritySettings = () => {
             <Input type="number" defaultValue="3" className="w-20" />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">مدة الحظر (دقائق)</Label>
+            <Label className="font-arabic">مدة الحظر (��قائق)</Label>
             <Input type="number" defaultValue="15" className="w-20" />
           </div>
           <div className="flex items-center justify-between">
@@ -473,11 +473,11 @@ const BackupSettings = () => {
             يمكنك إنشاء نسخة احتياطية فورية من جميع البيانات
           </p>
           <div className="flex gap-4">
-            <Button className="font-arabic">
+            <Button onClick={handleCreateBackup} className="font-arabic">
               <Database className="h-4 w-4 mr-2" />
               إنشاء نسخة احتياطية الآن
             </Button>
-            <Button variant="outline" className="font-arabic">
+            <Button onClick={handleDownloadBackup} variant="outline" className="font-arabic">
               <Download className="h-4 w-4 mr-2" />
               تحميل آخر نسخة
             </Button>
@@ -527,7 +527,7 @@ const GeneralSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label className="font-arabic">اسم الع���ادة</Label>
+            <Label className="font-arabic">اسم الع��ادة</Label>
             <Input defaultValue="عيادة الأسنان المتقدمة" className="font-arabic" />
           </div>
           <div className="space-y-2">
