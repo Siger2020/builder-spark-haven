@@ -32,19 +32,8 @@ import AIAnalysis from "./pages/AIAnalysis";
 
 const queryClient = new QueryClient();
 
-// Safe TooltipProvider wrapper
-const SafeTooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  try {
-    return <TooltipProvider>{children}</TooltipProvider>;
-  } catch (error) {
-    console.warn('TooltipProvider failed, running without tooltips:', error);
-    return <>{children}</>;
-  }
-};
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <SafeTooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
@@ -224,7 +213,6 @@ const App = () => (
           </div>
         </AuthProvider>
       </BrowserRouter>
-    </SafeTooltipProvider>
   </QueryClientProvider>
 );
 
