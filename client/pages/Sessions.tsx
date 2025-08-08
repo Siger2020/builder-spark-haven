@@ -57,7 +57,7 @@ const treatmentSessions = [
     duration: 90,
     status: "جاري العلاج",
     doctor: "د. سارة أحمد",
-    notes: "تم وضع الغرسة بنجاح. يحتاج فترة شفاء 3 أشهر.",
+    notes: "��م وضع الغرسة بنجاح. يحتاج فترة شفاء 3 أشهر.",
     nextSession: "2024-04-14",
     progress: 50,
     procedures: ["وضع الغرسة", "خياطة الجرح", "وصف مضادات حيوية"]
@@ -653,7 +653,7 @@ export default function Sessions() {
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <Label className="font-arabic font-bold">رقم الجلسة:</Label>
+                    <Label className="font-arabic font-bold">رقم ��لجلسة:</Label>
                     <p className="font-arabic">{selectedSession.sessionNumber} من {selectedSession.totalSessions}</p>
                   </div>
                   <div>
@@ -727,41 +727,51 @@ export default function Sessions() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">اسم المريض</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر المريض" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pat1" className="font-arabic">أحمد محمد السعد</SelectItem>
-                      <SelectItem value="pat2" className="font-arabic">فاطمة أحمد العلي</SelectItem>
-                      <SelectItem value="pat3" className="font-arabic">محمد علي القحطاني</SelectItem>
-                    </SelectContent>
+                  <Label className="font-arabic">اسم المريض <span className="text-red-500">*</span></Label>
+                  <Select
+                    value={sessionForm.patientId}
+                    onValueChange={(value) => setSessionForm(prev => ({ ...prev, patientId: value }))}
+                    placeholder="اختر المريض"
+                    className="font-arabic"
+                  >
+                    <SelectItem value="pat1">أحمد محمد السعد</SelectItem>
+                    <SelectItem value="pat2">فاطمة أحمد العلي</SelectItem>
+                    <SelectItem value="pat3">محمد علي القحطاني</SelectItem>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-arabic">خطة العلاج</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر نوع العلاج" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="orthodontic" className="font-arabic">تقويم الأسنان</SelectItem>
-                      <SelectItem value="implant" className="font-arabic">زراعة الأسنان</SelectItem>
-                      <SelectItem value="gum" className="font-arabic">علاج اللثة</SelectItem>
-                      <SelectItem value="whitening" className="font-arabic">تبييض الأسنان</SelectItem>
-                    </SelectContent>
+                  <Label className="font-arabic">خطة العلاج <span className="text-red-500">*</span></Label>
+                  <Select
+                    value={sessionForm.treatmentPlan}
+                    onValueChange={(value) => setSessionForm(prev => ({ ...prev, treatmentPlan: value }))}
+                    placeholder="اختر نوع العلاج"
+                    className="font-arabic"
+                  >
+                    <SelectItem value="تقويم الأسنان">تقويم الأسنان</SelectItem>
+                    <SelectItem value="زراعة الأسنان">زراعة الأسنان</SelectItem>
+                    <SelectItem value="علاج اللثة">علاج اللثة</SelectItem>
+                    <SelectItem value="تبييض الأسنان">تبييض الأسنان</SelectItem>
                   </Select>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">تاريخ الجلسة</Label>
-                  <Input type="date" className="font-arabic" />
+                  <Label className="font-arabic">تاريخ الجلسة <span className="text-red-500">*</span></Label>
+                  <Input
+                    type="date"
+                    className="font-arabic"
+                    value={sessionForm.sessionDate}
+                    onChange={(e) => setSessionForm(prev => ({ ...prev, sessionDate: e.target.value }))}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label className="font-arabic">وقت الجلسة</Label>
-                  <Input type="time" className="font-arabic" />
+                  <Input
+                    type="time"
+                    className="font-arabic"
+                    value={sessionForm.sessionTime}
+                    onChange={(e) => setSessionForm(prev => ({ ...prev, sessionTime: e.target.value }))}
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
