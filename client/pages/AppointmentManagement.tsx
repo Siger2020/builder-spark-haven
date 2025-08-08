@@ -451,9 +451,14 @@ export default function AppointmentManagement() {
                 </Select>
               </div>
               <div className="flex items-end">
-                <Button variant="outline" className="w-full font-arabic">
+                <Button
+                  variant="outline"
+                  className="w-full font-arabic"
+                  onClick={exportToExcel}
+                  disabled={loading || filteredAppointments.length === 0}
+                >
                   <Download className="h-4 w-4 mr-2" />
-                  تصدير Excel
+                  تصدير Excel ({filteredAppointments.length})
                 </Button>
               </div>
             </div>
