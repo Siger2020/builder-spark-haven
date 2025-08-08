@@ -398,7 +398,7 @@ export default function Reports() {
                       {[
                         { name: "تسوس الأسنان", count: 45, percentage: 35 },
                         { name: "التهاب اللثة", count: 32, percentage: 25 },
-                        { name: "تقويم الأسنان", count: 28, percentage: 22 },
+                        { name: "تقويم الأس��ان", count: 28, percentage: 22 },
                         { name: "زراعة الأسنان", count: 15, percentage: 12 },
                         { name: "تبييض الأسنان", count: 8, percentage: 6 }
                       ].map((item, index) => (
@@ -589,9 +589,9 @@ export default function Reports() {
                   <div className="space-y-4">
                     <h3 className="font-bold font-arabic">تصدير التقارير ا��مالية</h3>
                     <div className="space-y-2">
-                      <Button className="w-full font-arabic" variant="outline">
+                      <Button className="w-full font-arabic" variant="outline" onClick={exportFinancialReport}>
                         <Download className="h-4 w-4 mr-2" />
-                        تقرير الإيرادات (PDF)
+                        تقرير الإيرادات (Excel)
                       </Button>
                       <Button className="w-full font-arabic" variant="outline">
                         <Download className="h-4 w-4 mr-2" />
