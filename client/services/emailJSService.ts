@@ -133,7 +133,31 @@ export class EmailJSService {
       };
     }
 
-    // التحقق من وجود طلبات م��لقة في الطابور
+    // Check EmailJS library availability
+    try {
+      if (typeof emailjs === 'undefined') {
+        return {
+          success: false,
+          error: "مكتبة EmailJS غير محملة. يرجى إعادة تحميل الصفحة."
+        };
+      }
+
+      if (typeof emailjs.send !== 'function') {
+        return {
+          success: false,
+          error: "وظيفة الإرسال في EmailJS غير متاحة."
+        };
+      }
+
+      console.log("EmailJS library check passed");
+    } catch (checkError) {
+      return {
+        success: false,
+        error: "خطأ في فحص مكتبة EmailJS: " + (checkError instanceof Error ? checkError.message : 'خطأ غير معروف')
+      };
+    }
+
+    // التحقق من وجود طلبات معلقة في الطابور
     if (this.isProcessingQueue || this.requestQueue.length > 0) {
       return {
         success: false,
@@ -359,7 +383,7 @@ export class EmailJSService {
         } else if (error.message && typeof error.message === 'string') {
           errorMessage = error.message;
         } else {
-          errorMessage = "خطأ في الاتصال بخدمة البريد الإلكتروني";
+          errorMessage = "خطأ في الاتصال بخدمة البري�� الإلكتروني";
         }
       } else if (typeof error === 'string') {
         errorMessage = error;
@@ -397,7 +421,7 @@ export class EmailJSService {
       doctorName: "نظام الاختبار",
       clinicName: this.config.senderName,
       clinicPhone: this.config.senderEmail || "غير محدد",
-      clinicAddress: "نظام الإشعارات الإلكترو��ية",
+      clinicAddress: "نظام الإشعارات الإلكترونية",
       notes: "هذه رسالة اختبار لتأكيد عمل النظام",
     });
   }
