@@ -423,7 +423,7 @@ export default function Transactions() {
             <TabsTrigger value="transactions">المعاملات</TabsTrigger>
             <TabsTrigger value="payments">سجل المدفوعات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
-            <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+            <TabsTrigger value="settings">الإعد��دات</TabsTrigger>
           </TabsList>
 
           <TabsContent value="transactions" className="space-y-6">
@@ -641,7 +641,7 @@ export default function Transactions() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label className="font-arabic">العملة ��لافتراضية</Label>
-                  <Select defaultValue="sar">
+                  <Select defaultValue="sar" className="font-arabic">
                     <SelectContent>
                       <SelectItem value="sar" className="font-arabic">ريال س��ودي (SAR)</SelectItem>
                       <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
