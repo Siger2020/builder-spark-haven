@@ -96,7 +96,7 @@ const getStatusBadge = (status: string) => {
     case "paid":
       return <Badge className="bg-green-100 text-green-800">مدفوع</Badge>;
     case "partial":
-      return <Badge className="bg-yellow-100 text-yellow-800">����دفوع جزئي����ً</Badge>;
+      return <Badge className="bg-yellow-100 text-yellow-800">����دفوع جزئي��ً</Badge>;
     case "pending":
       return <Badge className="bg-red-100 text-red-800">غير ��دفوع</Badge>;
     default:
@@ -349,7 +349,7 @@ export default function Transactions() {
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="search"
-                        placeholder="ابحث باسم المريض أو رقم المعاملة..."
+                        placeholder="ابحث باسم المريض أو رق�� المعاملة..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 font-arabic"
@@ -642,6 +642,95 @@ export default function Transactions() {
               </Button>
               <Button onClick={processPayment} disabled={isLoading} className="font-arabic">
                 {isLoading ? "جاري المعالجة..." : "تأكيد الدفع"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* New Payment Dialog */}
+        <Dialog open={isNewPaymentDialogOpen} onOpenChange={setIsNewPaymentDialogOpen}>
+          <DialogContent className="sm:max-w-[600px]" dir="rtl">
+            <DialogHeader>
+              <DialogTitle className="font-arabic">إضافة دفعة جديدة</DialogTitle>
+              <DialogDescription className="font-arabic">
+                تسجيل دفعة جديدة في النظام
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-arabic">اسم المريض <span className="text-red-500">*</span></Label>
+                  <Input
+                    placeholder="أدخل اسم المريض"
+                    className="font-arabic"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-arabic">رقم المريض</Label>
+                  <Input
+                    placeholder="رقم المريض (اختياري)"
+                    className="font-arabic"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-arabic">نوع الخدمة</Label>
+                  <Select>
+                    <SelectTrigger className="font-arabic">
+                      <SelectValue placeholder="اختر نوع الخدمة" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="تنظيف" className="font-arabic">تنظيف الأسنان</SelectItem>
+                      <SelectItem value="حشوات" className="font-arabic">حشوات الأسنان</SelectItem>
+                      <SelectItem value="تقويم" className="font-arabic">تقويم الأسنان</SelectItem>
+                      <SelectItem value="زراعة" className="font-arabic">زراعة الأسنان</SelectItem>
+                      <SelectItem value="تبييض" className="font-arabic">تبييض الأسنان</SelectItem>
+                      <SelectItem value="أخرى" className="font-arabic">خدمة أخرى</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-arabic">مبلغ الدفعة <span className="text-red-500">*</span></Label>
+                  <Input
+                    type="number"
+                    placeholder="أدخل المبلغ"
+                    className="font-arabic"
+                    value={paymentAmount}
+                    onChange={(e) => setPaymentAmount(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label className="font-arabic">طريقة الدفع <span className="text-red-500">*</span></Label>
+                <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                  <SelectTrigger className="font-arabic">
+                    <SelectValue placeholder="اختر طريقة الدفع" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="نقداً" className="font-arabic">نقداً</SelectItem>
+                    <SelectItem value="بطاقة ائتمانية" className="font-arabic">بطاقة ائتمانية</SelectItem>
+                    <SelectItem value="تحويل بنكي" className="font-arabic">تحويل بنكي</SelectItem>
+                    <SelectItem value="شيك" className="font-arabic">شيك</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label className="font-arabic">ملاحظات</Label>
+                <Textarea
+                  placeholder="ملاحظات إضافية حول الدفعة..."
+                  className="font-arabic"
+                  value={paymentNotes}
+                  onChange={(e) => setPaymentNotes(e.target.value)}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsNewPaymentDialogOpen(false)} className="font-arabic">
+                إلغاء
+              </Button>
+              <Button onClick={processPayment} disabled={isLoading} className="font-arabic">
+                {isLoading ? "جاري الحفظ..." : "حفظ الدفعة"}
               </Button>
             </DialogFooter>
           </DialogContent>
