@@ -17,6 +17,8 @@ import { emailJSService } from '../services/emailJSService';
 const EmailJSDiagnostics: React.FC = () => {
   const [diagnostics, setDiagnostics] = useState<any>(null);
   const [isRunning, setIsRunning] = useState(false);
+  const [typeErrorDiagnosis, setTypeErrorDiagnosis] = useState<any>(null);
+  const [isRunningTypeError, setIsRunningTypeError] = useState(false);
 
   const runDiagnostics = () => {
     setIsRunning(true);
