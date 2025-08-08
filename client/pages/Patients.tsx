@@ -246,7 +246,7 @@ export default function Patients() {
             <TabsTrigger value="patients">قائمة المرضى</TabsTrigger>
             <TabsTrigger value="profile">الملف الشخصي</TabsTrigger>
             <TabsTrigger value="appointments">المواعيد</TabsTrigger>
-            <TabsTrigger value="medical">السجل الطبي</TabsTrigger>
+            <TabsTrigger value="medical">السجل الط��ي</TabsTrigger>
             <TabsTrigger value="payments">المدفوعات</TabsTrigger>
           </TabsList>
 
@@ -272,7 +272,7 @@ export default function Patients() {
                     </div>
                   </div>
                   <div className="w-full md:w-48">
-                    <Label className="font-arabic">حالة المريض</Label>
+                    <Label className="font-arabic">حالة ا��مريض</Label>
                     <Select
                       value={selectedStatus}
                       onValueChange={setSelectedStatus}
@@ -338,7 +338,7 @@ export default function Patients() {
                         </TableCell>
                         <TableCell className="font-arabic">غير محدد / {patient.gender === 'male' ? 'ذكر' : patient.gender === 'female' ? 'أنثى' : patient.gender}</TableCell>
                         <TableCell>{patient.phone}</TableCell>
-                        <TableCell className="font-arabic">{patient.insurance_company || 'غير محدد'}</TableCell>
+                        <TableCell className="font-arabic">{patient.insurance_company || 'غير محد��'}</TableCell>
                         <TableCell>{patient.created_at ? new Date(patient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}</TableCell>
                         <TableCell>
                           <span className="text-gray-500 font-arabic">لا يوجد</span>
@@ -618,7 +618,7 @@ export default function Patients() {
                       <TableCell>2024-01-16</TableCell>
                       <TableCell>9:30 AM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">حشو الأس��ان</TableCell>
+                      <TableCell className="font-arabic">حشو الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-yellow-100 text-yellow-800 font-arabic">في الانتظار</Badge>
                       </TableCell>
@@ -771,7 +771,7 @@ export default function Patients() {
                       <TableCell className="font-arabic">سارة محمود</TableCell>
                       <TableCell>2024-01-12</TableCell>
                       <TableCell className="font-arabic">التهاب اللثة</TableCell>
-                      <TableCell className="font-arabic">علاج التهاب اللثة + مضاد حيوي</TableCell>
+                      <TableCell className="font-arabic">علاج التهاب اللثة + م��اد حيوي</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="font-arabic">علاج</Badge>
@@ -981,14 +981,12 @@ export default function Patients() {
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">الجنس</Label>
-                <Select>
-                  <SelectTrigger className="font-arabic">
-                    <SelectValue placeholder="اختر الجنس" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="male" className="font-arabic">ذكر</SelectItem>
-                    <SelectItem value="female" className="font-arabic">أنثى</SelectItem>
-                  </SelectContent>
+                <Select
+                  placeholder="اختر الجنس"
+                  className="font-arabic"
+                >
+                  <SelectItem value="male" className="font-arabic">ذكر</SelectItem>
+                  <SelectItem value="female" className="font-arabic">أنثى</SelectItem>
                 </Select>
               </div>
               <div className="space-y-2">
@@ -1076,7 +1074,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غ��ر محدد'}
+                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}
                       </span>
                     </div>
                   </div>
