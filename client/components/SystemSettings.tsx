@@ -84,7 +84,7 @@ const SecuritySettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">انتهاء صلاحية كلمة المرور (أيام)</Label>
+            <Label className="font-arabic">انتهاء صلاحية كلمة ا��مرور (أيام)</Label>
             <Input type="number" defaultValue="90" className="w-20" />
           </div>
         </CardContent>
@@ -386,6 +386,49 @@ const UserManagement = () => {
 };
 
 const BackupSettings = () => {
+  const handleCreateBackup = async () => {
+    try {
+      const response = await fetch('/api/database/backup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        alert('تم إنشاء النسخة الاحتياطية بنجاح!');
+      } else {
+        alert('حدث خطأ أثناء إنشاء النسخة الاحتياطية');
+      }
+    } catch (error) {
+      console.error('Backup error:', error);
+      alert('حدث خطأ أثناء إنشاء النسخة الاحتياطية');
+    }
+  };
+
+  const handleDownloadBackup = async () => {
+    try {
+      const response = await fetch('/api/database/backups');
+      const data = await response.json();
+
+      if (data.success && data.data.length > 0) {
+        const latestBackup = data.data[0];
+        alert(`آخر نسخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString('ar-SA')}`);
+      } else {
+        alert('لا توجد نسخ احتياطية متاحة');
+      }
+    } catch (error) {
+      console.error('Download backup error:', error);
+      alert('حدث خطأ أثناء تحميل النسخة الاحتياطية');
+    }
+  };
+
+  const handleRestoreBackup = () => {
+    if (confirm('تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية. هل أنت متأكد؟')) {
+      alert('سيتم إضافة وظيفة الاستعادة قريباً');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -484,7 +527,7 @@ const GeneralSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label className="font-arabic">اسم الع��ادة</Label>
+            <Label className="font-arabic">اسم الع���ادة</Label>
             <Input defaultValue="عيادة الأسنان المتقدمة" className="font-arabic" />
           </div>
           <div className="space-y-2">
