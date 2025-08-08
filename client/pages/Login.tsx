@@ -72,7 +72,7 @@ export default function Login() {
         <Card>
           <CardHeader>
             <CardTitle className="font-arabic">
-              تسجيل الدخول إلى حسابك
+              تسجيل الد��ول إلى حسابك
             </CardTitle>
             <CardDescription className="font-arabic">
               أدخل بياناتك للوصول إلى النظام
@@ -152,6 +152,22 @@ export default function Login() {
                 )}
               </Button>
             </form>
+
+            {/* Test Admin Login Button */}
+            <div className="mt-4">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full font-arabic"
+                onClick={() => {
+                  setEmail("admin@dkalmoli.com");
+                  setPassword("123456");
+                }}
+                disabled={isLoading}
+              >
+                تعبئة بيانات المدير (للاختبار)
+              </Button>
+            </div>
 
             <div className="mt-6 text-center">
               <Link
