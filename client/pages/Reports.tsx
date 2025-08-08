@@ -87,7 +87,7 @@ const getStatusBadge = (status: string) => {
   switch (status) {
     case "مكتمل":
       return <Badge className="bg-green-100 text-green-800">مكتمل</Badge>;
-    case "جاري ال��لاج":
+    case "جاري العلاج":
       return <Badge className="bg-blue-100 text-blue-800">جاري العلاج</Badge>;
     case "يحتاج متابعة":
       return <Badge className="bg-yellow-100 text-yellow-800">يحتاج متابعة</Badge>;
@@ -293,7 +293,7 @@ export default function Reports() {
               <CardHeader>
                 <CardTitle className="font-arabic">الكشوفات الطبية</CardTitle>
                 <CardDescription className="font-arabic">
-                  قائمة بجميع الكشوف��ت والتقاري�� الطبية
+                  قائمة بجميع الكشوف��ت والتقارير الطبية
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -393,7 +393,7 @@ export default function Reports() {
                       {[
                         { name: "تسوس الأسنان", count: 45, percentage: 35 },
                         { name: "التهاب اللثة", count: 32, percentage: 25 },
-                        { name: "تقويم ��لأس��ان", count: 28, percentage: 22 },
+                        { name: "تقويم الأس��ان", count: 28, percentage: 22 },
                         { name: "زراعة الأسنان", count: 15, percentage: 12 },
                         { name: "تبييض الأسنان", count: 8, percentage: 6 }
                       ].map((item, index) => (
@@ -695,29 +695,19 @@ export default function Reports() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="font-arabic">اسم المريض</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر المريض" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pat1" className="font-arabic">أحمد محمد السعد</SelectItem>
-                      <SelectItem value="pat2" className="font-arabic">فاطمة أحمد العلي</SelectItem>
-                      <SelectItem value="pat3" className="font-arabic">محمد علي القحطاني</SelectItem>
-                    </SelectContent>
+                  <Select placeholder="اختر المريض" className="font-arabic">
+                    <SelectItem value="pat1">أحمد محمد السعد</SelectItem>
+                    <SelectItem value="pat2">فاطمة أحمد العلي</SelectItem>
+                    <SelectItem value="pat3">محمد علي القحطاني</SelectItem>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label className="font-arabic">نوع الكشف</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر نوع الكشف" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="routine" className="font-arabic">كشف دوري</SelectItem>
-                      <SelectItem value="orthodontic" className="font-arabic">استشارة تقويم</SelectItem>
-                      <SelectItem value="gum" className="font-arabic">علاج اللثة</SelectItem>
-                      <SelectItem value="implant" className="font-arabic">زراعة الأسنان</SelectItem>
-                    </SelectContent>
+                  <Select placeholder="اختر نوع الكشف" className="font-arabic">
+                    <SelectItem value="routine">كشف دوري</SelectItem>
+                    <SelectItem value="orthodontic">استشارة تقويم</SelectItem>
+                    <SelectItem value="gum">علاج اللثة</SelectItem>
+                    <SelectItem value="implant">زراعة الأسنان</SelectItem>
                   </Select>
                 </div>
               </div>
@@ -740,15 +730,10 @@ export default function Reports() {
                 </div>
                 <div className="space-y-2">
                   <Label className="font-arabic">الطبيب المعالج</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="ا��تر الطبيب" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="doc1" className="font-arabic">د. سارة أحمد</SelectItem>
-                      <SelectItem value="doc2" className="font-arabic">د. محمد علي</SelectItem>
-                      <SelectItem value="doc3" className="font-arabic">د. نورا سالم</SelectItem>
-                    </SelectContent>
+                  <Select placeholder="اختر الطبيب" className="font-arabic">
+                    <SelectItem value="doc1">د. سارة أحمد</SelectItem>
+                    <SelectItem value="doc2">د. محمد علي</SelectItem>
+                    <SelectItem value="doc3">د. نورا سالم</SelectItem>
                   </Select>
                 </div>
               </div>

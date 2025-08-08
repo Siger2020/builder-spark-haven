@@ -292,7 +292,7 @@ const UserManagement = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label className="font-arabic">البريد الإلكتروني</Label>
+              <Label className="font-arabic">ا��بريد الإلكتروني</Label>
               <Input
                 type="email"
                 placeholder="email@example.com"
@@ -424,7 +424,7 @@ const BackupSettings = () => {
   };
 
   const handleRestoreBackup = () => {
-    if (confirm('تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية. هل أنت متأكد؟')) {
+    if (confirm('تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية. هل أنت ��تأكد؟')) {
       alert('سيتم إضافة وظيفة الاستعادة قريباً');
     }
   };
@@ -442,15 +442,10 @@ const BackupSettings = () => {
           </div>
           <div className="space-y-2">
             <Label className="font-arabic">تكرار النسخ</Label>
-            <Select defaultValue="daily">
-              <SelectTrigger className="font-arabic">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="daily" className="font-arabic">يومياً</SelectItem>
-                <SelectItem value="weekly" className="font-arabic">أسبوعياً</SelectItem>
-                <SelectItem value="monthly" className="font-arabic">شه��ياً</SelectItem>
-              </SelectContent>
+            <Select value="daily" className="font-arabic">
+              <SelectItem value="daily">يومياً</SelectItem>
+              <SelectItem value="weekly">أسبوعياً</SelectItem>
+              <SelectItem value="monthly">شهرياً</SelectItem>
             </Select>
           </div>
           <div className="space-y-2">
