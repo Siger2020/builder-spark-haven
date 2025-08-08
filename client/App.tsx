@@ -30,6 +30,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import NotificationSettings from "./pages/NotificationSettings";
 import UserInfo from "./pages/UserInfo";
 import AIAnalysis from "./pages/AIAnalysis";
+import EmailJSDebugTest from "./pages/EmailJSDebugTest";
 
 const queryClient = new QueryClient();
 
