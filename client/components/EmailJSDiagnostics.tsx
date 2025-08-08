@@ -22,16 +22,16 @@ const EmailJSDiagnostics: React.FC = () => {
 
   const runDiagnostics = () => {
     setIsRunning(true);
-    
+
     try {
       // Get comprehensive diagnostic information
       const diagInfo = emailJSService.getDiagnosticInfo();
       setDiagnostics(diagInfo);
-      
+
       // Log to console for developers
       console.log("=== EmailJS Comprehensive Diagnostics ===");
       console.log(diagInfo);
-      
+
     } catch (error) {
       console.error("Diagnostics error:", error);
       setDiagnostics({
@@ -39,6 +39,28 @@ const EmailJSDiagnostics: React.FC = () => {
       });
     } finally {
       setIsRunning(false);
+    }
+  };
+
+  const runTypeErrorDiagnosis = async () => {
+    setIsRunningTypeError(true);
+
+    try {
+      const result = await emailJSService.runTypeErrorDiagnosis();
+      setTypeErrorDiagnosis(result);
+
+      console.log("=== TypeError Diagnosis Results ===");
+      console.log(result);
+
+    } catch (error) {
+      console.error("TypeError diagnosis error:", error);
+      setTypeErrorDiagnosis({
+        success: false,
+        issues: ["فشل في تشغيل تشخيص TypeError"],
+        recommendations: ["تحقق من console للتفاصيل"]
+      });
+    } finally {
+      setIsRunningTypeError(false);
     }
   };
 
