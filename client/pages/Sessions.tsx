@@ -348,17 +348,12 @@ export default function Sessions() {
                   </div>
                   <div className="w-full md:w-48">
                     <Label className="font-arabic">حالة الجلسة</Label>
-                    <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-                      <SelectTrigger className="font-arabic">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all" className="font-arabic">جميع الحالات</SelectItem>
-                        <SelectItem value="مكتمل" className="font-arabic">مكتمل</SelectItem>
-                        <SelectItem value="جاري العلاج" className="font-arabic">جاري العلاج</SelectItem>
-                        <SelectItem value="مجدول" className="font-arabic">مجدول</SelectItem>
-                        <SelectItem value="مؤجل" className="font-arabic">مؤجل</SelectItem>
-                      </SelectContent>
+                    <Select value={selectedStatus} onValueChange={setSelectedStatus} className="font-arabic">
+                      <SelectItem value="all">جميع الحالات</SelectItem>
+                      <SelectItem value="مكتمل">مكتمل</SelectItem>
+                      <SelectItem value="جاري العلاج">جاري العلاج</SelectItem>
+                      <SelectItem value="مجدول">مجدول</SelectItem>
+                      <SelectItem value="مؤجل">مؤجل</SelectItem>
                     </Select>
                   </div>
                 </div>
@@ -446,7 +441,7 @@ export default function Sessions() {
                           </div>
                           <div className="text-left">
                             <div className="text-sm text-gray-500 font-arabic">المدة: {plan.duration}</div>
-                            <div className="text-sm text-gray-500 font-arabic">الجلسات: {plan.sessions}</div>
+                            <div className="text-sm text-gray-500 font-arabic">الجلسا��: {plan.sessions}</div>
                           </div>
                         </div>
                       </CardHeader>
@@ -734,7 +729,7 @@ export default function Sessions() {
                     placeholder="اختر المريض"
                     className="font-arabic"
                   >
-                    <SelectItem value="pat1">أحمد محمد السعد</SelectItem>
+                    <SelectItem value="pat1">أح��د محمد السعد</SelectItem>
                     <SelectItem value="pat2">فاطمة أحمد العلي</SelectItem>
                     <SelectItem value="pat3">محمد علي القحطاني</SelectItem>
                   </Select>
