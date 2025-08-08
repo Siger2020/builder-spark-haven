@@ -762,7 +762,7 @@ export default function Transactions() {
                       <SelectValue placeholder="اختر نوع الخدمة" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="تنظيف" className="font-arabic">تنظيف الأسنان</SelectItem>
+                      <SelectItem value="��نظيف" className="font-arabic">تنظيف الأسنان</SelectItem>
                       <SelectItem value="حشوات" className="font-arabic">حشوات الأسنان</SelectItem>
                       <SelectItem value="تقويم" className="font-arabic">تقويم الأسنان</SelectItem>
                       <SelectItem value="زراعة" className="font-arabic">زراعة الأسنان</SelectItem>
@@ -784,16 +784,11 @@ export default function Transactions() {
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">طريقة الدفع <span className="text-red-500">*</span></Label>
-                <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                  <SelectTrigger className="font-arabic">
-                    <SelectValue placeholder="اختر طريقة الدفع" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="نقداً" className="font-arabic">نقداً</SelectItem>
-                    <SelectItem value="بطاقة ائتمانية" className="font-arabic">بطاقة ائتمانية</SelectItem>
-                    <SelectItem value="تحويل بنكي" className="font-arabic">تحويل بنكي</SelectItem>
-                    <SelectItem value="شيك" className="font-arabic">شيك</SelectItem>
-                  </SelectContent>
+                <Select value={paymentMethod} onValueChange={setPaymentMethod} placeholder="اختر طريقة الدفع" className="font-arabic">
+                  <SelectItem value="نقداً">نقداً</SelectItem>
+                  <SelectItem value="بطاقة ائتمانية">بطاقة ائتمانية</SelectItem>
+                  <SelectItem value="تحويل بنكي">تحويل بنكي</SelectItem>
+                  <SelectItem value="شيك">شيك</SelectItem>
                 </Select>
               </div>
               <div className="space-y-2">
