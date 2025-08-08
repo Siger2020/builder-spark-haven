@@ -100,7 +100,7 @@ const getAlertIcon = (type: string) => {
   }
 };
 
-export default function Admin() {
+function AdminComponent() {
   const [selectedTimeRange, setSelectedTimeRange] = useState("today");
   const [systemSettingsOpen, setSystemSettingsOpen] = useState(false);
   const [settingsType, setSettingsType] = useState<
@@ -229,7 +229,7 @@ export default function Admin() {
               onClick={fetchDashboardData}
             >
               <Download className="h-4 w-4 mr-2" />
-              تحديث البيانات
+              تحديث البيا��ات
             </Button>
             <Button
               className="font-arabic"
