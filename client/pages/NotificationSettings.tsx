@@ -502,7 +502,7 @@ export default function NotificationSettings() {
                   <Alert>
                     <Info className="h-4 w-4" />
                     <AlertDescription className="font-arabic">
-                      📧 <strong>الإشعارات الحقيقية:</strong> سيتم إرسال رسائل
+                      📧 <strong>الإشعارات الحقي��ية:</strong> سيتم إرسال رسائل
                       بريد إلكتروني حقيقية للمرضى عبر خدمة EmailJS. تأكد من
                       إكمال إعداد EmailJS أولاً (راجع تبويب "دليل الإعداد").
                     </AlertDescription>
@@ -768,6 +768,10 @@ export default function NotificationSettings() {
           </Card>
         </TabsContent>
 
+        <TabsContent value="diagnostics" className="space-y-6">
+          <EmailJSDiagnostics />
+        </TabsContent>
+
         <TabsContent value="guide" className="space-y-6">
           <Card>
             <CardHeader>
@@ -834,7 +838,7 @@ export default function NotificationSettings() {
                       </p>
                       <div className="space-y-2">
                         <Label className="font-arabic text-sm">
-                          المتغيرات المطلوب��:
+                          ال��تغيرات المطلوب��:
                         </Label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {template.variables.map((variable) => (
