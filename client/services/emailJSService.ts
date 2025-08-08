@@ -175,7 +175,7 @@ export class EmailJSService {
           appointmentId: "TEST-" + Date.now(),
           appointmentDate: new Date().toLocaleDateString("ar-EG"),
           appointmentTime: new Date().toLocaleTimeString("ar-EG"),
-          doctorName: "نظام الاختبار",
+          doctorName: "نظام الاختب��ر",
           clinicName: this.config!.senderName,
           clinicPhone: "غير محدد",
           clinicAddress: "غير محدد",
@@ -349,29 +349,79 @@ export class EmailJSService {
         };
       }
     } catch (error) {
-      // Enhanced error logging with more details
-      console.error("EmailJS send error occurred");
+      // Enhanced error logging with comprehensive TypeError details
+      console.error("=== EmailJS Send Error Analysis ===");
       console.error("Error type:", typeof error);
       console.error("Error constructor:", error?.constructor?.name);
+      console.error("Error instanceof Error:", error instanceof Error);
+      console.error("Error instanceof TypeError:", error instanceof TypeError);
 
-      // Try to get more details safely
+      // Safe error object inspection
       try {
         if (error && typeof error === 'object') {
+          // Get basic properties
           const errorInfo = {
             hasMessage: 'message' in error,
             hasStatus: 'status' in error,
             hasText: 'text' in error,
-            keys: Object.keys(error)
+            hasName: 'name' in error,
+            hasStack: 'stack' in error,
+            keys: Object.keys(error),
+            prototype: Object.getPrototypeOf(error)?.constructor?.name
           };
-          console.error("Error object info:", errorInfo);
+          console.error("Error object analysis:", errorInfo);
+
+          // Try to extract message safely
+          if ('message' in error) {
+            console.error("Error message:", error.message);
+          }
+
+          // Try to extract name safely
+          if ('name' in error) {
+            console.error("Error name:", error.name);
+          }
+
+          // For TypeError specifically, try to get more details
+          if (error instanceof TypeError) {
+            console.error("TypeError details:", {
+              message: error.message,
+              name: error.name,
+              stack: error.stack?.split('\n').slice(0, 3) // First 3 lines of stack
+            });
+          }
+
+          // Try JSON.stringify as fallback
+          try {
+            const jsonStr = JSON.stringify(error, Object.getOwnPropertyNames(error));
+            if (jsonStr && jsonStr !== '{}') {
+              console.error("Error JSON representation:", jsonStr);
+            }
+          } catch (jsonError) {
+            console.error("Could not stringify error object");
+          }
         }
       } catch (inspectionError) {
-        console.error("Could not inspect error object");
+        console.error("Error during error inspection:", inspectionError);
       }
 
       let errorMessage = "خطأ غير معروف في الإرسال";
+      let technicalDetails = "";
 
-      if (error instanceof Error) {
+      if (error instanceof TypeError) {
+        errorMessage = "خطأ في نوع البيانات (TypeError)";
+        technicalDetails = error.message || "TypeError without message";
+
+        // Common TypeError scenarios in EmailJS
+        if (error.message?.includes("Cannot read property")) {
+          errorMessage = "خطأ في قراءة خصائص البيانات - تحقق من التكوين";
+        } else if (error.message?.includes("is not a function")) {
+          errorMessage = "دالة EmailJS غير متاحة - تحقق من تحميل المكتبة";
+        } else if (error.message?.includes("null") || error.message?.includes("undefined")) {
+          errorMessage = "قيم مفقودة في التكوين - تحقق من Service ID والـ Template ID";
+        }
+      } else if (error instanceof Error) {
+        technicalDetails = error.message || "Error without message";
+
         if (error.message && error.message.includes("body stream already read")) {
           // إعادة تعيين EmailJS وإعادة المحاولة مرة واحدة
           this.reset();
@@ -380,6 +430,8 @@ export class EmailJSService {
           errorMessage = "خطأ في الصلاحية - تحقق من Public Key";
         } else if (error.message && error.message.includes("Not Found")) {
           errorMessage = "Service ID أو Template ID غير صحيح";
+        } else if (error.message && error.message.includes("Network")) {
+          errorMessage = "خطأ في الشبكة - تحقق من الاتصال بالإنترنت";
         } else if (error.message && typeof error.message === 'string') {
           errorMessage = error.message;
         } else {
@@ -387,15 +439,37 @@ export class EmailJSService {
         }
       } else if (typeof error === 'string') {
         errorMessage = error;
+        technicalDetails = error;
       } else {
         // Handle non-Error objects safely
+        technicalDetails = Object.prototype.toString.call(error);
         errorMessage = "خطأ في الاتصال بخدمة EmailJS";
-        console.error("Non-Error object caught:", Object.prototype.toString.call(error));
+        console.error("Non-Error object caught:", technicalDetails);
+
+        // Try to extract any useful information from the object
+        try {
+          if (error && typeof error === 'object') {
+            const errorKeys = Object.keys(error);
+            if (errorKeys.length > 0) {
+              technicalDetails = `Object with keys: ${errorKeys.join(', ')}`;
+            }
+          }
+        } catch (e) {
+          // Ignore extraction errors
+        }
       }
+
+      // Log final error analysis
+      console.error("Final error analysis:", {
+        errorMessage,
+        technicalDetails,
+        errorType: typeof error,
+        errorConstructor: error?.constructor?.name
+      });
 
       return {
         success: false,
-        error: errorMessage,
+        error: errorMessage + (technicalDetails ? ` (التفاصيل: ${technicalDetails})` : ""),
       };
     }
   }
@@ -563,7 +637,7 @@ export class EmailJSService {
       console.error("Test booking notification error:", error);
       return {
         success: false,
-        error: "فشل في إرسال إشعار الحجز التجريبي",
+        error: "فشل في إرسا�� إشعار الحجز التجريبي",
       };
     }
   }
