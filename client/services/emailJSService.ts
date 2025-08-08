@@ -138,7 +138,7 @@ export class EmailJSService {
     try {
       const result = await this.queueRequest(() =>
         this.performSendWithDelay("test", {
-          patientName: testEmail ? "مستخدم الاختبا��" : "مدير النظام",
+          patientName: testEmail ? "مستخدم الاختبار" : "مدير النظام",
           patientEmail: testEmail || this.config!.senderEmail,
           appointmentId: "TEST-" + Date.now(),
           appointmentDate: new Date().toLocaleDateString("ar-EG"),
@@ -265,8 +265,19 @@ export class EmailJSService {
     data: NotificationData,
   ): Promise<EmailResult> {
     try {
+      // Enhanced validation
       if (!this.config || !this.config.serviceId || !this.config.templateId) {
         throw new Error("EmailJS configuration is incomplete");
+      }
+
+      // Check if running in browser environment
+      if (typeof window === 'undefined') {
+        throw new Error("EmailJS only works in browser environment");
+      }
+
+      // Ensure EmailJS library is loaded
+      if (typeof emailjs !== 'object' || typeof emailjs.send !== 'function') {
+        throw new Error("EmailJS library not properly loaded");
       }
 
       const templateData = this.prepareTemplateData(type, data);
@@ -278,17 +289,19 @@ export class EmailJSService {
         timestamp: new Date().toISOString(),
       });
 
-      // Ensure EmailJS is available before using
-      if (typeof emailjs.send !== 'function') {
-        throw new Error("EmailJS library not properly loaded");
-      }
-
-      // استخدام محاولة واحدة فقط بدون retry
-      const result = await emailjs.send(
+      // استخدام محاولة واحدة فقط بدون retry مع timeout
+      const sendPromise = emailjs.send(
         this.config.serviceId,
         this.config.templateId,
         templateData,
       );
+
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error("EmailJS request timeout")), 30000);
+      });
+
+      const result = await Promise.race([sendPromise, timeoutPromise]) as any;
 
       console.log("EmailJS send result:", result);
 
@@ -400,7 +413,7 @@ export class EmailJSService {
       case "reminder":
         return {
           ...baseData,
-          subject: `⏰ تذكير بموع��ك غداً - ${data.appointmentId}`,
+          subject: `⏰ تذكير بموعدك غداً - ${data.appointmentId}`,
           notification_type: "تذكير موعد",
           icon: "⏰",
           message: `نذكرك بموعدك المحجوز غداً في ${data.clinicName}. نتطلع لرؤيتك!`,
