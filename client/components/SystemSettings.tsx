@@ -398,7 +398,7 @@ const BackupSettings = () => {
       if (response.ok) {
         alert('تم إنشاء النسخة الاحتياطية بنجاح!');
       } else {
-        alert('حدث خطأ أثناء إنشاء النسخة الاحتياطية');
+        alert('حدث خطأ أ��ناء إنشاء النسخة الاحتياطية');
       }
     } catch (error) {
       console.error('Backup error:', error);
@@ -585,27 +585,17 @@ const GeneralSettings = () => {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label className="font-arabic">المنطقة الزمنية</Label>
-            <Select defaultValue="riyadh">
-              <SelectTrigger className="font-arabic">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="riyadh" className="font-arabic">الرياض (GMT+3)</SelectItem>
-                <SelectItem value="jeddah" className="font-arabic">جدة (GMT+3)</SelectItem>
-              </SelectContent>
+            <Select value="riyadh" className="font-arabic">
+              <SelectItem value="riyadh">الرياض (GMT+3)</SelectItem>
+              <SelectItem value="jeddah">جدة (GMT+3)</SelectItem>
             </Select>
           </div>
           <div className="space-y-2">
             <Label className="font-arabic">العمل��</Label>
-            <Select defaultValue="sar">
-              <SelectTrigger className="font-arabic">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="yer" className="font-arabic">ريال يمني (YER)</SelectItem>
-                <SelectItem value="sar" className="font-arabic">ريال سعودي (SAR)</SelectItem>
-                <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
-              </SelectContent>
+            <Select value="sar" className="font-arabic">
+              <SelectItem value="yer">ريال يمني (YER)</SelectItem>
+              <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
+              <SelectItem value="usd">دولار أمريكي (USD)</SelectItem>
             </Select>
           </div>
           <div className="flex items-center justify-between">
