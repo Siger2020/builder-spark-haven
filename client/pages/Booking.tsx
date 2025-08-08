@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
 import { Calendar, Clock, User, Phone, Mail, FileText, CheckCircle } from "lucide-react";
 import { useState } from "react";
 
@@ -66,7 +66,7 @@ export default function Booking() {
         setBookingNumber(newBookingNumber);
         setBookingSuccess(true);
 
-        // إشعار المستخدم بأن الإشعارات سيتم إرسالها
+        // إشعار المستخدم بأن الإشعارات سيتم ��رسالها
         console.log(`📱 سيتم إرسال ��شعارات تأكيد الحجز إلى ${formData.phone}`);
         console.log(`🔔 سيتم إرسال تذكير قبل الموعد بيوم واحد`);
       } else {

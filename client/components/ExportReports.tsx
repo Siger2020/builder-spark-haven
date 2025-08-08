@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +28,7 @@ const reportTypes = [
   {
     id: 'patients',
     name: 'تقرير المرضى',
-    description: 'قائمة شاملة بجميع المرضى وبياناتهم',
+    description: 'قا��مة شاملة بجميع المرضى وبياناتهم',
     icon: Users,
     format: ['PDF', 'Excel', 'CSV']
   },
@@ -63,7 +63,7 @@ const reportTypes = [
   {
     id: 'medical',
     name: 'التقارير الطبية',
-    description: 'الكشوفات الطبية والتشخيصات',
+    description: 'الكشوفات الطبية والتشخيصا��',
     icon: FileText,
     format: ['PDF', 'Word']
   }
@@ -86,7 +86,7 @@ export function ExportReports({ isOpen, onClose }: ExportReportsProps) {
 
   const handleExport = async () => {
     if (selectedReports.length === 0) {
-      alert('يرجى اختيار نوع التقرير على الأقل');
+      alert('يرجى اختيار نوع التقرير على ا��أقل');
       return;
     }
 
@@ -120,7 +120,7 @@ export function ExportReports({ isOpen, onClose }: ExportReportsProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[700px] max-h-[80vh] overflow-y-auto" dir="rtl">
         <DialogHeader>
-          <DialogTitle className="font-arabic">تصدير التقارير</DialogTitle>
+          <DialogTitle className="font-arabic">ت��دير التقارير</DialogTitle>
           <DialogDescription className="font-arabic">
             اختر التقارير المطلوبة ونطاق التاريخ للتصدير
           </DialogDescription>

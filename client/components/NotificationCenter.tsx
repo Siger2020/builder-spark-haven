@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +39,7 @@ const notificationTemplates = [
     name: "تذكير بالموعد",
     type: "appointment_reminder",
     channels: ["sms", "whatsapp"],
-    content: "مرحباً {patient_name}، نذكرك بموعدك في عيادة الأسنان غداً الساعة {appointment_time}. للاستفسار: {clinic_phone}",
+    content: "مرحباً {patient_name}، نذكرك بموعدك في عيادة الأسنان غداً الساع�� {appointment_time}. للاستفسار: {clinic_phone}",
     isActive: true
   },
   {
@@ -170,7 +170,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
                 <SelectContent>
                   <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
                   <SelectItem value="today" className="font-arabic">مر��ى اليوم</SelectItem>
-                  <SelectItem value="overdue" className="font-arabic">المتأخرين في الدفع</SelectItem>
+                  <SelectItem value="overdue" className="font-arabic">الم��أخرين في الدفع</SelectItem>
                   <SelectItem value="custom" className="font-arabic">اختيار محدد</SelectItem>
                 </SelectContent>
               </Select>
@@ -224,7 +224,7 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
             <div className="flex gap-4">
               <Button className="font-arabic">
                 <Send className="h-4 w-4 mr-2" />
-                إرسال الآن
+                إرسال ال��ن
               </Button>
               <Button variant="outline" className="font-arabic">
                 جدولة الإرسال
@@ -280,9 +280,9 @@ export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps)
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle className="font-arabic">سجل الإشعارات</CardTitle>
+            <CardTitle className="font-arabic">��جل الإشعارات</CardTitle>
             <CardDescription className="font-arabic">
-              جميع الإشعارات المرسلة مؤخراً
+              جميع ال��شعارات المرسلة مؤخراً
             </CardDescription>
           </CardHeader>
           <CardContent>
