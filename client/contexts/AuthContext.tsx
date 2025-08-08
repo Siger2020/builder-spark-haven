@@ -100,6 +100,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify(userData),
       });
 
+      if (!response.ok) {
+        console.error("Register response not ok:", response.status, response.statusText);
+        return { success: false, error: "خطأ في الاتصال بالخادم" };
+      }
+
       const data = await response.json();
 
       if (data.success) {
