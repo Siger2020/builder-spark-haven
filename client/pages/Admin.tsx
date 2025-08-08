@@ -224,12 +224,17 @@ function AdminComponent() {
         const cancelled = appointments.filter(
           (a: any) => a.status === "cancelled",
         ).length;
+        const pending = appointments.filter(
+          (a: any) => a.status === "pending",
+        ).length;
 
         setDashboardStats((prev) => ({
           ...prev,
           completedAppointments: completed,
           scheduledAppointments: scheduled,
           cancelledAppointments: cancelled,
+          pendingAppointments: pending,
+          canceledAppointments: cancelled,
         }));
 
         // Set recent appointments (latest 5)
@@ -279,7 +284,7 @@ function AdminComponent() {
               لوحة الإدارة
             </h1>
             <p className="text-gray-600 font-arabic">
-              نظام إ��اري متكامل لمتابعة جميع عمليات العيادة
+              نظام إداري متكامل لمتابعة جميع عمليات العيادة
             </p>
           </div>
           <div className="flex gap-2">
@@ -848,7 +853,7 @@ function AdminComponent() {
                 <CardHeader>
                   <CardTitle className="font-arabic">إحصائيات النظام</CardTitle>
                   <CardDescription className="font-arabic">
-                    معل��مات حول حالة النظام
+                    معلومات حول حالة النظام
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
