@@ -1,4 +1,0 @@
-<Select defaultValue="sar" className="font-arabic">
-                    <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
-                    <SelectItem value="usd">دولار أمريكي (USD)</SelectItem>
-                  </Select>

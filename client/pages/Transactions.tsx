@@ -642,13 +642,9 @@ export default function Transactions() {
                 <div className="space-y-2">
                   <Label className="font-arabic">العملة ��لافتراضية</Label>
                   <Select defaultValue="sar" className="font-arabic">
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="sar" className="font-arabic">ريال س��ودي (SAR)</SelectItem>
-                      <SelectItem value="usd" className="font-arabic">دولار أمريكي (USD)</SelectItem>
-                    </SelectContent>
+<Select defaultValue="sar" className="font-arabic">
+                    <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
+                    <SelectItem value="usd">دولار أمريكي (USD)</SelectItem>
                   </Select>
                 </div>
                 <div className="space-y-2">
