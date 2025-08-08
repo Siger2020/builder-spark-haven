@@ -15,7 +15,7 @@ db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 
 // تهيئة قاعدة البيانات
-export function initializeDatabase() {
+export async function initializeDatabase() {
   try {
     const schema = readFileSync(join(__dirname, "schema.sql"), "utf8");
     db.exec(schema);
@@ -138,7 +138,7 @@ function seedDatabase() {
         "DOC001",
         "طبيب أسنان عام وتجميل",
         "LIC001",
-        "بكالوريوس طب الأسنان - جامعة صنعاء",
+        "بكالوريوس طب الأسنان - جا��عة صنعاء",
         15,
         50,
       );
@@ -283,7 +283,7 @@ function seedDatabase() {
   }
 }
 
-// إصلاح تطابق بيانات المواعيد
+// إصلاح تطابق بيانات ال��واعيد
 function fixAppointmentDataConsistency() {
   try {
     console.log("🔧 إصلاح تطابق بيانات المواعيد...");
@@ -448,7 +448,7 @@ export async function restoreBackup(backupPath: string) {
     // إغلاق الاتصال الحالي
     db.close();
 
-    // نسخ ملف النسخة الاحتياطية
+    // نسخ ملف النس��ة الاحتياطية
     const fs = await import("fs");
     fs.copyFileSync(backupPath, dbPath);
 
