@@ -540,7 +540,7 @@ export default function Transactions() {
                   <div>
                     <CardTitle className="font-arabic">سجل الم��فوعات</CardTitle>
                     <CardDescription className="font-arabic">
-                      جميع الدفعات المسجلة في النظام
+                      جمي�� الدفعات المسجلة في النظام
                     </CardDescription>
                   </div>
                   <Button onClick={handleNewPayment} className="font-arabic">
@@ -757,18 +757,13 @@ export default function Transactions() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="font-arabic">نوع الخدمة</Label>
-                  <Select>
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue placeholder="اختر نوع الخدمة" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="��نظيف" className="font-arabic">تنظيف الأسنان</SelectItem>
-                      <SelectItem value="حشوات" className="font-arabic">حشوات الأسنان</SelectItem>
-                      <SelectItem value="تقويم" className="font-arabic">تقويم الأسنان</SelectItem>
-                      <SelectItem value="زراعة" className="font-arabic">زراعة الأسنان</SelectItem>
-                      <SelectItem value="تبييض" className="font-arabic">تبييض الأسنان</SelectItem>
-                      <SelectItem value="أخرى" className="font-arabic">خدمة أخرى</SelectItem>
-                    </SelectContent>
+                  <Select placeholder="اختر نوع الخدمة" className="font-arabic">
+                    <SelectItem value="تنظيف">تنظيف الأسنان</SelectItem>
+                    <SelectItem value="حشوات">حشوات الأسنان</SelectItem>
+                    <SelectItem value="تقويم">تقويم الأسنان</SelectItem>
+                    <SelectItem value="زراعة">زراعة الأسنان</SelectItem>
+                    <SelectItem value="تبييض">تبييض الأسنان</SelectItem>
+                    <SelectItem value="أخرى">خدمة أخرى</SelectItem>
                   </Select>
                 </div>
                 <div className="space-y-2">
