@@ -246,6 +246,55 @@ export default function AppointmentManagement() {
     return timeString || "غير محدد";
   };
 
+  const exportToExcel = async () => {
+    try {
+      // Get filtered appointments data
+      const dataToExport = filteredAppointments.map(appointment => ({
+        'رقم الموعد': appointment.appointment_number,
+        'اسم المريض': appointment.patient_name,
+        'رقم الهاتف': appointment.phone,
+        'البريد الإلكتروني': appointment.email || '',
+        'التاريخ': formatDate(appointment.appointment_date),
+        'الوقت': formatTime(appointment.appointment_time),
+        'نوع الخدمة': appointment.service_type || '',
+        'الحالة': appointment.status === 'scheduled' ? 'مجدول' :
+                appointment.status === 'confirmed' ? 'مؤكد' :
+                appointment.status === 'completed' ? 'مكتمل' :
+                appointment.status === 'cancelled' ? 'ملغي' : appointment.status,
+        'ملاحظات': appointment.notes || '',
+        'تاريخ الإنشاء': new Date(appointment.created_at).toLocaleDateString('ar-SA')
+      }));
+
+      // Convert to CSV format (Excel can open CSV files with Arabic text)
+      const headers = Object.keys(dataToExport[0] || {});
+      const csvContent = [
+        // Add BOM for proper Arabic display in Excel
+        '\ufeff',
+        headers.join(','),
+        ...dataToExport.map(row =>
+          headers.map(header => `"${row[header] || ''}"`).join(',')
+        )
+      ].join('\n');
+
+      // Create and download file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `appointments_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      alert(`تم تصدير ${dataToExport.length} موعد إلى ملف Excel بنجاح!`);
+
+    } catch (error) {
+      console.error('Error exporting to Excel:', error);
+      alert('حدث خطأ أثناء تصدير البيانات. يرجى المحاولة مرة أخرى.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
