@@ -134,6 +134,55 @@ const EmailJSDiagnostics: React.FC = () => {
           </Button>
         </div>
 
+        {typeErrorDiagnosis && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 font-arabic">
+                <AlertTriangle className="w-5 h-5" />
+                نتائج فحص TypeError
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="font-arabic">الحالة:</span>
+                <StatusBadge
+                  status={typeErrorDiagnosis.success}
+                  trueText="سليم"
+                  falseText="يوجد مشاكل"
+                />
+              </div>
+
+              {typeErrorDiagnosis.issues && typeErrorDiagnosis.issues.length > 0 && (
+                <div>
+                  <h4 className="font-arabic font-medium mb-2">المشاكل المكتشفة:</h4>
+                  <ul className="space-y-1">
+                    {typeErrorDiagnosis.issues.map((issue: string, index: number) => (
+                      <li key={index} className="flex items-start gap-2 text-sm">
+                        <XCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                        <span className="font-arabic">{issue}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {typeErrorDiagnosis.recommendations && typeErrorDiagnosis.recommendations.length > 0 && (
+                <div>
+                  <h4 className="font-arabic font-medium mb-2">التوصيات:</h4>
+                  <ul className="space-y-1">
+                    {typeErrorDiagnosis.recommendations.map((rec: string, index: number) => (
+                      <li key={index} className="flex items-start gap-2 text-sm">
+                        <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                        <span className="font-arabic">{rec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
         {diagnostics && (
           <div className="space-y-4">
             {diagnostics.error ? (
@@ -267,7 +316,7 @@ const EmailJSDiagnostics: React.FC = () => {
                       <Badge variant="outline" className="text-xs">
                         {diagnostics.environmentInfo?.timestamp ? 
                           new Date(diagnostics.environmentInfo.timestamp).toLocaleString('ar-SA') : 
-                          'غير متوفر'
+                          'غير م��وفر'
                         }
                       </Badge>
                     </div>
