@@ -143,7 +143,7 @@ export default function Patients() {
         setPatients([]);
       }
     } catch (error) {
-      console.error('خطأ ��ي جلب بيانات المرضى:', error);
+      console.error('خطأ في جلب بيانات المرضى:', error);
       setPatients([]);
     } finally {
       setLoading(false);
@@ -410,7 +410,7 @@ export default function Patients() {
                       <CardHeader>
                         <CardTitle className="font-arabic flex items-center gap-2">
                           <UserCheck className="h-5 w-5" />
-                          المعلومات الأساسية
+                          المعلومات الأساس��ة
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -617,7 +617,7 @@ export default function Patients() {
                       <TableCell className="font-arabic">محمد علي حسن</TableCell>
                       <TableCell>2024-01-16</TableCell>
                       <TableCell>9:30 AM</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">��. كمال الملصي</TableCell>
                       <TableCell className="font-arabic">حشو الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-yellow-100 text-yellow-800 font-arabic">في الانتظار</Badge>
@@ -640,18 +640,155 @@ export default function Patients() {
           </TabsContent>
 
           <TabsContent value="medical" className="space-y-6">
+            {/* Medical Records Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">إجمالي السجلات</CardTitle>
+                  <FileBarChart className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">247</div>
+                  <p className="text-xs text-muted-foreground font-arabic">سجل طبي</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">سجلات هذا الشهر</CardTitle>
+                  <ClipboardList className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">38</div>
+                  <p className="text-xs text-muted-foreground font-arabic">سجل جديد</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">وصفات طبية</CardTitle>
+                  <Pill className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">156</div>
+                  <p className="text-xs text-muted-foreground font-arabic">وصفة نشطة</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium font-arabic">حالات متابعة</CardTitle>
+                  <Stethoscope className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-orange-600">12</div>
+                  <p className="text-xs text-muted-foreground font-arabic">تحتاج متابعة</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Medical Records Table */}
             <Card>
               <CardHeader>
                 <CardTitle className="font-arabic">السجلات الطبية</CardTitle>
                 <CardDescription className="font-arabic">
-                  إدارة السجلا�� والتاريخ الطبي للمرضى
+                  تاريخ العلاجات والتشخيصات الطبية
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <FileText className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600 font-arabic">سيتم إضافة السجلات الطبية قريباً</p>
-                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="font-arabic">المريض</TableHead>
+                      <TableHead className="font-arabic">التاريخ</TableHead>
+                      <TableHead className="font-arabic">التشخيص</TableHead>
+                      <TableHead className="font-arabic">العلاج</TableHead>
+                      <TableHead className="font-arabic">الطبيب</TableHead>
+                      <TableHead className="font-arabic">نوع الزيارة</TableHead>
+                      <TableHead className="font-arabic">الإجراءات</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Sample medical records */}
+                    <TableRow>
+                      <TableCell className="font-arabic">أحمد محمد علي</TableCell>
+                      <TableCell>2024-01-15</TableCell>
+                      <TableCell className="font-arabic">تسوس في الضرس العلوي الأيمن</TableCell>
+                      <TableCell className="font-arabic">حشو مركب</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-arabic">علاج</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-arabic">فاطمة أحمد</TableCell>
+                      <TableCell>2024-01-14</TableCell>
+                      <TableCell className="font-arabic">تنظيف دوري وإزالة الجير</TableCell>
+                      <TableCell className="font-arabic">تنظيف عميق</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-arabic">وقاية</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-arabic">محمد علي حسن</TableCell>
+                      <TableCell>2024-01-13</TableCell>
+                      <TableCell className="font-arabic">كسر في الناب السفلي</TableCell>
+                      <TableCell className="font-arabic">تركيب تاج</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-arabic">طارئ</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-arabic">سارة محمود</TableCell>
+                      <TableCell>2024-01-12</TableCell>
+                      <TableCell className="font-arabic">التهاب اللثة</TableCell>
+                      <TableCell className="font-arabic">علاج التهاب اللثة + مضاد حيوي</TableCell>
+                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-arabic">علاج</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </TabsContent>
