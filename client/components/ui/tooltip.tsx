@@ -9,6 +9,11 @@ const TooltipProvider = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Provider>
 >((props, ref) => {
   try {
+    // Check if TooltipPrimitive.Provider is available
+    if (!TooltipPrimitive?.Provider) {
+      console.warn('TooltipPrimitive.Provider not available, rendering children directly');
+      return <>{props.children}</>;
+    }
     return <TooltipPrimitive.Provider ref={ref} {...props} />;
   } catch (error) {
     console.warn('TooltipProvider error:', error);
@@ -16,6 +21,7 @@ const TooltipProvider = React.forwardRef<
     return <>{props.children}</>;
   }
 });
+TooltipProvider.displayName = "TooltipProvider";
 
 const Tooltip = TooltipPrimitive.Root;
 
