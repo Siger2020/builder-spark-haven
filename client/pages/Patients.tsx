@@ -104,7 +104,7 @@ const getStatusBadge = (status: string) => {
     case "pending":
       return <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>;
     default:
-      return <Badge variant="secondary">غير محدد</Badge>;
+      return <Badge variant="secondary">غير مح��د</Badge>;
   }
 };
 
@@ -174,7 +174,7 @@ export default function Patients() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 font-arabic">ملفات المرضى</h1>
+            <h1 className="text-3xl font-bold text-gray-900 font-arabic">ملفات المر��ى</h1>
             <p className="text-gray-600 font-arabic">إدارة شاملة لبيانات وملفات المرضى</p>
           </div>
           <Button onClick={() => setIsAddPatientDialogOpen(true)} className="font-arabic">
@@ -281,7 +281,7 @@ export default function Patients() {
                         <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
                         <SelectItem value="active" className="font-arabic">نشط</SelectItem>
                         <SelectItem value="inactive" className="font-arabic">غير نشط</SelectItem>
-                        <SelectItem value="pending" className="font-arabic">في الانتظار</SelectItem>
+                        <SelectItem value="pending" className="font-arabic">في ال��نتظار</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -300,7 +300,7 @@ export default function Patients() {
               <CardContent>
                 {loading ? (
                   <div className="text-center py-8">
-                    <div className="text-gray-600 font-arabic">جاري ��حميل بيانات المرضى...</div>
+                    <div className="text-gray-600 font-arabic">جاري تحميل بيانات المرضى...</div>
                   </div>
                 ) : filteredPatients.length === 0 ? (
                   <div className="text-center py-8">
@@ -319,7 +319,7 @@ export default function Patients() {
                       <TableHead className="font-arabic">آخر زيارة</TableHead>
                       <TableHead className="font-arabic">الموعد القادم</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
-                      <TableHead className="font-arabic">ال��جراءات</TableHead>
+                      <TableHead className="font-arabic">الإجراءات</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -365,6 +365,144 @@ export default function Patients() {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="profile" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Patient Selection */}
+              <div className="lg:col-span-1">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="font-arabic">اختيار المريض</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {patients.slice(0, 5).map((patient) => (
+                        <div
+                          key={patient.id}
+                          className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                            selectedPatient?.id === patient.id ? 'bg-blue-50 border-blue-200' : 'hover:bg-gray-50'
+                          }`}
+                          onClick={() => setSelectedPatient(patient)}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarFallback className="text-xs">{getInitials(patient.name)}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="font-medium font-arabic text-sm">{patient.name}</div>
+                              <div className="text-xs text-gray-500">{patient.phone}</div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Patient Profile Details */}
+              <div className="lg:col-span-2">
+                {selectedPatient ? (
+                  <div className="space-y-6">
+                    {/* Basic Info Card */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="font-arabic flex items-center gap-2">
+                          <UserCheck className="h-5 w-5" />
+                          المعلومات الأساسية
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center gap-4 mb-6">
+                          <Avatar className="h-20 w-20">
+                            <AvatarFallback className="text-2xl">{getInitials(selectedPatient.name)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h3 className="text-xl font-bold font-arabic">{selectedPatient.name}</h3>
+                            <p className="text-gray-600 font-arabic">{selectedPatient.patient_number || `ID: ${selectedPatient.id}`}</p>
+                            <div className="flex gap-2 mt-2">
+                              {getStatusBadge(selectedPatient.status)}
+                              <Badge variant="outline" className="font-arabic">
+                                {selectedPatient.blood_type || 'فصيلة غير محددة'}
+                              </Badge>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-2">
+                              <User className="h-4 w-4 text-gray-500" />
+                              <span className="font-arabic text-sm font-medium">الجنس:</span>
+                              <span className="text-sm">{selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنثى' : selectedPatient.gender}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Phone className="h-4 w-4 text-gray-500" />
+                              <span className="font-arabic text-sm font-medium">الهاتف:</span>
+                              <span className="text-sm">{selectedPatient.phone}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Mail className="h-4 w-4 text-gray-500" />
+                              <span className="font-arabic text-sm font-medium">البريد:</span>
+                              <span className="text-sm">{selectedPatient.email}</span>
+                            </div>
+                          </div>
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="h-4 w-4 text-gray-500" />
+                              <span className="font-arabic text-sm font-medium">العنوان:</span>
+                              <span className="text-sm font-arabic">{selectedPatient.address}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <FileText className="h-4 w-4 text-gray-500" />
+                              <span className="font-arabic text-sm font-medium">التأمين:</span>
+                              <span className="text-sm font-arabic">{selectedPatient.insurance_company || 'غير محدد'}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-4 w-4 text-gray-500" />
+                              <span className="font-arabic text-sm font-medium">التسجيل:</span>
+                              <span className="text-sm">{selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Medical Info Card */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="font-arabic flex items-center gap-2">
+                          <Heart className="h-5 w-5" />
+                          المعلومات الطبية
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <h4 className="font-bold font-arabic mb-2">التاريخ الطبي:</h4>
+                          <p className="text-sm font-arabic text-gray-600 bg-gray-50 p-3 rounded">
+                            {selectedPatient.medical_history || 'لا توجد معلومات طبية مسجلة'}
+                          </p>
+                        </div>
+                        <div>
+                          <h4 className="font-bold font-arabic mb-2">الحساسيات:</h4>
+                          <p className="text-sm font-arabic text-gray-600 bg-red-50 p-3 rounded">
+                            {selectedPatient.allergies || 'لا توجد حساسيات معروفة'}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ) : (
+                  <Card>
+                    <CardContent className="text-center py-12">
+                      <UserCheck className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+                      <p className="text-gray-600 font-arabic">اختر مريضاً من القائمة لعرض ملفه الشخصي</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="appointments" className="space-y-6">
