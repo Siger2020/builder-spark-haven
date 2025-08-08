@@ -244,8 +244,10 @@ export default function Patients() {
         <Tabs defaultValue="patients" className="space-y-6">
           <TabsList className="font-arabic">
             <TabsTrigger value="patients">قائمة المرضى</TabsTrigger>
+            <TabsTrigger value="profile">الملف الشخصي</TabsTrigger>
             <TabsTrigger value="appointments">المواعيد</TabsTrigger>
-            <TabsTrigger value="medical">السجلات الطبية</TabsTrigger>
+            <TabsTrigger value="medical">السجل الطبي</TabsTrigger>
+            <TabsTrigger value="payments">المدفوعات</TabsTrigger>
           </TabsList>
 
           <TabsContent value="patients" className="space-y-6">
@@ -292,13 +294,13 @@ export default function Patients() {
               <CardHeader>
                 <CardTitle className="font-arabic">قائمة المرضى</CardTitle>
                 <CardDescription className="font-arabic">
-                  إدارة بيانات المرضى والملف��ت الطبية
+                  إدارة بيانات المرضى والملفات الطبية
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {loading ? (
                   <div className="text-center py-8">
-                    <div className="text-gray-600 font-arabic">جاري تحميل بيانات المرضى...</div>
+                    <div className="text-gray-600 font-arabic">جاري ��حميل بيانات المرضى...</div>
                   </div>
                 ) : filteredPatients.length === 0 ? (
                   <div className="text-center py-8">
@@ -314,10 +316,10 @@ export default function Patients() {
                       <TableHead className="font-arabic">العمر/الجنس</TableHead>
                       <TableHead className="font-arabic">اله��تف</TableHead>
                       <TableHead className="font-arabic">التأمين</TableHead>
-                      <TableHead className="font-arabic">آخ�� زيارة</TableHead>
+                      <TableHead className="font-arabic">آخر زيارة</TableHead>
                       <TableHead className="font-arabic">الموعد القادم</TableHead>
                       <TableHead className="font-arabic">الحالة</TableHead>
-                      <TableHead className="font-arabic">الإجراءات</TableHead>
+                      <TableHead className="font-arabic">ال��جراءات</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
