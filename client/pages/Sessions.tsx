@@ -92,7 +92,7 @@ const treatmentSessions = [
     notes: "الجلسة الأولى لتبييض الأسنان. النتائج واعدة.",
     nextSession: "2024-01-26",
     progress: 33,
-    procedures: ["تطبيق جل التبييض", "تفعيل بالضوء", "قياس درجة البياض"]
+    procedures: ["تطبيق جل التبييض", "تفعيل بالضو��", "قياس درجة البياض"]
   },
   {
     id: "SES-005",
@@ -163,6 +163,16 @@ export default function Sessions() {
   const [selectedSession, setSelectedSession] = useState<any>(null);
   const [isViewSessionDialogOpen, setIsViewSessionDialogOpen] = useState(false);
   const [isNewSessionDialogOpen, setIsNewSessionDialogOpen] = useState(false);
+  const [sessionForm, setSessionForm] = useState({
+    patientId: '',
+    treatmentPlan: '',
+    sessionDate: '',
+    sessionTime: '',
+    duration: '',
+    notes: '',
+    doctor: 'د. محمد علي'
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   // Calculate statistics
   const completedSessions = treatmentSessions.filter(s => s.status === "مكتمل").length;
