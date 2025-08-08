@@ -229,7 +229,7 @@ export default function Transactions() {
     } catch (error) {
       toast({
         title: "خطأ",
-        description: "حدث خطأ أثناء معالجة الدفعة",
+        description: "حدث خطأ أثناء معالجة الدفع��",
         variant: "destructive",
       });
     } finally {
@@ -330,6 +330,7 @@ export default function Transactions() {
         <Tabs defaultValue="transactions" className="space-y-6">
           <TabsList className="font-arabic">
             <TabsTrigger value="transactions">المعاملات</TabsTrigger>
+            <TabsTrigger value="payments">سجل المدفوعات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
             <TabsTrigger value="settings">الإعدادات</TabsTrigger>
           </TabsList>
