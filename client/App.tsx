@@ -201,6 +201,15 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/emailjs-debug"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <EmailJSDebugTest />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
