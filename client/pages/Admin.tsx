@@ -119,6 +119,54 @@ function AdminComponent() {
     scheduledAppointments: 0,
     cancelledAppointments: 0,
   });
+
+  // Mock data for missing variables
+  const alerts = [
+    {
+      id: 1,
+      type: "urgent",
+      message: "موعد طارئ - أحمد محمد - يحتاج إلى متابعة فورية",
+      time: "منذ 5 دقائق"
+    },
+    {
+      id: 2,
+      type: "payment",
+      message: "مبلغ مستحق - فاطمة أحمد - 150 ر.ي",
+      time: "منذ ساعة"
+    },
+    {
+      id: 3,
+      type: "appointment",
+      message: "موعد جديد تم حجزه - محمد علي - غداً الساعة 10:00",
+      time: "منذ ساعتين"
+    }
+  ];
+
+  const topServices = [
+    { name: "تنظيف الأسنان", count: 45, revenue: 22500, percentage: 85 },
+    { name: "حشو الأسنان", count: 32, revenue: 19200, percentage: 65 },
+    { name: "تقويم الأسنان", count: 18, revenue: 27000, percentage: 45 },
+    { name: "تركيب التيجان", count: 12, revenue: 24000, percentage: 30 }
+  ];
+
+  const doctors = [
+    {
+      id: 1,
+      name: "د. كمال الملصي",
+      specialty: "طبيب أسنان عام",
+      rating: 4.9,
+      patients: 156,
+      appointments: 89
+    },
+    {
+      id: 2,
+      name: "د. سارة أحمد",
+      specialty: "تقويم الأسنان",
+      rating: 4.8,
+      patients: 98,
+      appointments: 52
+    }
+  ];
   const [recentAppointments, setRecentAppointments] = useState<
     RecentAppointment[]
   >([]);
@@ -333,7 +381,7 @@ function AdminComponent() {
                       ��لمواعيد اليوم
                     </CardTitle>
                     <CardDescription className="font-arabic">
-                      قائمة بمواعيد اليوم وحالتها
+                      قائمة ��مواعيد اليوم وحالتها
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
