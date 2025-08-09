@@ -35,7 +35,7 @@ import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 const services = [
   {
     title: "تنظيف الأسنان",
-    description: "تنظيف شامل ومهني لأسنانك مع أح��ث التقنيات",
+    description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
     icon: Smile,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d9a2684a264bc7a3c3f7068487b50a",
@@ -78,7 +78,7 @@ const services = [
   {
     title: "طب أسنان الأطفال",
     description:
-      "رعاي�� أسنان لطيفة وممتعة ���صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+      "رعاي�� أسنان لطيفة وممتعة ���صممة خصيصًا للمرضى الصغار. نركز على الوقاية وال��ثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e",
@@ -104,7 +104,7 @@ const services = [
 const features = [
   {
     title: "حجز سهل ��بر الإنترنت",
-    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
+    description: "احجز موعدك بسهولة من خلال ��نصتنا الرقمية",
     icon: Calendar,
   },
   {
@@ -171,7 +171,7 @@ const beforeAfterCases = [
   {
     id: 5,
     title: "قشور الأسن��ن",
-    description: "ابتسامة هوليوودية طبيعية ومتينة",
+    description: "ابت��امة هوليوودية طبيعية ومتينة",
     beforeImage:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
     afterImage:
@@ -249,7 +249,7 @@ export default function Index() {
               <p>عيادة الدكتور كمال الملصي</p>
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
-              رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
+              رعاية شاملة ومتطورة لصحة أسنا��ك وابتسامتك
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
