@@ -9,6 +9,7 @@ import appointmentsCleanupRoutes from "./routes/appointments-cleanup.js";
 import notificationsRoutes from "./routes/notifications.js";
 import aiAnalysisRoutes from "./routes/ai-analysis.js";
 import paymentsRoutes from "./routes/payments.js";
+import transactionsRoutes from "./routes/transactions.js";
 import {
   getDatabaseStatsHandler,
   getTablesHandler,
@@ -66,6 +67,9 @@ export function createServer() {
 
   // Payments routes
   app.use("/api/payments", paymentsRoutes);
+
+  // Transactions routes
+  app.use("/api/transactions", transactionsRoutes);
 
   // Database API routes
   app.get("/api/database/stats", getDatabaseStatsHandler);
