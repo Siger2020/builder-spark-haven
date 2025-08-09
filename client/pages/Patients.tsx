@@ -353,7 +353,7 @@ export default function Patients() {
                 {loading ? '...' : patients.filter(p => p.status === 'active').length}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                من إجمالي المرضى
+                من إجم��لي المرضى
               </p>
             </CardContent>
           </Card>
@@ -886,10 +886,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewMedicalRecord({
+                              patient: 'أحمد محمد علي',
+                              diagnosis: 'تسوس في الضرس العلوي الأيمن',
+                              treatment: 'حشو مركب',
+                              doctor: 'د. كمال الملصي',
+                              date: '2024-01-15'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleEditMedicalRecord({
+                              patient: 'أحمد محمد علي',
+                              diagnosis: 'تسوس في الضرس العلوي الأيمن',
+                              treatment: 'حشو مركب'
+                            })}
+                            title="تعديل"
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
                         </div>
@@ -1409,7 +1429,7 @@ export default function Patients() {
         <Dialog open={isEditPatientDialogOpen} onOpenChange={setIsEditPatientDialogOpen}>
           <DialogContent className="sm:max-w-[600px]" dir="rtl">
             <DialogHeader>
-              <DialogTitle className="font-arabic">تعديل بيانات المريض</DialogTitle>
+              <DialogTitle className="font-arabic">تعديل بي��نات المريض</DialogTitle>
               <DialogDescription className="font-arabic">
                 قم بتعديل البيانات المطلوبة
               </DialogDescription>
