@@ -966,10 +966,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewMedicalRecord({
+                              patient: 'محمد علي حسن',
+                              diagnosis: 'كسر في الناب السفلي',
+                              treatment: 'تركيب تاج',
+                              doctor: 'د. كمال الملصي',
+                              date: '2024-01-13'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleEditMedicalRecord({
+                              patient: 'محمد علي حسن',
+                              diagnosis: 'كسر في الناب السفلي',
+                              treatment: 'تركيب تاج'
+                            })}
+                            title="تعديل"
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
                         </div>
@@ -1290,7 +1310,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}
+                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير ��حدد'}
                       </span>
                     </div>
                   </div>
