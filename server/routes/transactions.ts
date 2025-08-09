@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     
     // Get transactions data from both payments and transactions tables
     const transactions = db.prepare(`
-      SELECT 
+      SELECT
         id,
         patient_name,
         amount,
@@ -19,8 +19,8 @@ router.get("/", async (req, res) => {
         'income' as type,
         'completed' as status,
         notes as description,
-        COALESCE(service_name, 'خدمة ��امة') as category,
-        COALESCE(service_name, 'خدمة عامة') as service_type
+        'خدمة عامة' as category,
+        'خدمة عامة' as service_type
       FROM payments
       ORDER BY payment_date DESC
       LIMIT 100
