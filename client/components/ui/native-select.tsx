@@ -52,8 +52,8 @@ export function NativeSelect({
           className
         )}
       >
-        {placeholder && !selectValue && (
-          <option value="" disabled>
+        {placeholder && (
+          <option value="" disabled hidden>
             {placeholder}
           </option>
         )}
