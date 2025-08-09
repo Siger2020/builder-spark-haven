@@ -842,6 +842,14 @@ function AdminComponent() {
                     <Bell className="h-4 w-4 mr-2" />
                     إعدادات الإشعارات
                   </Button>
+                  <Button
+                    className="w-full font-arabic"
+                    variant="outline"
+                    onClick={() => setClinicCustomizationOpen(true)}
+                  >
+                    <Palette className="h-4 w-4 mr-2" />
+                    تخصيص الواجهة
+                  </Button>
                   <Link to="/database">
                     <Button className="w-full font-arabic" variant="outline">
                       <Database className="h-4 w-4 mr-2" />
