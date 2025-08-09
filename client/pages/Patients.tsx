@@ -353,7 +353,7 @@ export default function Patients() {
                 {loading ? '...' : patients.filter(p => p.status === 'active').length}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                من إجم��لي المرضى
+                من إجمالي المرضى
               </p>
             </CardContent>
           </Card>
@@ -926,10 +926,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewMedicalRecord({
+                              patient: 'فاطمة أحمد',
+                              diagnosis: 'تنظيف دوري وإزالة الجير',
+                              treatment: 'تنظيف عميق',
+                              doctor: 'د. كمال الملصي',
+                              date: '2024-01-14'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleEditMedicalRecord({
+                              patient: 'فاطمة أحمد',
+                              diagnosis: 'تنظيف دوري وإزالة الجير',
+                              treatment: 'تنظيف عميق'
+                            })}
+                            title="تعديل"
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
                         </div>
@@ -1324,7 +1344,7 @@ export default function Patients() {
             <DialogHeader>
               <DialogTitle className="font-arabic">إضافة مريض جديد</DialogTitle>
               <DialogDescription className="font-arabic">
-                املأ البيانات التالية لإضافة مريض جديد
+                ام��أ البيانات التالية لإضافة مريض جديد
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
@@ -1406,7 +1426,7 @@ export default function Patients() {
               <div className="space-y-2">
                 <Label className="font-arabic">الحساسيات</Label>
                 <Textarea
-                  placeholder="أدخل الحساسيات المعروفة..."
+                  placeholder="أد��ل الحساسيات المعروفة..."
                   className="font-arabic"
                   value={formData.allergies}
                   onChange={(e) => setFormData(prev => ({ ...prev, allergies: e.target.value }))}
@@ -1429,7 +1449,7 @@ export default function Patients() {
         <Dialog open={isEditPatientDialogOpen} onOpenChange={setIsEditPatientDialogOpen}>
           <DialogContent className="sm:max-w-[600px]" dir="rtl">
             <DialogHeader>
-              <DialogTitle className="font-arabic">تعديل بي��نات المريض</DialogTitle>
+              <DialogTitle className="font-arabic">تعديل بيانات المريض</DialogTitle>
               <DialogDescription className="font-arabic">
                 قم بتعديل البيانات المطلوبة
               </DialogDescription>
@@ -1458,7 +1478,7 @@ export default function Patients() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">الب��يد الإلكتروني</Label>
+                  <Label className="font-arabic">الب��يد الإلكتر��ني</Label>
                   <Input
                     type="email"
                     placeholder="أدخل البريد الإلكتروني"
