@@ -218,6 +218,14 @@ const beforeAfterCases = [
 
 export default function Index() {
   const [showMoreResults, setShowMoreResults] = useState(false);
+  const { performanceMetrics, preloadResource } = usePerformanceOptimization();
+
+  // Preload critical resources for better performance
+  React.useEffect(() => {
+    preloadResource('/api/bookings', 'fetch');
+    preloadResource('/api/patients', 'fetch');
+  }, [preloadResource]);
+
   return (
     <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
