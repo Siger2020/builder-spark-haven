@@ -10,13 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -223,18 +217,10 @@ export default function Register() {
                     value={formData.role}
                     onValueChange={(value) => handleInputChange("role", value)}
                     disabled={isLoading}
+                    className="font-arabic"
                   >
-                    <SelectTrigger className="font-arabic">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="patient" className="font-arabic">
-                        مريض
-                      </SelectItem>
-                      <SelectItem value="doctor" className="font-arabic">
-                        طبيب
-                      </SelectItem>
-                    </SelectContent>
+                    <SelectItem value="patient">مريض</SelectItem>
+                    <SelectItem value="doctor">طبيب</SelectItem>
                   </Select>
                 </div>
 
