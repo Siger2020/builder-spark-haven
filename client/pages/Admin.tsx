@@ -916,6 +916,27 @@ function AdminComponent() {
           isOpen={notificationCenterOpen}
           onClose={() => setNotificationCenterOpen(false)}
         />
+
+        {/* Clinic Customization Dialog */}
+        {clinicCustomizationOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+            <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-bold font-arabic">تخصيص العيادة</h2>
+                  <Button
+                    variant="outline"
+                    onClick={() => setClinicCustomizationOpen(false)}
+                    className="font-arabic"
+                  >
+                    إغلاق
+                  </Button>
+                </div>
+                <ClinicCustomization />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
