@@ -90,6 +90,18 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
+    console.log("Executing database insert with data:", {
+      analysisNumber,
+      patientId: patientId || null,
+      doctorId: doctorId || null,
+      fileName: req.file.originalname,
+      filePath: req.file.path,
+      fileType: req.file.mimetype,
+      fileSize: req.file.size,
+      diagnosis: mockAIAnalysis.diagnosis,
+      confidence: mockAIAnalysis.confidence
+    });
+
     const analysisResult = insertAnalysis.run(
       analysisNumber,
       patientId || null,
@@ -111,6 +123,8 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       mockAIAnalysis.processingTime,
       1, // مستخدم النظام
     );
+
+    console.log("Database insert result:", analysisResult);
 
     // إنشاء تقرير مفصل
     const insertReport = db.prepare(`
@@ -418,7 +432,7 @@ async function simulateImageAnalysis(file) {
 
   const mockResults = [
     {
-      diagnosis: "التها�� اللثة المتوسط",
+      diagnosis: "التهاب اللثة المتوسط",
       confidence: 87.3,
       severity: "medium",
       recommendations: [
@@ -458,7 +472,7 @@ async function simulateImageAnalysis(file) {
   return {
     ...result,
     processingTime,
-    detailedReport: `تم تحليل الصورة الطبية باستخدام تقنيات الذكاء الاصطناعي المتقدمة. التشخيص المقترح: ${result.diagnosis} بمستوى ثقة ${result.confidence}%. يُنصح بمتابعة التوصيات المذكورة للحصول على أفضل النتائج.`,
+    detailedReport: `تم تحليل الصورة الطبية باستخدام تقنيات الذكاء الاصطناعي المتقدمة. التشخيص المقترح: ${result.diagnosis} بمستوى ثقة ${result.confidence}%. يُنصح بمتابعة التوصيات المذكورة للحصول على ��فضل النتائج.`,
     insights: [
       "تم تحديد المشكلة بدقة عالية",
       "التدخل المبكر يحسن من نتائج العلاج",
@@ -492,7 +506,7 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "الراحة في مكان هادئ",
       "شرب كمية كافية من الماء",
       "تجنب الشاشات لفترات طويلة",
-      "مراجعة الطبيب إذا استمر الصداع أكثر من 3 أيام",
+      "م��اجعة الطبيب إذا استمر الصداع أكثر من 3 أيام",
     ];
     relatedConditions = [
       "الصداع النصفي",
@@ -512,7 +526,7 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "مراقبة درجة الحرارة",
       "مراجعة الطبيب إذا استمرت الحمى أكثر من 48 ساعة",
     ];
-    relatedConditions = ["نزلة البرد", "الإنفلونزا", "التهاب ال��لق"];
+    relatedConditions = ["نزلة البرد", "الإنفلونزا", "التهاب الحلق"];
   } else if (
     symptomKeywords.includes("ألم البطن") ||
     symptomKeywords.includes("معدة")
