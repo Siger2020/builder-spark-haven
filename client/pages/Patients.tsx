@@ -279,6 +279,40 @@ export default function Patients() {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
 
+  const handleViewMedicalRecord = (record: any) => {
+    setSelectedMedicalRecord(record);
+    alert(`عرض السجل الطبي للمريض: ${record.patient}\nالتشخيص: ${record.diagnosis}\nالعلاج: ${record.treatment}`);
+  };
+
+  const handleEditMedicalRecord = (record: any) => {
+    setSelectedMedicalRecord(record);
+    setIsAddMedicalRecordOpen(true);
+  };
+
+  const handleAddMedicalRecord = () => {
+    setSelectedMedicalRecord(null);
+    setIsAddMedicalRecordOpen(true);
+  };
+
+  const handleViewPayment = (payment: any) => {
+    setSelectedPayment(payment);
+    alert(`تفاصيل الدفعة:\nرقم الفاتورة: ${payment.invoice}\nالمريض: ${payment.patient}\nالمبلغ: ${payment.amount}\nالحالة: ${payment.status}`);
+  };
+
+  const handleEditPayment = (payment: any) => {
+    setSelectedPayment(payment);
+    setIsAddPaymentOpen(true);
+  };
+
+  const handleAddPayment = () => {
+    setSelectedPayment(null);
+    setIsAddPaymentOpen(true);
+  };
+
+  const handlePrintReceipt = (payment: any) => {
+    alert(`طباعة إيصال الدفع:\nرقم الفاتورة: ${payment.invoice}\nالمبلغ: ${payment.amount}\nالمريض: ${payment.patient}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -978,7 +1012,7 @@ export default function Patients() {
                     <TableRow>
                       <TableHead className="font-arabic">رقم الفاتورة</TableHead>
                       <TableHead className="font-arabic">المريض</TableHead>
-                      <TableHead className="font-arabic">الخدم��</TableHead>
+                      <TableHead className="font-arabic">الخدمة</TableHead>
                       <TableHead className="font-arabic">المبلغ</TableHead>
                       <TableHead className="font-arabic">طريقة الدفع</TableHead>
                       <TableHead className="font-arabic">التاريخ</TableHead>
@@ -1200,7 +1234,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}
+                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير مح��د'}
                       </span>
                     </div>
                   </div>
@@ -1349,7 +1383,7 @@ export default function Patients() {
               </Button>
               <Button onClick={handleSavePatient} disabled={isLoading} className="font-arabic">
                 {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
-                حفظ المريض
+                حفظ المري��
               </Button>
             </DialogFooter>
           </DialogContent>
