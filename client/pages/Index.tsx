@@ -94,7 +94,7 @@ const services = [
   {
     title: "طب الأسنان التجميلي",
     description:
-      "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+      "حسّن ابتسامتك مع تبي��ض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341",
@@ -381,7 +381,7 @@ export default function Index() {
       <section className="py-20 bg-dental-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-arabic">
-            جاهز لبدء رحلة العناية بأسنانك؟
+            جاهز لبدء رحلة العناية بأسنان��؟
           </h2>
           <p className="text-xl mb-8 font-arabic opacity-90">
             احجز موعداً اليوم واحصل على استشارة مجانية
@@ -455,7 +455,7 @@ export default function Index() {
                   التصميم الرقمي ثلاثي الأبعاد
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تصميم ابتسامتك المثالية باستخدام أحدث برامج التصميم ثلاثي
+                  تصميم ابتسامتك المثالية باستخدام أحدث برام�� التصميم ثلاثي
                   الأبعاد
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
@@ -609,7 +609,7 @@ export default function Index() {
               <div className="flex items-center space-x-reverse space-x-3">
                 <span>
                   {showMoreResults
-                    ? "إخفا�� النتائج الإضافية"
+                    ? "إخفاء النتائج الإضافية"
                     : "شاهد المزيد من النتائج"}
                 </span>
                 {showMoreResults ? (
@@ -654,14 +654,14 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "تجربة رائع�� مع فريق متميز. العلاج كان مريحاً والنتائج فاقت
-                    توقعاتي. أنصح الجميع بعيادة الدكتور كمال ��لملصي."
+                    "تجربة رائعة مع فريق متميز. العلاج كان مريحاً والنتائج فاقت
+                    توقعاتي. أنصح الجميع بعيادة الدكتور كمال الملصي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
                   <img
                     src="https://images.unsplash.com/photo-1494790108755-2616b612b412?w=60&h=60&fit=crop&crop=face"
-                    alt="أمل محم��"
+                    alt="أمل محمد"
                     className="w-12 h-12 rounded-full ml-3"
                   />
                   <div>
@@ -689,7 +689,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "��لدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان
+                    "الدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان
                     تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
                   </p>
                 </div>
@@ -704,7 +704,7 @@ export default function Index() {
                       محمد أحمد
                     </div>
                     <div className="text-sm text-gray-600 font-arabic">
-                      زراعة الأسن��ن
+                      زراعة الأسنان
                     </div>
                   </div>
                 </div>
@@ -724,7 +724,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وف��الاً.
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وفعالاً.
                     أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
