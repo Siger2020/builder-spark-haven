@@ -47,6 +47,7 @@ import {
   Download,
   MessageSquare,
   Loader2,
+  Palette,
 } from "lucide-react";
 
 interface DashboardStats {
