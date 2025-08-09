@@ -94,7 +94,7 @@ const services = [
   {
     title: "طب الأسنان التجميلي",
     description:
-      "حسّن ابتسامتك مع تبي��ض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+      "حسّن ابتسامتك مع تبي��ض الأسنان الاحترافي، وقشو�� الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341",
@@ -776,7 +776,7 @@ export default function Index() {
                 <div className="flex items-center space-x-reverse space-x-3">
                   <MapPin className="h-5 w-5 text-dental-primary" />
                   <span className="font-arabic">
-                    شا��ع المقالح -حي الاصبحي ��مام سيتي ماكس
+                    شارع المقالح -حي الاصبحي مقابل سيتي ماكس
                   </span>
                 </div>
               </div>
@@ -801,12 +801,12 @@ export default function Index() {
                 إدارة النظام
               </h3>
               <p className="text-gray-600 mb-6 font-arabic">
-                دخو�� سر��ع لإدارة الحجوزات وملفات المرضى
+                دخول سريع لإدارة الحجوزات وملفات المرضى
               </p>
               <div className="space-y-4">
                 <Link to="/admin" className="block">
                   <Button className="w-full font-arabic" variant="outline">
-                    لوح�� الإدارة
+                    لوحة الإدارة
                     <Settings className="mr-2 h-4 w-4" />
                   </Button>
                 </Link>
