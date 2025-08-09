@@ -10,6 +10,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  phone?: string;
   role: "patient" | "doctor" | "admin";
 }
 
@@ -124,9 +125,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!response.ok) {
         console.error(
           "Register response not ok:",
-          response.status,
-          response.statusText,
+          response.status
         );
+
+        // Try to get the error message from the response
+        try {
+          const errorData = await response.text();
+          console.error("Registration error details:", errorData);
+          if (errorData) {
+            const parsedError = JSON.parse(errorData);
+            return { success: false, error: parsedError.error || "خطأ في الاتصال بالخادم" };
+          }
+        } catch (e) {
+          console.error("Could not parse error response:", e);
+        }
+
         return { success: false, error: "خطأ في الاتصال بالخادم" };
       }
 
