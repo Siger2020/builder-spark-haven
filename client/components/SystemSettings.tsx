@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -343,7 +343,7 @@ const UserManagement = () => {
             <div className="space-y-2">
               <Label className="font-arabic">الاسم الكامل</Label>
               <Input
-                placeholder="أدخل الاسم ال��امل"
+                placeholder="أدخل الاسم ��ل��امل"
                 className="font-arabic"
                 value={newUser.name}
                 onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
@@ -366,7 +366,7 @@ const UserManagement = () => {
                 placeholder="اختر الدور"
                 className="font-arabic"
               >
-                <SelectItem value="admin">��دير</SelectItem>
+                <SelectItem value="admin">مدير</SelectItem>
                 <SelectItem value="doctor">طبيب</SelectItem>
                 <SelectItem value="receptionist">استقبال</SelectItem>
               </Select>
@@ -648,7 +648,7 @@ const GeneralSettings = () => {
             <Select value="sar" className="font-arabic">
               <SelectItem value="yer">ريال يمني (YER)</SelectItem>
               <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
-              <SelectItem value="usd">دولار أمريك�� (USD)</SelectItem>
+              <SelectItem value="usd">دولار أمريكي (USD)</SelectItem>
             </Select>
           </div>
           <div className="flex items-center justify-between">
@@ -740,7 +740,7 @@ const NotificationSettings = () => {
           </div>
           <Button className="font-arabic">
             <Check className="h-4 w-4 mr-2" />
-            اختبار ال��تصال
+            اختبار الاتصال
           </Button>
         </CardContent>
       </Card>
@@ -751,7 +751,7 @@ const NotificationSettings = () => {
 export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
   const getTitle = () => {
     switch (type) {
-      case 'general': return 'الإعد��دات العامة';
+      case 'general': return 'الإعدادات العامة';
       case 'users': return 'إدارة المستخدمين';
       case 'security': return 'الأمان والخصوصية';
       case 'backup': return 'النسخ الاحتياطي';
