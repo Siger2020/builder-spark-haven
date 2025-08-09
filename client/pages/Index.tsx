@@ -42,7 +42,7 @@ const services = [
   },
   {
     title: "حشوات الأسنان",
-    description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
+    description: "حشوات تجميلية بأحدث الموا�� الطبية المعتمدة",
     icon: Shield,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295",
@@ -70,7 +70,7 @@ const services = [
   },
   {
     title: "علاج الجذور",
-    description: "علاج متخصص للجذور بأحدث التقنيات",
+    description: "علاج متخصص للجذور ��أحدث التقنيات",
     icon: Award,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fbda9737868a34e22932733caa3f6e2f4%2F4cf7480d4b84433b9c478a4cccc77334",
@@ -94,7 +94,7 @@ const services = [
   {
     title: "طب الأسنان التجميلي",
     description:
-      "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+      "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجا�� التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341",
@@ -103,18 +103,18 @@ const services = [
 
 const features = [
   {
-    title: "حجز سهل ��بر الإنترنت",
+    title: "حجز سهل عبر الإنترنت",
     description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
   {
-    title: "فريق طبي متخ��ص",
+    title: "فريق طبي متخصص",
     description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
     icon: Users,
   },
   {
-    title: "��قنيات متقدمة",
-    description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمي��ً",
+    title: "تقنيات متقدمة",
+    description: "نستخدم أحدث التقنيات الطبية المعتمدة عالمياً",
     icon: Shield,
   },
   {
@@ -144,7 +144,7 @@ const beforeAfterCases = [
   {
     id: 2,
     title: "تبييض الأسنان",
-    description: "تبييض احترافي مع تحسن 8 د��جات",
+    description: "تبييض احترافي مع تحسن 8 درجات",
     beforeImage:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fe25b29e5bf1e4962b0e27a70e2ba4648",
     afterImage:
@@ -170,7 +170,7 @@ const beforeAfterCases = [
   },
   {
     id: 5,
-    title: "قشور الأسن��ن",
+    title: "قشور الأسنان",
     description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
@@ -198,8 +198,8 @@ const beforeAfterCases = [
   },
   {
     id: 8,
-    title: "جسور ال��سنان",
-    description: "جسور ثابتة ��تعويض الأسنان المفقودة",
+    title: "جسور الأسنان",
+    description: "جسور ثابتة لتعويض الأسنان المفقودة",
     beforeImage:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3785672e0dd448de9271e7871c4ac204",
     afterImage:
@@ -434,7 +434,7 @@ export default function Index() {
                   <Star className="h-10 w-10 text-dental-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
-                  مح��كاة الابتسامة
+                  محاكاة الابتسامة
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
                   رؤية النتائج المتوقعة قبل بدء العلا�� باستخدام تقنيات الذكاء
@@ -509,7 +509,7 @@ export default function Index() {
                   <div className="relative bg-gray-100">
                     <img
                       src={caseItem.afterImage}
-                      alt={`بع�� ${caseItem.title}`}
+                      alt={`بعد ${caseItem.title}`}
                       className="w-full h-32 object-cover"
                       loading="lazy"
                       style={{
@@ -724,7 +724,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وف��الاً.
+                    "خدمة متميزة ونتائج مذهلة. ت��ييض الأسنان كان آمناً وف��الاً.
                     أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
