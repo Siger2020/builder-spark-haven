@@ -364,7 +364,7 @@ const UserManagement = () => {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label className="font-arabic">كلمة المرور</Label>
+              <Label className="font-arabic">كلمة المرور <span className="text-red-500">*</span></Label>
               <Input
                 type="password"
                 placeholder="كلمة المرور"
@@ -377,7 +377,7 @@ const UserManagement = () => {
             <Button variant="outline" onClick={() => setIsAddUserOpen(false)} className="font-arabic">
               إلغاء
             </Button>
-            <Button onClick={handleAddUser} className="font-arabic">إضافة المستخدم</Button>
+            <Button onClick={handleAddUser} className="font-arabic">إضافة المستخد��</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -536,7 +536,7 @@ const BackupSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-red-600 font-arabic">
-            تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية
+            تحذير: استعادة البيانات ستحل محل جميع البيانات ال��الية
           </p>
           <Button onClick={handleRestoreBackup} variant="destructive" className="font-arabic">
             استعادة من نسخة احتياطية
@@ -604,7 +604,7 @@ const GeneralSettings = () => {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="font-arabic">من ��لسبت إل�� الخميس</Label>
+              <Label className="font-arabic">من ����لسبت إل�� الخميس</Label>
               <div className="flex gap-2">
                 <Input type="time" defaultValue="09:00" />
                 <span className="self-center font-arabic">إلى</span>
@@ -664,7 +664,7 @@ const NotificationSettings = () => {
           <div className="flex items-center justify-between">
             <div>
               <Label className="font-arabic">إشعارات البريد الإلكتروني</Label>
-              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر البريد الإلكتروني</p>
+              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر البريد ��لإلكتروني</p>
             </div>
             <Switch defaultChecked />
           </div>
