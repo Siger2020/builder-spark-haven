@@ -657,7 +657,7 @@ export default function Patients() {
                   <Card>
                     <CardContent className="text-center py-12">
                       <UserCheck className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                      <p className="text-gray-600 font-arabic">اختر مريضاً من القائمة لعرض ملفه الشخصي</p>
+                      <p className="text-gray-600 font-arabic">اختر مريضاً من القائمة لعرض ��لفه الشخصي</p>
                     </CardContent>
                   </Card>
                 )}
@@ -758,7 +758,7 @@ export default function Patients() {
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>2:00 PM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
+                      <TableCell className="font-arabic">تنظ��ف الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-blue-100 text-blue-800 font-arabic">مجدول</Badge>
                       </TableCell>
@@ -847,10 +847,18 @@ export default function Patients() {
             {/* Medical Records Table */}
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">السجلات الطبية</CardTitle>
-                <CardDescription className="font-arabic">
-                  تاريخ العلاجات والتشخيصات الطبية
-                </CardDescription>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="font-arabic">السجلات الطبية</CardTitle>
+                    <CardDescription className="font-arabic">
+                      تاريخ العلاجات والتشخيصات الطبية
+                    </CardDescription>
+                  </div>
+                  <Button onClick={handleAddMedicalRecord} className="font-arabic">
+                    <Plus className="h-4 w-4 mr-2" />
+                    إضافة سجل طبي
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -1234,7 +1242,7 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير مح��د'}
+                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}
                       </span>
                     </div>
                   </div>
@@ -1383,7 +1391,7 @@ export default function Patients() {
               </Button>
               <Button onClick={handleSavePatient} disabled={isLoading} className="font-arabic">
                 {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
-                حفظ المري��
+                حفظ المريض
               </Button>
             </DialogFooter>
           </DialogContent>
