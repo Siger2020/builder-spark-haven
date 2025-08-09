@@ -42,6 +42,19 @@ export default function Booking() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // التحقق من وج��د الوقت
+    if (!formData.time) {
+      alert("يرجى اختيار وقت الموعد");
+      return;
+    }
+
+    if (!formData.service) {
+      alert("يرجى اختيار نوع الخدمة");
+      return;
+    }
+
+    console.log("بيانات النموذج المرسلة:", formData);
+
     // إنشاء رقم حجز عشوائي
     const newBookingNumber = `BK${Date.now().toString().slice(-6)}`;
 
@@ -94,6 +107,7 @@ export default function Booking() {
   };
 
   const handleInputChange = (field: string, value: string) => {
+    console.log(`تم تحديث الحقل ${field} بالقيمة: ${value}`);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
