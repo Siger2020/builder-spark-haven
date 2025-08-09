@@ -39,7 +39,7 @@ interface SystemSettingsProps {
 const users = [
   {
     id: 1,
-    name: "د. سارة أحمد",
+    name: "��. سارة أحمد",
     email: "sara@clinic.com",
     role: "admin",
     status: "active",
@@ -155,9 +155,9 @@ const UserManagement = () => {
 
       console.log('Users API response:', data);
 
-      if (data.success && data.data && Array.isArray(data.data)) {
+      if (data.success && data.data && data.data.rows && Array.isArray(data.data.rows)) {
         // Transform database users to match our interface
-        const transformedUsers = data.data.map((user: any) => ({
+        const transformedUsers = data.data.rows.map((user: any) => ({
           id: user.id,
           name: user.name,
           email: user.email,
@@ -287,7 +287,7 @@ const UserManagement = () => {
     return status === "active" ? (
       <Badge className="bg-green-100 text-green-800">نشط</Badge>
     ) : (
-      <Badge className="bg-gray-100 text-gray-800">غير ����شط</Badge>
+      <Badge className="bg-gray-100 text-gray-800">غير ��شط</Badge>
     );
   };
 
@@ -364,7 +364,7 @@ const UserManagement = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label className="font-arabic">الدور</Label>
+              <Label className="font-arabic">ال��ور</Label>
               <Select
                 value={newUser.role}
                 onValueChange={(value) => setNewUser(prev => ({ ...prev, role: value }))}
@@ -459,7 +459,7 @@ const BackupSettings = () => {
       });
 
       if (response.ok) {
-        alert('تم إنشاء النسخة الاحتياطية بنجاح!');
+        alert('تم إن��اء النسخة الاحتياطية بنجاح!');
       } else {
         alert('حدث خطأ أ��ناء إنشاء النسخة الاحتياطية');
       }
@@ -476,7 +476,7 @@ const BackupSettings = () => {
 
       if (data.success && data.data.length > 0) {
         const latestBackup = data.data[0];
-        alert(`آخر ��سخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString('ar-SA')}`);
+        alert(`آخر نسخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString('ar-SA')}`);
       } else {
         alert('لا توجد نسخ احتياطية متاحة');
       }
