@@ -49,13 +49,13 @@ const services = [
   },
   {
     title: "تقويم الأسنان",
-    description: "تقويم شامل بأحدث التقنيا�� الطبية المتقدمة",
+    description: "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
     icon: Star,
     image:
       "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b",
   },
   {
-    title: "زراعة الأسنان",
+    title: "��راعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
     image:
@@ -78,7 +78,7 @@ const services = [
   {
     title: "طب أسنان الأطفال",
     description:
-      "رعاي�� أسنان لطيفة وممتعة ���صممة خصيصًا للمرضى الصغار. نركز على الوقاية وال��ثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+      "رعاي�� أسنان لطيفة وممتعة ���صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e",
@@ -104,12 +104,12 @@ const services = [
 const features = [
   {
     title: "حجز سهل ��بر الإنترنت",
-    description: "احجز موعدك بسهولة من خلال ��نصتنا الرقمية",
+    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
   {
     title: "فريق طبي متخ��ص",
-    description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
+    description: "أطباء أسنان معتمدون بخبرة ط��يلة في المجال",
     icon: Users,
   },
   {
@@ -171,7 +171,7 @@ const beforeAfterCases = [
   {
     id: 5,
     title: "قشور الأسن��ن",
-    description: "ابت��امة هوليوودية طبيعية ومتينة",
+    description: "ابتسامة هوليوودية طبيعية ومتينة",
     beforeImage:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F18a846a7918549e694685e8724c97578",
     afterImage:
@@ -249,7 +249,7 @@ export default function Index() {
               <p>عيادة الدكتور كمال الملصي</p>
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-arabic opacity-90">
-              رعاية شاملة ومتطورة لصحة أسنا��ك وابتسامتك
+              رعاية شاملة ومتطورة لصحة أسنانك وابتسامتك
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
