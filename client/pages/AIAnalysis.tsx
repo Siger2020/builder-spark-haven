@@ -143,14 +143,15 @@ export default function AIAnalysis() {
     setLoading(true);
     try {
       // Send to AI analysis API
-      const response = await fetch('/api/ai-analysis/symptoms', {
+      const response = await fetch('/api/ai-analysis/analyze-symptoms', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           symptoms: symptoms.trim(),
-          patient_id: null, // Can be selected later
+          patientId: null, // Can be selected later
+          doctorId: 1, // Default doctor
         }),
       });
 
