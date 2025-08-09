@@ -306,7 +306,7 @@ const UserManagement = () => {
               <TableCell>{user.email}</TableCell>
               <TableCell>{getRoleBadge(user.role)}</TableCell>
               <TableCell>{getStatusBadge(user.status)}</TableCell>
-              <TableCell>{new Date(user.lastLogin).toLocaleDateString('ar-SA')}</TableCell>
+              <TableCell>{typeof user.lastLogin === 'string' && user.lastLogin !== 'لم يسجل دخول' ? new Date(user.lastLogin).toLocaleDateString('ar-SA') : user.lastLogin}</TableCell>
               <TableCell>
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline" onClick={() => handleEditUser(user)}>
@@ -360,7 +360,7 @@ const UserManagement = () => {
               >
                 <SelectItem value="admin">مدير</SelectItem>
                 <SelectItem value="doctor">طبيب</SelectItem>
-                <SelectItem value="receptionist">استقبال</SelectItem>
+                <SelectItem value="receptionist">��ستقبال</SelectItem>
               </Select>
             </div>
             <div className="space-y-2">
@@ -678,7 +678,7 @@ const NotificationSettings = () => {
           <div className="flex items-center justify-between">
             <div>
               <Label className="font-arabic">إشعارات الوا��س آب</Label>
-              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر الواتس آب</p>
+              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر الوا��س آب</p>
             </div>
             <Switch />
           </div>
@@ -744,7 +744,7 @@ export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
   const getTitle = () => {
     switch (type) {
       case 'general': return 'الإعدادات العامة';
-      case 'users': return 'إدارة المستخدمين';
+      case 'users': return 'إدارة المستخدم��ن';
       case 'security': return 'الأمان والخصوصية';
       case 'backup': return 'النسخ الاحتياطي';
       case 'notifications': return 'إعدادات الإشعارات';
