@@ -689,7 +689,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "��لدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان
+                    "��لدكتور كمال محترف جداً وفريق العمل ودود. زراعة ا��أسنان
                     تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
                   </p>
                 </div>
@@ -749,6 +749,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Customer Testimonials Section */}
+      <CustomerTestimonials />
+
       {/* Contact Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -803,7 +806,7 @@ export default function Index() {
               <div className="space-y-4">
                 <Link to="/admin" className="block">
                   <Button className="w-full font-arabic" variant="outline">
-                    لوح�� الإدارة
+                    لوح���� الإدارة
                     <Settings className="mr-2 h-4 w-4" />
                   </Button>
                 </Link>
