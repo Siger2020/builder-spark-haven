@@ -409,7 +409,7 @@ export default function Patients() {
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="search"
-                        placeholder="ابحث باسم المريض أو رقم الهوية أو رقم الهاتف..."
+                        placeholder="ابحث باسم المريض أو رقم الهوية أو ��قم الهاتف..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 font-arabic"
@@ -1175,10 +1175,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewPayment({
+                              invoice: '#INV-002',
+                              patient: 'فاطمة أحمد',
+                              amount: '₹ 800',
+                              service: 'تنظيف الأسنان',
+                              status: 'مدفوع'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handlePrintReceipt({
+                              invoice: '#INV-002',
+                              patient: 'فاطمة أحمد',
+                              amount: '₹ 800'
+                            })}
+                            title="طباعة إيصال"
+                          >
                             <Receipt className="h-4 w-4" />
                           </Button>
                         </div>
