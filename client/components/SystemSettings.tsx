@@ -124,7 +124,7 @@ const SecuritySettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">تسجيل تعديل البيانات</Label>
+            <Label className="font-arabic">تسجيل تعديل البيا��ات</Label>
             <Switch defaultChecked />
           </div>
         </CardContent>
@@ -200,17 +200,9 @@ const UserManagement = () => {
       if (response.ok) {
         const result = await response.json();
 
-        // Add the new user to local state
-        const user = {
-          id: result.user?.id || Date.now(),
-          name: newUser.name,
-          email: newUser.email,
-          role: newUser.role,
-          status: 'active',
-          lastLogin: new Date().toISOString().split('T')[0]
-        };
+        // Refresh the users list from database
+        await loadUsers();
 
-        setUsersList([...usersList, user]);
         setNewUser({ name: '', email: '', role: '', password: '' });
         setIsAddUserOpen(false);
         alert('تم إضافة المستخدم بنجاح');
@@ -343,7 +335,7 @@ const UserManagement = () => {
             <div className="space-y-2">
               <Label className="font-arabic">الاسم الكامل</Label>
               <Input
-                placeholder="أدخل الاسم ��ل��امل"
+                placeholder="أدخل الاسم ال��امل"
                 className="font-arabic"
                 value={newUser.name}
                 onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
@@ -491,7 +483,7 @@ const BackupSettings = () => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="font-arabic">النسخ الاحتياطي التلقائي</CardTitle>
+          <CardTitle className="font-arabic">النسخ الاحتياطي التلقائ��</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
