@@ -111,12 +111,12 @@ export default function Transactions() {
   };
 
   const filteredTransactions = transactions.filter((transaction) => {
-    const matchesSearch = transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         transaction.patient_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         transaction.service_type?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = (transaction.description || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (transaction.patient_name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (transaction.service_type || "").toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = filterType === "all" || transaction.type === filterType;
     const matchesStatus = filterStatus === "all" || transaction.status === filterStatus;
-    
+
     return matchesSearch && matchesType && matchesStatus;
   });
 
@@ -372,7 +372,7 @@ export default function Transactions() {
                             </select>
                           </div>
                           <div className="space-y-2">
-                            <Label className="font-arabic">وصف المعاملة</Label>
+                            <Label className="font-arabic">وصف ال��عاملة</Label>
                             <Textarea
                               value={newPayment.description}
                               onChange={(e) => setNewPayment(prev => ({ ...prev, description: e.target.value }))}
