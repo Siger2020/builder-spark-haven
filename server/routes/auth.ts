@@ -8,8 +8,24 @@ router.post("/register", async (req, res) => {
   try {
     const { name, email, password, phone, role } = req.body;
 
+    console.log("Registration attempt:", {
+      name: name || "MISSING",
+      email: email || "MISSING",
+      passwordLength: password?.length || "MISSING",
+      phone: phone || "MISSING",
+      role: role || "MISSING",
+      allFields: req.body
+    });
+
     // التحقق من وجود البيانات المطلوبة
     if (!name || !email || !password || !phone || !role) {
+      console.log("Missing required fields:", {
+        name: !!name,
+        email: !!email,
+        password: !!password,
+        phone: !!phone,
+        role: !!role
+      });
       return res.status(400).json({
         success: false,
         error: "جميع الحقول مطلوبة",
