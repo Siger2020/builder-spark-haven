@@ -1132,10 +1132,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewPayment({
+                              invoice: '#INV-001',
+                              patient: 'أحمد محمد علي',
+                              amount: '₹ 1,200',
+                              service: 'حشو مركب',
+                              status: 'مدفوع'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handlePrintReceipt({
+                              invoice: '#INV-001',
+                              patient: 'أحمد محمد علي',
+                              amount: '₹ 1,200'
+                            })}
+                            title="طباعة إيصال"
+                          >
                             <Receipt className="h-4 w-4" />
                           </Button>
                         </div>
@@ -1189,7 +1209,7 @@ export default function Patients() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-mono">#INV-004</TableCell>
-                      <TableCell className="font-arabic">سارة محمود</TableCell>
+                      <TableCell className="font-arabic">��ارة محمود</TableCell>
                       <TableCell className="font-arabic">علاج التهاب اللثة</TableCell>
                       <TableCell className="font-bold text-green-600">₹ 1,500</TableCell>
                       <TableCell>
