@@ -7,6 +7,14 @@ export function updateDatabase() {
   console.log("🔍 فحص قاعدة البيانات...");
 
   try {
+    // إضافة العمود المطلوب لجدول payments إذا لم يكن موجوداً
+    try {
+      db.exec(`ALTER TABLE payments ADD COLUMN service_name TEXT DEFAULT 'خدمة عامة'`);
+      console.log("✅ تم إضافة عمود service_name إلى جدول payments");
+    } catch (error) {
+      // العمود موجود بالفعل أو خطأ آخر
+      console.log("ℹ️ عمود service_name موجود بالفعل في جدول payments");
+    }
     // التحقق من وجود جميع الجداول المطلوبة
     const requiredTables = [
       "users",
