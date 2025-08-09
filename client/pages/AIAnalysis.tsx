@@ -50,7 +50,7 @@ export default function AIAnalysis() {
 
     // Check file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
-      alert("حجم الملف كبير ج��اً. يرجى اختيار صورة أصغر من 10 ميجابايت.");
+      alert("حجم الملف كبير جداً. يرجى اختيار صورة أصغر من 10 ميجابايت.");
       return;
     }
 
@@ -118,14 +118,17 @@ export default function AIAnalysis() {
 
     } catch (error) {
       console.error("Error analyzing image:", error);
-      alert("حدث خطأ أثناء تحليل الصورة. يرجى المحاولة مرة أخرى.");
+
+      // Show detailed error message
+      const errorMessage = error instanceof Error ? error.message : "خطأ غير معروف";
+      alert(`حدث خطأ أثناء تحليل الصورة: ${errorMessage}`);
 
       // Still add a basic entry to show the upload attempt
       const fallbackResult: AnalysisResult = {
         id: Date.now().toString(),
         type: "image",
         result: {
-          diagnosis: "فشل في التحليل - تم حفظ الصورة",
+          diagnosis: `فشل في التحليل: ${errorMessage}`,
           confidence: 0,
           recommendations: [
             "تم حفظ الصورة في النظام",
@@ -252,7 +255,7 @@ export default function AIAnalysis() {
       <div className="flex items-center space-x-4 rtl:space-x-reverse">
         <Brain className="h-8 w-8 text-blue-600" />
         <div>
-          <h1 className="text-3xl font-bold">تحليلات الذكاء الاصطناعي</h1>
+          <h1 className="text-3xl font-bold">تحليلات الذكاء ال��صطناعي</h1>
           <p className="text-muted-foreground">
             تحليل الأمراض وملفات المرضى بتقنية الذكاء الاصطناعي
           </p>
@@ -283,7 +286,7 @@ export default function AIAnalysis() {
                 رفع صورة طبية للتحليل
               </CardTitle>
               <CardDescription>
-                ارفع صورة أشعة، تحليل مختبري، أو صورة سريرية للحصول على تحليل
+                ارفع صورة أشعة، تحليل مختبر��، أو صورة سريرية للحصول على تحليل
                 فوري بالذكاء الاصطناعي
               </CardDescription>
             </CardHeader>
@@ -361,7 +364,7 @@ export default function AIAnalysis() {
                     لا توجد تحليلات بعد
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    ابدأ بتحليل صورة أو أعراض لرؤية التقا��ير
+                    ابدأ بتحليل صورة أو أعراض لرؤية التقارير
                   </p>
                 </CardContent>
               </Card>
