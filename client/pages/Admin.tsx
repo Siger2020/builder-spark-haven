@@ -21,6 +21,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import SystemSettings from "@/components/SystemSettings";
 import ExportReports from "@/components/ExportReports";
+import ClinicCustomization from "@/components/ClinicCustomization";
 import NotificationCenter from "@/components/NotificationCenter";
 import {
   Users,
