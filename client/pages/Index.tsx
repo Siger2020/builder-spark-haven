@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -78,7 +78,7 @@ const services = [
   {
     title: "طب أسنان الأطفال",
     description:
-      "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+      "رعاي�� أسنان لطيفة وممتعة ��صممة خصيصًا للمرضى الصغار. نركز على ��لوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
     icon: Baby,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e",
@@ -104,7 +104,7 @@ const services = [
 const features = [
   {
     title: "حجز سهل ��بر الإنترنت",
-    description: "احجز موعدك بسهولة من خلال منصتنا الرقمية",
+    description: "احجز موعدك بسه��لة من خلال منصتنا الرقمية",
     icon: Calendar,
   },
   {
