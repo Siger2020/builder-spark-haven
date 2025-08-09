@@ -161,19 +161,23 @@ export default function AIAnalysis() {
 
       const result = await response.json();
 
+      if (!result.success) {
+        throw new Error(result.error || 'فشل في تحليل الأعراض');
+      }
+
       const newAnalysis: AnalysisResult = {
-        id: result.data?.id || Date.now().toString(),
+        id: result.analysis?.id?.toString() || Date.now().toString(),
         type: "symptoms",
         result: {
-          diagnosis: result.data?.diagnosis || "تم تحليل الأعراض",
-          confidence: result.data?.confidence || 75,
-          recommendations: result.data?.recommendations || [
+          diagnosis: result.analysis?.diagnosis || "تم تحليل الأعراض",
+          confidence: result.analysis?.confidence || 75,
+          recommendations: result.analysis?.recommendations || [
             "تم حفظ الأعراض في النظام",
             "مراجعة مع الطبيب المختص",
             "متابعة الأعراض"
           ],
-          severity: result.data?.severity || "medium",
-          followUp: result.data?.followUp || "مراجعة مع الطبيب المختص",
+          severity: result.analysis?.severity || "medium",
+          followUp: "مراجعة مع الطبيب المختص",
         },
         timestamp: new Date(),
       };
@@ -195,7 +199,7 @@ export default function AIAnalysis() {
           diagnosis: "فشل في التحليل - تم حفظ الأعراض",
           confidence: 0,
           recommendations: [
-            "تم حفظ الأعراض في النظام",
+            "تم ح��ظ الأعراض في النظام",
             "يرجى مراجعة الطبيب للتشخيص",
             "المحاولة مرة أخرى لاحقاً"
           ],
