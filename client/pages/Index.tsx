@@ -55,7 +55,7 @@ const services = [
       "https://cdn.builder.io/o/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2F3aa805bd670a4a869618878555c5aece?alt=media&token=41adbb8c-daac-4e89-acf4-441d75def9af&apiKey=4227a3a1f6cd425b96f32afb21ed3b0b",
   },
   {
-    title: "��راعة الأسنان",
+    title: "زراعة الأسنان",
     description: "زراعة متطورة مع ضمان طويل المدى",
     icon: Heart,
     image:
@@ -70,7 +70,7 @@ const services = [
   },
   {
     title: "علاج الجذور",
-    description: "����لاج متخصص للجذور بأحدث التقنيات",
+    description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fbda9737868a34e22932733caa3f6e2f4%2F4cf7480d4b84433b9c478a4cccc77334",
@@ -109,7 +109,7 @@ const features = [
   },
   {
     title: "فريق طبي متخ��ص",
-    description: "أطباء أسنان معتمدون بخبرة ط��يلة في المجال",
+    description: "أطباء أسنان معتمدون بخبرة طويلة في المجال",
     icon: Users,
   },
   {
