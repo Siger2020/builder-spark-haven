@@ -145,25 +145,51 @@ const UserManagement = () => {
   const [editingUser, setEditingUser] = useState<any>(null);
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 
-  const handleAddUser = () => {
-    if (!newUser.name || !newUser.email || !newUser.role) {
+  const handleAddUser = async () => {
+    if (!newUser.name || !newUser.email || !newUser.role || !newUser.password) {
       alert('يرجى ملء جميع الحقول المطلوبة');
       return;
     }
 
-    const user = {
-      id: Date.now(),
-      name: newUser.name,
-      email: newUser.email,
-      role: newUser.role,
-      status: 'active',
-      lastLogin: new Date().toISOString().split('T')[0]
-    };
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: newUser.name,
+          email: newUser.email,
+          password: newUser.password,
+          role: newUser.role,
+        }),
+      });
 
-    setUsersList([...usersList, user]);
-    setNewUser({ name: '', email: '', role: '', password: '' });
-    setIsAddUserOpen(false);
-    alert('تم إضافة المستخدم بنجاح');
+      if (response.ok) {
+        const result = await response.json();
+
+        // Add the new user to local state
+        const user = {
+          id: result.user?.id || Date.now(),
+          name: newUser.name,
+          email: newUser.email,
+          role: newUser.role,
+          status: 'active',
+          lastLogin: new Date().toISOString().split('T')[0]
+        };
+
+        setUsersList([...usersList, user]);
+        setNewUser({ name: '', email: '', role: '', password: '' });
+        setIsAddUserOpen(false);
+        alert('تم إضافة المستخدم بنجاح');
+      } else {
+        const error = await response.json();
+        alert(`خطأ في إضافة المستخدم: ${error.error || 'حدث خطأ غير متوقع'}`);
+      }
+    } catch (error) {
+      console.error('Error adding user:', error);
+      alert('حدث خطأ أثناء إضافة المستخدم. يرجى المحاولة مرة أخرى.');
+    }
   };
 
   const handleEditUser = (user: any) => {
@@ -276,7 +302,7 @@ const UserManagement = () => {
       <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
         <DialogContent className="sm:max-w-[500px]" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="font-arabic">إ��افة مستخدم جديد</DialogTitle>
+            <DialogTitle className="font-arabic">إ��افة م��تخدم جديد</DialogTitle>
             <DialogDescription className="font-arabic">
               أدخل بيانات المستخدم ا��ج��يد
             </DialogDescription>
