@@ -133,6 +133,10 @@ export default function Patients() {
     allergies: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isAddMedicalRecordOpen, setIsAddMedicalRecordOpen] = useState(false);
+  const [isAddPaymentOpen, setIsAddPaymentOpen] = useState(false);
+  const [selectedMedicalRecord, setSelectedMedicalRecord] = useState<any>(null);
+  const [selectedPayment, setSelectedPayment] = useState<any>(null);
 
   // Fetch patients data from database
   useEffect(() => {
@@ -974,7 +978,7 @@ export default function Patients() {
                     <TableRow>
                       <TableHead className="font-arabic">رقم الفاتورة</TableHead>
                       <TableHead className="font-arabic">المريض</TableHead>
-                      <TableHead className="font-arabic">الخدمة</TableHead>
+                      <TableHead className="font-arabic">الخدم��</TableHead>
                       <TableHead className="font-arabic">المبلغ</TableHead>
                       <TableHead className="font-arabic">طريقة الدفع</TableHead>
                       <TableHead className="font-arabic">التاريخ</TableHead>
