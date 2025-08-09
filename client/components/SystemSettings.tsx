@@ -136,6 +136,7 @@ const SecuritySettings = () => {
 const UserManagement = () => {
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   const [usersList, setUsersList] = useState(users);
+  const [isLoading, setIsLoading] = useState(false);
   const [newUser, setNewUser] = useState({
     name: '',
     email: '',
@@ -144,6 +145,37 @@ const UserManagement = () => {
   });
   const [editingUser, setEditingUser] = useState<any>(null);
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
+
+  // Load users from database
+  const loadUsers = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/database/tables/users');
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        // Transform database users to match our interface
+        const transformedUsers = data.data.map((user: any) => ({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          status: user.is_active ? 'active' : 'inactive',
+          lastLogin: user.updated_at ? new Date(user.updated_at).toISOString().split('T')[0] : 'لم يسجل دخول'
+        }));
+        setUsersList(transformedUsers);
+      }
+    } catch (error) {
+      console.error('Error loading users:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Load users when component mounts
+  React.useEffect(() => {
+    loadUsers();
+  }, []);
 
   const handleAddUser = async () => {
     if (!newUser.name || !newUser.email || !newUser.role || !newUser.password) {
@@ -302,7 +334,7 @@ const UserManagement = () => {
       <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
         <DialogContent className="sm:max-w-[500px]" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="font-arabic">إ��افة م��تخدم جديد</DialogTitle>
+            <DialogTitle className="font-arabic">إ��افة مستخدم جديد</DialogTitle>
             <DialogDescription className="font-arabic">
               أدخل بيانات المستخدم ا��ج��يد
             </DialogDescription>
@@ -334,7 +366,7 @@ const UserManagement = () => {
                 placeholder="اختر الدور"
                 className="font-arabic"
               >
-                <SelectItem value="admin">مدير</SelectItem>
+                <SelectItem value="admin">��دير</SelectItem>
                 <SelectItem value="doctor">طبيب</SelectItem>
                 <SelectItem value="receptionist">استقبال</SelectItem>
               </Select>
@@ -616,7 +648,7 @@ const GeneralSettings = () => {
             <Select value="sar" className="font-arabic">
               <SelectItem value="yer">ريال يمني (YER)</SelectItem>
               <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
-              <SelectItem value="usd">دولار أمريكي (USD)</SelectItem>
+              <SelectItem value="usd">دولار أمريك�� (USD)</SelectItem>
             </Select>
           </div>
           <div className="flex items-center justify-between">
@@ -708,7 +740,7 @@ const NotificationSettings = () => {
           </div>
           <Button className="font-arabic">
             <Check className="h-4 w-4 mr-2" />
-            اختبار الاتصال
+            اختبار ال��تصال
           </Button>
         </CardContent>
       </Card>
@@ -719,7 +751,7 @@ const NotificationSettings = () => {
 export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
   const getTitle = () => {
     switch (type) {
-      case 'general': return 'الإعدادات العامة';
+      case 'general': return 'الإعد��دات العامة';
       case 'users': return 'إدارة المستخدمين';
       case 'security': return 'الأمان والخصوصية';
       case 'backup': return 'النسخ الاحتياطي';
