@@ -78,7 +78,7 @@ const services = [
   {
     title: "طب أسنان الأطفال",
     description:
-      "رعاي�� أسنان لطيفة وممتعة ���صممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فمو��ة تدوم مدى الحياة",
+      "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للمرضى الصغار. نركز على الوقاية والتثقيف الصحي لتعزيز عادات صحية فموية تدوم مدى الحياة",
     icon: Baby,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Ffedfae90150d4fc9926af30887034b0e",
@@ -434,7 +434,7 @@ export default function Index() {
                   <Star className="h-10 w-10 text-dental-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4 font-arabic">
-                  محاكاة الابتسامة
+                  مح��كاة الابتسامة
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
                   رؤية النتائج المتوقعة قبل بدء العلا�� باستخدام تقنيات الذكاء
@@ -509,7 +509,7 @@ export default function Index() {
                   <div className="relative bg-gray-100">
                     <img
                       src={caseItem.afterImage}
-                      alt={`بعد ${caseItem.title}`}
+                      alt={`بع�� ${caseItem.title}`}
                       className="w-full h-32 object-cover"
                       loading="lazy"
                       style={{
