@@ -73,15 +73,18 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
     // إنشاء رقم تحليل فريد
     const analysisNumber = `AI${Date.now()}`;
 
+    console.log("Starting AI analysis simulation...");
     // محاكاة تحليل الذكاء الاصطناعي
     const mockAIAnalysis = await simulateImageAnalysis(req.file);
+    console.log("AI analysis completed:", mockAIAnalysis);
 
     // حفظ التحليل في قاعدة البيانات
+    console.log("Preparing database insert...");
     const insertAnalysis = db.prepare(`
       INSERT INTO ai_analyses (
-        analysis_number, patient_id, doctor_id, analysis_type, 
+        analysis_number, patient_id, doctor_id, analysis_type,
         input_data, file_path, file_type, file_size,
-        ai_model_used, confidence_score, diagnosis, 
+        ai_model_used, confidence_score, diagnosis,
         recommendations, severity_level, status,
         processing_time_ms, created_by
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -415,12 +418,12 @@ async function simulateImageAnalysis(file) {
 
   const mockResults = [
     {
-      diagnosis: "التهاب اللثة المتوسط",
+      diagnosis: "التها�� اللثة المتوسط",
       confidence: 87.3,
       severity: "medium",
       recommendations: [
         "تنظيف عميق للأسنان واللثة",
-        "استخدام غسول فم مطهر مرتين ��ومياً",
+        "استخدام غسول فم مطهر مرتين يومياً",
         "تحسين تقنية تنظيف الأسنان",
         "مراجعة طبيب الأسنان خلال أسبوعين",
       ],
@@ -509,7 +512,7 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "مراقبة درجة الحرارة",
       "مراجعة الطبيب إذا استمرت الحمى أكثر من 48 ساعة",
     ];
-    relatedConditions = ["نزلة البرد", "الإنفلونزا", "التهاب الحلق"];
+    relatedConditions = ["نزلة البرد", "الإنفلونزا", "التهاب ال��لق"];
   } else if (
     symptomKeywords.includes("ألم البطن") ||
     symptomKeywords.includes("معدة")
