@@ -244,34 +244,24 @@ export default function Booking() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="time" className="font-arabic">وقت الموعد *</Label>
-                      <Select onValueChange={(value) => handleInputChange("time", value)} required>
-                        <SelectTrigger className="font-arabic">
-                          <SelectValue placeholder="اختر الوقت المناسب" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeSlots.map((time) => (
-                            <SelectItem key={time} value={time} className="font-arabic">
-                              {time}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
+                      <Select onValueChange={(value) => handleInputChange("time", value)} required placeholder="اختر الوقت المناسب" className="font-arabic">
+                        {timeSlots.map((time) => (
+                          <SelectItem key={time} value={time}>
+                            {time}
+                          </SelectItem>
+                        ))}
                       </Select>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="service" className="font-arabic">نوع الخدمة المطلوبة *</Label>
-                    <Select onValueChange={(value) => handleInputChange("service", value)} required>
-                      <SelectTrigger className="font-arabic">
-                        <SelectValue placeholder="اختر نوع الخدمة" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {services.map((service) => (
-                          <SelectItem key={service} value={service} className="font-arabic">
-                            {service}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
+                    <Select onValueChange={(value) => handleInputChange("service", value)} required placeholder="اختر نوع الخدمة" className="font-arabic">
+                      {services.map((service) => (
+                        <SelectItem key={service} value={service}>
+                          {service}
+                        </SelectItem>
+                      ))}
                     </Select>
                   </div>
 
@@ -279,7 +269,7 @@ export default function Booking() {
                     <Label htmlFor="notes" className="font-arabic">ملاح��ات إضافية</Label>
                     <Textarea
                       id="notes"
-                      placeholder="أي ملاحظات أو معلومات إضافية تود إضافتها..."
+                      placeholder="أي ملاحظا�� أو معلومات إضافية تود إضافتها..."
                       value={formData.notes}
                       onChange={(e) => handleInputChange("notes", e.target.value)}
                       className="font-arabic"
