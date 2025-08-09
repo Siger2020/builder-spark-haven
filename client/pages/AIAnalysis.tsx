@@ -80,19 +80,23 @@ export default function AIAnalysis() {
 
       const result = await response.json();
 
+      if (!result.success) {
+        throw new Error(result.error || 'فشل في تحليل الصورة');
+      }
+
       const newAnalysis: AnalysisResult = {
-        id: result.data?.id || Date.now().toString(),
+        id: result.analysis?.id?.toString() || Date.now().toString(),
         type: "image",
         result: {
-          diagnosis: result.data?.diagnosis || "تم رفع الصورة بنجاح",
-          confidence: result.data?.confidence || 85,
-          recommendations: result.data?.recommendations || [
+          diagnosis: result.analysis?.diagnosis || "تم رفع الصورة بنجاح",
+          confidence: result.analysis?.confidence || 85,
+          recommendations: result.analysis?.recommendations || [
             "تم حفظ الصورة في النظام",
             "سيتم مراجعتها من قبل الطبيب المختص",
             "ستحصل على النتائج قريباً"
           ],
-          severity: result.data?.severity || "medium",
-          followUp: result.data?.followUp || "متابعة مع الطبيب المختص",
+          severity: result.analysis?.severity || "medium",
+          followUp: "متابعة مع الطبيب المختص",
         },
         timestamp: new Date(),
       };
