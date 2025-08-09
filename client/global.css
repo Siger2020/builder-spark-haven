@@ -4,6 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Clinic Theme CSS Custom Properties */
+:root {
+  --dental-primary: #0ea5e9;
+  --dental-secondary: #64748b;
+  --dental-accent: #06b6d4;
+  --dental-background: #ffffff;
+  --dental-text: #1e293b;
+  --dental-radius: 8px;
+  --dental-font: 'Tajawal', Arial, sans-serif;
+}
+
+/* Apply theme variables */
+.dental-primary {
+  color: var(--dental-primary);
+}
+
+.bg-dental-primary {
+  background-color: var(--dental-primary);
+}
+
+.border-dental-primary {
+  border-color: var(--dental-primary);
+}
+
+.text-dental-primary {
+  color: var(--dental-primary);
+}
+
+.hover\:bg-dental-primary\/90:hover {
+  background-color: color-mix(in srgb, var(--dental-primary) 90%, transparent);
+}
+
 /* Yemeni-themed animations and effects */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -180,13 +212,13 @@
     direction: ltr;
   }
 
-  /* تحسينات للنص العربي */
+  /* تحسينات للنص ��لعربي */
   .font-arabic {
     font-family: 'Cairo', 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     direction: rtl;
   }
 
-  /* تحسينات الصور للآيفون وSafari */
+  /* تحسينات الصور للآيف��ن وSafari */
   img {
     -webkit-user-select: none;
     -webkit-touch-callout: none;
