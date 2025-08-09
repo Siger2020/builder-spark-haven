@@ -62,24 +62,16 @@ export default function AIAnalysis() {
 
     setLoading(true);
     try {
-      // Convert file to base64 for API
-      const base64 = await new Promise<string>((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.readAsDataURL(file);
-      });
+      // Create form data for file upload
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('patientId', ''); // Can be selected later
+      formData.append('doctorId', '1'); // Default doctor
 
       // Send to AI analysis API
-      const response = await fetch('/api/ai-analysis/image', {
+      const response = await fetch('/api/ai-analysis/analyze-image', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: base64,
-          filename: file.name,
-          patient_id: null, // Can be selected later
-        }),
+        body: formData,
       });
 
       if (!response.ok) {
