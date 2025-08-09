@@ -1185,7 +1185,7 @@ export default function Patients() {
                               service: 'تنظيف الأسنان',
                               status: 'مدفوع'
                             })}
-                            title="عرض التفاصيل"
+                            title="عرض ال��فاصيل"
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
@@ -1237,7 +1237,7 @@ export default function Patients() {
                             variant="outline"
                             onClick={() => handlePrintReceipt({
                               invoice: '#INV-003',
-                              patient: 'محمد علي حسن',
+                              patient: 'محم�� علي حسن',
                               amount: '₹ 3,500'
                             })}
                             title="طباعة إيصال"
@@ -1261,10 +1261,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewPayment({
+                              invoice: '#INV-004',
+                              patient: 'سارة محمود',
+                              amount: '₹ 1,500',
+                              service: 'علاج التهاب اللثة',
+                              status: 'مدفوع'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handlePrintReceipt({
+                              invoice: '#INV-004',
+                              patient: 'سارة محمود',
+                              amount: '₹ 1,500'
+                            })}
+                            title="طباعة إيصال"
+                          >
                             <Receipt className="h-4 w-4" />
                           </Button>
                         </div>
