@@ -213,8 +213,15 @@ const UserManagement = () => {
         setIsAddUserOpen(false);
         alert('تم إضافة المستخدم بنجاح');
       } else {
-        const error = await response.json();
-        alert(`خطأ في إضافة المستخدم: ${error.error || 'حدث خطأ غير متوقع'}`);
+        let errorMessage = 'حدث خطأ غير متوقع';
+        try {
+          const error = await response.json();
+          errorMessage = error.error || error.message || errorMessage;
+        } catch (parseError) {
+          // If JSON parsing fails, use status text
+          errorMessage = response.statusText || errorMessage;
+        }
+        alert(`خطأ في إضافة المستخدم: ${errorMessage}`);
       }
     } catch (error) {
       console.error('Error adding user:', error);
@@ -235,7 +242,7 @@ const UserManagement = () => {
 
   const handleUpdateUser = () => {
     if (!newUser.name || !newUser.email || !newUser.role) {
-      alert('يرجى ��لء جميع الحقول المطلوبة');
+      alert('يرجى ملء جميع الحقول المطلوبة');
       return;
     }
 
@@ -280,7 +287,7 @@ const UserManagement = () => {
     return status === "active" ? (
       <Badge className="bg-green-100 text-green-800">نشط</Badge>
     ) : (
-      <Badge className="bg-gray-100 text-gray-800">غير ��شط</Badge>
+      <Badge className="bg-gray-100 text-gray-800">غير ����شط</Badge>
     );
   };
 
@@ -334,7 +341,7 @@ const UserManagement = () => {
           <DialogHeader>
             <DialogTitle className="font-arabic">إ��افة مستخدم جديد</DialogTitle>
             <DialogDescription className="font-arabic">
-              أدخل بيانات ال��ستخدم ا��ج��يد
+              أدخل بيانات المستخدم ا��ج��يد
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -469,7 +476,7 @@ const BackupSettings = () => {
 
       if (data.success && data.data.length > 0) {
         const latestBackup = data.data[0];
-        alert(`آخر نسخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString('ar-SA')}`);
+        alert(`آخر ��سخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString('ar-SA')}`);
       } else {
         alert('لا توجد نسخ احتياطية متاحة');
       }
