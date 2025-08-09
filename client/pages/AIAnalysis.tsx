@@ -62,11 +62,16 @@ export default function AIAnalysis() {
 
     setLoading(true);
     try {
+      // Test API connectivity first
+      console.log("Testing API connectivity...");
+
       // Create form data for file upload
       const formData = new FormData();
       formData.append('image', file);
       formData.append('patientId', ''); // Can be selected later
       formData.append('doctorId', '1'); // Default doctor
+
+      console.log("FormData created, file size:", file.size, "type:", file.type);
 
       // Send to AI analysis API
       const response = await fetch('/api/ai-analysis/analyze-image', {
@@ -255,7 +260,7 @@ export default function AIAnalysis() {
       <div className="flex items-center space-x-4 rtl:space-x-reverse">
         <Brain className="h-8 w-8 text-blue-600" />
         <div>
-          <h1 className="text-3xl font-bold">تحليلات الذكاء ال��صطناعي</h1>
+          <h1 className="text-3xl font-bold">تحليلات الذكاء الاصطناعي</h1>
           <p className="text-muted-foreground">
             تحليل الأمراض وملفات المرضى بتقنية الذكاء الاصطناعي
           </p>
@@ -286,7 +291,7 @@ export default function AIAnalysis() {
                 رفع صورة طبية للتحليل
               </CardTitle>
               <CardDescription>
-                ارفع صورة أشعة، تحليل مختبر��، أو صورة سريرية للحصول على تحليل
+                ارفع صورة أشعة، تحليل مختبري، أو صورة سريرية للحصول على تحليل
                 فوري بالذكاء الاصطناعي
               </CardDescription>
             </CardHeader>
