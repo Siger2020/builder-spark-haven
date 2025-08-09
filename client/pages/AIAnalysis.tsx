@@ -50,7 +50,7 @@ export default function AIAnalysis() {
 
     // Check file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
-      alert("حجم الملف كبير جداً. يرجى اختيار صورة أصغر من 10 ميجابايت.");
+      alert("حجم الملف كبير ج��اً. يرجى اختيار صورة أصغر من 10 ميجابايت.");
       return;
     }
 
@@ -74,11 +74,17 @@ export default function AIAnalysis() {
         body: formData,
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
       if (!response.ok) {
-        throw new Error('فشل في تحليل الصورة');
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`فشل في تحليل الصورة: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
+      console.log('Analysis result:', result);
 
       if (!result.success) {
         throw new Error(result.error || 'فشل في تحليل الصورة');
@@ -199,7 +205,7 @@ export default function AIAnalysis() {
           diagnosis: "فشل في التحليل - تم حفظ الأعراض",
           confidence: 0,
           recommendations: [
-            "تم ح��ظ الأعراض في النظام",
+            "تم حفظ الأعراض في النظام",
             "يرجى مراجعة الطبيب للتشخيص",
             "المحاولة مرة أخرى لاحقاً"
           ],
@@ -355,7 +361,7 @@ export default function AIAnalysis() {
                     لا توجد تحليلات بعد
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    ابدأ بتحليل صورة أو أعراض لرؤية التقارير
+                    ابدأ بتحليل صورة أو أعراض لرؤية التقا��ير
                   </p>
                 </CardContent>
               </Card>
