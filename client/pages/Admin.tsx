@@ -113,6 +113,7 @@ function AdminComponent() {
   >("general");
   const [exportReportsOpen, setExportReportsOpen] = useState(false);
   const [notificationCenterOpen, setNotificationCenterOpen] = useState(false);
+  const [clinicCustomizationOpen, setClinicCustomizationOpen] = useState(false);
 
   // Real data states
   const [dashboardStats, setDashboardStats] = useState<DashboardStats>({
@@ -135,7 +136,7 @@ function AdminComponent() {
       id: 1,
       type: "urgent",
       message: "موعد طارئ - أحمد محمد - يحتاج إلى متابعة فورية",
-      time: "منذ 5 دقائق",
+      time: "منذ 5 دقائ��",
     },
     {
       id: 2,
@@ -254,7 +255,7 @@ function AdminComponent() {
         setRecentAppointments(recentAppointmentsData);
       }
     } catch (error) {
-      console.error("خطأ في ��لب بيانات لوحة التحكم:", error);
+      console.error("خ��أ في ��لب بيانات لوحة التحكم:", error);
     } finally {
       setLoading(false);
     }
@@ -504,7 +505,7 @@ function AdminComponent() {
                     ��كثر الخدمات طلباً
                   </CardTitle>
                   <CardDescription className="font-arabic">
-                    إحصائيات الخدمات الأكثر حجزاً هذا الشهر
+                    إح��ائيات الخدمات الأكثر حجزاً هذا الشهر
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -795,7 +796,7 @@ function AdminComponent() {
                     }}
                   >
                     <Settings className="h-4 w-4 mr-2" />
-                    إعدادات عامة
+                    إعدادا�� عامة
                   </Button>
                   <Button
                     className="w-full font-arabic"
@@ -828,7 +829,7 @@ function AdminComponent() {
                     }}
                   >
                     <Database className="h-4 w-4 mr-2" />
-                    النسخ الاحتياطي
+                    الن��خ الاحتياطي
                   </Button>
                   <Button
                     className="w-full font-arabic"
