@@ -244,7 +244,7 @@ export default function Booking() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="time" className="font-arabic">وقت الموعد *</Label>
-                      <Select onValueChange={(value) => handleInputChange("time", value)} required placeholder="اختر الوقت المناسب" className="font-arabic">
+                      <Select value={formData.time} onValueChange={(value) => handleInputChange("time", value)} required placeholder="اختر الوقت المناسب" className="font-arabic">
                         {timeSlots.map((time) => (
                           <SelectItem key={time} value={time}>
                             {time}
@@ -256,7 +256,7 @@ export default function Booking() {
 
                   <div className="space-y-2">
                     <Label htmlFor="service" className="font-arabic">نوع الخدمة المطلوبة *</Label>
-                    <Select onValueChange={(value) => handleInputChange("service", value)} required placeholder="اختر نوع الخدمة" className="font-arabic">
+                    <Select value={formData.service} onValueChange={(value) => handleInputChange("service", value)} required placeholder="اختر نوع الخدمة" className="font-arabic">
                       {services.map((service) => (
                         <SelectItem key={service} value={service}>
                           {service}
