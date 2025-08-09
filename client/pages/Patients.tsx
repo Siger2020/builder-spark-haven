@@ -404,7 +404,7 @@ export default function Patients() {
               <CardContent>
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="flex-1">
-                    <Label htmlFor="search" className="font-arabic">البحث</Label>
+                    <Label htmlFor="search" className="font-arabic">البح��</Label>
                     <div className="relative">
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
@@ -657,7 +657,7 @@ export default function Patients() {
                   <Card>
                     <CardContent className="text-center py-12">
                       <UserCheck className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                      <p className="text-gray-600 font-arabic">اختر مريضاً من القائمة لعرض ��لفه الشخصي</p>
+                      <p className="text-gray-600 font-arabic">اختر مريضاً من القائمة لعرض ملفه الشخصي</p>
                     </CardContent>
                   </Card>
                 )}
@@ -713,7 +713,7 @@ export default function Patients() {
             {/* Appointments Table */}
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">جدول المواعيد</CardTitle>
+                <CardTitle className="font-arabic">جدول ا��مواعيد</CardTitle>
                 <CardDescription className="font-arabic">
                   إدارة ومتابعة مواعيد جميع المرضى
                 </CardDescription>
@@ -758,7 +758,7 @@ export default function Patients() {
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>2:00 PM</TableCell>
                       <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">تنظ��ف الأسنان</TableCell>
+                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
                       <TableCell>
                         <Badge className="bg-blue-100 text-blue-800 font-arabic">مجدول</Badge>
                       </TableCell>
@@ -1009,10 +1009,18 @@ export default function Patients() {
             {/* Payments Table */}
             <Card>
               <CardHeader>
-                <CardTitle className="font-arabic">سجل المدفوعات</CardTitle>
-                <CardDescription className="font-arabic">
-                  تتبع جميع المدفوعات والفواتير
-                </CardDescription>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="font-arabic">سجل المدفوعات</CardTitle>
+                    <CardDescription className="font-arabic">
+                      تتبع جميع المدفوعات والفواتير
+                    </CardDescription>
+                  </div>
+                  <Button onClick={handleAddPayment} className="font-arabic">
+                    <Plus className="h-4 w-4 mr-2" />
+                    إضافة دفعة جديدة
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
                 <Table>
