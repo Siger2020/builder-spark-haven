@@ -153,7 +153,9 @@ const UserManagement = () => {
       const response = await fetch('/api/database/tables/users');
       const data = await response.json();
 
-      if (data.success && data.data) {
+      console.log('Users API response:', data);
+
+      if (data.success && data.data && Array.isArray(data.data)) {
         // Transform database users to match our interface
         const transformedUsers = data.data.map((user: any) => ({
           id: user.id,
@@ -164,6 +166,10 @@ const UserManagement = () => {
           lastLogin: user.updated_at ? new Date(user.updated_at).toISOString().split('T')[0] : 'لم يسجل دخول'
         }));
         setUsersList(transformedUsers);
+      } else {
+        console.log('Users data is not in expected format:', data);
+        // Keep the mock users as fallback
+        setUsersList(users);
       }
     } catch (error) {
       console.error('Error loading users:', error);
@@ -229,7 +235,7 @@ const UserManagement = () => {
 
   const handleUpdateUser = () => {
     if (!newUser.name || !newUser.email || !newUser.role) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('يرجى ��لء جميع الحقول المطلوبة');
       return;
     }
 
@@ -328,7 +334,7 @@ const UserManagement = () => {
           <DialogHeader>
             <DialogTitle className="font-arabic">إ��افة مستخدم جديد</DialogTitle>
             <DialogDescription className="font-arabic">
-              أدخل بيانات المستخدم ا��ج��يد
+              أدخل بيانات ال��ستخدم ا��ج��يد
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
