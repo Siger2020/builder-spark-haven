@@ -388,7 +388,7 @@ export default function Patients() {
         {/* Main Content */}
         <Tabs defaultValue="patients" className="space-y-6">
           <TabsList className="font-arabic">
-            <TabsTrigger value="patients">قائمة المرضى</TabsTrigger>
+            <TabsTrigger value="patients">قائمة المرض��</TabsTrigger>
             <TabsTrigger value="profile">الملف الشخصي</TabsTrigger>
             <TabsTrigger value="appointments">المواعيد</TabsTrigger>
             <TabsTrigger value="medical">السجل الطبي</TabsTrigger>
@@ -1006,10 +1006,30 @@ export default function Patients() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleViewMedicalRecord({
+                              patient: 'سارة محمود',
+                              diagnosis: 'التهاب اللثة',
+                              treatment: 'علاج التهاب اللثة + مضاد حيوي',
+                              doctor: 'د. كمال الملصي',
+                              date: '2024-01-12'
+                            })}
+                            title="عرض التفاصيل"
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleEditMedicalRecord({
+                              patient: 'سارة محمود',
+                              diagnosis: 'التهاب اللثة',
+                              treatment: 'علاج التهاب اللثة + مضاد حيوي'
+                            })}
+                            title="تعديل"
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
                         </div>
@@ -1071,7 +1091,7 @@ export default function Patients() {
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle className="font-arabic">سجل المدفوعات</CardTitle>
+                    <CardTitle className="font-arabic">سجل المدفوع��ت</CardTitle>
                     <CardDescription className="font-arabic">
                       تتبع جميع المدفوعات والفواتير
                     </CardDescription>
@@ -1541,7 +1561,7 @@ export default function Patients() {
               </div>
 
               <div className="space-y-2">
-                <Label className="font-arabic">التاريخ الطبي</Label>
+                <Label className="font-arabic">التاريخ الط��ي</Label>
                 <Textarea
                   placeholder="أدخل التاريخ الطبي والأمراض السابقة..."
                   className="font-arabic"
