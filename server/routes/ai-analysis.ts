@@ -160,10 +160,12 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("خطأ في تحليل الصورة:", error);
+    console.error("خطأ في تحليل الصورة - Full error:", error);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
     res.status(500).json({
       success: false,
-      error: "حدث خطأ أثناء تحليل الصورة",
+      error: "حدث خطأ أثناء تحليل الصورة: " + error.message,
     });
   }
 });
@@ -437,7 +439,7 @@ async function simulateImageAnalysis(file) {
       severity: "medium",
       recommendations: [
         "تنظيف عميق للأسنان واللثة",
-        "استخدام غسول فم مطهر مرتين يومياً",
+        "ا��تخدام غسول فم مطهر مرتين يومياً",
         "تحسين تقنية تنظيف الأسنان",
         "مراجعة طبيب الأسنان خلال أسبوعين",
       ],
@@ -472,7 +474,7 @@ async function simulateImageAnalysis(file) {
   return {
     ...result,
     processingTime,
-    detailedReport: `تم تحليل الصورة الطبية باستخدام تقنيات الذكاء الاصطناعي المتقدمة. التشخيص المقترح: ${result.diagnosis} بمستوى ثقة ${result.confidence}%. يُنصح بمتابعة التوصيات المذكورة للحصول على ��فضل النتائج.`,
+    detailedReport: `تم تحليل الصورة الطبية باستخدام تقنيات الذكاء الاصطناعي المتقدمة. التشخيص المقترح: ${result.diagnosis} بمستوى ثقة ${result.confidence}%. يُنصح بمتابعة التوصيات المذكورة للحصول على أفضل النتائج.`,
     insights: [
       "تم تحديد المشكلة بدقة عالية",
       "التدخل المبكر يحسن من نتائج العلاج",
@@ -506,7 +508,7 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
       "الراحة في مكان هادئ",
       "شرب كمية كافية من الماء",
       "تجنب الشاشات لفترات طويلة",
-      "م��اجعة الطبيب إذا استمر الصداع أكثر من 3 أيام",
+      "مراجعة الطبيب إذا استمر الصداع أكثر من 3 أيام",
     ];
     relatedConditions = [
       "الصداع النصفي",
@@ -565,7 +567,7 @@ async function simulateSymptomsAnalysis(symptoms, age, gender) {
     recommendations,
     relatedConditions,
     processingTime,
-    detailedReport: `بناءً على تحليل الأعراض المذكورة، تشير النتائج إلى ${diagnosis}. مستوى الثقة في التشخيص ${confidence}%. هذا تحليل أولي ولا يغني عن استشارة طبيب مختص.`,
+    detailedReport: `بناءً على تحليل الأعراض المذكورة، تشير النتائج إلى ${diagnosis}. مستوى الثقة في التشخيص ${confidence}%. هذا تحليل أولي ولا يغ��ي عن استشارة طبيب مختص.`,
     insights: [
       "تم تحليل الأعراض باستخدام خوارزميات متقدمة",
       "التشخيص الأولي ي��اعد في توجيه الرعاية",
