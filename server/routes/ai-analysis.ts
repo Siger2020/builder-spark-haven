@@ -48,13 +48,25 @@ const upload = multer({
 
 // تحليل الصور الطبية
 router.post("/analyze-image", upload.single("image"), async (req, res) => {
+  console.log("AI Analysis - Image upload started");
+  console.log("File received:", req.file ? "Yes" : "No");
+  console.log("Request body:", req.body);
+
   try {
     if (!req.file) {
+      console.log("Error: No file uploaded");
       return res.status(400).json({
         success: false,
         error: "لم يتم رفع أي ملف",
       });
     }
+
+    console.log("File details:", {
+      filename: req.file.filename,
+      size: req.file.size,
+      mimetype: req.file.mimetype,
+      path: req.file.path
+    });
 
     const { patientId, doctorId } = req.body;
 
@@ -408,7 +420,7 @@ async function simulateImageAnalysis(file) {
       severity: "medium",
       recommendations: [
         "تنظيف عميق للأسنان واللثة",
-        "استخدام غسول فم مطهر مرتين يومياً",
+        "استخدام غسول فم مطهر مرتين ��ومياً",
         "تحسين تقنية تنظيف الأسنان",
         "مراجعة طبيب الأسنان خلال أسبوعين",
       ],
