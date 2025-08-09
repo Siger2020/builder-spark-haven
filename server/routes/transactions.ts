@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
         'income' as type,
         'completed' as status,
         notes as description,
-        COALESCE(service_name, 'خدمة عامة') as category,
+        COALESCE(service_name, 'خدمة ��امة') as category,
         COALESCE(service_name, 'خدمة عامة') as service_type
       FROM payments
       ORDER BY payment_date DESC
@@ -109,11 +109,11 @@ router.post("/", async (req, res) => {
     // Insert into payments table
     const insertPayment = db.prepare(`
       INSERT INTO payments (
-        id, patient_name, amount, payment_method, 
-        notes, payment_date, created_at, updated_at, service_name
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        id, patient_name, amount, payment_method,
+        notes, payment_date, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `);
-    
+
     insertPayment.run(
       paymentId,
       patient_name,
@@ -122,8 +122,7 @@ router.post("/", async (req, res) => {
       description || null,
       paymentDate,
       paymentDate,
-      paymentDate,
-      service_type || 'خدمة عامة'
+      paymentDate
     );
     
     // Return the created transaction in the expected format
