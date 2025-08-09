@@ -28,11 +28,14 @@ import {
   Wrench,
   Sparkles,
 } from "lucide-react";
+import AIChatSupport from "@/components/AIChatSupport";
+import CustomerTestimonials from "@/components/CustomerTestimonials";
+import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
 const services = [
   {
     title: "تنظيف الأسنان",
-    description: "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
+    description: "تنظيف شامل ومهني لأسنانك مع أح��ث التقنيات",
     icon: Smile,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fa0d9a2684a264bc7a3c3f7068487b50a",
