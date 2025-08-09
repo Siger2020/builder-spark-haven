@@ -254,18 +254,17 @@ export function ExportReports({ isOpen, onClose }: ExportReportsProps) {
             {/* Format Selection */}
             <div>
               <h3 className="text-lg font-bold font-arabic mb-4">تنسيق التصدير</h3>
-              <Select value={format} onValueChange={setFormat}>
-                <SelectTrigger className="font-arabic">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {getAvailableFormats().map(fmt => (
-                    <SelectItem key={fmt} value={fmt}>
-                      {fmt}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <select
+                value={format}
+                onChange={(e) => setFormat(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white font-arabic"
+              >
+                {getAvailableFormats().map(fmt => (
+                  <option key={fmt} value={fmt}>
+                    {fmt}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Export Summary */}
