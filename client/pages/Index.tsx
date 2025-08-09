@@ -42,7 +42,7 @@ const services = [
   },
   {
     title: "حشوات الأسنان",
-    description: "حشوات تجميلية بأحدث الموا�� الطبية المعتمدة",
+    description: "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
     icon: Shield,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fee282b148b704b2eb8ee7a0bbbfa7295",
@@ -70,7 +70,7 @@ const services = [
   },
   {
     title: "علاج الجذور",
-    description: "علاج متخصص للجذور ��أحدث التقنيات",
+    description: "علاج متخصص للجذور بأحدث التقنيات",
     icon: Award,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fbda9737868a34e22932733caa3f6e2f4%2F4cf7480d4b84433b9c478a4cccc77334",
@@ -94,7 +94,7 @@ const services = [
   {
     title: "طب الأسنان التجميلي",
     description:
-      "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجا�� التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
+      "حسّن ابتسامتك مع تبييض الأسنان الاحترافي، وقشور الأسنان، وغيرها من العلاجات التجميلية. عزز ثقتك بنفسك بابتسامة جميلة",
     icon: Sparkles,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F4227a3a1f6cd425b96f32afb21ed3b0b%2Fba4bbcc0e9c54e84b82134fb9bf8f341",
@@ -350,7 +350,7 @@ export default function Index() {
               لماذا تختارنا؟
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نتميز بالخدمة ال��هنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
+              نتميز بالخدمة المهنية والتقنيات المتقدمة لضمان أفضل رعاية طبية
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -384,7 +384,7 @@ export default function Index() {
             جاهز لبدء رحلة العناية بأسنانك؟
           </h2>
           <p className="text-xl mb-8 font-arabic opacity-90">
-            احجز موعد�� اليوم واحصل على استشارة مجانية
+            احجز موعداً اليوم واحصل على استشارة مجانية
           </p>
           <Link to="/booking">
             <Button
@@ -419,7 +419,7 @@ export default function Index() {
                   الواقع الافتراضي
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  ت����ربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل
+                  تجربة علاجية مريحة باستخدام تقنيات الواقع الافتراضي لتقليل
                   القلق والتوتر
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
@@ -437,11 +437,11 @@ export default function Index() {
                   محاكاة الابتسامة
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  رؤية النتائج المتوقعة قبل بدء العلا�� باستخدام تقنيات الذكاء
+                  رؤية النتائج المتوقعة قبل بدء العلاج باستخدام تقنيات الذكاء
                   الاصطناعي
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
-                  دقة 95% في التوق��ات
+                  دقة 95% في التوقعات
                 </div>
               </CardContent>
             </Card>
@@ -455,7 +455,7 @@ export default function Index() {
                   التصميم الرقمي ثلاثي الأبعاد
                 </h3>
                 <p className="text-gray-600 font-arabic mb-4">
-                  تصميم ابتسامتك المثالية باس��خدام أحدث برامج التصميم ثلاثي
+                  تصميم ابتسامتك المثالية باستخدام أحدث برامج التصميم ثلاثي
                   الأبعاد
                 </p>
                 <div className="text-sm text-dental-primary font-arabic">
@@ -475,7 +475,7 @@ export default function Index() {
               قبل وبعد العلاج
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              اكتشف التحولات المذه��ة التي حققناها لمرضانا
+              اكتشف التحولات المذهلة التي حققناها لمرضانا
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -724,7 +724,7 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "خدمة متميزة ونتائج مذهلة. ت��ييض الأسنان كان آمناً وف��الاً.
+                    "خدمة متميزة ونتائج مذهلة. تبييض الأسنان كان آمناً وف��الاً.
                     أشكر الدكتور وكامل الفريق على الاهتمام الرائع."
                   </p>
                 </div>
