@@ -336,7 +336,7 @@ router.delete("/reset-admin", async (req, res) => {
     let totalDeleted = 0;
     for (const table of tables) {
       try {
-        const result = db.prepare(`DELETE FROM ${table}`).run();
+        const result = database.prepare(`DELETE FROM ${table}`).run();
         totalDeleted += result.changes;
         console.log(`🗑️ تم حذف ${result.changes} سجل من جدول ${table}`);
       } catch (error) {
@@ -345,7 +345,7 @@ router.delete("/reset-admin", async (req, res) => {
     }
 
     // حذف باقي المستخدمين التجريبيين
-    const deleteUsers = db
+    const deleteUsers = database
       .prepare("DELETE FROM users WHERE email LIKE '%@test.com' OR email LIKE '%@dkalmoli.com'")
       .run();
 
@@ -374,6 +374,7 @@ router.delete("/reset-admin", async (req, res) => {
 // إعادة تهيئة قاعدة البيانات (حذف جميع البيانات)
 router.post("/reset-database", async (req, res) => {
   try {
+    const database = isNetlify ? getDatabase() : db;
     console.log("🔄 بدء عملية إعادة تهيئة قاعدة البيانات...");
 
     // قائمة الجداول بالترتيب الصحيح للحذف (بسبب foreign keys)
@@ -398,11 +399,11 @@ router.post("/reset-database", async (req, res) => {
     let totalDeleted = 0;
 
     // تعطيل foreign key constraints مؤقتاً
-    db.pragma("foreign_keys = OFF");
+    database.pragma("foreign_keys = OFF");
 
     for (const table of tables) {
       try {
-        const result = db.prepare(`DELETE FROM ${table}`).run();
+        const result = database.prepare(`DELETE FROM ${table}`).run();
         totalDeleted += result.changes;
         console.log(`🗑️ تم حذف ${result.changes} سجل من جدول ${table}`);
       } catch (error) {
@@ -411,7 +412,7 @@ router.post("/reset-database", async (req, res) => {
     }
 
     // إعادة تفعيل foreign key constraints
-    db.pragma("foreign_keys = ON");
+    database.pragma("foreign_keys = ON");
 
     // إعادة تعيين AUTO_INCREMENT للجداول
     const resetTables = ['users', 'patients', 'doctors', 'appointments', 'services'];
