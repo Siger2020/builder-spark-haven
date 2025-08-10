@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { initializeDatabase } from "./database/index.js";
+import { initializeNetlifyDatabase, isNetlify, createBasicServices, getDatabase } from "./database/netlify-setup.js";
 import authRoutes from "./routes/auth.js";
 import bookingsRoutes from "./routes/bookings.js";
 import appointmentsCleanupRoutes from "./routes/appointments-cleanup.js";
