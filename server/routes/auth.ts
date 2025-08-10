@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
     }
 
     // التحقق من عدم وجود المستخدم مسبقاً
-    const existingUser = db
+    const existingUser = database
       .prepare("SELECT id FROM users WHERE email = ?")
       .get(email);
 
@@ -47,7 +47,7 @@ router.post("/register", async (req, res) => {
     }
 
     // إضافة المستخدم الجديد
-    const stmt = db.prepare(`
+    const stmt = database.prepare(`
       INSERT INTO users (name, email, password, phone, role, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, datetime('now'), datetime('now'))
     `);
@@ -65,7 +65,7 @@ router.post("/register", async (req, res) => {
 
     res.json({
       success: true,
-      message: "تم إنشاء الحساب بنجاح",
+      message: "ت�� إنشاء الحساب بنجاح",
       user,
     });
   } catch (error) {
@@ -308,7 +308,7 @@ router.get("/test-admin", async (req, res) => {
   }
 });
 
-// حذف بيان��ت المدير التجريبية
+// حذف بيانات المدير التجريبية
 router.delete("/reset-admin", async (req, res) => {
   try {
     console.log("🗑️ بدء عملية حذف بيانات المدير التجريبية...");
@@ -320,7 +320,7 @@ router.delete("/reset-admin", async (req, res) => {
 
     console.log(`✅ تم حذف ${deleteResult.changes} حساب مدير`);
 
-    // حذف جميع البيانات التجريبية الأخرى
+    // ��ذف جميع البيانات التجريبية الأخرى
     const tables = [
       'financial_transactions',
       'appointments',
