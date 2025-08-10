@@ -26,8 +26,56 @@ export async function initializeDatabase() {
     db.exec(schema);
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
 
-    // إضافة بيانات تجريبية إذا لم تكن موجودة
-    // seedDatabase(); // تم تعطيل البيانات التجريبية
+    // حذف البيانات التجريبية فوراً
+    console.log("🗑️ حذف البيانات التجريبية الموجودة...");
+
+    // تعطيل foreign keys مؤقتاً
+    db.pragma("foreign_keys = OFF");
+
+    try {
+      // حذف البيانات بالترتيب الصحيح
+      const deleteQueries = [
+        "DELETE FROM financial_transactions",
+        "DELETE FROM appointments",
+        "DELETE FROM patients",
+        "DELETE FROM doctors",
+        "DELETE FROM users",
+        "DELETE FROM activity_logs",
+        "DELETE FROM notifications"
+      ];
+
+      let totalDeleted = 0;
+      for (const query of deleteQueries) {
+        try {
+          const result = db.prepare(query).run();
+          if (result.changes > 0) {
+            totalDeleted += result.changes;
+            console.log(`🗑️ ${query}: حذف ${result.changes} سجل`);
+          }
+        } catch (error) {
+          console.log(`⚠️ تعذر تنفيذ ${query}:`, error.message);
+        }
+      }
+
+      // إعادة تعيين تسلسل الجداول
+      const resetTables = ['users', 'patients', 'doctors', 'appointments', 'services', 'financial_transactions'];
+      for (const table of resetTables) {
+        try {
+          db.prepare(`DELETE FROM sqlite_sequence WHERE name = '${table}'`).run();
+        } catch (error) {
+          // تجاهل الأخطاء
+        }
+      }
+
+      console.log(`✅ تم حذف ${totalDeleted} سجل من البيانات التجريبية`);
+      console.log("🎉 النظام الآن نظيف وجاهز للاستخدام الفعلي!");
+
+    } catch (error) {
+      console.error("❌ خطأ في حذف البيانات:", error);
+    }
+
+    // إعادة تفعيل foreign keys
+    db.pragma("foreign_keys = ON");
 
     // تحديث وفحص قاعدة البيانات
     try {
@@ -37,15 +85,6 @@ export async function initializeDatabase() {
     } catch (error) {
       console.log("⚠️ تحديث قاعدة البيانات غير متاح:", error.message);
     }
-
-    // التأكد من وجود حساب المدير
-    // ensureAdminExists(); // تم تعطيل إنشاء حساب المدير التجريبي
-
-    // إصلاح تطابق بيانات المواعيد
-    fixAppointmentDataConsistency();
-
-    // حذف البيانات التجريبية الموجودة
-    clearExistingTestData();
 
   } catch (error) {
     console.error("❌ خطأ في تهيئة قاعدة البيانات:", error);
@@ -135,7 +174,7 @@ function seedDatabase() {
 
       insertUserTransaction(users);
 
-      // إضافة ال��طباء
+      // إضافة الأطباء
       const insertDoctor = db.prepare(`
         INSERT INTO doctors (user_id, doctor_number, specialization, license_number, qualification, experience_years, consultation_fee) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -179,7 +218,7 @@ function seedDatabase() {
         4,
         "PAT002",
         "التأمين الحكومي",
-        "��رتفاع ضغط الدم",
+        "ارتفاع ضغط الدم",
         "حساسية من البنسلين",
         "A+",
         2,
@@ -630,7 +669,7 @@ function clearExistingTestData() {
     console.log("🎉 النظام الآن نظيف وجاهز للاستخدام الفعلي!");
 
   } catch (error) {
-    console.error("❌ خطأ في حذف البيانات التجريبية:", error);
+    console.error("❌ خط�� في حذف البيانات التجريبية:", error);
 
     // إعادة تفعيل foreign keys في حالة الخطأ
     try {
