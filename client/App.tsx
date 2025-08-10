@@ -35,6 +35,7 @@ import EmailJSDebugTest from "./pages/EmailJSDebugTest";
 import SystemReset from "./pages/SystemReset";
 import Welcome from "./pages/Welcome";
 import NetlifyDiagnostics from "./pages/NetlifyDiagnostics";
+import SystemDiagnostics from "./pages/SystemDiagnostics";
 
 const queryClient = new QueryClient();
 
