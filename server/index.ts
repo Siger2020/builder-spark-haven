@@ -27,7 +27,7 @@ import {
   findAppointmentHandler,
 } from "./routes/database.js";
 
-export function createServer() {
+export async function createServer() {
   const app = express();
 
   // تهيئة قاعدة البيانات حسب البيئة
