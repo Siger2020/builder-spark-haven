@@ -418,7 +418,7 @@ router.post("/reset-database", async (req, res) => {
     const resetTables = ['users', 'patients', 'doctors', 'appointments', 'services'];
     for (const table of resetTables) {
       try {
-        db.prepare(`DELETE FROM sqlite_sequence WHERE name = '${table}'`).run();
+        database.prepare(`DELETE FROM sqlite_sequence WHERE name = '${table}'`).run();
       } catch (error) {
         // تجاهل الأخطاء - قد لا يكون الجدول يستخدم AUTO_INCREMENT
       }
@@ -440,7 +440,7 @@ router.post("/reset-database", async (req, res) => {
 
     // إعادة تفعيل foreign keys في حالة الخطأ
     try {
-      db.pragma("foreign_keys = ON");
+      database.pragma("foreign_keys = ON");
     } catch (pragmaError) {
       console.error("خطأ في إعادة تفعيل foreign keys:", pragmaError);
     }
