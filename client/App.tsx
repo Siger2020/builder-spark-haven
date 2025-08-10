@@ -33,6 +33,7 @@ import UserInfo from "./pages/UserInfo";
 import AIAnalysis from "./pages/AIAnalysis";
 import EmailJSDebugTest from "./pages/EmailJSDebugTest";
 import SystemReset from "./pages/SystemReset";
+import Welcome from "./pages/Welcome";
 
 const queryClient = new QueryClient();
 
