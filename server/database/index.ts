@@ -6,9 +6,22 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// إنشاء اتصال قاعدة البيانات
-const dbPath = join(__dirname, "../../clinic_database.sqlite");
-export const db = new Database(dbPath);
+// تحديد بيئة التشغيل
+const isNetlify = process.env.NETLIFY === 'true';
+
+let db: Database.Database;
+
+if (isNetlify) {
+  // في بيئة Netlify، استخدم قاعدة بيانات في الذاكرة
+  console.log("🌐 تشغيل في بيئة Netlify - استخدام قاعدة بيانات في الذاكرة");
+  db = new Database(':memory:');
+} else {
+  // في بيئة التطوير المحلية، استخدم ملف قاعدة البيانات
+  const dbPath = join(__dirname, "../../clinic_database.sqlite");
+  db = new Database(dbPath);
+}
+
+export { db };
 
 // Export getDatabase function for API routes
 export function getDatabase() {
@@ -333,7 +346,7 @@ function seedDatabase() {
   }
 }
 
-// إصلاح تطابق بيانات ال��واعيد
+// إصلاح تطابق بي��نات ال��واعيد
 function fixAppointmentDataConsistency() {
   try {
     console.log("🔧 إصلاح تطابق بيانات المواعيد...");
