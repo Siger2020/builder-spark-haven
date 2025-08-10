@@ -77,6 +77,9 @@ export async function initializeDatabase() {
     // إعادة تفعيل foreign keys
     db.pragma("foreign_keys = ON");
 
+    // إنشاء حساب مدير أساسي إذا لم يوجد أي مستخدمين
+    createDefaultAdminAccount();
+
     // تحديث وفحص قاعدة البيانات
     try {
       const { updateDatabase, validateDatabaseIntegrity } = await import("./update.js");
@@ -92,7 +95,7 @@ export async function initializeDatabase() {
   }
 }
 
-// إضافة بيانات تجريبية
+// إ��افة بيانات تجريبية
 function seedDatabase() {
   try {
     // التحقق من وجود مستخدمين
