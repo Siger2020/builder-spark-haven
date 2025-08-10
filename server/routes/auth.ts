@@ -65,7 +65,7 @@ router.post("/register", async (req, res) => {
 
     res.json({
       success: true,
-      message: "ت�� إنشاء الحساب بنجاح",
+      message: "تم إنشاء الحساب بنجاح",
       user,
     });
   } catch (error) {
@@ -80,6 +80,7 @@ router.post("/register", async (req, res) => {
 // تسجيل الدخول
 router.post("/login", async (req, res) => {
   try {
+    const database = isNetlify ? getDatabase() : db;
     const { email, password } = req.body;
 
     console.log("Login attempt:", {
@@ -96,7 +97,7 @@ router.post("/login", async (req, res) => {
     }
 
     // البحث عن المستخدم بالإيميل أولاً للتشخيص
-    const emailCheck = db
+    const emailCheck = database
       .prepare("SELECT id, name, email, role FROM users WHERE email = ?")
       .get(email);
 
@@ -117,7 +118,7 @@ router.post("/login", async (req, res) => {
     }
 
     // البحث عن المستخدم
-    const user = db
+    const user = database
       .prepare(
         `
       SELECT id, name, email, phone, role
@@ -144,9 +145,9 @@ router.post("/login", async (req, res) => {
         });
       } else {
         // عرض معلومات الحساب المتاح إذا لم يوجد مستخدمين آخرين
-        const userCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+        const userCount = database.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
         if (userCount.count === 1) {
-          const availableAdmin = db.prepare("SELECT email FROM users WHERE role = 'admin' LIMIT 1").get() as { email: string } | undefined;
+          const availableAdmin = database.prepare("SELECT email FROM users WHERE role = 'admin' LIMIT 1").get() as { email: string } | undefined;
           res.status(401).json({
             success: false,
             error: `البريد الإلكتروني غير موجود. الحساب المتاح: ${availableAdmin?.email || 'admin@clinic.com'} / admin123`,
@@ -320,7 +321,7 @@ router.delete("/reset-admin", async (req, res) => {
 
     console.log(`✅ تم حذف ${deleteResult.changes} حساب مدير`);
 
-    // ��ذف جميع البيانات التجريبية الأخرى
+    // حذف جميع البيانات التجريبية الأخرى
     const tables = [
       'financial_transactions',
       'appointments',
@@ -399,7 +400,7 @@ router.post("/reset-database", async (req, res) => {
       try {
         const result = db.prepare(`DELETE FROM ${table}`).run();
         totalDeleted += result.changes;
-        console.log(`🗑️ تم حذف ${result.changes} سجل من جدول ${table}`);
+        console.log(`🗑️ تم حذف ${result.changes} سجل ��ن جدول ${table}`);
       } catch (error) {
         console.log(`⚠️ تعذر حذف بيانات من جدول ${table}:`, error.message);
       }
