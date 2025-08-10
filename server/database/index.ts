@@ -77,7 +77,7 @@ export async function initializeDatabase() {
     // إعادة تفعيل foreign keys
     db.pragma("foreign_keys = ON");
 
-    // إنشاء حساب مدير أساسي إذا لم يوجد أي مستخدمين
+    // إنشاء حساب مدير أساسي ��ذا لم يوجد أي مستخدمين
     createDefaultAdminAccount();
 
     // تحديث وفحص قاعدة البيانات
@@ -95,7 +95,7 @@ export async function initializeDatabase() {
   }
 }
 
-// إ��افة بيانات تجريبية
+// إضافة بيانات تجريبية
 function seedDatabase() {
   try {
     // التحقق من وجود مستخدمين
@@ -305,7 +305,7 @@ function seedDatabase() {
         50,
         "cash",
         "completed",
-        "تنظيف ��لأسنان",
+        "تنظيف ��لأسن��ن",
       );
       insertTransaction.run(
         "TXN002",
@@ -350,7 +350,7 @@ function fixAppointmentDataConsistency() {
     if (invalidAppointments.length > 0) {
       console.log(`🔄 إصلاح ${invalidAppointments.length} موعد بأرقام مرضى خاطئة...`);
 
-      // حذف المواعيد ذات patient_id خاطئة
+      // حذف المواعيد ذا�� patient_id خاطئة
       const deleteInvalidAppointments = db.prepare(`
         DELETE FROM appointments
         WHERE NOT EXISTS (
@@ -607,6 +607,45 @@ export function globalSearch(query: string, limit = 50) {
   }
 }
 
+
+// إنشاء حساب مدير أساسي وحيد للدخول
+function createDefaultAdminAccount() {
+  try {
+    // التحقق من وجود أي مستخدمين
+    const userCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+
+    if (userCount.count === 0) {
+      console.log("👤 إنشاء حساب مدير أساسي للدخول...");
+
+      // إنشاء حساب مدير بسيط
+      const insertAdmin = db.prepare(`
+        INSERT INTO users (name, email, password, phone, role, gender, address, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+      `);
+
+      insertAdmin.run(
+        "مدير النظام",
+        "admin@clinic.com",
+        "admin123",
+        "00967777000000",
+        "admin",
+        "male",
+        "عيادة الأسنان"
+      );
+
+      console.log("✅ تم إنشاء حساب المدير الأساسي:");
+      console.log("📧 البريد الإلكتروني: admin@clinic.com");
+      console.log("🔑 كلمة المرور: admin123");
+      console.log("⚠️ يُنصح بتغيير كلمة المرور بعد أول تسجيل دخول");
+
+    } else {
+      console.log(`👥 يوجد ${userCount.count} مستخدم في النظام`);
+    }
+
+  } catch (error) {
+    console.error("❌ خطأ في إنشاء حساب المدير الأساسي:", error);
+  }
+}
 
 // تصدير قاعدة البيانات
 export { db as database };
