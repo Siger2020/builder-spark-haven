@@ -173,6 +173,7 @@ router.post("/login", async (req, res) => {
 // التحقق من صحة الجلسة
 router.get("/verify", async (req, res) => {
   try {
+    const database = isNetlify ? getDatabase() : db;
     const { userId } = req.query;
 
     if (!userId) {
@@ -182,11 +183,11 @@ router.get("/verify", async (req, res) => {
       });
     }
 
-    const user = db
+    const user = database
       .prepare(
         `
-      SELECT id, name, email, phone, role 
-      FROM users 
+      SELECT id, name, email, phone, role
+      FROM users
       WHERE id = ?
     `,
       )
@@ -215,15 +216,16 @@ router.get("/verify", async (req, res) => {
 // التحقق من حالة النظام وإنشاء المدير الأول إذا لزم الأمر
 router.get("/system-status", async (req, res) => {
   try {
+    const database = isNetlify ? getDatabase() : db;
     // عد المستخدمين
-    const userCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+    const userCount = database.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
 
     let defaultAdminCreated = false;
 
     // إذا لم يوجد أي مستخدمين، أنشئ حساب مدير أساسي
     if (userCount.count === 0) {
       try {
-        const insertAdmin = db.prepare(`
+        const insertAdmin = database.prepare(`
           INSERT INTO users (name, email, password, phone, role, gender, address, created_at, updated_at)
           VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
         `);
@@ -273,7 +275,7 @@ router.get("/system-status", async (req, res) => {
         loginCredentials: adminAccount && adminAccount.email === "admin@clinic.com" ? {
           email: "admin@clinic.com",
           password: "admin123",
-          note: "يُنصح بتغيير كلمة المرور بعد أول تسجيل دخول"
+          note: "يُنصح بتغيير كلمة المرور بعد أول تسجيل دخ��ل"
         } : null
       }
     });
@@ -321,7 +323,7 @@ router.delete("/reset-admin", async (req, res) => {
 
     console.log(`✅ تم حذف ${deleteResult.changes} حساب مدير`);
 
-    // حذف جميع البيانات التجريبية الأخرى
+    // حذف جميع البيانات التجر��بية الأخرى
     const tables = [
       'financial_transactions',
       'appointments',
@@ -400,7 +402,7 @@ router.post("/reset-database", async (req, res) => {
       try {
         const result = db.prepare(`DELETE FROM ${table}`).run();
         totalDeleted += result.changes;
-        console.log(`🗑️ تم حذف ${result.changes} سجل ��ن جدول ${table}`);
+        console.log(`🗑️ تم حذف ${result.changes} سجل من جدول ${table}`);
       } catch (error) {
         console.log(`⚠️ تعذر حذف بيانات من جدول ${table}:`, error.message);
       }
