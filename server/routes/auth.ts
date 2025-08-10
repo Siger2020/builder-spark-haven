@@ -176,6 +176,81 @@ router.get("/verify", async (req, res) => {
   }
 });
 
+// التحقق من حالة النظام وإنشاء المدير الأول إذا لزم الأمر
+router.get("/system-status", async (req, res) => {
+  try {
+    // عد المستخدمين
+    const userCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+
+    let defaultAdminCreated = false;
+
+    // إذا لم يوجد أي مستخدمين، أنشئ حساب مدير أساسي
+    if (userCount.count === 0) {
+      try {
+        const insertAdmin = db.prepare(`
+          INSERT INTO users (name, email, password, phone, role, gender, address, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+        `);
+
+        insertAdmin.run(
+          "مدير النظام",
+          "admin@clinic.com",
+          "admin123",
+          "00967777000000",
+          "admin",
+          "male",
+          "عيادة الأسنان"
+        );
+
+        defaultAdminCreated = true;
+        console.log("✅ تم إنشاء حساب مدير أساسي للنظام");
+
+      } catch (error) {
+        console.error("❌ خطأ في إنشاء حساب المدير:", error);
+      }
+    }
+
+    // إعادة عد المستخدمين
+    const finalUserCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+
+    // البحث عن حساب المدير
+    const adminAccount = db.prepare(`
+      SELECT id, name, email, role
+      FROM users
+      WHERE role = 'admin'
+      ORDER BY created_at ASC
+      LIMIT 1
+    `).get();
+
+    res.json({
+      success: true,
+      systemStatus: {
+        totalUsers: finalUserCount.count,
+        hasUsers: finalUserCount.count > 0,
+        defaultAdminCreated: defaultAdminCreated,
+        adminAccount: adminAccount ? {
+          id: adminAccount.id,
+          name: adminAccount.name,
+          email: adminAccount.email,
+          role: adminAccount.role
+        } : null,
+        loginCredentials: adminAccount && adminAccount.email === "admin@clinic.com" ? {
+          email: "admin@clinic.com",
+          password: "admin123",
+          note: "يُنصح بتغيير كلمة المرور بعد أول تسجيل دخول"
+        } : null
+      }
+    });
+
+  } catch (error) {
+    console.error("System status error:", error);
+    res.status(500).json({
+      success: false,
+      error: "خطأ في التحقق من حالة النظام",
+    });
+  }
+});
+
 // نقطة اختبار للتحقق من بيانات المدير
 router.get("/test-admin", async (req, res) => {
   try {
