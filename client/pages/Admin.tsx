@@ -340,7 +340,7 @@ function AdminComponent() {
                 {dashboardStats.totalAppointments}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                {dashboardStats.completedAppointments} مكتمل،{" "}
+                {dashboardStats.completedAppointments} مك��مل،{" "}
                 {dashboardStats.scheduledAppointments} مجدول
               </p>
             </CardContent>
@@ -782,7 +782,7 @@ function AdminComponent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-arabic">إعدادات النظام</CardTitle>
+                  <CardTitle className="font-arabic">إع��ادات النظام</CardTitle>
                   <CardDescription className="font-arabic">
                     تخصيص إعدادات العيادة
                   </CardDescription>
@@ -855,6 +855,12 @@ function AdminComponent() {
                     <Button className="w-full font-arabic" variant="outline">
                       <Database className="h-4 w-4 mr-2" />
                       إدارة قاعدة البيانات
+                    </Button>
+                  </Link>
+                  <Link to="/system-reset">
+                    <Button className="w-full font-arabic" variant="outline">
+                      <Database className="h-4 w-4 mr-2" />
+                      إعادة تعيين النظام
                     </Button>
                   </Link>
                 </CardContent>
