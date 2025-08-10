@@ -7,6 +7,7 @@ const router = express.Router();
 // تسجيل مستخدم جديد
 router.post("/register", async (req, res) => {
   try {
+    const database = isNetlify ? getDatabase() : db;
     const { name, email, password, phone, role } = req.body;
 
     console.log("Registration attempt:", {
@@ -135,7 +136,7 @@ router.post("/login", async (req, res) => {
         user,
       });
     } else {
-      // ال��حقق من وجود البريد الإلكتروني مع كلمة مرور خاطئة
+      // التحقق من وجود البريد الإلكتروني مع كلمة مرور خاطئة
       if (emailCheck) {
         res.status(401).json({
           success: false,
@@ -163,7 +164,7 @@ router.post("/login", async (req, res) => {
     console.error("Login error:", error);
     res.status(500).json({
       success: false,
-      error: "خ��أ في تسجيل الدخول",
+      error: "خطأ في تسجيل الدخول",
     });
   }
 });
@@ -218,7 +219,7 @@ router.get("/system-status", async (req, res) => {
 
     let defaultAdminCreated = false;
 
-    // إذا لم يوجد أي مستخد��ين، أنشئ حساب مدير أساسي
+    // إذا لم يوجد أي مستخدمين، أنشئ حساب مدير أساسي
     if (userCount.count === 0) {
       try {
         const insertAdmin = db.prepare(`
@@ -307,7 +308,7 @@ router.get("/test-admin", async (req, res) => {
   }
 });
 
-// حذف بيانات المدير التجريبية
+// حذف بيان��ت المدير التجريبية
 router.delete("/reset-admin", async (req, res) => {
   try {
     console.log("🗑️ بدء عملية حذف بيانات المدير التجريبية...");
