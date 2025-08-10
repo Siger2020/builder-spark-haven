@@ -184,10 +184,10 @@ export default function Login() {
             <div className="mt-4 text-center space-y-2">
               <div>
                 <Link
-                  to="/netlify-diagnostics"
+                  to="/diagnostics"
                   className="text-sm text-blue-600 hover:text-blue-800 font-arabic underline"
                 >
-                  🔍 تشخيص مشاكل Netlify
+                  🔍 تشخيص النظام
                 </Link>
               </div>
               <div>
