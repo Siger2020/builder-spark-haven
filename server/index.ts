@@ -30,9 +30,16 @@ import {
 export function createServer() {
   const app = express();
 
-  // تهيئة قاعدة البيانات
+  // تهيئة قاعدة البيانات حسب البيئة
   try {
-    initializeDatabase();
+    if (isNetlify) {
+      console.log("🌐 تهيئة قاعدة البيانات لبيئة Netlify");
+      await initializeNetlifyDatabase();
+      await createBasicServices(getDatabase());
+    } else {
+      console.log("🏠 تهيئة قاعدة البيانات للبيئة المحلية");
+      initializeDatabase();
+    }
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
   } catch (error) {
     console.error("❌ فشل في تهيئة قاعدة البيانات:", error);
