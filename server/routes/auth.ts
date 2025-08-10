@@ -249,10 +249,10 @@ router.get("/system-status", async (req, res) => {
     }
 
     // إعادة عد المستخدمين
-    const finalUserCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+    const finalUserCount = database.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
 
     // البحث عن حساب المدير
-    const adminAccount = db.prepare(`
+    const adminAccount = database.prepare(`
       SELECT id, name, email, role
       FROM users
       WHERE role = 'admin'
@@ -275,7 +275,7 @@ router.get("/system-status", async (req, res) => {
         loginCredentials: adminAccount && adminAccount.email === "admin@clinic.com" ? {
           email: "admin@clinic.com",
           password: "admin123",
-          note: "يُنصح بتغيير كلمة المرور بعد أول تسجيل دخ��ل"
+          note: "يُنصح بتغيير كلمة المرور بعد أول تسجيل دخول"
         } : null
       }
     });
@@ -292,7 +292,8 @@ router.get("/system-status", async (req, res) => {
 // نقطة اختبار للتحقق من بيانات المدير
 router.get("/test-admin", async (req, res) => {
   try {
-    const admin = db
+    const database = isNetlify ? getDatabase() : db;
+    const admin = database
       .prepare(
         "SELECT id, name, email, password, role FROM users WHERE email = 'admin@dkalmoli.com'",
       )
@@ -314,16 +315,17 @@ router.get("/test-admin", async (req, res) => {
 // حذف بيانات المدير التجريبية
 router.delete("/reset-admin", async (req, res) => {
   try {
+    const database = isNetlify ? getDatabase() : db;
     console.log("🗑️ بدء عملية حذف بيانات المدير التجريبية...");
 
     // حذف حساب المدير
-    const deleteResult = db
+    const deleteResult = database
       .prepare("DELETE FROM users WHERE email = 'admin@dkalmoli.com'")
       .run();
 
     console.log(`✅ تم حذف ${deleteResult.changes} حساب مدير`);
 
-    // حذف جميع البيانات التجر��بية الأخرى
+    // حذف جميع البيانات التجريبية الأخرى
     const tables = [
       'financial_transactions',
       'appointments',
