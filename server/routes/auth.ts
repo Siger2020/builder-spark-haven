@@ -1,5 +1,6 @@
 import express from "express";
 import { db } from "../database/index.js";
+import { getDatabase, isNetlify } from "../database/netlify-setup.js";
 
 const router = express.Router();
 
@@ -134,7 +135,7 @@ router.post("/login", async (req, res) => {
         user,
       });
     } else {
-      // التحقق من وجود البريد الإلكتروني مع كلمة مرور خاطئة
+      // ال��حقق من وجود البريد الإلكتروني مع كلمة مرور خاطئة
       if (emailCheck) {
         res.status(401).json({
           success: false,
@@ -162,7 +163,7 @@ router.post("/login", async (req, res) => {
     console.error("Login error:", error);
     res.status(500).json({
       success: false,
-      error: "خطأ في تسجيل الدخول",
+      error: "خ��أ في تسجيل الدخول",
     });
   }
 });
@@ -217,7 +218,7 @@ router.get("/system-status", async (req, res) => {
 
     let defaultAdminCreated = false;
 
-    // إذا لم يوجد أي مستخدمين، أنشئ حساب مدير أساسي
+    // إذا لم يوجد أي مستخد��ين، أنشئ حساب مدير أساسي
     if (userCount.count === 0) {
       try {
         const insertAdmin = db.prepare(`
