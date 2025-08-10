@@ -27,7 +27,7 @@ export async function initializeDatabase() {
     console.log("✅ تم تهيئة قاعدة البيانات بنجاح");
 
     // إضافة بيانات تجريبية إذا لم تكن موجودة
-    seedDatabase();
+    // seedDatabase(); // تم تعطيل البيانات التجريبية
 
     // تحديث وفحص قاعدة البيانات
     try {
@@ -442,7 +442,7 @@ export async function createBackup(backupName?: string) {
 
     return { success: true, path: backupPath, size: stats.size };
   } catch (error) {
-    console.error("❌ خطأ في إنشاء النسخة الاحتياطية:", error);
+    console.error("❌ خ��أ في إنشاء النسخة الاحتياطية:", error);
     return { success: false, error: error.message };
   }
 }
