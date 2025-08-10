@@ -64,7 +64,7 @@ export default function Login() {
             تسجيل الدخول
           </h2>
           <p className="mt-2 text-sm text-gray-600 font-arabic">
-            يرجى تسجيل الدخول ��لوصول إلى خدمة الحجز
+            يرجى تسجيل الد��ول ��لوصول إلى خدمة الحجز
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export default function Login() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="أدخل بريدك الإلكتروني"
+                    placeholder="أدخل بريد�� الإلكتروني"
                     className="font-arabic"
                     disabled={isLoading}
                   />
@@ -153,6 +153,24 @@ export default function Login() {
               </Button>
             </form>
 
+            {/* Quick Admin Login Button - Temporary */}
+            <div className="mt-4">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full font-arabic text-sm"
+                onClick={() => {
+                  setEmail("admin@clinic.com");
+                  setPassword("admin123");
+                }}
+                disabled={isLoading}
+              >
+                تعبئة البيانات الصحيحة الجديدة
+              </Button>
+              <p className="text-xs text-gray-500 mt-1 font-arabic text-center">
+                ��لبيانات الجديدة: admin@clinic.com / admin123
+              </p>
+            </div>
 
             <div className="mt-6 text-center">
               <Link
