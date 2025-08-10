@@ -61,17 +61,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
-      // Safe JSON parsing regardless of response status
+      // Parse JSON response safely
       let data;
       try {
-        const responseText = await response.text();
-        if (responseText) {
-          data = JSON.parse(responseText);
-        } else {
-          console.error("Empty response from server");
-          setIsLoading(false);
-          return false;
-        }
+        data = await response.json();
       } catch (jsonError) {
         console.error("Failed to parse JSON response:", jsonError);
         setIsLoading(false);
