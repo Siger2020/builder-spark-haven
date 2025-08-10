@@ -153,30 +153,6 @@ export default function Login() {
               </Button>
             </form>
 
-            {/* Default Admin Login Button */}
-            <div className="mt-4 space-y-2">
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full font-arabic"
-                onClick={() => {
-                  setEmail("admin@clinic.com");
-                  setPassword("admin123");
-                }}
-                disabled={isLoading}
-              >
-                تعبئة بيانات المدير الأساسي
-              </Button>
-
-              <div className="text-center">
-                <Link
-                  to="/welcome"
-                  className="text-sm text-dental-primary hover:text-dental-primary/80 font-arabic"
-                >
-                  نظام جديد؟ اعرض صفحة الترحيب
-                </Link>
-              </div>
-            </div>
 
             <div className="mt-6 text-center">
               <Link
