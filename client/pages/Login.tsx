@@ -72,7 +72,7 @@ export default function Login() {
         <Card>
           <CardHeader>
             <CardTitle className="font-arabic">
-              تسجيل الد��ول إلى حسابك
+              تسجيل الدخول إلى حسابك
             </CardTitle>
             <CardDescription className="font-arabic">
               أدخل بياناتك للوصول إلى النظام
@@ -183,7 +183,7 @@ export default function Login() {
                 to="/register"
                 className="text-sm text-dental-primary hover:underline font-arabic"
               >
-                ليس لديك حساب؟ إنشاء حساب جديد
+                ليس لديك حسا��؟ إنشاء حساب جديد
               </Link>
             </div>
 
