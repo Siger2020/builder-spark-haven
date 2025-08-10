@@ -492,7 +492,7 @@ export async function createBackup(backupName?: string) {
 // استعادة النسخة ا��احتياطية
 export async function restoreBackup(backupPath: string) {
   try {
-    // إغلاق الاتصال الحالي
+    // ��غلاق الاتصال الحالي
     db.close();
 
     // نسخ ملف النس��ة الاحتياطية
@@ -604,81 +604,6 @@ export function globalSearch(query: string, limit = 50) {
   }
 }
 
-// حذف البيانات التجريبية الموجودة
-function clearExistingTestData() {
-  try {
-    console.log("🗑️ التحقق من وجود بيانات تجريبية لحذفها...");
-
-    // التحقق من وجود حساب المدير التجريبي
-    const adminExists = db.prepare("SELECT id FROM users WHERE email = 'admin@dkalmoli.com'").get();
-
-    if (!adminExists) {
-      console.log("✅ لا توجد بيانات تجريبية لحذفها");
-      return;
-    }
-
-    console.log("🗑️ تم العثور على بيانات تجريبية، سيتم حذفها...");
-
-    // تعطيل foreign key constraints مؤقتاً
-    db.pragma("foreign_keys = OFF");
-
-    // حذف البيانات بالترتيب الصحيح
-    const tables = [
-      'financial_transactions',
-      'appointments',
-      'patients',
-      'doctors',
-      'activity_logs',
-      'notifications'
-    ];
-
-    let totalDeleted = 0;
-    for (const table of tables) {
-      try {
-        const result = db.prepare(`DELETE FROM ${table}`).run();
-        totalDeleted += result.changes;
-        if (result.changes > 0) {
-          console.log(`🗑️ تم حذف ${result.changes} سجل من جدول ${table}`);
-        }
-      } catch (error) {
-        console.log(`⚠️ تعذر حذف بيانات من جدول ${table}:`, error.message);
-      }
-    }
-
-    // حذف جميع المستخدمين
-    const deleteUsers = db.prepare("DELETE FROM users").run();
-    totalDeleted += deleteUsers.changes;
-    if (deleteUsers.changes > 0) {
-      console.log(`🗑️ تم حذف ${deleteUsers.changes} مستخدم`);
-    }
-
-    // إعادة تعيين AUTO_INCREMENT
-    const resetTables = ['users', 'patients', 'doctors', 'appointments', 'services', 'financial_transactions'];
-    for (const table of resetTables) {
-      try {
-        db.prepare(`DELETE FROM sqlite_sequence WHERE name = '${table}'`).run();
-      } catch (error) {
-        // تجاهل الأخطاء
-      }
-    }
-
-    // إعادة تفعيل foreign key constraints
-    db.pragma("foreign_keys = ON");
-
-    console.log(`✅ تم حذف جميع البيانات التجريبية (${totalDeleted} سجل)`);
-    console.log("🎉 النظام الآن نظيف وجاهز للاستخدام الفعلي!");
-
-  } catch (error) {
-    console.error("❌ خط�� في حذف البيانات التجريبية:", error);
-
-    // إعادة تفعيل foreign keys في حالة الخطأ
-    try {
-      db.pragma("foreign_keys = ON");
-    } catch (pragmaError) {
-      console.error("خطأ في إعادة تفعيل foreign keys:", pragmaError);
-    }
-  }
-}
 
 // تصدير قاعدة البيانات
 export { db as database };
