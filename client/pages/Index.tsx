@@ -406,7 +406,7 @@ export default function Index() {
               التقنيات المتقدمة
             </h2>
             <p className="text-lg text-gray-600 font-arabic">
-              نستخدم أحدث التقنيات في طب الأسنان لضمان أفضل النتائج
+              نستخدم أحدث ��لتقنيات في طب الأسنان لضمان أفضل النتائج
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -690,7 +690,7 @@ export default function Index() {
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
                     "الدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان تمت
-                    بنجاح وأشعر بثقة أكبر في ابتسامتي."
+                    بنجاح وأشع�� بثقة أكبر في ابتسامتي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
@@ -820,6 +820,12 @@ export default function Index() {
                   <Button className="w-full font-arabic" variant="outline">
                     المعاملات المالية
                     <CheckCircle className="mr-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/diagnostics" className="block">
+                  <Button className="w-full font-arabic bg-blue-600 hover:bg-blue-700 text-white">
+                    🔍 تشخيص النظام
+                    <Settings className="mr-2 h-4 w-4" />
                   </Button>
                 </Link>
               </div>
