@@ -48,6 +48,7 @@ import {
   MessageSquare,
   Loader2,
   Palette,
+  Trash2,
 } from "lucide-react";
 
 interface DashboardStats {
@@ -340,7 +341,7 @@ function AdminComponent() {
                 {dashboardStats.totalAppointments}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
-                {dashboardStats.completedAppointments} مك��مل،{" "}
+                {dashboardStats.completedAppointments} مكتمل،{" "}
                 {dashboardStats.scheduledAppointments} مجدول
               </p>
             </CardContent>
@@ -690,7 +691,7 @@ function AdminComponent() {
                     {dashboardStats.outstandingPayments.toLocaleString()} ر.ي
                   </div>
                   <p className="text-sm text-gray-500 font-arabic">
-                    مبالغ غير محصلة
+                    ��بالغ غير محصلة
                   </p>
                 </CardContent>
               </Card>
@@ -782,9 +783,9 @@ function AdminComponent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-arabic">إع��ادات النظام</CardTitle>
+                  <CardTitle className="font-arabic">إعدادات النظام</CardTitle>
                   <CardDescription className="font-arabic">
-                    تخصيص إعدادات العيادة
+                    تخصيص إعدادات ��لعيادة
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
