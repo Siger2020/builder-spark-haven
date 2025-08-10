@@ -63,11 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // Check if response is ok before trying to parse JSON
       if (!response.ok) {
-        console.error(
-          "Login failed:",
-          response.status,
-          response.statusText
-        );
+        console.error("Login failed:", response.status, response.statusText);
         setIsLoading(false);
         return false;
       }
@@ -123,10 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (!response.ok) {
-        console.error(
-          "Register response not ok:",
-          response.status
-        );
+        console.error("Register response not ok:", response.status);
 
         // Try to get the error message from the response
         try {
@@ -134,7 +127,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           console.error("Registration error details:", errorData);
           if (errorData) {
             const parsedError = JSON.parse(errorData);
-            return { success: false, error: parsedError.error || "خطأ في الاتصال بالخادم" };
+            return {
+              success: false,
+              error: parsedError.error || "خطأ في الاتصال بالخادم",
+            };
           }
         } catch (e) {
           console.error("Could not parse error response:", e);

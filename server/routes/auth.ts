@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
       passwordLength: password?.length || "MISSING",
       phone: phone || "MISSING",
       role: role || "MISSING",
-      allFields: req.body
+      allFields: req.body,
     });
 
     // التحقق من وجود البيانات المطلوبة
@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
         email: !!email,
         password: !!password,
         phone: !!phone,
-        role: !!role
+        role: !!role,
       });
       return res.status(400).json({
         success: false,
@@ -80,7 +80,10 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log("Login attempt:", { email: email, passwordLength: password?.length });
+    console.log("Login attempt:", {
+      email: email,
+      passwordLength: password?.length,
+    });
 
     // التحقق من وجود البيانات المطلوبة
     if (!email || !password) {
@@ -177,18 +180,20 @@ router.get("/verify", async (req, res) => {
 router.get("/test-admin", async (req, res) => {
   try {
     const admin = db
-      .prepare("SELECT id, name, email, password, role FROM users WHERE email = 'admin@dkalmoli.com'")
+      .prepare(
+        "SELECT id, name, email, password, role FROM users WHERE email = 'admin@dkalmoli.com'",
+      )
       .get();
 
     res.json({
       success: true,
-      admin: admin
+      admin: admin,
     });
   } catch (error) {
     console.error("Test admin error:", error);
     res.status(500).json({
       success: false,
-      error: "خطأ في جلب بيانات المدير"
+      error: "خطأ في جلب بيانات المدير",
     });
   }
 });

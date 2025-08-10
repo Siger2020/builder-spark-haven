@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { 
-  Star, 
-  Quote, 
-  ChevronLeft, 
-  ChevronRight, 
+import React, { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Star,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
   Heart,
   CheckCircle,
   Award,
-  Users
-} from 'lucide-react';
+  Users,
+} from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -29,60 +29,65 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    id: '1',
-    name: 'سارة أحمد',
+    id: "1",
+    name: "سارة أحمد",
     age: 28,
-    location: 'صنعاء',
+    location: "صنعاء",
     rating: 5,
-    service: 'تقويم الأسنان',
-    review: 'تجربة رائعة مع الدكتور كمال الملصي! حصلت على النتيجة التي حل��ت بها. الفريق محترف والعيادة نظيفة ومريحة. أنصح الجميع بزيارة هذه العيادة المتميزة.',
-    date: '2024-01-15',
-    verified: true
+    service: "تقويم الأسنان",
+    review:
+      "تجربة رائعة مع الدكتور كمال الملصي! حصلت على النتيجة التي حل��ت بها. الفريق محترف والعيادة نظيفة ومريحة. أنصح الجميع بزيارة هذه العيادة المتميزة.",
+    date: "2024-01-15",
+    verified: true,
   },
   {
-    id: '2',
-    name: 'محمد علي',
+    id: "2",
+    name: "محمد علي",
     age: 35,
-    location: 'تعز',
+    location: "تعز",
     rating: 5,
-    service: 'زراعة الأسنان',
-    review: 'كان لدي خوف شديد من زراعة الأسنان، لكن الدكتور كمال جعل العملية سهلة ومريحة. النتيجة فاقت توقعاتي تماماً. شكراً لكم على الرعاية الممتازة!',
-    date: '2024-01-10',
-    verified: true
+    service: "زراعة الأسنان",
+    review:
+      "كان لدي خوف شديد من زراعة الأسنان، لكن الدكتور كمال جعل العملية سهلة ومريحة. النتيجة فاقت توقعاتي تماماً. شكراً لكم على الرعاية الممتازة!",
+    date: "2024-01-10",
+    verified: true,
   },
   {
-    id: '3',
-    name: 'فاطمة الزهراء',
+    id: "3",
+    name: "فاطمة الزهراء",
     age: 42,
-    location: 'عدن',
+    location: "عدن",
     rating: 5,
-    service: 'تبييض الأسنان',
-    review: 'خدمة استثنائية! حصلت على ابتسامة بيضاء مشرقة في جلسة واحدة. الأسعار معقولة والنتائج مذهلة. العيادة مجهزة بأحدث التقنيات.',
-    date: '2024-01-08',
-    verified: true
+    service: "تبييض الأسنان",
+    review:
+      "خدمة استثنائية! حصلت على ابتسامة بيضاء مشرقة في جلسة واحدة. الأسعار معقولة والنتائج مذهلة. العيادة مجهزة بأحدث التقنيات.",
+    date: "2024-01-08",
+    verified: true,
   },
   {
-    id: '4',
-    name: 'أحمد محمود',
+    id: "4",
+    name: "أحمد محمود",
     age: 29,
-    location: 'الحديدة',
+    location: "الحديدة",
     rating: 5,
-    service: 'حشوات تجميلية',
-    review: 'دقة في العمل واهتمام بالتفاصيل. ��م علاج أسناني بأحدث التقنيات وبدون ألم. أشكر الدكتور والفريق على الاهتمام الرائع.',
-    date: '2024-01-05',
-    verified: true
+    service: "حشوات تجميلية",
+    review:
+      "دقة في العمل واهتمام بالتفاصيل. ��م علاج أسناني بأحدث التقنيات وبدون ألم. أشكر الدكتور والفريق على الاهتمام الرائع.",
+    date: "2024-01-05",
+    verified: true,
   },
   {
-    id: '5',
-    name: 'نور الهدى',
+    id: "5",
+    name: "نور الهدى",
     age: 24,
-    location: 'إب',
+    location: "إب",
     rating: 5,
-    service: 'تنظيف الأسنان',
-    review: 'عيادة رائعة بمعايير عالمية. الفريق ودود ومهني، والدكتور يشرح كل شيء بوضوح. أشعر بالثقة التامة في العلاج هنا.',
-    date: '2024-01-03',
-    verified: true
-  }
+    service: "تنظيف الأسنان",
+    review:
+      "عيادة رائعة بمعايير عالمية. الفريق ودود ومهني، والدكتور يشرح كل شيء بوضوح. أشعر بالثقة التامة في العلاج هنا.",
+    date: "2024-01-03",
+    verified: true,
+  },
 ];
 
 const CustomerTestimonials: React.FC = () => {
@@ -105,7 +110,9 @@ const CustomerTestimonials: React.FC = () => {
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
     setIsAutoPlaying(false);
   };
 
@@ -119,7 +126,7 @@ const CustomerTestimonials: React.FC = () => {
       <Star
         key={i}
         className={`h-4 w-4 ${
-          i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+          i < rating ? "text-yellow-400 fill-current" : "text-gray-300"
         }`}
       />
     ));
@@ -128,7 +135,10 @@ const CustomerTestimonials: React.FC = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100" dir="rtl">
+    <section
+      className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100"
+      dir="rtl"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -142,27 +152,33 @@ const CustomerTestimonials: React.FC = () => {
           <p className="text-xl text-gray-600 font-arabic max-w-3xl mx-auto">
             تجارب حقيقية من عملائنا الذين حصلوا على أفضل رعاية لأسنانهم
           </p>
-          
+
           {/* Statistics */}
           <div className="flex justify-center gap-8 mt-8">
             <div className="text-center">
               <div className="flex items-center justify-center gap-1 mb-2">
                 <Users className="h-5 w-5 text-dental-primary" />
-                <span className="text-2xl font-bold text-dental-primary">500+</span>
+                <span className="text-2xl font-bold text-dental-primary">
+                  500+
+                </span>
               </div>
               <p className="text-sm text-gray-600 font-arabic">عميل سعيد</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center gap-1 mb-2">
                 <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <span className="text-2xl font-bold text-dental-primary">4.9</span>
+                <span className="text-2xl font-bold text-dental-primary">
+                  4.9
+                </span>
               </div>
               <p className="text-sm text-gray-600 font-arabic">تقييم متوسط</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center gap-1 mb-2">
                 <Award className="h-5 w-5 text-dental-primary" />
-                <span className="text-2xl font-bold text-dental-primary">15+</span>
+                <span className="text-2xl font-bold text-dental-primary">
+                  15+
+                </span>
               </div>
               <p className="text-sm text-gray-600 font-arabic">سنة خبرة</p>
             </div>
@@ -196,7 +212,8 @@ const CustomerTestimonials: React.FC = () => {
                       )}
                     </h4>
                     <p className="text-gray-600 font-arabic">
-                      {currentTestimonial.age} سنة • {currentTestimonial.location}
+                      {currentTestimonial.age} سنة •{" "}
+                      {currentTestimonial.location}
                     </p>
                   </div>
                   <div className="text-left">
@@ -204,7 +221,9 @@ const CustomerTestimonials: React.FC = () => {
                       {currentTestimonial.service}
                     </Badge>
                     <p className="text-xs text-gray-500 mt-1">
-                      {new Date(currentTestimonial.date).toLocaleDateString('ar-SA')}
+                      {new Date(currentTestimonial.date).toLocaleDateString(
+                        "ar-SA",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -241,8 +260,8 @@ const CustomerTestimonials: React.FC = () => {
               onClick={() => goToTestimonial(index)}
               className={`h-3 w-3 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? 'bg-dental-primary scale-125'
-                  : 'bg-gray-300 hover:bg-gray-400'
+                  ? "bg-dental-primary scale-125"
+                  : "bg-gray-300 hover:bg-gray-400"
               }`}
             />
           ))}
@@ -251,7 +270,10 @@ const CustomerTestimonials: React.FC = () => {
         {/* Grid of Mini Testimonials */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
           {testimonials.slice(0, 3).map((testimonial, index) => (
-            <Card key={testimonial.id} className="hover:shadow-lg transition-shadow duration-300">
+            <Card
+              key={testimonial.id}
+              className="hover:shadow-lg transition-shadow duration-300"
+            >
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex">{renderStars(testimonial.rating)}</div>

@@ -9,7 +9,9 @@ export function updateDatabase() {
   try {
     // إضافة العمود المطلوب لجدول payments إذا لم يكن موجوداً
     try {
-      db.exec(`ALTER TABLE payments ADD COLUMN service_name TEXT DEFAULT 'خدمة عامة'`);
+      db.exec(
+        `ALTER TABLE payments ADD COLUMN service_name TEXT DEFAULT 'خدمة عامة'`,
+      );
       console.log("✅ تم إضافة عمود service_name إلى جدول payments");
     } catch (error) {
       // العمود موجود بالفعل أو خطأ آخر
@@ -18,7 +20,7 @@ export function updateDatabase() {
     // التحقق من وجود جميع الجداول المطلوبة
     const requiredTables = [
       "users",
-      "patients", 
+      "patients",
       "doctors",
       "services",
       "appointments",
@@ -33,19 +35,23 @@ export function updateDatabase() {
       "inventory",
       "inventory_movements",
       "activity_logs",
-      "backups"
+      "backups",
     ];
 
     const existingTables = db
-      .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+      .prepare(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
+      )
       .all()
       .map((table: any) => table.name);
 
     console.log(`📊 الجداول الموجودة: ${existingTables.length}`);
     console.log(`📋 الجداول المطلوبة: ${requiredTables.length}`);
 
-    const missingTables = requiredTables.filter(table => !existingTables.includes(table));
-    
+    const missingTables = requiredTables.filter(
+      (table) => !existingTables.includes(table),
+    );
+
     if (missingTables.length > 0) {
       console.log(`⚠️ جداول مفقودة: ${missingTables.join(", ")}`);
     } else {
@@ -59,7 +65,6 @@ export function updateDatabase() {
     seedAdditionalData();
 
     console.log("✅ تم فحص قاعدة البيانات بنجاح");
-
   } catch (error) {
     console.error("❌ خطأ في فحص قاعدة البيانات:", error);
     throw error;
@@ -77,7 +82,7 @@ function checkEssentialData() {
 
   if (adminExists.count === 0) {
     console.log("⚠️ لا يوجد مدير نظام، سيتم إضافة حساب افتراضي");
-    
+
     const insertAdmin = db.prepare(`
       INSERT INTO users (name, email, password, phone, role, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, datetime('now'), datetime('now'))
@@ -85,10 +90,10 @@ function checkEssentialData() {
 
     insertAdmin.run(
       "مدير النظام",
-      "admin@dkalmoli.com", 
+      "admin@dkalmoli.com",
       "123456",
       "967777775545",
-      "admin"
+      "admin",
     );
 
     console.log("✅ تم إضافة حساب مدير النظام");
@@ -125,16 +130,96 @@ function addBasicServices() {
   `);
 
   const services = [
-    ["تنظيف الأسنان", "Teeth Cleaning", "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات", 45, "general", 200, true],
-    ["حشوات الأسنان", "Dental Fillings", "حشوات تجميلية بأحدث المواد الطبية المعتمدة", 60, "restorative", 300, true],
-    ["تقويم الأسنان", "Orthodontics", "تقويم شامل بأحدث التقنيات الطبية المتقدمة", 90, "orthodontics", 3000, true],
-    ["زراعة الأسنان", "Dental Implants", "زراعة متطورة مع ضمان طويل المدى", 120, "surgery", 2500, true],
-    ["تبييض الأسنان", "Teeth Whitening", "تبييض آمن وفعال لابتسامة مشرقة", 60, "cosmetic", 800, true],
-    ["علاج الجذور", "Root Canal Treatment", "علاج متخصص للجذور بأحدث التقنيات", 90, "endodontics", 600, true],
-    ["طب أسنان الأطفال", "Pediatric Dentistry", "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للمرضى الصغار", 45, "pediatric", 150, true],
-    ["طب الأسنان الترميمي", "Restorative Dentistry", "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها", 75, "restorative", 400, true],
-    ["طب الأسنان التجميلي", "Cosmetic Dentistry", "حسّن ابتسامتك مع العلاجات التجميلية المتطورة", 60, "cosmetic", 500, true],
-    ["فحص دوري", "Regular Checkup", "فحص شامل لصحة الفم والأسنان", 30, "general", 100, true]
+    [
+      "تنظيف الأسنان",
+      "Teeth Cleaning",
+      "تنظيف شامل ومهني لأسنانك مع أحدث التقنيات",
+      45,
+      "general",
+      200,
+      true,
+    ],
+    [
+      "حشوات الأسنان",
+      "Dental Fillings",
+      "حشوات تجميلية بأحدث المواد الطبية المعتمدة",
+      60,
+      "restorative",
+      300,
+      true,
+    ],
+    [
+      "تقويم الأسنان",
+      "Orthodontics",
+      "تقويم شامل بأحدث التقنيات الطبية المتقدمة",
+      90,
+      "orthodontics",
+      3000,
+      true,
+    ],
+    [
+      "زراعة الأسنان",
+      "Dental Implants",
+      "زراعة متطورة مع ضمان طويل المدى",
+      120,
+      "surgery",
+      2500,
+      true,
+    ],
+    [
+      "تبييض الأسنان",
+      "Teeth Whitening",
+      "تبييض آمن وفعال لابتسامة مشرقة",
+      60,
+      "cosmetic",
+      800,
+      true,
+    ],
+    [
+      "علاج الجذور",
+      "Root Canal Treatment",
+      "علاج متخصص للجذور بأحدث التقنيات",
+      90,
+      "endodontics",
+      600,
+      true,
+    ],
+    [
+      "طب أسنان الأطفال",
+      "Pediatric Dentistry",
+      "رعاية أسنان لطيفة وممتعة مصممة خصيصًا للمرضى الصغار",
+      45,
+      "pediatric",
+      150,
+      true,
+    ],
+    [
+      "طب الأسنان الترميمي",
+      "Restorative Dentistry",
+      "عالج أسنانك التالفة واسترجع وظيفة ابتسامتك ومظهرها",
+      75,
+      "restorative",
+      400,
+      true,
+    ],
+    [
+      "طب الأسنان التجميلي",
+      "Cosmetic Dentistry",
+      "حسّن ابتسامتك مع العلاجات التجميلية المتطورة",
+      60,
+      "cosmetic",
+      500,
+      true,
+    ],
+    [
+      "فحص دوري",
+      "Regular Checkup",
+      "فحص شامل لصحة الفم والأسنان",
+      30,
+      "general",
+      100,
+      true,
+    ],
   ];
 
   const insertTransaction = db.transaction((services) => {
@@ -158,20 +243,68 @@ function addBasicSettings() {
 
   const settings = [
     ["clinic", "name", "عيادة الدكتور كمال الملصي", "اسم العيادة", "string"],
-    ["clinic", "address", "شارع المقالح -حي الاصبحي امام سيتي ماكس", "عنوان العيادة", "string"],
+    [
+      "clinic",
+      "address",
+      "شارع المقالح -حي الاصبحي امام سيتي ماكس",
+      "عنوان العيادة",
+      "string",
+    ],
     ["clinic", "phone", "00967777775545", "رقم هاتف العيادة", "string"],
-    ["clinic", "email", "info@dkalmoli.com", "البريد الإلكتروني للعيادة", "string"],
-    ["clinic", "working_hours", '{"saturday_to_thursday": "09:00-21:00", "friday": "14:00-21:00"}', "ساعات العمل", "json"],
+    [
+      "clinic",
+      "email",
+      "info@dkalmoli.com",
+      "البريد الإلكتروني للعيادة",
+      "string",
+    ],
+    [
+      "clinic",
+      "working_hours",
+      '{"saturday_to_thursday": "09:00-21:00", "friday": "14:00-21:00"}',
+      "ساعات العمل",
+      "json",
+    ],
     ["clinic", "currency", "YER", "العملة", "string"],
     ["clinic", "timezone", "Asia/Aden", "المنطقة الزمنية", "string"],
     ["system", "language", "arabic", "لغة النظام الافتراضية", "string"],
-    ["notifications", "sms_enabled", "false", "تفعيل الرسائل النصية", "boolean"],
-    ["notifications", "email_enabled", "true", "تفعيل البريد الإلكتروني", "boolean"],
-    ["notifications", "whatsapp_enabled", "false", "تفعيل الواتس آب", "boolean"],
-    ["appointments", "default_duration", "30", "مدة الموعد الافتراضية بالدقائق", "number"],
-    ["appointments", "booking_advance_days", "30", "عدد الأيام المسموح حجز مواعيد مسبقاً", "number"],
+    [
+      "notifications",
+      "sms_enabled",
+      "false",
+      "تفعيل الرسائل النصية",
+      "boolean",
+    ],
+    [
+      "notifications",
+      "email_enabled",
+      "true",
+      "تفعيل البريد الإلكتروني",
+      "boolean",
+    ],
+    [
+      "notifications",
+      "whatsapp_enabled",
+      "false",
+      "تفعيل الواتس آب",
+      "boolean",
+    ],
+    [
+      "appointments",
+      "default_duration",
+      "30",
+      "مدة الموعد الافتراضية بالدقائق",
+      "number",
+    ],
+    [
+      "appointments",
+      "booking_advance_days",
+      "30",
+      "عدد الأيام المسموح حجز مواعيد مسبقاً",
+      "number",
+    ],
     ["financial", "tax_rate", "0", "معدل الضريبة", "number"],
-    ["financial", "late_payment_fee", "0", "رسوم التأخير في الدفع", "number"]
+    ["financial", "late_payment_fee", "0", "رسوم التأخير في الدفع", "number"],
   ];
 
   const insertTransaction = db.transaction((settings) => {
@@ -206,7 +339,6 @@ function seedAdditionalData() {
     if (inventoryCount.count === 0) {
       addBasicInventory();
     }
-
   } catch (error) {
     console.error("تحذير: خطأ في إضافة البيانات الإضافية:", error);
   }
@@ -229,17 +361,17 @@ function addNotificationTemplates() {
       "عزيزنا {patient_name}، تم تأكيد موعدك في {appointment_date} الساعة {appointment_time}. نرجو الحضور قبل 10 دقائق من الموعد.",
       '["patient_name", "appointment_date", "appointment_time"]',
       '["sms", "whatsapp"]',
-      "arabic"
+      "arabic",
     ],
     [
       "تذكير بالموعد",
-      "appointment_reminder", 
+      "appointment_reminder",
       "تذكير بموعدك غداً",
       "عزيزنا {patient_name}، نذكركم بموعدكم غداً {appointment_date} الساعة {appointment_time} مع {doctor_name}.",
       '["patient_name", "appointment_date", "appointment_time", "doctor_name"]',
       '["sms", "whatsapp"]',
-      "arabic"
-    ]
+      "arabic",
+    ],
   ];
 
   const insertTransaction = db.transaction((templates) => {
@@ -262,11 +394,38 @@ function addBasicInventory() {
   `);
 
   const items = [
-    ["قفازات طبية", "GLV001", "مستهلكات", "قفازات طبية مطاطية للاستخدام الواحد", "عبوة", 50, 10, 25],
-    ["كمامات طبية", "MSK001", "مستهلكات", "كمامات طبية للحماية", "عبوة", 100, 20, 15],
+    [
+      "قفازات طبية",
+      "GLV001",
+      "مستهلكات",
+      "قفازات طبية مطاطية للاستخدام الواحد",
+      "عبوة",
+      50,
+      10,
+      25,
+    ],
+    [
+      "كمامات طبية",
+      "MSK001",
+      "مستهلكات",
+      "كمامات طبية للحماية",
+      "عبوة",
+      100,
+      20,
+      15,
+    ],
     ["مخدر موضعي", "ANS001", "أدوية", "مخدر موضعي للأسنان", "أنبوب", 20, 5, 45],
-    ["حشوة تجميلية", "FIL001", "مواد طبية", "مواد الحشو التجميلي", "عبوة", 15, 3, 120],
-    ["خيط طبي", "STH001", "مستهلكات", "خيط طبي للجراحة", "لفة", 30, 10, 18]
+    [
+      "حشوة تجميلية",
+      "FIL001",
+      "مواد طبية",
+      "مواد الحشو التجميلي",
+      "عبوة",
+      15,
+      3,
+      120,
+    ],
+    ["خيط طبي", "STH001", "مستهلكات", "خيط طبي للجراحة", "لفة", 30, 10, 18],
   ];
 
   const insertTransaction = db.transaction((items) => {
@@ -288,7 +447,7 @@ export function validateDatabaseIntegrity() {
   try {
     // فحص المراجع الخارجية
     const foreignKeyCheck = db.prepare("PRAGMA foreign_key_check").all();
-    
+
     if (foreignKeyCheck.length > 0) {
       console.log("⚠️ مشاكل في المراجع الخارجية:", foreignKeyCheck);
     } else {
@@ -296,27 +455,36 @@ export function validateDatabaseIntegrity() {
     }
 
     // فحص الفهارس
-    const indexes = db.prepare(`
+    const indexes = db
+      .prepare(
+        `
       SELECT name FROM sqlite_master 
       WHERE type='index' AND name NOT LIKE 'sqlite_%'
-    `).all();
+    `,
+      )
+      .all();
 
     console.log(`📊 عدد الفهارس: ${indexes.length}`);
 
     // إحصائيات الجداول
-    const tables = db.prepare(`
+    const tables = db
+      .prepare(
+        `
       SELECT name FROM sqlite_master 
       WHERE type='table' AND name NOT LIKE 'sqlite_%'
-    `).all();
+    `,
+      )
+      .all();
 
     console.log("📊 إحصائيات الجداول:");
     for (const table of tables) {
-      const count = db.prepare(`SELECT COUNT(*) as count FROM ${table.name}`).get() as { count: number };
+      const count = db
+        .prepare(`SELECT COUNT(*) as count FROM ${table.name}`)
+        .get() as { count: number };
       console.log(`  - ${table.name}: ${count.count} سجل`);
     }
 
     console.log("✅ تم فحص سلامة البيانات");
-
   } catch (error) {
     console.error("❌ خطأ في فحص سلامة البيانات:", error);
     throw error;
@@ -332,15 +500,14 @@ export function optimizeDatabase() {
   try {
     // تحليل الجداول لتحسين الفهارس
     db.exec("ANALYZE");
-    
+
     // تنظيف قاعدة البيانات
     db.exec("VACUUM");
-    
+
     // إعادة بناء الفهارس
     db.exec("REINDEX");
 
     console.log("✅ تم تحسين قاعدة البيانات");
-
   } catch (error) {
     console.error("❌ خطأ في تحسين قاعدة البيانات:", error);
   }

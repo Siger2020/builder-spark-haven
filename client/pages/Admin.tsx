@@ -923,7 +923,9 @@ function AdminComponent() {
             <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold font-arabic">تخصيص العيادة</h2>
+                  <h2 className="text-2xl font-bold font-arabic">
+                    تخصيص العيادة
+                  </h2>
                   <Button
                     variant="outline"
                     onClick={() => setClinicCustomizationOpen(false)}

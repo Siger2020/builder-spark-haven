@@ -55,7 +55,7 @@ export default function AIAnalysis() {
     }
 
     // Check file type
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
       alert("يرجى اختيار ملف صورة صالح.");
       return;
     }
@@ -67,32 +67,39 @@ export default function AIAnalysis() {
 
       // Create form data for file upload
       const formData = new FormData();
-      formData.append('image', file);
-      formData.append('patientId', ''); // Can be selected later
-      formData.append('doctorId', '1'); // Default doctor
+      formData.append("image", file);
+      formData.append("patientId", ""); // Can be selected later
+      formData.append("doctorId", "1"); // Default doctor
 
-      console.log("FormData created, file size:", file.size, "type:", file.type);
+      console.log(
+        "FormData created, file size:",
+        file.size,
+        "type:",
+        file.type,
+      );
 
       // Send to AI analysis API
-      const response = await fetch('/api/ai-analysis/analyze-image', {
-        method: 'POST',
+      const response = await fetch("/api/ai-analysis/analyze-image", {
+        method: "POST",
         body: formData,
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Response error:', errorText);
-        throw new Error(`فشل في تحليل الصورة: ${response.status} - ${errorText}`);
+        console.error("Response error:", errorText);
+        throw new Error(
+          `فشل في تحليل الصورة: ${response.status} - ${errorText}`,
+        );
       }
 
       const result = await response.json();
-      console.log('Analysis result:', result);
+      console.log("Analysis result:", result);
 
       if (!result.success) {
-        throw new Error(result.error || 'فشل في تحليل الصورة');
+        throw new Error(result.error || "فشل في تحليل الصورة");
       }
 
       const newAnalysis: AnalysisResult = {
@@ -104,7 +111,7 @@ export default function AIAnalysis() {
           recommendations: result.analysis?.recommendations || [
             "تم حفظ الصورة في النظام",
             "سيتم مراجعتها من قبل الطبيب المختص",
-            "ستحصل على النتائج قريباً"
+            "ستحصل على النتائج قريباً",
           ],
           severity: result.analysis?.severity || "medium",
           followUp: "متابعة مع الطبيب المختص",
@@ -116,16 +123,16 @@ export default function AIAnalysis() {
 
       // Clear the file input
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
 
       alert("تم رفع الصورة وتحليلها بنجاح!");
-
     } catch (error) {
       console.error("Error analyzing image:", error);
 
       // Show detailed error message
-      const errorMessage = error instanceof Error ? error.message : "خطأ غير معروف";
+      const errorMessage =
+        error instanceof Error ? error.message : "خطأ غير معروف";
       alert(`حدث خطأ أثناء تحليل الصورة: ${errorMessage}`);
 
       // Still add a basic entry to show the upload attempt
@@ -138,7 +145,7 @@ export default function AIAnalysis() {
           recommendations: [
             "تم حفظ الصورة في النظام",
             "يرجى مراجعة الطبيب لتحليل يدوي",
-            "المحاولة مرة أخرى لاحقاً"
+            "المحاولة مرة أخرى لاحقاً",
           ],
           severity: "medium",
           followUp: "مراجعة الطبيب المختص",
@@ -157,10 +164,10 @@ export default function AIAnalysis() {
     setLoading(true);
     try {
       // Send to AI analysis API
-      const response = await fetch('/api/ai-analysis/analyze-symptoms', {
-        method: 'POST',
+      const response = await fetch("/api/ai-analysis/analyze-symptoms", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           symptoms: symptoms.trim(),
@@ -170,13 +177,13 @@ export default function AIAnalysis() {
       });
 
       if (!response.ok) {
-        throw new Error('فشل في تحليل الأعراض');
+        throw new Error("فشل في تحليل الأعراض");
       }
 
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error || 'فشل في تحليل الأعراض');
+        throw new Error(result.error || "فشل في تحليل الأعراض");
       }
 
       const newAnalysis: AnalysisResult = {
@@ -188,7 +195,7 @@ export default function AIAnalysis() {
           recommendations: result.analysis?.recommendations || [
             "تم حفظ الأعراض في النظام",
             "مراجعة مع الطبيب المختص",
-            "متابعة الأعراض"
+            "متابعة الأعراض",
           ],
           severity: result.analysis?.severity || "medium",
           followUp: "مراجعة مع الطبيب المختص",
@@ -200,7 +207,6 @@ export default function AIAnalysis() {
       setSymptoms("");
 
       alert("تم تحليل الأعراض بنجاح!");
-
     } catch (error) {
       console.error("Error analyzing symptoms:", error);
       alert("حدث خطأ أثناء تحليل الأعراض. يرجى المحاولة مرة أخرى.");
@@ -215,7 +221,7 @@ export default function AIAnalysis() {
           recommendations: [
             "تم حفظ الأعراض في النظام",
             "يرجى مراجعة الطبيب للتشخيص",
-            "المحاولة مرة أخرى لاحقاً"
+            "المحاولة مرة أخرى لاحقاً",
           ],
           severity: "medium",
           followUp: "مراجعة الطبيب المختص",
@@ -296,7 +302,9 @@ export default function AIAnalysis() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className={`border-2 border-dashed ${loading ? 'border-blue-300 bg-blue-50' : 'border-gray-300'} rounded-lg p-8 text-center transition-colors`}>
+              <div
+                className={`border-2 border-dashed ${loading ? "border-blue-300 bg-blue-50" : "border-gray-300"} rounded-lg p-8 text-center transition-colors`}
+              >
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -304,7 +312,9 @@ export default function AIAnalysis() {
                   accept="image/*"
                   className="hidden"
                 />
-                <Upload className={`h-12 w-12 mx-auto mb-4 ${loading ? 'text-blue-500 animate-pulse' : 'text-gray-400'}`} />
+                <Upload
+                  className={`h-12 w-12 mx-auto mb-4 ${loading ? "text-blue-500 animate-pulse" : "text-gray-400"}`}
+                />
                 <p className="text-lg mb-2">اسحب وأفلت الصورة هنا أو</p>
                 <Button
                   onClick={() => fileInputRef.current?.click()}

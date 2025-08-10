@@ -65,7 +65,7 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       filename: req.file.filename,
       size: req.file.size,
       mimetype: req.file.mimetype,
-      path: req.file.path
+      path: req.file.path,
     });
 
     const { patientId, doctorId } = req.body;
@@ -99,7 +99,7 @@ router.post("/analyze-image", upload.single("image"), async (req, res) => {
       fileType: req.file.mimetype,
       fileSize: req.file.size,
       diagnosis: mockAIAnalysis.diagnosis,
-      confidence: mockAIAnalysis.confidence
+      confidence: mockAIAnalysis.confidence,
     });
 
     const analysisResult = insertAnalysis.run(

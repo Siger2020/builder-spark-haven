@@ -1,21 +1,54 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
-import { Calendar, Clock, User, Phone, Mail, FileText, CheckCircle } from "lucide-react";
+import {
+  NativeSelect as Select,
+  NativeSelectItem as SelectItem,
+} from "@/components/ui/native-select";
+import {
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  Mail,
+  FileText,
+  CheckCircle,
+} from "lucide-react";
 import { useState } from "react";
 
 const timeSlots = [
-  "9:00 ص", "9:30 ص", "10:00 ص", "10:30 ص", "11:00 ص", "11:30 ص",
-  "2:00 م", "2:30 م", "3:00 م", "3:30 م", "4:00 م", "4:30 م",
-  "5:00 م", "5:30 م", "6:00 م", "6:30 م", "7:00 م", "7:30 م", "8:00 م"
+  "9:00 ص",
+  "9:30 ص",
+  "10:00 ص",
+  "10:30 ص",
+  "11:00 ص",
+  "11:30 ص",
+  "2:00 م",
+  "2:30 م",
+  "3:00 م",
+  "3:30 م",
+  "4:00 م",
+  "4:30 م",
+  "5:00 م",
+  "5:30 م",
+  "6:00 م",
+  "6:30 م",
+  "7:00 م",
+  "7:30 م",
+  "8:00 م",
 ];
 
 const services = [
   "فحص عام",
-  "تنظيف الأسنان", 
+  "تنظيف الأسنان",
   "حشوات الأسنان",
   "علاج الجذور",
   "تقويم الأسنان",
@@ -23,7 +56,7 @@ const services = [
   "تبييض الأسنان",
   "جراحة الفم",
   "طب أسنان الأطفال",
-  "أخرى"
+  "أخرى",
 ];
 
 export default function Booking() {
@@ -34,7 +67,7 @@ export default function Booking() {
     date: "",
     time: "",
     service: "",
-    notes: ""
+    notes: "",
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingNumber, setBookingNumber] = useState("");
@@ -67,10 +100,10 @@ export default function Booking() {
       };
 
       // إرسال البيانات للخادم
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
+      const response = await fetch("/api/bookings", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(bookingData),
       });
@@ -85,10 +118,9 @@ export default function Booking() {
       } else {
         // محاولة الحصول على رسالة الخطأ من الخادم
         const errorData = await response.json().catch(() => ({}));
-        const errorMessage = errorData.error || 'فشل في إنشاء الحجز';
+        const errorMessage = errorData.error || "فشل في إنشاء الحجز";
         throw new Error(errorMessage);
       }
-
     } catch (error) {
       console.error("Error submitting booking:", error);
 
@@ -100,7 +132,9 @@ export default function Booking() {
       setBookingSuccess(true);
 
       // محاكاة إرسال الإشعارات محلياً
-      console.log(`📱 إرسال إشعارات الحجز ${newBookingNumber} إلى ${formData.phone}`);
+      console.log(
+        `📱 إرسال إشعارات الحجز ${newBookingNumber} إلى ${formData.phone}`,
+      );
       console.log(`✅ تم تأكيد الحجز - سيتم إرسال SMS وواتس آب`);
       console.log(`⏰ تذكير مجدول قبل الموعد بيوم واحد`);
     }
@@ -108,13 +142,16 @@ export default function Booking() {
 
   const handleInputChange = (field: string, value: string) => {
     console.log(`تم تحديث الحقل ${field} بالقيمة: ${value}`);
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   // عرض رسالة النجاح
   if (bookingSuccess) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12 flex items-center justify-center" dir="rtl">
+      <div
+        className="min-h-screen bg-gray-50 py-12 flex items-center justify-center"
+        dir="rtl"
+      >
         <div className="max-w-md w-full">
           <Card className="text-center">
             <CardContent className="p-8">
@@ -128,8 +165,12 @@ export default function Booking() {
                 تم إنشاء حجزك بنجاح. سنتواصل معك قريباً لتأكيد الموعد.
               </p>
               <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-gray-600 font-arabic mb-2">رقم الحجز الخاص بك:</p>
-                <p className="text-2xl font-bold text-blue-600">{bookingNumber}</p>
+                <p className="text-sm text-gray-600 font-arabic mb-2">
+                  رقم الحجز الخاص بك:
+                </p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {bookingNumber}
+                </p>
               </div>
               <div className="space-y-3">
                 <Button
@@ -142,7 +183,7 @@ export default function Booking() {
                       date: "",
                       time: "",
                       service: "",
-                      notes: ""
+                      notes: "",
                     });
                   }}
                   className="w-full font-arabic"
@@ -151,7 +192,7 @@ export default function Booking() {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => window.location.href = "/"}
+                  onClick={() => (window.location.href = "/")}
                   className="w-full font-arabic"
                 >
                   العودة للرئيسية
@@ -165,7 +206,10 @@ export default function Booking() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12" dir="rtl">
+    <div
+      className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12"
+      dir="rtl"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <div className="inline-block p-2 rounded-full bg-dental-primary/10 mb-4">
@@ -194,21 +238,27 @@ export default function Booking() {
                   {/* Personal Information */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="font-arabic">الاسم الكامل *</Label>
+                      <Label htmlFor="name" className="font-arabic">
+                        الاسم الكامل *
+                      </Label>
                       <div className="relative">
                         <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="name"
                           placeholder="أدخل اسمك الكامل"
                           value={formData.name}
-                          onChange={(e) => handleInputChange("name", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("name", e.target.value)
+                          }
                           className="pl-10 font-arabic border-2 focus:border-dental-primary transition-colors duration-300 hover:border-gray-300"
                           required
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="phone" className="font-arabic">رقم الهاتف *</Label>
+                      <Label htmlFor="phone" className="font-arabic">
+                        رقم الهاتف *
+                      </Label>
                       <div className="relative">
                         <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
@@ -216,7 +266,9 @@ export default function Booking() {
                           type="tel"
                           placeholder="77xxxxxxx (+967)"
                           value={formData.phone}
-                          onChange={(e) => handleInputChange("phone", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("phone", e.target.value)
+                          }
                           className="pl-10 font-arabic border-2 focus:border-dental-primary transition-colors duration-300 hover:border-gray-300"
                           required
                         />
@@ -225,7 +277,9 @@ export default function Booking() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="font-arabic">البريد الإلكتروني</Label>
+                    <Label htmlFor="email" className="font-arabic">
+                      البريد الإلكتروني
+                    </Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
@@ -233,7 +287,9 @@ export default function Booking() {
                         type="email"
                         placeholder="example@email.com"
                         value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         className="pl-10 font-arabic"
                       />
                     </div>
@@ -242,23 +298,37 @@ export default function Booking() {
                   {/* Appointment Details */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="date" className="font-arabic">تاريخ الموعد *</Label>
+                      <Label htmlFor="date" className="font-arabic">
+                        تاريخ الموعد *
+                      </Label>
                       <div className="relative">
                         <Calendar className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="date"
                           type="date"
                           value={formData.date}
-                          onChange={(e) => handleInputChange("date", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("date", e.target.value)
+                          }
                           className="pl-10 font-arabic"
                           required
-                          min={new Date().toISOString().split('T')[0]}
+                          min={new Date().toISOString().split("T")[0]}
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="time" className="font-arabic">وقت الموعد *</Label>
-                      <Select value={formData.time} onValueChange={(value) => handleInputChange("time", value)} required placeholder="اختر الوقت المناسب" className="font-arabic">
+                      <Label htmlFor="time" className="font-arabic">
+                        وقت الموعد *
+                      </Label>
+                      <Select
+                        value={formData.time}
+                        onValueChange={(value) =>
+                          handleInputChange("time", value)
+                        }
+                        required
+                        placeholder="اختر الوقت المناسب"
+                        className="font-arabic"
+                      >
                         {timeSlots.map((time) => (
                           <SelectItem key={time} value={time}>
                             {time}
@@ -269,8 +339,18 @@ export default function Booking() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="service" className="font-arabic">نوع الخدمة المطلوبة *</Label>
-                    <Select value={formData.service} onValueChange={(value) => handleInputChange("service", value)} required placeholder="اختر نوع الخدمة" className="font-arabic">
+                    <Label htmlFor="service" className="font-arabic">
+                      نوع الخدمة المطلوبة *
+                    </Label>
+                    <Select
+                      value={formData.service}
+                      onValueChange={(value) =>
+                        handleInputChange("service", value)
+                      }
+                      required
+                      placeholder="اختر نوع الخدمة"
+                      className="font-arabic"
+                    >
                       {services.map((service) => (
                         <SelectItem key={service} value={service}>
                           {service}
@@ -280,18 +360,26 @@ export default function Booking() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="notes" className="font-arabic">ملاح��ات إضافية</Label>
+                    <Label htmlFor="notes" className="font-arabic">
+                      ملاح��ات إضافية
+                    </Label>
                     <Textarea
                       id="notes"
                       placeholder="أي ملاحظا�� أو معلومات إضافية تود إضافتها..."
                       value={formData.notes}
-                      onChange={(e) => handleInputChange("notes", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("notes", e.target.value)
+                      }
                       className="font-arabic"
                       rows={4}
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full font-arabic bg-gradient-to-r from-dental-primary to-blue-600 hover:from-dental-primary/90 hover:to-blue-600/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full font-arabic bg-gradient-to-r from-dental-primary to-blue-600 hover:from-dental-primary/90 hover:to-blue-600/90 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
                     تأكيد الحجز
                     <Calendar className="mr-2 h-5 w-5 animate-pulse" />
                   </Button>
@@ -311,21 +399,29 @@ export default function Booking() {
                   <Clock className="h-5 w-5 text-dental-primary mt-1" />
                   <div>
                     <h4 className="font-semibold font-arabic">مدة الموعد</h4>
-                    <p className="text-sm text-gray-600 font-arabic">30-60 دقيقة حسب نوع الخدمة</p>
+                    <p className="text-sm text-gray-600 font-arabic">
+                      30-60 دقيقة حسب نوع الخدمة
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-reverse space-x-3">
                   <FileText className="h-5 w-5 text-dental-primary mt-1" />
                   <div>
-                    <h4 className="font-semibold font-arabic">الوثائق المطلوبة</h4>
-                    <p className="text-sm text-gray-600 font-arabic">بطاقة الهوية، تأمين طبي (إن وجد)</p>
+                    <h4 className="font-semibold font-arabic">
+                      الوثائق المطلوبة
+                    </h4>
+                    <p className="text-sm text-gray-600 font-arabic">
+                      بطاقة الهوية، تأمين طبي (إن وجد)
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-reverse space-x-3">
                   <Phone className="h-5 w-5 text-dental-primary mt-1" />
                   <div>
                     <h4 className="font-semibold font-arabic">للاستفسار</h4>
-                    <p className="text-sm text-gray-600 font-arabic">+966 50 123 4567</p>
+                    <p className="text-sm text-gray-600 font-arabic">
+                      +966 50 123 4567
+                    </p>
                   </div>
                 </div>
               </CardContent>

@@ -1,16 +1,39 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { NativeSelect as Select, NativeSelectItem as SelectItem } from "@/components/ui/native-select";
+import {
+  NativeSelect as Select,
+  NativeSelectItem as SelectItem,
+} from "@/components/ui/native-select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { 
+import {
   Settings,
   UserCheck,
   Shield,
@@ -26,13 +49,13 @@ import {
   Edit,
   Plus,
   Check,
-  X
+  X,
 } from "lucide-react";
 
 interface SystemSettingsProps {
   isOpen: boolean;
   onClose: () => void;
-  type: 'general' | 'users' | 'security' | 'backup' | 'notifications';
+  type: "general" | "users" | "security" | "backup" | "notifications";
 }
 
 // Mock data for users
@@ -43,7 +66,7 @@ const users = [
     email: "sara@clinic.com",
     role: "admin",
     status: "active",
-    lastLogin: "2024-01-15"
+    lastLogin: "2024-01-15",
   },
   {
     id: 2,
@@ -51,7 +74,7 @@ const users = [
     email: "mohammed@clinic.com",
     role: "doctor",
     status: "active",
-    lastLogin: "2024-01-14"
+    lastLogin: "2024-01-14",
   },
   {
     id: 3,
@@ -59,8 +82,8 @@ const users = [
     email: "fatima@clinic.com",
     role: "receptionist",
     status: "inactive",
-    lastLogin: "2024-01-10"
-  }
+    lastLogin: "2024-01-10",
+  },
 ];
 
 const SecuritySettings = () => {
@@ -84,7 +107,9 @@ const SecuritySettings = () => {
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="font-arabic">انتهاء صلاحية كلمة المرور (��يام)</Label>
+            <Label className="font-arabic">
+              انتهاء صلاحية كلمة المرور (��يام)
+            </Label>
             <Input type="number" defaultValue="90" className="w-20" />
           </div>
         </CardContent>
@@ -138,10 +163,10 @@ const UserManagement = () => {
   const [usersList, setUsersList] = useState(users);
   const [isLoading, setIsLoading] = useState(false);
   const [newUser, setNewUser] = useState({
-    name: '',
-    email: '',
-    role: '',
-    password: ''
+    name: "",
+    email: "",
+    role: "",
+    password: "",
   });
   const [editingUser, setEditingUser] = useState<any>(null);
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
@@ -150,29 +175,36 @@ const UserManagement = () => {
   const loadUsers = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/database/tables/users');
+      const response = await fetch("/api/database/tables/users");
       const data = await response.json();
 
-      console.log('Users API response:', data);
+      console.log("Users API response:", data);
 
-      if (data.success && data.data && data.data.rows && Array.isArray(data.data.rows)) {
+      if (
+        data.success &&
+        data.data &&
+        data.data.rows &&
+        Array.isArray(data.data.rows)
+      ) {
         // Transform database users to match our interface
         const transformedUsers = data.data.rows.map((user: any) => ({
           id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
-          status: user.is_active ? 'active' : 'inactive',
-          lastLogin: user.updated_at ? new Date(user.updated_at).toISOString().split('T')[0] : 'لم يسجل دخول'
+          status: user.is_active ? "active" : "inactive",
+          lastLogin: user.updated_at
+            ? new Date(user.updated_at).toISOString().split("T")[0]
+            : "لم يسجل دخول",
         }));
         setUsersList(transformedUsers);
       } else {
-        console.log('Users data is not in expected format:', data);
+        console.log("Users data is not in expected format:", data);
         // Keep the mock users as fallback
         setUsersList(users);
       }
     } catch (error) {
-      console.error('Error loading users:', error);
+      console.error("Error loading users:", error);
     } finally {
       setIsLoading(false);
     }
@@ -185,15 +217,15 @@ const UserManagement = () => {
 
   const handleAddUser = async () => {
     if (!newUser.name || !newUser.email || !newUser.role || !newUser.password) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert("يرجى ملء جميع الحقول المطلوبة");
       return;
     }
 
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: newUser.name,
@@ -209,11 +241,11 @@ const UserManagement = () => {
         // Refresh the users list from database
         await loadUsers();
 
-        setNewUser({ name: '', email: '', role: '', password: '' });
+        setNewUser({ name: "", email: "", role: "", password: "" });
         setIsAddUserOpen(false);
-        alert('تم إضافة المستخدم بنجاح');
+        alert("تم إضافة المستخدم بنجاح");
       } else {
-        let errorMessage = 'حدث خطأ غير متوقع';
+        let errorMessage = "حدث خطأ غير متوقع";
         try {
           const error = await response.json();
           errorMessage = error.error || error.message || errorMessage;
@@ -224,8 +256,8 @@ const UserManagement = () => {
         alert(`خطأ في إضافة المستخدم: ${errorMessage}`);
       }
     } catch (error) {
-      console.error('Error adding user:', error);
-      alert('حدث خطأ أثناء إضافة المستخدم. يرجى المحاولة مرة أخرى.');
+      console.error("Error adding user:", error);
+      alert("حدث خطأ أثناء إضافة المستخدم. يرجى المحاولة مرة أخرى.");
     }
   };
 
@@ -235,33 +267,40 @@ const UserManagement = () => {
       name: user.name,
       email: user.email,
       role: user.role,
-      password: ''
+      password: "",
     });
     setIsEditUserOpen(true);
   };
 
   const handleUpdateUser = () => {
     if (!newUser.name || !newUser.email || !newUser.role) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert("يرجى ملء جميع الحقول المطلوبة");
       return;
     }
 
-    setUsersList(usersList.map(user =>
-      user.id === editingUser.id
-        ? { ...user, name: newUser.name, email: newUser.email, role: newUser.role }
-        : user
-    ));
+    setUsersList(
+      usersList.map((user) =>
+        user.id === editingUser.id
+          ? {
+              ...user,
+              name: newUser.name,
+              email: newUser.email,
+              role: newUser.role,
+            }
+          : user,
+      ),
+    );
 
-    setNewUser({ name: '', email: '', role: '', password: '' });
+    setNewUser({ name: "", email: "", role: "", password: "" });
     setEditingUser(null);
     setIsEditUserOpen(false);
-    alert('تم تحديث بيانات المستخدم بنجاح');
+    alert("تم تحديث بيانات المستخدم بنجاح");
   };
 
   const handleDeleteUser = (userId: number) => {
-    if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
-      setUsersList(usersList.filter(user => user.id !== userId));
-      alert('تم حذف المستخدم بنجاح');
+    if (confirm("هل أنت متأكد من حذف هذا المستخدم؟")) {
+      setUsersList(usersList.filter((user) => user.id !== userId));
+      alert("تم حذف المستخدم بنجاح");
     }
   };
 
@@ -269,12 +308,12 @@ const UserManagement = () => {
     const roleColors = {
       admin: "bg-red-100 text-red-800",
       doctor: "bg-blue-100 text-blue-800",
-      receptionist: "bg-green-100 text-green-800"
+      receptionist: "bg-green-100 text-green-800",
     };
     const roleNames = {
       admin: "مدير",
       doctor: "طبيب",
-      receptionist: "استقبال"
+      receptionist: "استقبال",
     };
     return (
       <Badge className={roleColors[role as keyof typeof roleColors]}>
@@ -319,13 +358,26 @@ const UserManagement = () => {
               <TableCell>{user.email}</TableCell>
               <TableCell>{getRoleBadge(user.role)}</TableCell>
               <TableCell>{getStatusBadge(user.status)}</TableCell>
-              <TableCell>{typeof user.lastLogin === 'string' && user.lastLogin !== 'لم يسجل دخول' ? new Date(user.lastLogin).toLocaleDateString('ar-SA') : user.lastLogin}</TableCell>
+              <TableCell>
+                {typeof user.lastLogin === "string" &&
+                user.lastLogin !== "لم يسجل دخول"
+                  ? new Date(user.lastLogin).toLocaleDateString("ar-SA")
+                  : user.lastLogin}
+              </TableCell>
               <TableCell>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" onClick={() => handleEditUser(user)}>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleEditUser(user)}
+                  >
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button size="sm" variant="destructive" onClick={() => handleDeleteUser(user.id)}>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -339,7 +391,9 @@ const UserManagement = () => {
       <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
         <DialogContent className="sm:max-w-[500px]" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="font-arabic">إ��افة مستخدم جديد</DialogTitle>
+            <DialogTitle className="font-arabic">
+              إ��افة مستخدم جديد
+            </DialogTitle>
             <DialogDescription className="font-arabic">
               أدخل بيانات المستخدم ا��ج��يد
             </DialogDescription>
@@ -351,7 +405,9 @@ const UserManagement = () => {
                 placeholder="أدخل الاسم ال��امل"
                 className="font-arabic"
                 value={newUser.name}
-                onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, name: e.target.value }))
+                }
               />
             </div>
             <div className="space-y-2">
@@ -360,14 +416,18 @@ const UserManagement = () => {
                 type="email"
                 placeholder="email@example.com"
                 value={newUser.email}
-                onChange={(e) => setNewUser(prev => ({ ...prev, email: e.target.value }))}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, email: e.target.value }))
+                }
               />
             </div>
             <div className="space-y-2">
               <Label className="font-arabic">ال��ور</Label>
               <Select
                 value={newUser.role}
-                onValueChange={(value) => setNewUser(prev => ({ ...prev, role: value }))}
+                onValueChange={(value) =>
+                  setNewUser((prev) => ({ ...prev, role: value }))
+                }
                 placeholder="اختر الدور"
                 className="font-arabic"
               >
@@ -377,20 +437,30 @@ const UserManagement = () => {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label className="font-arabic">كلمة المرور <span className="text-red-500">*</span></Label>
+              <Label className="font-arabic">
+                كلمة المرور <span className="text-red-500">*</span>
+              </Label>
               <Input
                 type="password"
                 placeholder="كلمة المرور"
                 value={newUser.password}
-                onChange={(e) => setNewUser(prev => ({ ...prev, password: e.target.value }))}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, password: e.target.value }))
+                }
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddUserOpen(false)} className="font-arabic">
+            <Button
+              variant="outline"
+              onClick={() => setIsAddUserOpen(false)}
+              className="font-arabic"
+            >
               إلغاء
             </Button>
-            <Button onClick={handleAddUser} className="font-arabic">إضافة المستخد��</Button>
+            <Button onClick={handleAddUser} className="font-arabic">
+              إضافة المستخد��
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -399,7 +469,9 @@ const UserManagement = () => {
       <Dialog open={isEditUserOpen} onOpenChange={setIsEditUserOpen}>
         <DialogContent className="sm:max-w-[500px]" dir="rtl">
           <DialogHeader>
-            <DialogTitle className="font-arabic">تعديل بيانات المستخدم</DialogTitle>
+            <DialogTitle className="font-arabic">
+              تعديل بيانات المستخدم
+            </DialogTitle>
             <DialogDescription className="font-arabic">
               تحديث بيانات المستخدم
             </DialogDescription>
@@ -411,7 +483,9 @@ const UserManagement = () => {
                 placeholder="أدخل الاسم الكامل"
                 className="font-arabic"
                 value={newUser.name}
-                onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, name: e.target.value }))
+                }
               />
             </div>
             <div className="space-y-2">
@@ -420,14 +494,18 @@ const UserManagement = () => {
                 type="email"
                 placeholder="email@example.com"
                 value={newUser.email}
-                onChange={(e) => setNewUser(prev => ({ ...prev, email: e.target.value }))}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, email: e.target.value }))
+                }
               />
             </div>
             <div className="space-y-2">
               <Label className="font-arabic">الدور</Label>
               <Select
                 value={newUser.role}
-                onValueChange={(value) => setNewUser(prev => ({ ...prev, role: value }))}
+                onValueChange={(value) =>
+                  setNewUser((prev) => ({ ...prev, role: value }))
+                }
                 className="font-arabic"
               >
                 <SelectItem value="admin">مدير</SelectItem>
@@ -437,10 +515,16 @@ const UserManagement = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditUserOpen(false)} className="font-arabic">
+            <Button
+              variant="outline"
+              onClick={() => setIsEditUserOpen(false)}
+              className="font-arabic"
+            >
               إلغاء
             </Button>
-            <Button onClick={handleUpdateUser} className="font-arabic">حفظ التغييرات</Button>
+            <Button onClick={handleUpdateUser} className="font-arabic">
+              حفظ التغييرات
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -451,44 +535,50 @@ const UserManagement = () => {
 const BackupSettings = () => {
   const handleCreateBackup = async () => {
     try {
-      const response = await fetch('/api/database/backup', {
-        method: 'POST',
+      const response = await fetch("/api/database/backup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       if (response.ok) {
-        alert('تم إن��اء النسخة الاحتياطية بنجاح!');
+        alert("تم إن��اء النسخة الاحتياطية بنجاح!");
       } else {
-        alert('حدث خطأ أ��ناء إنشاء النسخة الاحتياطية');
+        alert("حدث خطأ أ��ناء إنشاء النسخة الاحتياطية");
       }
     } catch (error) {
-      console.error('Backup error:', error);
-      alert('حدث خطأ أثناء إنشاء النسخة الاحتياطية');
+      console.error("Backup error:", error);
+      alert("حدث خطأ أثناء إنشاء النسخة الاحتياطية");
     }
   };
 
   const handleDownloadBackup = async () => {
     try {
-      const response = await fetch('/api/database/backups');
+      const response = await fetch("/api/database/backups");
       const data = await response.json();
 
       if (data.success && data.data.length > 0) {
         const latestBackup = data.data[0];
-        alert(`آخر نسخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString('ar-SA')}`);
+        alert(
+          `آخر نسخة احتياطية: ${latestBackup.backup_name} - ${new Date(latestBackup.created_at).toLocaleDateString("ar-SA")}`,
+        );
       } else {
-        alert('لا توجد نسخ احتياطية متاحة');
+        alert("لا توجد نسخ احتياطية متاحة");
       }
     } catch (error) {
-      console.error('Download backup error:', error);
-      alert('حدث خطأ أثناء تحميل النسخة الاحتياطية');
+      console.error("Download backup error:", error);
+      alert("حدث خطأ أثناء تحميل النسخة الاحتياطية");
     }
   };
 
   const handleRestoreBackup = () => {
-    if (confirm('تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية. هل أنت ��تأكد؟')) {
-      alert('سيتم إضافة وظيفة الاستعادة قريباً');
+    if (
+      confirm(
+        "تحذير: استعادة البيانات ستحل محل جميع البيانات الحالية. هل أنت ��تأكد؟",
+      )
+    ) {
+      alert("سيتم إضافة وظيفة الاستعادة قريباً");
     }
   };
 
@@ -496,7 +586,9 @@ const BackupSettings = () => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="font-arabic">النسخ الاحتياطي التلقائ��</CardTitle>
+          <CardTitle className="font-arabic">
+            النسخ الاحتياطي التلقائ��
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
@@ -535,7 +627,11 @@ const BackupSettings = () => {
               <Database className="h-4 w-4 mr-2" />
               إنشاء نسخة احتياطية الآن
             </Button>
-            <Button onClick={handleDownloadBackup} variant="outline" className="font-arabic">
+            <Button
+              onClick={handleDownloadBackup}
+              variant="outline"
+              className="font-arabic"
+            >
               <Download className="h-4 w-4 mr-2" />
               تحميل آخر نسخة
             </Button>
@@ -551,7 +647,11 @@ const BackupSettings = () => {
           <p className="text-sm text-red-600 font-arabic">
             تحذير: استعادة البيانات ستحل محل جميع البيانات ال��الية
           </p>
-          <Button onClick={handleRestoreBackup} variant="destructive" className="font-arabic">
+          <Button
+            onClick={handleRestoreBackup}
+            variant="destructive"
+            className="font-arabic"
+          >
             استعادة من نسخة احتياطية
           </Button>
         </CardContent>
@@ -562,19 +662,19 @@ const BackupSettings = () => {
 
 const GeneralSettings = () => {
   const [settings, setSettings] = useState({
-    clinicName: 'عيادة الأسنان المتقدمة',
-    address: 'شارع الملك فهد، الرياض، المملكة العربية السعودية',
-    phone: '+966 11 234 5678',
-    email: 'info@dentalclinic.com',
-    workingHours: '8:00 - 18:00',
-    timezone: 'Asia/Riyadh',
-    currency: 'SAR',
-    language: 'ar'
+    clinicName: "عيادة الأسنان المتقدمة",
+    address: "شارع الملك فهد، الرياض، المملكة العربية السعودية",
+    phone: "+966 11 234 5678",
+    email: "info@dentalclinic.com",
+    workingHours: "8:00 - 18:00",
+    timezone: "Asia/Riyadh",
+    currency: "SAR",
+    language: "ar",
   });
 
   const handleSaveSettings = () => {
     // Here you would normally save to API
-    alert('تم حفظ الإعدادات بنجاح!');
+    alert("تم حفظ الإعدادات بنجاح!");
   };
 
   return (
@@ -586,11 +686,17 @@ const GeneralSettings = () => {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label className="font-arabic">اسم الع��ادة</Label>
-            <Input defaultValue="عيادة الأسنان المتقدمة" className="font-arabic" />
+            <Input
+              defaultValue="عيادة الأسنان المتقدمة"
+              className="font-arabic"
+            />
           </div>
           <div className="space-y-2">
             <Label className="font-arabic">العنوان</Label>
-            <Textarea defaultValue="شارع الملك فهد، الرياض، المملكة العربية السعودية" className="font-arabic" />
+            <Textarea
+              defaultValue="شارع الملك فهد، الرياض، المملكة العربية السعودية"
+              className="font-arabic"
+            />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -677,21 +783,27 @@ const NotificationSettings = () => {
           <div className="flex items-center justify-between">
             <div>
               <Label className="font-arabic">إشعارات البريد الإلكتروني</Label>
-              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر البريد ��لإلكتروني</p>
+              <p className="text-sm text-gray-500 font-arabic">
+                تلقي إشعارات عبر البريد ��لإلكتروني
+              </p>
             </div>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
             <div>
               <Label className="font-arabic">إشعارات ال��سائل النصية</Label>
-              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر الرسائل النصية</p>
+              <p className="text-sm text-gray-500 font-arabic">
+                تلقي إشعارات عبر الرسائل النصية
+              </p>
             </div>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between">
             <div>
               <Label className="font-arabic">إشعارات الوا��س آب</Label>
-              <p className="text-sm text-gray-500 font-arabic">تلقي إشعارات عبر الوا��س آب</p>
+              <p className="text-sm text-gray-500 font-arabic">
+                تلقي إشعارات عبر الوا��س آب
+              </p>
             </div>
             <Switch />
           </div>
@@ -756,29 +868,44 @@ const NotificationSettings = () => {
 export function SystemSettings({ isOpen, onClose, type }: SystemSettingsProps) {
   const getTitle = () => {
     switch (type) {
-      case 'general': return 'الإعدادات العامة';
-      case 'users': return 'إدارة المستخدم��ن';
-      case 'security': return 'الأمان والخصوصية';
-      case 'backup': return 'النسخ الاحتياطي';
-      case 'notifications': return 'إعدادات الإشعارات';
-      default: return 'إعدادات النظام';
+      case "general":
+        return "الإعدادات العامة";
+      case "users":
+        return "إدارة المستخدم��ن";
+      case "security":
+        return "الأمان والخصوصية";
+      case "backup":
+        return "النسخ الاحتياطي";
+      case "notifications":
+        return "إعدادات الإشعارات";
+      default:
+        return "إعدادات النظام";
     }
   };
 
   const renderContent = () => {
     switch (type) {
-      case 'general': return <GeneralSettings />;
-      case 'users': return <UserManagement />;
-      case 'security': return <SecuritySettings />;
-      case 'backup': return <BackupSettings />;
-      case 'notifications': return <NotificationSettings />;
-      default: return <GeneralSettings />;
+      case "general":
+        return <GeneralSettings />;
+      case "users":
+        return <UserManagement />;
+      case "security":
+        return <SecuritySettings />;
+      case "backup":
+        return <BackupSettings />;
+      case "notifications":
+        return <NotificationSettings />;
+      default:
+        return <GeneralSettings />;
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[800px] max-h-[80vh] overflow-y-auto" dir="rtl">
+      <DialogContent
+        className="sm:max-w-[800px] max-h-[80vh] overflow-y-auto"
+        dir="rtl"
+      >
         <DialogHeader>
           <DialogTitle className="font-arabic">{getTitle()}</DialogTitle>
           <DialogDescription className="font-arabic">

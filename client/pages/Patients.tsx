@@ -1,13 +1,34 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectItem } from "@/components/ui/native-select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -39,7 +60,7 @@ import {
   Pill,
   ClipboardList,
   TrendingUp,
-  CalendarClock
+  CalendarClock,
 } from "lucide-react";
 
 interface Patient {
@@ -68,7 +89,7 @@ interface Appointment {
   time: string;
   doctor_name: string;
   service: string;
-  status: 'scheduled' | 'completed' | 'cancelled' | 'rescheduled';
+  status: "scheduled" | "completed" | "cancelled" | "rescheduled";
   notes?: string;
 }
 
@@ -90,9 +111,9 @@ interface Payment {
   patient_name: string;
   amount: number;
   service: string;
-  payment_method: 'cash' | 'card' | 'insurance';
+  payment_method: "cash" | "card" | "insurance";
   date: string;
-  status: 'paid' | 'pending' | 'partial';
+  status: "paid" | "pending" | "partial";
   invoice_number: string;
 }
 
@@ -103,7 +124,9 @@ const getStatusBadge = (status: string) => {
     case "inactive":
       return <Badge className="bg-gray-100 text-gray-800">غير نشط</Badge>;
     case "pending":
-      return <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>;
+      return (
+        <Badge className="bg-yellow-100 text-yellow-800">في الانتظار</Badge>
+      );
     default:
       return <Badge variant="secondary">غير محدد</Badge>;
   }
@@ -123,14 +146,14 @@ export default function Patients() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [activeTab, setActiveTab] = useState("patients");
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    address: '',
-    gender: '',
-    insurance_company: '',
-    medical_history: '',
-    allergies: ''
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    gender: "",
+    insurance_company: "",
+    medical_history: "",
+    allergies: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isAddMedicalRecordOpen, setIsAddMedicalRecordOpen] = useState(false);
@@ -146,21 +169,21 @@ export default function Patients() {
   const fetchPatients = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/patients');
+      const response = await fetch("/api/patients");
       const data = await response.json();
 
       if (data.success && data.data) {
         // Transform the data to match our interface
         const transformedPatients = data.data.map((patient: any) => ({
           ...patient,
-          status: 'active' // Default status since it's not in DB
+          status: "active", // Default status since it's not in DB
         }));
         setPatients(transformedPatients);
       } else {
         setPatients([]);
       }
     } catch (error) {
-      console.error('خطأ في جلب بيانات المرضى:', error);
+      console.error("خطأ في جلب بيانات المرضى:", error);
       setPatients([]);
     } finally {
       setLoading(false);
@@ -168,11 +191,15 @@ export default function Patients() {
   };
 
   // Filter patients
-  const filteredPatients = patients.filter(patient => {
-    const matchesSearch = patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         patient.patient_number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         patient.phone?.includes(searchTerm);
-    const matchesStatus = selectedStatus === "all" || patient.status === selectedStatus;
+  const filteredPatients = patients.filter((patient) => {
+    const matchesSearch =
+      patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.patient_number
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      patient.phone?.includes(searchTerm);
+    const matchesStatus =
+      selectedStatus === "all" || patient.status === selectedStatus;
     return matchesSearch && matchesStatus;
   });
 
@@ -184,53 +211,60 @@ export default function Patients() {
   const handleEditPatient = (patient: any) => {
     setSelectedPatient(patient);
     setFormData({
-      name: patient.name || '',
-      phone: patient.phone || '',
-      email: patient.email || '',
-      address: patient.address || '',
-      gender: patient.gender || '',
-      insurance_company: patient.insurance_company || '',
-      medical_history: patient.medical_history || '',
-      allergies: patient.allergies || ''
+      name: patient.name || "",
+      phone: patient.phone || "",
+      email: patient.email || "",
+      address: patient.address || "",
+      gender: patient.gender || "",
+      insurance_company: patient.insurance_company || "",
+      medical_history: patient.medical_history || "",
+      allergies: patient.allergies || "",
     });
     setIsEditPatientDialogOpen(true);
   };
 
   const handleAddPatient = () => {
     setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      address: '',
-      gender: '',
-      insurance_company: '',
-      medical_history: '',
-      allergies: ''
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      gender: "",
+      insurance_company: "",
+      medical_history: "",
+      allergies: "",
     });
     setSelectedPatient(null);
     setIsAddPatientDialogOpen(true);
   };
 
   const handleDeletePatient = async (patientId: number) => {
-    if (!confirm('هل أنت متأكد من حذف هذا المريض؟ لا يمكن التراجع عن هذا الإجراء.')) {
+    if (
+      !confirm(
+        "هل أنت متأكد من حذف هذا المريض؟ لا يمكن التراجع عن هذا الإجراء.",
+      )
+    ) {
       return;
     }
 
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/database/tables/patients/${patientId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/database/tables/patients/${patientId}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (response.ok) {
-        alert('تم حذف المريض بنجاح');
+        alert("تم حذف المريض بنجاح");
         fetchPatients(); // Refresh the list
       } else {
-        alert('حدث خطأ أثناء حذف المريض');
+        alert("حدث خطأ أثناء حذف المريض");
       }
     } catch (error) {
-      console.error('Error deleting patient:', error);
-      alert('حدث خطأ أثناء حذف المريض');
+      console.error("Error deleting patient:", error);
+      alert("حدث خطأ أثناء حذف المريض");
     } finally {
       setIsLoading(false);
     }
@@ -238,7 +272,7 @@ export default function Patients() {
 
   const handleSavePatient = async () => {
     if (!formData.name || !formData.phone) {
-      alert('يرجى ملء الحقول المطلوبة على الأقل (الاسم والهاتف)');
+      alert("يرجى ملء الحقول المطلوبة على الأقل (الاسم والهاتف)");
       return;
     }
 
@@ -247,41 +281,49 @@ export default function Patients() {
       const isEdit = selectedPatient && selectedPatient.id;
       const url = isEdit
         ? `/api/database/tables/patients/${selectedPatient.id}`
-        : '/api/database/tables/patients';
+        : "/api/database/tables/patients";
 
-      const method = isEdit ? 'PUT' : 'POST';
+      const method = isEdit ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        alert(isEdit ? 'تم تحديث بيانات المريض بنج��ح' : 'تم إضافة المريض بنجاح');
+        alert(
+          isEdit ? "تم تحديث بيانات المريض بنج��ح" : "تم إضافة المريض بنجاح",
+        );
         setIsAddPatientDialogOpen(false);
         setIsEditPatientDialogOpen(false);
         fetchPatients(); // Refresh the list
       } else {
-        alert('حدث خطأ أثناء حفظ بيانات المريض');
+        alert("حدث خطأ أثناء حفظ بيانات المريض");
       }
     } catch (error) {
-      console.error('Error saving patient:', error);
-      alert('حدث خطأ أثناء حفظ بيانات المريض');
+      console.error("Error saving patient:", error);
+      alert("حدث خطأ أثناء حفظ بيانات المريض");
     } finally {
       setIsLoading(false);
     }
   };
 
   const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
   };
 
   const handleViewMedicalRecord = (record: any) => {
     setSelectedMedicalRecord(record);
-    alert(`عرض السجل الطبي للمريض: ${record.patient}\nالتشخيص: ${record.diagnosis}\nالعلاج: ${record.treatment}`);
+    alert(
+      `عرض السجل الطبي للمريض: ${record.patient}\nالتشخيص: ${record.diagnosis}\nالعلاج: ${record.treatment}`,
+    );
   };
 
   const handleEditMedicalRecord = (record: any) => {
@@ -296,7 +338,9 @@ export default function Patients() {
 
   const handleViewPayment = (payment: any) => {
     setSelectedPayment(payment);
-    alert(`تفاصيل الدفعة:\nرقم الفاتورة: ${payment.invoice}\nالمريض: ${payment.patient}\nالمبلغ: ${payment.amount}\nالحالة: ${payment.status}`);
+    alert(
+      `تفاصيل الدفعة:\nرقم الفاتورة: ${payment.invoice}\nالمريض: ${payment.patient}\nالمبلغ: ${payment.amount}\nالحالة: ${payment.status}`,
+    );
   };
 
   const handleEditPayment = (payment: any) => {
@@ -310,7 +354,9 @@ export default function Patients() {
   };
 
   const handlePrintReceipt = (payment: any) => {
-    alert(`طباعة إيصال الدفع:\nرقم الفاتورة: ${payment.invoice}\nالمبلغ: ${payment.amount}\nالمريض: ${payment.patient}`);
+    alert(
+      `طباعة إيصال الدفع:\nرقم الفاتورة: ${payment.invoice}\nالمبلغ: ${payment.amount}\nالمريض: ${payment.patient}`,
+    );
   };
 
   return (
@@ -319,8 +365,12 @@ export default function Patients() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 font-arabic">ملفات المرضى</h1>
-            <p className="text-gray-600 font-arabic">إدارة شاملة لبيانات وملفات المرضى</p>
+            <h1 className="text-3xl font-bold text-gray-900 font-arabic">
+              ملفات المرضى
+            </h1>
+            <p className="text-gray-600 font-arabic">
+              إدارة شاملة لبيانات وملفات المرضى
+            </p>
           </div>
           <Button onClick={handleAddPatient} className="font-arabic">
             <Plus className="h-4 w-4 mr-2" />
@@ -332,11 +382,15 @@ export default function Patients() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">إجمالي المرضى</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                إجمالي المرضى
+              </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? '...' : patients.length}</div>
+              <div className="text-2xl font-bold">
+                {loading ? "..." : patients.length}
+              </div>
               <p className="text-xs text-muted-foreground font-arabic">
                 +2 مرضى جدد هذا الأسبوع
               </p>
@@ -345,12 +399,16 @@ export default function Patients() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">المرضى النشطون</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                المرضى النشطون
+              </CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">
-                {loading ? '...' : patients.filter(p => p.status === 'active').length}
+                {loading
+                  ? "..."
+                  : patients.filter((p) => p.status === "active").length}
               </div>
               <p className="text-xs text-muted-foreground font-arabic">
                 من إجمالي المرضى
@@ -360,7 +418,9 @@ export default function Patients() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">مواعيد اليوم</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                مواعيد اليوم
+              </CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -373,7 +433,9 @@ export default function Patients() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium font-arabic">حالات طارئة</CardTitle>
+              <CardTitle className="text-sm font-medium font-arabic">
+                حالات طارئة
+              </CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -404,7 +466,9 @@ export default function Patients() {
               <CardContent>
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="flex-1">
-                    <Label htmlFor="search" className="font-arabic">البح��</Label>
+                    <Label htmlFor="search" className="font-arabic">
+                      البح��
+                    </Label>
                     <div className="relative">
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
@@ -424,10 +488,18 @@ export default function Patients() {
                       placeholder="اختر حالة المريض"
                       className="font-arabic"
                     >
-                      <SelectItem value="all" className="font-arabic">جميع المرضى</SelectItem>
-                      <SelectItem value="active" className="font-arabic">نشط</SelectItem>
-                      <SelectItem value="inactive" className="font-arabic">غير نشط</SelectItem>
-                      <SelectItem value="pending" className="font-arabic">في الانت��ار</SelectItem>
+                      <SelectItem value="all" className="font-arabic">
+                        جميع المرضى
+                      </SelectItem>
+                      <SelectItem value="active" className="font-arabic">
+                        نشط
+                      </SelectItem>
+                      <SelectItem value="inactive" className="font-arabic">
+                        غير نشط
+                      </SelectItem>
+                      <SelectItem value="pending" className="font-arabic">
+                        في الانت��ار
+                      </SelectItem>
                     </Select>
                   </div>
                 </div>
@@ -445,83 +517,119 @@ export default function Patients() {
               <CardContent>
                 {loading ? (
                   <div className="text-center py-8">
-                    <div className="text-gray-600 font-arabic">جاري تحميل بيانات المرضى...</div>
+                    <div className="text-gray-600 font-arabic">
+                      جاري تحميل بيانات المرضى...
+                    </div>
                   </div>
                 ) : filteredPatients.length === 0 ? (
                   <div className="text-center py-8">
                     <Users className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                    <p className="text-gray-600 font-arabic">لا توجد بيانات مرضى</p>
-                    <p className="text-sm text-gray-500 font-arabic mt-1">تم حذف جميع بيانات المرضى من النظام</p>
+                    <p className="text-gray-600 font-arabic">
+                      لا توجد بيانات مرضى
+                    </p>
+                    <p className="text-sm text-gray-500 font-arabic mt-1">
+                      تم حذف جميع بيانات المرضى من النظام
+                    </p>
                   </div>
                 ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="font-arabic">المريض</TableHead>
-                      <TableHead className="font-arabic">العمر/الجنس</TableHead>
-                      <TableHead className="font-arabic">اله��تف</TableHead>
-                      <TableHead className="font-arabic">التأمين</TableHead>
-                      <TableHead className="font-arabic">آخر زيارة</TableHead>
-                      <TableHead className="font-arabic">الموعد القادم</TableHead>
-                      <TableHead className="font-arabic">الحالة</TableHead>
-                      <TableHead className="font-arabic">الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredPatients.map((patient) => (
-                      <TableRow key={patient.id}>
-                        <TableCell>
-                          <div className="flex items-center gap-3">
-                            <Avatar className="h-10 w-10">
-                              <AvatarFallback>{getInitials(patient.name)}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <div className="font-medium font-arabic">{patient.name}</div>
-                              <div className="text-sm text-gray-500">{patient.patient_number || `ID: ${patient.id}`}</div>
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-arabic">غير محدد / {patient.gender === 'male' ? 'ذكر' : patient.gender === 'female' ? 'أنثى' : patient.gender}</TableCell>
-                        <TableCell>{patient.phone}</TableCell>
-                        <TableCell className="font-arabic">{patient.insurance_company || 'غير محدد'}</TableCell>
-                        <TableCell>{patient.created_at ? new Date(patient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}</TableCell>
-                        <TableCell>
-                          <span className="text-gray-500 font-arabic">لا يوجد</span>
-                        </TableCell>
-                        <TableCell>{getStatusBadge(patient.status)}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleViewPatient(patient)}
-                              title="عرض التفاصيل"
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleEditPatient(patient)}
-                              title="تعديل"
-                            >
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDeletePatient(patient.id)}
-                              title="حذف"
-                              disabled={isLoading}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="font-arabic">المريض</TableHead>
+                        <TableHead className="font-arabic">
+                          العمر/الجنس
+                        </TableHead>
+                        <TableHead className="font-arabic">اله��تف</TableHead>
+                        <TableHead className="font-arabic">التأمين</TableHead>
+                        <TableHead className="font-arabic">آخر زيارة</TableHead>
+                        <TableHead className="font-arabic">
+                          الموعد القادم
+                        </TableHead>
+                        <TableHead className="font-arabic">الحالة</TableHead>
+                        <TableHead className="font-arabic">الإجراءات</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredPatients.map((patient) => (
+                        <TableRow key={patient.id}>
+                          <TableCell>
+                            <div className="flex items-center gap-3">
+                              <Avatar className="h-10 w-10">
+                                <AvatarFallback>
+                                  {getInitials(patient.name)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <div className="font-medium font-arabic">
+                                  {patient.name}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  {patient.patient_number ||
+                                    `ID: ${patient.id}`}
+                                </div>
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-arabic">
+                            غير محدد /{" "}
+                            {patient.gender === "male"
+                              ? "ذكر"
+                              : patient.gender === "female"
+                                ? "أنثى"
+                                : patient.gender}
+                          </TableCell>
+                          <TableCell>{patient.phone}</TableCell>
+                          <TableCell className="font-arabic">
+                            {patient.insurance_company || "غير محدد"}
+                          </TableCell>
+                          <TableCell>
+                            {patient.created_at
+                              ? new Date(patient.created_at).toLocaleDateString(
+                                  "ar-SA",
+                                )
+                              : "غير محدد"}
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-gray-500 font-arabic">
+                              لا يوجد
+                            </span>
+                          </TableCell>
+                          <TableCell>
+                            {getStatusBadge(patient.status)}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleViewPatient(patient)}
+                                title="عرض التفاصيل"
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleEditPatient(patient)}
+                                title="تعديل"
+                              >
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => handleDeletePatient(patient.id)}
+                                title="حذف"
+                                disabled={isLoading}
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 )}
               </CardContent>
             </Card>
@@ -541,17 +649,25 @@ export default function Patients() {
                         <div
                           key={patient.id}
                           className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                            selectedPatient?.id === patient.id ? 'bg-blue-50 border-blue-200' : 'hover:bg-gray-50'
+                            selectedPatient?.id === patient.id
+                              ? "bg-blue-50 border-blue-200"
+                              : "hover:bg-gray-50"
                           }`}
                           onClick={() => setSelectedPatient(patient)}
                         >
                           <div className="flex items-center gap-3">
                             <Avatar className="h-8 w-8">
-                              <AvatarFallback className="text-xs">{getInitials(patient.name)}</AvatarFallback>
+                              <AvatarFallback className="text-xs">
+                                {getInitials(patient.name)}
+                              </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium font-arabic text-sm">{patient.name}</div>
-                              <div className="text-xs text-gray-500">{patient.phone}</div>
+                              <div className="font-medium font-arabic text-sm">
+                                {patient.name}
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                {patient.phone}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -576,15 +692,23 @@ export default function Patients() {
                       <CardContent>
                         <div className="flex items-center gap-4 mb-6">
                           <Avatar className="h-20 w-20">
-                            <AvatarFallback className="text-2xl">{getInitials(selectedPatient.name)}</AvatarFallback>
+                            <AvatarFallback className="text-2xl">
+                              {getInitials(selectedPatient.name)}
+                            </AvatarFallback>
                           </Avatar>
                           <div>
-                            <h3 className="text-xl font-bold font-arabic">{selectedPatient.name}</h3>
-                            <p className="text-gray-600 font-arabic">{selectedPatient.patient_number || `ID: ${selectedPatient.id}`}</p>
+                            <h3 className="text-xl font-bold font-arabic">
+                              {selectedPatient.name}
+                            </h3>
+                            <p className="text-gray-600 font-arabic">
+                              {selectedPatient.patient_number ||
+                                `ID: ${selectedPatient.id}`}
+                            </p>
                             <div className="flex gap-2 mt-2">
                               {getStatusBadge(selectedPatient.status)}
                               <Badge variant="outline" className="font-arabic">
-                                {selectedPatient.blood_type || 'فصيلة غير محددة'}
+                                {selectedPatient.blood_type ||
+                                  "فصيلة غير محددة"}
                               </Badge>
                             </div>
                           </div>
@@ -594,35 +718,68 @@ export default function Patients() {
                           <div className="space-y-3">
                             <div className="flex items-center gap-2">
                               <User className="h-4 w-4 text-gray-500" />
-                              <span className="font-arabic text-sm font-medium">الجنس:</span>
-                              <span className="text-sm">{selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنثى' : selectedPatient.gender}</span>
+                              <span className="font-arabic text-sm font-medium">
+                                الجنس:
+                              </span>
+                              <span className="text-sm">
+                                {selectedPatient.gender === "male"
+                                  ? "ذكر"
+                                  : selectedPatient.gender === "female"
+                                    ? "أنثى"
+                                    : selectedPatient.gender}
+                              </span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Phone className="h-4 w-4 text-gray-500" />
-                              <span className="font-arabic text-sm font-medium">الهاتف:</span>
-                              <span className="text-sm">{selectedPatient.phone}</span>
+                              <span className="font-arabic text-sm font-medium">
+                                الهاتف:
+                              </span>
+                              <span className="text-sm">
+                                {selectedPatient.phone}
+                              </span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Mail className="h-4 w-4 text-gray-500" />
-                              <span className="font-arabic text-sm font-medium">البريد:</span>
-                              <span className="text-sm">{selectedPatient.email}</span>
+                              <span className="font-arabic text-sm font-medium">
+                                البريد:
+                              </span>
+                              <span className="text-sm">
+                                {selectedPatient.email}
+                              </span>
                             </div>
                           </div>
                           <div className="space-y-3">
                             <div className="flex items-center gap-2">
                               <MapPin className="h-4 w-4 text-gray-500" />
-                              <span className="font-arabic text-sm font-medium">العنوان:</span>
-                              <span className="text-sm font-arabic">{selectedPatient.address}</span>
+                              <span className="font-arabic text-sm font-medium">
+                                العنوان:
+                              </span>
+                              <span className="text-sm font-arabic">
+                                {selectedPatient.address}
+                              </span>
                             </div>
                             <div className="flex items-center gap-2">
                               <FileText className="h-4 w-4 text-gray-500" />
-                              <span className="font-arabic text-sm font-medium">التأمين:</span>
-                              <span className="text-sm font-arabic">{selectedPatient.insurance_company || 'غير محدد'}</span>
+                              <span className="font-arabic text-sm font-medium">
+                                التأمين:
+                              </span>
+                              <span className="text-sm font-arabic">
+                                {selectedPatient.insurance_company ||
+                                  "غير محدد"}
+                              </span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Clock className="h-4 w-4 text-gray-500" />
-                              <span className="font-arabic text-sm font-medium">التسجيل:</span>
-                              <span className="text-sm">{selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
+                              <span className="font-arabic text-sm font-medium">
+                                التسجيل:
+                              </span>
+                              <span className="text-sm">
+                                {selectedPatient.created_at
+                                  ? new Date(
+                                      selectedPatient.created_at,
+                                    ).toLocaleDateString("ar-SA")
+                                  : "غير محدد"}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -639,15 +796,21 @@ export default function Patients() {
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div>
-                          <h4 className="font-bold font-arabic mb-2">التاريخ الطبي:</h4>
+                          <h4 className="font-bold font-arabic mb-2">
+                            التاريخ الطبي:
+                          </h4>
                           <p className="text-sm font-arabic text-gray-600 bg-gray-50 p-3 rounded">
-                            {selectedPatient.medical_history || 'لا توجد معلومات طبية مسجلة'}
+                            {selectedPatient.medical_history ||
+                              "لا توجد معلومات طبية مسجلة"}
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold font-arabic mb-2">الحساسيات:</h4>
+                          <h4 className="font-bold font-arabic mb-2">
+                            الحساسيات:
+                          </h4>
                           <p className="text-sm font-arabic text-gray-600 bg-red-50 p-3 rounded">
-                            {selectedPatient.allergies || 'لا توجد حساسيات معروفة'}
+                            {selectedPatient.allergies ||
+                              "لا توجد حساسيات معروفة"}
                           </p>
                         </div>
                       </CardContent>
@@ -657,7 +820,9 @@ export default function Patients() {
                   <Card>
                     <CardContent className="text-center py-12">
                       <UserCheck className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                      <p className="text-gray-600 font-arabic">اختر مريضاً من القائمة لعرض ملفه الشخصي</p>
+                      <p className="text-gray-600 font-arabic">
+                        اختر مريضاً من القائمة لعرض ملفه الشخصي
+                      </p>
                     </CardContent>
                   </Card>
                 )}
@@ -670,42 +835,58 @@ export default function Patients() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">م��اعيد اليوم</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    م��اعيد اليوم
+                  </CardTitle>
                   <CalendarCheck className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">8</div>
-                  <p className="text-xs text-muted-foreground font-arabic">3 منجزة، 5 متبقية</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    3 منجزة، 5 متبقية
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">مواعيد الأسبوع</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    مواعيد الأسبوع
+                  </CardTitle>
                   <CalendarClock className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">24</div>
-                  <p className="text-xs text-muted-foreground font-arabic">زيادة 15% عن الأسبوع الماضي</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    زيادة 15% عن الأسبوع الماضي
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">معدل الحضور</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    معدل الحضور
+                  </CardTitle>
                   <TrendingUp className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-green-600">92%</div>
-                  <p className="text-xs text-muted-foreground font-arabic">أداء ممتاز</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    أداء ممتاز
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">إلغاءات</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    إلغاءات
+                  </CardTitle>
                   <AlertCircle className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-red-600">3</div>
-                  <p className="text-xs text-muted-foreground font-arabic">هذا الأسبوع</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    هذا الأسبوع
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -734,13 +915,19 @@ export default function Patients() {
                   <TableBody>
                     {/* Sample appointments data */}
                     <TableRow>
-                      <TableCell className="font-arabic">أحمد محمد علي</TableCell>
+                      <TableCell className="font-arabic">
+                        أحمد محمد علي
+                      </TableCell>
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>10:00 AM</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
                       <TableCell className="font-arabic">فحص دوري</TableCell>
                       <TableCell>
-                        <Badge className="bg-green-100 text-green-800 font-arabic">مكتمل</Badge>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">
+                          مكتمل
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
@@ -757,10 +944,16 @@ export default function Patients() {
                       <TableCell className="font-arabic">فاطم�� أحمد</TableCell>
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>2:00 PM</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
-                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
+                      <TableCell className="font-arabic">
+                        تنظيف الأسنان
+                      </TableCell>
                       <TableCell>
-                        <Badge className="bg-blue-100 text-blue-800 font-arabic">مجدول</Badge>
+                        <Badge className="bg-blue-100 text-blue-800 font-arabic">
+                          مجدول
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
@@ -774,13 +967,19 @@ export default function Patients() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="font-arabic">محمد علي حسن</TableCell>
+                      <TableCell className="font-arabic">
+                        محمد علي حسن
+                      </TableCell>
                       <TableCell>2024-01-16</TableCell>
                       <TableCell>9:30 AM</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
                       <TableCell className="font-arabic">حشو الأسنان</TableCell>
                       <TableCell>
-                        <Badge className="bg-yellow-100 text-yellow-800 font-arabic">في الانتظار</Badge>
+                        <Badge className="bg-yellow-100 text-yellow-800 font-arabic">
+                          في الانتظار
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
@@ -804,42 +1003,58 @@ export default function Patients() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">إجمالي السجلات</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    إجمالي السجلات
+                  </CardTitle>
                   <FileBarChart className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">247</div>
-                  <p className="text-xs text-muted-foreground font-arabic">سجل طبي</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    سجل طبي
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">سجلات هذا الشهر</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    سجلات هذا الشهر
+                  </CardTitle>
                   <ClipboardList className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">38</div>
-                  <p className="text-xs text-muted-foreground font-arabic">سجل جديد</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    سجل جديد
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">وصفات طبية</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    وصفات طبية
+                  </CardTitle>
                   <Pill className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">156</div>
-                  <p className="text-xs text-muted-foreground font-arabic">وصفة نشطة</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    وصفة نشطة
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">حالات متابعة</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    حالات متابعة
+                  </CardTitle>
                   <Stethoscope className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-orange-600">12</div>
-                  <p className="text-xs text-muted-foreground font-arabic">تحتاج متابعة</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    تحتاج متابعة
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -849,12 +1064,17 @@ export default function Patients() {
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle className="font-arabic">السجلات الطبية</CardTitle>
+                    <CardTitle className="font-arabic">
+                      السجلات الطبية
+                    </CardTitle>
                     <CardDescription className="font-arabic">
                       تاريخ العلاجات والتشخيصات الطبية
                     </CardDescription>
                   </div>
-                  <Button onClick={handleAddMedicalRecord} className="font-arabic">
+                  <Button
+                    onClick={handleAddMedicalRecord}
+                    className="font-arabic"
+                  >
                     <Plus className="h-4 w-4 mr-2" />
                     إضافة سجل طبي
                   </Button>
@@ -876,26 +1096,36 @@ export default function Patients() {
                   <TableBody>
                     {/* Sample medical records */}
                     <TableRow>
-                      <TableCell className="font-arabic">أحمد محمد علي</TableCell>
+                      <TableCell className="font-arabic">
+                        أحمد محمد علي
+                      </TableCell>
                       <TableCell>2024-01-15</TableCell>
-                      <TableCell className="font-arabic">تسوس في الضرس العلوي الأيمن</TableCell>
+                      <TableCell className="font-arabic">
+                        تسوس في الضرس العلوي الأيمن
+                      </TableCell>
                       <TableCell className="font-arabic">حشو مركب</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="font-arabic">علاج</Badge>
+                        <Badge variant="outline" className="font-arabic">
+                          علاج
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewMedicalRecord({
-                              patient: 'أحمد محمد علي',
-                              diagnosis: 'تسوس في الضرس العلوي الأيمن',
-                              treatment: 'حشو مركب',
-                              doctor: 'د. كمال الملصي',
-                              date: '2024-01-15'
-                            })}
+                            onClick={() =>
+                              handleViewMedicalRecord({
+                                patient: "أحمد محمد علي",
+                                diagnosis: "تسوس في الضرس العلوي الأيمن",
+                                treatment: "حشو مركب",
+                                doctor: "د. كمال الملصي",
+                                date: "2024-01-15",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -903,11 +1133,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleEditMedicalRecord({
-                              patient: 'أحمد محمد علي',
-                              diagnosis: 'تسوس في الضرس العلوي الأيمن',
-                              treatment: 'حشو مركب'
-                            })}
+                            onClick={() =>
+                              handleEditMedicalRecord({
+                                patient: "أحمد محمد علي",
+                                diagnosis: "تسوس في الضرس العلوي الأيمن",
+                                treatment: "حشو مركب",
+                              })
+                            }
                             title="تعديل"
                           >
                             <Edit className="h-4 w-4" />
@@ -918,24 +1150,32 @@ export default function Patients() {
                     <TableRow>
                       <TableCell className="font-arabic">فاطمة أحمد</TableCell>
                       <TableCell>2024-01-14</TableCell>
-                      <TableCell className="font-arabic">تنظيف دوري وإزالة الجير</TableCell>
+                      <TableCell className="font-arabic">
+                        تنظيف دوري وإزالة الجير
+                      </TableCell>
                       <TableCell className="font-arabic">تنظيف عميق</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="font-arabic">وقاية</Badge>
+                        <Badge variant="outline" className="font-arabic">
+                          وقاية
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewMedicalRecord({
-                              patient: 'فاطمة أحمد',
-                              diagnosis: 'تنظيف دوري وإزالة الجير',
-                              treatment: 'تنظيف عميق',
-                              doctor: 'د. كمال الملصي',
-                              date: '2024-01-14'
-                            })}
+                            onClick={() =>
+                              handleViewMedicalRecord({
+                                patient: "فاطمة أحمد",
+                                diagnosis: "تنظيف دوري وإزالة الجير",
+                                treatment: "تنظيف عميق",
+                                doctor: "د. كمال الملصي",
+                                date: "2024-01-14",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -943,11 +1183,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleEditMedicalRecord({
-                              patient: 'فاطمة أحمد',
-                              diagnosis: 'تنظيف دوري وإزالة الجير',
-                              treatment: 'تنظيف عميق'
-                            })}
+                            onClick={() =>
+                              handleEditMedicalRecord({
+                                patient: "فاطمة أحمد",
+                                diagnosis: "تنظيف دوري وإزالة الجير",
+                                treatment: "تنظيف عميق",
+                              })
+                            }
                             title="تعديل"
                           >
                             <Edit className="h-4 w-4" />
@@ -956,26 +1198,36 @@ export default function Patients() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="font-arabic">محمد علي حسن</TableCell>
+                      <TableCell className="font-arabic">
+                        محمد علي حسن
+                      </TableCell>
                       <TableCell>2024-01-13</TableCell>
-                      <TableCell className="font-arabic">كسر في الناب السفلي</TableCell>
+                      <TableCell className="font-arabic">
+                        كسر في الناب السفلي
+                      </TableCell>
                       <TableCell className="font-arabic">تركيب تاج</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="font-arabic">طارئ</Badge>
+                        <Badge variant="outline" className="font-arabic">
+                          طارئ
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewMedicalRecord({
-                              patient: 'محمد علي حسن',
-                              diagnosis: 'كسر في الناب السفلي',
-                              treatment: 'تركيب تاج',
-                              doctor: 'د. كمال الملصي',
-                              date: '2024-01-13'
-                            })}
+                            onClick={() =>
+                              handleViewMedicalRecord({
+                                patient: "محمد علي حسن",
+                                diagnosis: "كسر في الناب السفلي",
+                                treatment: "تركيب تاج",
+                                doctor: "د. كمال الملصي",
+                                date: "2024-01-13",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -983,11 +1235,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleEditMedicalRecord({
-                              patient: 'محمد علي حسن',
-                              diagnosis: 'كسر في الناب السفلي',
-                              treatment: 'تركيب تاج'
-                            })}
+                            onClick={() =>
+                              handleEditMedicalRecord({
+                                patient: "محمد علي حسن",
+                                diagnosis: "كسر في الناب السفلي",
+                                treatment: "تركيب تاج",
+                              })
+                            }
                             title="تعديل"
                           >
                             <Edit className="h-4 w-4" />
@@ -998,24 +1252,34 @@ export default function Patients() {
                     <TableRow>
                       <TableCell className="font-arabic">سارة محمود</TableCell>
                       <TableCell>2024-01-12</TableCell>
-                      <TableCell className="font-arabic">التهاب اللثة</TableCell>
-                      <TableCell className="font-arabic">علاج التهاب اللثة + مضاد حيوي</TableCell>
-                      <TableCell className="font-arabic">د. كمال الملصي</TableCell>
+                      <TableCell className="font-arabic">
+                        التهاب اللثة
+                      </TableCell>
+                      <TableCell className="font-arabic">
+                        علاج التهاب اللثة + مضاد حيوي
+                      </TableCell>
+                      <TableCell className="font-arabic">
+                        د. كمال الملصي
+                      </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="font-arabic">علاج</Badge>
+                        <Badge variant="outline" className="font-arabic">
+                          علاج
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewMedicalRecord({
-                              patient: 'سارة محمود',
-                              diagnosis: 'التهاب اللثة',
-                              treatment: 'علاج التهاب اللثة + مضاد حيوي',
-                              doctor: 'د. كمال الملصي',
-                              date: '2024-01-12'
-                            })}
+                            onClick={() =>
+                              handleViewMedicalRecord({
+                                patient: "سارة محمود",
+                                diagnosis: "التهاب اللثة",
+                                treatment: "علاج التهاب اللثة + مضاد حيوي",
+                                doctor: "د. كمال الملصي",
+                                date: "2024-01-12",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -1023,11 +1287,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleEditMedicalRecord({
-                              patient: 'سارة محمود',
-                              diagnosis: 'التهاب اللثة',
-                              treatment: 'علاج التهاب اللثة + مضاد حيوي'
-                            })}
+                            onClick={() =>
+                              handleEditMedicalRecord({
+                                patient: "سارة محمود",
+                                diagnosis: "التهاب اللثة",
+                                treatment: "علاج التهاب اللثة + مضاد حيوي",
+                              })
+                            }
                             title="تعديل"
                           >
                             <Edit className="h-4 w-4" />
@@ -1046,42 +1312,64 @@ export default function Patients() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">إجمالي الإيرادات</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    إجمالي الإيرادات
+                  </CardTitle>
                   <DollarSign className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-600">₹ 45,230</div>
-                  <p className="text-xs text-muted-foreground font-arabic">هذا الشهر</p>
+                  <div className="text-2xl font-bold text-green-600">
+                    ₹ 45,230
+                  </div>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    هذا الشهر
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">دفعات معلقة</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    دفعات معلقة
+                  </CardTitle>
                   <CreditCard className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-orange-600">₹ 8,420</div>
-                  <p className="text-xs text-muted-foreground font-arabic">5 فواتير</p>
+                  <div className="text-2xl font-bold text-orange-600">
+                    ₹ 8,420
+                  </div>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    5 فواتير
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">التأمين</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    التأمين
+                  </CardTitle>
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-blue-600">₹ 12,300</div>
-                  <p className="text-xs text-muted-foreground font-arabic">مطالبات معلقة</p>
+                  <div className="text-2xl font-bold text-blue-600">
+                    ₹ 12,300
+                  </div>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    مطالبات معلقة
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium font-arabic">نقدي</CardTitle>
+                  <CardTitle className="text-sm font-medium font-arabic">
+                    نقدي
+                  </CardTitle>
                   <Receipt className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">₹ 24,510</div>
-                  <p className="text-xs text-muted-foreground font-arabic">دفعات نقدية</p>
+                  <p className="text-xs text-muted-foreground font-arabic">
+                    دفعات نقدية
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -1091,7 +1379,9 @@ export default function Patients() {
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle className="font-arabic">سجل المدفوع��ت</CardTitle>
+                    <CardTitle className="font-arabic">
+                      سجل المدفوع��ت
+                    </CardTitle>
                     <CardDescription className="font-arabic">
                       تتبع جميع المدفوعات والفواتير
                     </CardDescription>
@@ -1106,7 +1396,9 @@ export default function Patients() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-arabic">رقم الفاتورة</TableHead>
+                      <TableHead className="font-arabic">
+                        رقم الفاتورة
+                      </TableHead>
                       <TableHead className="font-arabic">المريض</TableHead>
                       <TableHead className="font-arabic">الخدمة</TableHead>
                       <TableHead className="font-arabic">المبلغ</TableHead>
@@ -1120,28 +1412,38 @@ export default function Patients() {
                     {/* Sample payment records */}
                     <TableRow>
                       <TableCell className="font-mono">#INV-001</TableCell>
-                      <TableCell className="font-arabic">أحمد محمد علي</TableCell>
+                      <TableCell className="font-arabic">
+                        أحمد محمد علي
+                      </TableCell>
                       <TableCell className="font-arabic">حشو مركب</TableCell>
-                      <TableCell className="font-bold text-green-600">₹ 1,200</TableCell>
+                      <TableCell className="font-bold text-green-600">
+                        ₹ 1,200
+                      </TableCell>
                       <TableCell>
-                        <Badge className="bg-green-100 text-green-800 font-arabic">نقدي</Badge>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">
+                          نقدي
+                        </Badge>
                       </TableCell>
                       <TableCell>2024-01-15</TableCell>
                       <TableCell>
-                        <Badge className="bg-green-100 text-green-800 font-arabic">مدفوع</Badge>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">
+                          مدفوع
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewPayment({
-                              invoice: '#INV-001',
-                              patient: 'أحمد محمد علي',
-                              amount: '₹ 1,200',
-                              service: 'حشو مركب',
-                              status: 'مدفوع'
-                            })}
+                            onClick={() =>
+                              handleViewPayment({
+                                invoice: "#INV-001",
+                                patient: "أحمد محمد علي",
+                                amount: "₹ 1,200",
+                                service: "حشو مركب",
+                                status: "مدفوع",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -1149,11 +1451,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handlePrintReceipt({
-                              invoice: '#INV-001',
-                              patient: 'أحمد محمد علي',
-                              amount: '₹ 1,200'
-                            })}
+                            onClick={() =>
+                              handlePrintReceipt({
+                                invoice: "#INV-001",
+                                patient: "أحمد محمد علي",
+                                amount: "₹ 1,200",
+                              })
+                            }
                             title="طباعة إيصال"
                           >
                             <Receipt className="h-4 w-4" />
@@ -1164,27 +1468,37 @@ export default function Patients() {
                     <TableRow>
                       <TableCell className="font-mono">#INV-002</TableCell>
                       <TableCell className="font-arabic">فاطمة أحمد</TableCell>
-                      <TableCell className="font-arabic">تنظيف الأسنان</TableCell>
-                      <TableCell className="font-bold text-green-600">₹ 800</TableCell>
+                      <TableCell className="font-arabic">
+                        تنظيف الأسنان
+                      </TableCell>
+                      <TableCell className="font-bold text-green-600">
+                        ₹ 800
+                      </TableCell>
                       <TableCell>
-                        <Badge className="bg-blue-100 text-blue-800 font-arabic">بطاقة</Badge>
+                        <Badge className="bg-blue-100 text-blue-800 font-arabic">
+                          بطاقة
+                        </Badge>
                       </TableCell>
                       <TableCell>2024-01-14</TableCell>
                       <TableCell>
-                        <Badge className="bg-green-100 text-green-800 font-arabic">مدفوع</Badge>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">
+                          مدفوع
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewPayment({
-                              invoice: '#INV-002',
-                              patient: 'فاطمة أحمد',
-                              amount: '₹ 800',
-                              service: 'تنظيف الأسنان',
-                              status: 'مدفوع'
-                            })}
+                            onClick={() =>
+                              handleViewPayment({
+                                invoice: "#INV-002",
+                                patient: "فاطمة أحمد",
+                                amount: "₹ 800",
+                                service: "تنظيف الأسنان",
+                                status: "مدفوع",
+                              })
+                            }
                             title="عرض ال��فاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -1192,11 +1506,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handlePrintReceipt({
-                              invoice: '#INV-002',
-                              patient: 'فاطمة أحمد',
-                              amount: '₹ 800'
-                            })}
+                            onClick={() =>
+                              handlePrintReceipt({
+                                invoice: "#INV-002",
+                                patient: "فاطمة أحمد",
+                                amount: "₹ 800",
+                              })
+                            }
                             title="طباعة إيصال"
                           >
                             <Receipt className="h-4 w-4" />
@@ -1206,28 +1522,38 @@ export default function Patients() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-mono">#INV-003</TableCell>
-                      <TableCell className="font-arabic">محمد علي حسن</TableCell>
+                      <TableCell className="font-arabic">
+                        محمد علي حسن
+                      </TableCell>
                       <TableCell className="font-arabic">تركيب تاج</TableCell>
-                      <TableCell className="font-bold text-orange-600">₹ 3,500</TableCell>
+                      <TableCell className="font-bold text-orange-600">
+                        ₹ 3,500
+                      </TableCell>
                       <TableCell>
-                        <Badge className="bg-purple-100 text-purple-800 font-arabic">تأمين</Badge>
+                        <Badge className="bg-purple-100 text-purple-800 font-arabic">
+                          تأمين
+                        </Badge>
                       </TableCell>
                       <TableCell>2024-01-13</TableCell>
                       <TableCell>
-                        <Badge className="bg-yellow-100 text-yellow-800 font-arabic">معلق</Badge>
+                        <Badge className="bg-yellow-100 text-yellow-800 font-arabic">
+                          معلق
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewPayment({
-                              invoice: '#INV-003',
-                              patient: 'محمد علي حسن',
-                              amount: '₹ 3,500',
-                              service: 'تركيب تاج',
-                              status: 'معلق'
-                            })}
+                            onClick={() =>
+                              handleViewPayment({
+                                invoice: "#INV-003",
+                                patient: "محمد علي حسن",
+                                amount: "₹ 3,500",
+                                service: "تركيب تاج",
+                                status: "معلق",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -1235,11 +1561,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handlePrintReceipt({
-                              invoice: '#INV-003',
-                              patient: 'محم�� علي حسن',
-                              amount: '₹ 3,500'
-                            })}
+                            onClick={() =>
+                              handlePrintReceipt({
+                                invoice: "#INV-003",
+                                patient: "محم�� علي حسن",
+                                amount: "₹ 3,500",
+                              })
+                            }
                             title="طباعة إيصال"
                           >
                             <Receipt className="h-4 w-4" />
@@ -1250,27 +1578,37 @@ export default function Patients() {
                     <TableRow>
                       <TableCell className="font-mono">#INV-004</TableCell>
                       <TableCell className="font-arabic">��ارة محمود</TableCell>
-                      <TableCell className="font-arabic">علاج التهاب اللثة</TableCell>
-                      <TableCell className="font-bold text-green-600">₹ 1,500</TableCell>
+                      <TableCell className="font-arabic">
+                        علاج التهاب اللثة
+                      </TableCell>
+                      <TableCell className="font-bold text-green-600">
+                        ₹ 1,500
+                      </TableCell>
                       <TableCell>
-                        <Badge className="bg-green-100 text-green-800 font-arabic">نقدي</Badge>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">
+                          نقدي
+                        </Badge>
                       </TableCell>
                       <TableCell>2024-01-12</TableCell>
                       <TableCell>
-                        <Badge className="bg-green-100 text-green-800 font-arabic">مدفوع</Badge>
+                        <Badge className="bg-green-100 text-green-800 font-arabic">
+                          مدفوع
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleViewPayment({
-                              invoice: '#INV-004',
-                              patient: 'سارة محمود',
-                              amount: '₹ 1,500',
-                              service: 'علاج التهاب اللثة',
-                              status: 'مدفوع'
-                            })}
+                            onClick={() =>
+                              handleViewPayment({
+                                invoice: "#INV-004",
+                                patient: "سارة محمود",
+                                amount: "₹ 1,500",
+                                service: "علاج التهاب اللثة",
+                                status: "مدفوع",
+                              })
+                            }
                             title="عرض التفاصيل"
                           >
                             <Eye className="h-4 w-4" />
@@ -1278,11 +1616,13 @@ export default function Patients() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handlePrintReceipt({
-                              invoice: '#INV-004',
-                              patient: 'سارة محمود',
-                              amount: '₹ 1,500'
-                            })}
+                            onClick={() =>
+                              handlePrintReceipt({
+                                invoice: "#INV-004",
+                                patient: "سارة محمود",
+                                amount: "₹ 1,500",
+                              })
+                            }
                             title="طباعة إيصال"
                           >
                             <Receipt className="h-4 w-4" />
@@ -1298,7 +1638,10 @@ export default function Patients() {
         </Tabs>
 
         {/* Add Patient Dialog */}
-        <Dialog open={isAddPatientDialogOpen} onOpenChange={setIsAddPatientDialogOpen}>
+        <Dialog
+          open={isAddPatientDialogOpen}
+          onOpenChange={setIsAddPatientDialogOpen}
+        >
           <DialogContent className="sm:max-w-[600px]" dir="rtl">
             <DialogHeader>
               <DialogTitle className="font-arabic">إضافة مريض جديد</DialogTitle>
@@ -1309,20 +1652,28 @@ export default function Patients() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="font-arabic">الاسم الكامل</Label>
-                <Input placeholder="أدخل الا��م الكامل" className="font-arabic" />
+                <Input
+                  placeholder="أدخل الا��م الكامل"
+                  className="font-arabic"
+                />
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">العمر</Label>
-                <Input type="number" placeholder="العمر" className="font-arabic" />
+                <Input
+                  type="number"
+                  placeholder="العمر"
+                  className="font-arabic"
+                />
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">الجنس</Label>
-                <Select
-                  placeholder="اختر الجنس"
-                  className="font-arabic"
-                >
-                  <SelectItem value="male" className="font-arabic">ذكر</SelectItem>
-                  <SelectItem value="female" className="font-arabic">أنثى</SelectItem>
+                <Select placeholder="اختر الجنس" className="font-arabic">
+                  <SelectItem value="male" className="font-arabic">
+                    ذكر
+                  </SelectItem>
+                  <SelectItem value="female" className="font-arabic">
+                    أنثى
+                  </SelectItem>
                 </Select>
               </div>
               <div className="space-y-2">
@@ -1331,7 +1682,11 @@ export default function Patients() {
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">البريد الإلكتروني</Label>
-                <Input type="email" placeholder="email@example.com" className="font-arabic" />
+                <Input
+                  type="email"
+                  placeholder="email@example.com"
+                  className="font-arabic"
+                />
               </div>
               <div className="space-y-2">
                 <Label className="font-arabic">التأمي�� الطبي</Label>
@@ -1343,11 +1698,18 @@ export default function Patients() {
               </div>
               <div className="col-span-2 space-y-2">
                 <Label className="font-arabic">التاريخ الطبي</Label>
-                <Textarea placeholder="أي مشاكل صحية أو حساسيات..." className="font-arabic" />
+                <Textarea
+                  placeholder="أي مشاكل صحية أو حساسيات..."
+                  className="font-arabic"
+                />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddPatientDialogOpen(false)} className="font-arabic">
+              <Button
+                variant="outline"
+                onClick={() => setIsAddPatientDialogOpen(false)}
+                className="font-arabic"
+              >
                 إلغاء
               </Button>
               <Button className="font-arabic">إضافة المريض</Button>
@@ -1356,7 +1718,10 @@ export default function Patients() {
         </Dialog>
 
         {/* View Patient Dialog */}
-        <Dialog open={isViewPatientDialogOpen} onOpenChange={setIsViewPatientDialogOpen}>
+        <Dialog
+          open={isViewPatientDialogOpen}
+          onOpenChange={setIsViewPatientDialogOpen}
+        >
           <DialogContent className="sm:max-w-[700px]" dir="rtl">
             <DialogHeader>
               <DialogTitle className="font-arabic">ملف المريض</DialogTitle>
@@ -1369,11 +1734,18 @@ export default function Patients() {
                 {/* Patient Info */}
                 <div className="flex items-center gap-4">
                   <Avatar className="h-16 w-16">
-                    <AvatarFallback className="text-lg">{getInitials(selectedPatient.name)}</AvatarFallback>
+                    <AvatarFallback className="text-lg">
+                      {getInitials(selectedPatient.name)}
+                    </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="text-lg font-bold font-arabic">{selectedPatient.name}</h3>
-                    <p className="text-gray-600 font-arabic">{selectedPatient.patient_number || `ID: ${selectedPatient.id}`}</p>
+                    <h3 className="text-lg font-bold font-arabic">
+                      {selectedPatient.name}
+                    </h3>
+                    <p className="text-gray-600 font-arabic">
+                      {selectedPatient.patient_number ||
+                        `ID: ${selectedPatient.id}`}
+                    </p>
                     <div className="flex gap-2 mt-2">
                       {getStatusBadge(selectedPatient.status)}
                     </div>
@@ -1386,7 +1758,12 @@ export default function Patients() {
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        الجنس: {selectedPatient.gender === 'male' ? 'ذكر' : selectedPatient.gender === 'female' ? 'أنثى' : selectedPatient.gender}
+                        الجنس:{" "}
+                        {selectedPatient.gender === "male"
+                          ? "ذكر"
+                          : selectedPatient.gender === "female"
+                            ? "أنثى"
+                            : selectedPatient.gender}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -1401,16 +1778,26 @@ export default function Patients() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4 text-gray-500" />
-                      <span className="font-arabic text-sm">{selectedPatient.address}</span>
+                      <span className="font-arabic text-sm">
+                        {selectedPatient.address}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-gray-500" />
-                      <span className="font-arabic text-sm">التأمين: {selectedPatient.insurance_company || 'غير محدد'}</span>
+                      <span className="font-arabic text-sm">
+                        التأمين:{" "}
+                        {selectedPatient.insurance_company || "غير محدد"}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="font-arabic text-sm">
-                        تاريخ التسجيل: {selectedPatient.created_at ? new Date(selectedPatient.created_at).toLocaleDateString('ar-SA') : 'غير ��حدد'}
+                        تاريخ التسجيل:{" "}
+                        {selectedPatient.created_at
+                          ? new Date(
+                              selectedPatient.created_at,
+                            ).toLocaleDateString("ar-SA")
+                          : "غير ��حدد"}
                       </span>
                     </div>
                   </div>
@@ -1420,7 +1807,7 @@ export default function Patients() {
                 <div>
                   <h4 className="font-bold font-arabic mb-2">التاريخ الطبي:</h4>
                   <p className="text-sm font-arabic text-gray-600">
-                    {selectedPatient.medical_history || 'لا توجد معلومات'}
+                    {selectedPatient.medical_history || "لا توجد معلومات"}
                   </p>
                 </div>
 
@@ -1428,7 +1815,7 @@ export default function Patients() {
                 <div>
                   <h4 className="font-bold font-arabic mb-2">الحساسيات:</h4>
                   <p className="text-sm font-arabic text-gray-600">
-                    {selectedPatient.allergies || 'لا توجد حساسيات معروفة'}
+                    {selectedPatient.allergies || "لا توجد حساسيات معروفة"}
                   </p>
                 </div>
 
@@ -1436,13 +1823,17 @@ export default function Patients() {
                 <div>
                   <h4 className="font-bold font-arabic mb-2">فصيلة الدم:</h4>
                   <Badge variant="outline" className="font-arabic">
-                    {selectedPatient.blood_type || 'غير محدد'}
+                    {selectedPatient.blood_type || "غير محدد"}
                   </Badge>
                 </div>
               </div>
             )}
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsViewPatientDialogOpen(false)} className="font-arabic">
+              <Button
+                variant="outline"
+                onClick={() => setIsViewPatientDialogOpen(false)}
+                className="font-arabic"
+              >
                 إغلاق
               </Button>
               <Button
@@ -1459,7 +1850,10 @@ export default function Patients() {
         </Dialog>
 
         {/* Add Patient Dialog */}
-        <Dialog open={isAddPatientDialogOpen} onOpenChange={setIsAddPatientDialogOpen}>
+        <Dialog
+          open={isAddPatientDialogOpen}
+          onOpenChange={setIsAddPatientDialogOpen}
+        >
           <DialogContent className="sm:max-w-[600px]" dir="rtl">
             <DialogHeader>
               <DialogTitle className="font-arabic">إضافة مريض جديد</DialogTitle>
@@ -1470,21 +1864,32 @@ export default function Patients() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">الاسم الكامل <span className="text-red-500">*</span></Label>
+                  <Label className="font-arabic">
+                    الاسم الكامل <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     placeholder="أدخل الاسم الكامل"
                     className="font-arabic"
                     value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, name: e.target.value }))
+                    }
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-arabic">رقم الهاتف <span className="text-red-500">*</span></Label>
+                  <Label className="font-arabic">
+                    رقم الهاتف <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     placeholder="أدخل رقم الهاتف"
                     className="font-arabic"
                     value={formData.phone}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        phone: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -1497,14 +1902,21 @@ export default function Patients() {
                     placeholder="أدخل البريد الإلكتروني"
                     className="font-arabic"
                     value={formData.email}
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="font-arabic">الجنس</Label>
                   <Select
                     value={formData.gender}
-                    onValueChange={(value) => setFormData(prev => ({ ...prev, gender: value }))}
+                    onValueChange={(value) =>
+                      setFormData((prev) => ({ ...prev, gender: value }))
+                    }
                   >
                     <option value="">اختر الجنس</option>
                     <option value="male">ذكر</option>
@@ -1519,7 +1931,12 @@ export default function Patients() {
                   placeholder="أدخل العنوان"
                   className="font-arabic"
                   value={formData.address}
-                  onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      address: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -1529,7 +1946,12 @@ export default function Patients() {
                   placeholder="أدخل اسم شركة التأمين"
                   className="font-arabic"
                   value={formData.insurance_company}
-                  onChange={(e) => setFormData(prev => ({ ...prev, insurance_company: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      insurance_company: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -1539,7 +1961,12 @@ export default function Patients() {
                   placeholder="أدخل التاريخ الطبي والأمراض السابقة..."
                   className="font-arabic"
                   value={formData.medical_history}
-                  onChange={(e) => setFormData(prev => ({ ...prev, medical_history: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      medical_history: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -1549,16 +1976,31 @@ export default function Patients() {
                   placeholder="أد��ل الحساسيات المعروفة..."
                   className="font-arabic"
                   value={formData.allergies}
-                  onChange={(e) => setFormData(prev => ({ ...prev, allergies: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      allergies: e.target.value,
+                    }))
+                  }
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddPatientDialogOpen(false)} className="font-arabic">
+              <Button
+                variant="outline"
+                onClick={() => setIsAddPatientDialogOpen(false)}
+                className="font-arabic"
+              >
                 إلغاء
               </Button>
-              <Button onClick={handleSavePatient} disabled={isLoading} className="font-arabic">
-                {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+              <Button
+                onClick={handleSavePatient}
+                disabled={isLoading}
+                className="font-arabic"
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : null}
                 حفظ المريض
               </Button>
             </DialogFooter>
@@ -1566,10 +2008,15 @@ export default function Patients() {
         </Dialog>
 
         {/* Edit Patient Dialog */}
-        <Dialog open={isEditPatientDialogOpen} onOpenChange={setIsEditPatientDialogOpen}>
+        <Dialog
+          open={isEditPatientDialogOpen}
+          onOpenChange={setIsEditPatientDialogOpen}
+        >
           <DialogContent className="sm:max-w-[600px]" dir="rtl">
             <DialogHeader>
-              <DialogTitle className="font-arabic">تعديل بيانات المريض</DialogTitle>
+              <DialogTitle className="font-arabic">
+                تعديل بيانات المريض
+              </DialogTitle>
               <DialogDescription className="font-arabic">
                 قم بتعديل البيانات المطلوبة
               </DialogDescription>
@@ -1577,21 +2024,32 @@ export default function Patients() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-arabic">الاسم الكامل <span className="text-red-500">*</span></Label>
+                  <Label className="font-arabic">
+                    الاسم الكامل <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     placeholder="أدخل الاسم الكامل"
                     className="font-arabic"
                     value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, name: e.target.value }))
+                    }
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-arabic">رقم الهاتف <span className="text-red-500">*</span></Label>
+                  <Label className="font-arabic">
+                    رقم الهاتف <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     placeholder="أدخل رقم الهاتف"
                     className="font-arabic"
                     value={formData.phone}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        phone: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -1604,14 +2062,21 @@ export default function Patients() {
                     placeholder="أدخل البريد الإلكتروني"
                     className="font-arabic"
                     value={formData.email}
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="font-arabic">الجنس</Label>
                   <Select
                     value={formData.gender}
-                    onValueChange={(value) => setFormData(prev => ({ ...prev, gender: value }))}
+                    onValueChange={(value) =>
+                      setFormData((prev) => ({ ...prev, gender: value }))
+                    }
                   >
                     <option value="">اختر الجنس</option>
                     <option value="male">ذكر</option>
@@ -1626,7 +2091,12 @@ export default function Patients() {
                   placeholder="أدخل العنوان"
                   className="font-arabic"
                   value={formData.address}
-                  onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      address: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -1636,7 +2106,12 @@ export default function Patients() {
                   placeholder="أدخل اسم شركة التأمين"
                   className="font-arabic"
                   value={formData.insurance_company}
-                  onChange={(e) => setFormData(prev => ({ ...prev, insurance_company: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      insurance_company: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -1646,7 +2121,12 @@ export default function Patients() {
                   placeholder="أدخل التاريخ الطبي والأمراض السابقة..."
                   className="font-arabic"
                   value={formData.medical_history}
-                  onChange={(e) => setFormData(prev => ({ ...prev, medical_history: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      medical_history: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
@@ -1656,16 +2136,31 @@ export default function Patients() {
                   placeholder="أدخل الحساسيات المعروفة..."
                   className="font-arabic"
                   value={formData.allergies}
-                  onChange={(e) => setFormData(prev => ({ ...prev, allergies: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      allergies: e.target.value,
+                    }))
+                  }
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsEditPatientDialogOpen(false)} className="font-arabic">
+              <Button
+                variant="outline"
+                onClick={() => setIsEditPatientDialogOpen(false)}
+                className="font-arabic"
+              >
                 إلغاء
               </Button>
-              <Button onClick={handleSavePatient} disabled={isLoading} className="font-arabic">
-                {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+              <Button
+                onClick={handleSavePatient}
+                disabled={isLoading}
+                className="font-arabic"
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : null}
                 حفظ التغييرات
               </Button>
             </DialogFooter>

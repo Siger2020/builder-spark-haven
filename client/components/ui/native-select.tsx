@@ -28,13 +28,13 @@ export function NativeSelect({
   children,
   className,
   disabled = false,
-  required = false
+  required = false,
 }: NativeSelectProps) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     try {
       onValueChange?.(event.target.value);
     } catch (error) {
-      console.error('Error in NativeSelect onChange:', error);
+      console.error("Error in NativeSelect onChange:", error);
     }
   };
 
@@ -49,7 +49,7 @@ export function NativeSelect({
         required={required}
         className={cn(
           "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none pr-8",
-          className
+          className,
         )}
       >
         {placeholder && (
@@ -67,7 +67,7 @@ export function NativeSelect({
               );
             }
           } catch (error) {
-            console.error('Error rendering NativeSelect option:', error);
+            console.error("Error rendering NativeSelect option:", error);
           }
           return null;
         })}
@@ -78,7 +78,11 @@ export function NativeSelect({
 }
 
 // Native SelectItem component
-export function NativeSelectItem({ value, children, className }: NativeSelectItemProps) {
+export function NativeSelectItem({
+  value,
+  children,
+  className,
+}: NativeSelectItemProps) {
   // This is just for compatibility - the actual option is rendered in the parent
   return null;
 }

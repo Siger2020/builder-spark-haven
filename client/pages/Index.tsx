@@ -222,8 +222,8 @@ export default function Index() {
 
   // Preload critical resources for better performance
   useEffect(() => {
-    preloadResource('/api/bookings', 'fetch');
-    preloadResource('/api/patients', 'fetch');
+    preloadResource("/api/bookings", "fetch");
+    preloadResource("/api/patients", "fetch");
   }, [preloadResource]);
 
   return (
@@ -689,8 +689,8 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic font-arabic mb-4">
-                    "الدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان
-                    تمت بنجاح وأشعر بثقة أكبر في ابتسامتي."
+                    "الدكتور كمال محترف جداً وفريق العمل ودود. زراعة الأسنان تمت
+                    بنجاح وأشعر بثقة أكبر في ابتسامتي."
                   </p>
                 </div>
                 <div className="flex items-center justify-center">
