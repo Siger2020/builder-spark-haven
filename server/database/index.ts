@@ -44,6 +44,9 @@ export async function initializeDatabase() {
     // إصلاح تطابق بيانات المواعيد
     fixAppointmentDataConsistency();
 
+    // حذف البيانات التجريبية الموجودة
+    clearExistingTestData();
+
   } catch (error) {
     console.error("❌ خطأ في تهيئة قاعدة البيانات:", error);
     throw error;
@@ -78,7 +81,7 @@ function seedDatabase() {
           "صنعاء، اليمن",
         ],
         [
-          "د. سارة أحمد",
+          "د. سارة ��حمد",
           "sara@dkalmoli.com",
           "hashed_password_123",
           "00967771234567",
@@ -317,7 +320,7 @@ function fixAppointmentDataConsistency() {
       console.log("✅ تم حذف المواعيد ذات الأرقام الخاطئة");
     }
 
-    // التأكد م�� أن جميع المواعيد الحالية لها أسماء صحيحة
+    // التأكد من أن جميع المواعيد الحالية لها أسماء صحيحة
     const validAppointments = db.prepare(`
       SELECT
         a.appointment_number,
