@@ -39,7 +39,7 @@ export async function initializeDatabase() {
     }
 
     // التأكد من وجود حساب المدير
-    ensureAdminExists();
+    // ensureAdminExists(); // تم تعطيل إنشاء حساب المدير التجريبي
 
     // إصلاح تطابق بيانات المواعيد
     fixAppointmentDataConsistency();
@@ -317,7 +317,7 @@ function fixAppointmentDataConsistency() {
       console.log("✅ تم حذف المواعيد ذات الأرقام الخاطئة");
     }
 
-    // التأكد من أن جميع المواعيد الحالية لها أسماء صحيحة
+    // التأكد م�� أن جميع المواعيد الحالية لها أسماء صحيحة
     const validAppointments = db.prepare(`
       SELECT
         a.appointment_number,
@@ -442,7 +442,7 @@ export async function createBackup(backupName?: string) {
 
     return { success: true, path: backupPath, size: stats.size };
   } catch (error) {
-    console.error("❌ خ��أ في إنشاء النسخة الاحتياطية:", error);
+    console.error("❌ خطأ في إنشاء النسخة الاحتياطية:", error);
     return { success: false, error: error.message };
   }
 }
