@@ -32,6 +32,7 @@ import NotificationSettings from "./pages/NotificationSettings";
 import UserInfo from "./pages/UserInfo";
 import AIAnalysis from "./pages/AIAnalysis";
 import EmailJSDebugTest from "./pages/EmailJSDebugTest";
+import SystemReset from "./pages/SystemReset";
 
 const queryClient = new QueryClient();
 
