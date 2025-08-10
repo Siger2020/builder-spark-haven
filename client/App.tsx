@@ -214,6 +214,15 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/system-reset"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Navigation />
+                    <SystemReset />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
