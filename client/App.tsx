@@ -60,6 +60,7 @@ const App = () => (
               />
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/netlify-diagnostics" element={<NetlifyDiagnostics />} />
+              <Route path="/diagnostics" element={<SystemDiagnostics />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
