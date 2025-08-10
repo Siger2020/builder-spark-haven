@@ -100,6 +100,20 @@ router.post("/login", async (req, res) => {
 
     console.log("Email check result:", emailCheck);
 
+    // التحقق من محاولة استخدام البيانات القديمة
+    if (email === "admin@dkalmoli.com" && password === "123456") {
+      console.log("⚠️ محاولة دخول بالبيانات التجريبية القديمة");
+      return res.status(401).json({
+        success: false,
+        error: "تم حذف البيانات التجريبية. يرجى استخدام الحساب الجديد: admin@clinic.com / admin123",
+        oldCredentials: true,
+        newCredentials: {
+          email: "admin@clinic.com",
+          password: "admin123"
+        }
+      });
+    }
+
     // البحث عن المستخدم
     const user = db
       .prepare(
@@ -120,10 +134,29 @@ router.post("/login", async (req, res) => {
         user,
       });
     } else {
-      res.status(401).json({
-        success: false,
-        error: "البريد الإلكتروني أو كلمة المرور غير صحيحة",
-      });
+      // التحقق من وجود البريد الإلكتروني مع كلمة مرور خاطئة
+      if (emailCheck) {
+        res.status(401).json({
+          success: false,
+          error: "كلمة المرور غير صحيحة",
+        });
+      } else {
+        // عرض معلومات الحساب المتاح إذا لم يوجد مستخدمين آخرين
+        const userCount = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
+        if (userCount.count === 1) {
+          const availableAdmin = db.prepare("SELECT email FROM users WHERE role = 'admin' LIMIT 1").get() as { email: string } | undefined;
+          res.status(401).json({
+            success: false,
+            error: `البريد الإلكتروني غير موجود. الحساب المتاح: ${availableAdmin?.email || 'admin@clinic.com'} / admin123`,
+            hint: "استخدم البيانات الصحيحة للدخول"
+          });
+        } else {
+          res.status(401).json({
+            success: false,
+            error: "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+          });
+        }
+      }
     }
   } catch (error) {
     console.error("Login error:", error);
