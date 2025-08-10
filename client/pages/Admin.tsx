@@ -332,7 +332,7 @@ function AdminComponent() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium font-arabic">
-                إجمالي المواعيد
+                إجمالي ال��واعيد
               </CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -580,6 +580,37 @@ function AdminComponent() {
                         <span className="text-sm">87%</span>
                       </div>
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* System Reset Card */}
+              <Card className="border-orange-200">
+                <CardHeader>
+                  <CardTitle className="font-arabic text-orange-700">
+                    إعادة تعيين النظام
+                  </CardTitle>
+                  <CardDescription className="font-arabic">
+                    إدارة البيانات التجريبية وال��ختبارية
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-sm text-gray-600 font-arabic mb-4">
+                    <p>هل انتهيت من اختبار النظام؟</p>
+                    <p>يمكنك حذف البيانات التجريبية والبدء مع بيانات حقيقية.</p>
+                  </div>
+
+                  <Link to="/system-reset">
+                    <Button className="w-full font-arabic" variant="outline">
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      إدارة إعادة التعيين
+                    </Button>
+                  </Link>
+
+                  <div className="pt-2 border-t">
+                    <p className="text-xs text-gray-500 font-arabic">
+                      💡 نصيحة: احذف البيانات التجريبية قبل البدء بالاستخدام الفعلي
+                    </p>
                   </div>
                 </CardContent>
               </Card>
