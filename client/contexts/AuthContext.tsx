@@ -109,39 +109,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify(userData),
       });
 
-      if (!response.ok) {
-        console.error("Register response not ok:", response.status);
-
-        // Try to get the error message from the response
-        try {
-          const errorData = await response.text();
-          console.error("Registration error details:", errorData);
-          if (errorData) {
-            const parsedError = JSON.parse(errorData);
-            return {
-              success: false,
-              error: parsedError.error || "خطأ في الاتصال بالخادم",
-            };
-          }
-        } catch (e) {
-          console.error("Could not parse error response:", e);
-        }
-
-        return { success: false, error: "خطأ في الاتصال بالخادم" };
-      }
-
-      // Safe JSON parsing
+      // Parse JSON response safely (works for both success and error responses)
       let data;
       try {
-        const responseText = await response.text();
-        if (responseText) {
-          data = JSON.parse(responseText);
-        } else {
-          return { success: false, error: "استجابة فارغة من الخادم" };
-        }
+        data = await response.json();
       } catch (jsonError) {
         console.error("Failed to parse JSON response:", jsonError);
         return { success: false, error: "خطأ في تحليل استجابة الخادم" };
+      }
+
+      if (!response.ok) {
+        console.error("Register response not ok:", response.status, data);
+        return {
+          success: false,
+          error: data.error || "خطأ في الاتصال بالخادم",
+        };
       }
 
       if (data.success) {
