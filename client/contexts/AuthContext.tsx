@@ -61,14 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
-      // Check if response is ok before trying to parse JSON
-      if (!response.ok) {
-        console.error("Login failed:", response.status, response.statusText);
-        setIsLoading(false);
-        return false;
-      }
-
-      // Safe JSON parsing with error handling
+      // Safe JSON parsing regardless of response status
       let data;
       try {
         const responseText = await response.text();
@@ -85,13 +78,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return false;
       }
 
-      if (data.success && data.user) {
+      if (response.ok && data.success && data.user) {
         setUser(data.user);
         localStorage.setItem("user", JSON.stringify(data.user));
         setIsLoading(false);
         return true;
       } else {
-        console.error("Login failed:", data);
+        // Log detailed error information for debugging
+        console.error("Login failed:", {
+          status: response.status,
+          statusText: response.statusText,
+          data: data
+        });
         setIsLoading(false);
         return false;
       }
